@@ -1,0 +1,1873 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	.text
+  26                             	.Ltext0:
+  27                             		.comm	_record,50,1
+  28                             		.comm	_mem,50,1
+  29                             		.comm	_timerFlag,2,2
+  30                             		.comm	_count,2,2
+  31                             		.comm	_interval_timer_count,2,2
+  32                             		.local	_response
+  33                             		.comm	_response,50,1
+  34                             		.local	_mode
+  35                             		.comm	_mode,2,2
+  36                             		.local	_display
+  37                             		.comm	_display,2,2
+  38                             		.local	_offset
+  39                             		.comm	_offset,2,2
+  40                             		.global	_D
+  41                             	.bss
+  42                             		.balign 2
+  45                             	_D:
+  46 0000 00 00                   		.zero	2
+  47                             		.global	_flag
+  48                             		.balign 2
+  51                             	_flag:
+  52 0002 00 00                   		.zero	2
+  53                             		.comm	_voltage,1,1
+  54                             		.comm	_current1,1,1
+  55                             		.comm	_current2,1,1
+  56                             		.section	.rodata
+  57                             	.LC0:
+  58 0000 65 72 72 6F 72 0D 0A 00 		.string	"error\r\n"
+  59                             	.text
+  60                             		.global	_populate
+  62                             	_populate:
+  63                             	.LFB0:
+  64                             		.file 1 "../src/user_functions.c"
+   1:../src/user_functions.c **** /*
+   2:../src/user_functions.c ****  * user_functions.c
+   3:../src/user_functions.c ****  *
+   4:../src/user_functions.c ****  *  Created on: 15 Feb 2017
+   5:../src/user_functions.c ****  *      Author: 19119038
+   6:../src/user_functions.c ****  */
+   7:../src/user_functions.c **** #include "r_cg_macrodriver.h"
+   8:../src/user_functions.c **** #include "r_cg_cgc.h"
+   9:../src/user_functions.c **** #include "r_cg_port.h"
+  10:../src/user_functions.c **** #include "r_cg_serial.h"
+  11:../src/user_functions.c **** #include "r_cg_wdt.h"
+  12:../src/user_functions.c **** #include "r_cg_userdefine.h"
+  13:../src/user_functions.c **** #include "debounce.h"
+  14:../src/user_functions.c **** #include <string.h>
+  15:../src/user_functions.c **** #include <stdio.h>
+  16:../src/user_functions.c **** 
+  17:../src/user_functions.c **** extern uint8_t record[RX_BUF_LEN];
+  18:../src/user_functions.c **** extern uint8_t mem[RX_BUF_LEN];
+  19:../src/user_functions.c **** extern int count;
+  20:../src/user_functions.c **** extern int interval_timer_count;
+  21:../src/user_functions.c **** static uint8_t response[RX_BUF_LEN];
+  22:../src/user_functions.c **** static int mode = 0;
+  23:../src/user_functions.c **** static int display = 0;
+  24:../src/user_functions.c **** static int offset = 0;
+  25:../src/user_functions.c **** int D = 0;
+  26:../src/user_functions.c **** int flag = 0;
+  27:../src/user_functions.c **** uint8_t voltage, current1, current2;
+  28:../src/user_functions.c **** 
+  29:../src/user_functions.c **** 
+  30:../src/user_functions.c **** void processMSG();
+  31:../src/user_functions.c **** int errorTest();
+  32:../src/user_functions.c **** void displayLCD();
+  33:../src/user_functions.c **** void readRTC();
+  34:../src/user_functions.c **** void setRTC();
+  35:../src/user_functions.c **** void collectADC();
+  36:../src/user_functions.c **** uint8_t testDate(uint8_t arr[]);
+  37:../src/user_functions.c **** 
+  38:../src/user_functions.c **** 
+  39:../src/user_functions.c **** char populate(char recieved){
+  65                             		.loc 1 39 0
+  66                             		; start of function
+  67                             		; outgoing: 4 bytes
+  68 0000 20 04                   		subw	sp, #4
+  69                             	.LCFI0:
+  40:../src/user_functions.c **** 
+  41:../src/user_functions.c **** 	if(recieved == '$'){
+  70                             		.loc 1 41 0
+  71 0002 88 08                   		mov	a, [sp+8]
+  72 0004 4C 24                   		cmp	a, #36
+  73 0006 61 E8                   		 skz
+  74 0008 EC 2A 00 00             		 br	!!.L2
+  42:../src/user_functions.c **** 		record[count] = recieved;
+  75                             		.loc 1 42 0
+  76 000c AF 00 00                		movw	ax, !_count
+  77 000f BD F0                   		movw	r8, ax
+  78 0011 88 08                   		mov	a, [sp+8]
+  79 0013 9D F2                   		mov	r10, a
+  80 0015 DA F0                   		movw	bc, r8
+  81 0017 48 00 00                		mov	_record[bc], a
+  43:../src/user_functions.c **** 		count++;
+  82                             		.loc 1 43 0
+  83 001a AF 00 00                		movw	ax, !_count
+  84 001d BD F0                   		movw	r8, ax
+  85 001f A6 F0                   		incw	r8
+  86 0021 AD F0                   		movw	ax, r8
+  87 0023 BF 00 00                		movw	!_count, ax
+  88 0026 EC E3 00 00             		br	!!.L3
+  89                             	.L2:
+  44:../src/user_functions.c **** 	}
+  45:../src/user_functions.c **** 	else if(recieved == '\x0a'){
+  90                             		.loc 1 45 0
+  91 002a 88 08                   		mov	a, [sp+8]
+  92 002c 4C 0A                   		cmp	a, #10
+  93 002e 61 E8                   		 skz
+  94 0030 EC 8D 00 00             		 br	!!.L4
+  46:../src/user_functions.c **** 		if(record[count - 1] == '\x0d'){
+  95                             		.loc 1 46 0
+  96 0034 AF 00 00                		movw	ax, !_count
+  97 0037 BD F0                   		movw	r8, ax
+  98 0039 B6 F0                   		decw	r8
+  99 003b AD F0                   		movw	ax, r8
+ 100 003d 04 00 00                		addw	ax, #_record
+ 101 0040 16                      		movw	hl, ax
+ 102 0041 8B                      		mov	a, [hl]
+ 103 0042 9D F0                   		mov	r8, a
+ 104 0044 4A F0 0D                		cmp	r8, #13
+ 105 0047 61 E8                   		 skz
+ 106 0049 EC 7A 00 00             		 br	!!.L5
+  47:../src/user_functions.c **** 			if(!flag){
+ 107                             		.loc 1 47 0
+ 108 004d AF 00 00                		movw	ax, !_flag
+ 109 0050 BD F0                   		movw	r8, ax
+ 110 0052 44 00 00                		cmpw	ax, #0
+ 111 0055 61 E8                   		 skz
+ 112 0057 EC 7A 00 00             		 br	!!.L5
+  48:../src/user_functions.c **** 				record[count] = recieved;
+ 113                             		.loc 1 48 0
+ 114 005b AF 00 00                		movw	ax, !_count
+ 115 005e BD F0                   		movw	r8, ax
+ 116 0060 88 08                   		mov	a, [sp+8]
+ 117 0062 9D F2                   		mov	r10, a
+ 118 0064 DA F0                   		movw	bc, r8
+ 119 0066 48 00 00                		mov	_record[bc], a
+  49:../src/user_functions.c **** 				record[count + 1] = '\0';
+ 120                             		.loc 1 49 0
+ 121 0069 AF 00 00                		movw	ax, !_count
+ 122 006c BD F0                   		movw	r8, ax
+ 123 006e A6 F0                   		incw	r8
+ 124 0070 DA F0                   		movw	bc, r8
+ 125 0072 F1                      		clrb	a
+ 126 0073 48 00 00                		mov	_record[bc], a
+  50:../src/user_functions.c **** 				processMSG();
+ 127                             		.loc 1 50 0
+ 128 0076 FC 00 00 00             		call	!!%code(_processMSG)
+ 129                             	.L5:
+  51:../src/user_functions.c **** 			}
+  52:../src/user_functions.c **** 		}
+  53:../src/user_functions.c **** 		strcpy(record,"");
+ 130                             		.loc 1 53 0
+ 131 007a F4 F0                   		clrb	r8
+ 132 007c 8D F0                   		mov	a, r8
+ 133 007e 9F 00 00                		mov	!_record, a
+  54:../src/user_functions.c **** 		count = 0;
+ 134                             		.loc 1 54 0
+ 135 0081 F6                      		clrw	ax
+ 136 0082 BF 00 00                		movw	!_count, ax
+  55:../src/user_functions.c **** 		flag = 0;
+ 137                             		.loc 1 55 0
+ 138 0085 F6                      		clrw	ax
+ 139 0086 BF 00 00                		movw	!_flag, ax
+ 140 0089 EC E3 00 00             		br	!!.L3
+ 141                             	.L4:
+  56:../src/user_functions.c **** 	}
+  57:../src/user_functions.c **** 	else if(flag){
+ 142                             		.loc 1 57 0
+ 143 008d AF 00 00                		movw	ax, !_flag
+ 144 0090 BD F0                   		movw	r8, ax
+ 145 0092 44 00 00                		cmpw	ax, #0
+ 146 0095 61 E8                   		 skz
+ 147 0097 EC E3 00 00             		 br	!!.L3
+  58:../src/user_functions.c **** 
+  59:../src/user_functions.c **** 	}
+  60:../src/user_functions.c **** 	else if(count == 0 && recieved != '$'){
+ 148                             		.loc 1 60 0
+ 149 009b AF 00 00                		movw	ax, !_count
+ 150 009e BD F0                   		movw	r8, ax
+ 151 00a0 44 00 00                		cmpw	ax, #0
+ 152 00a3 61 E8                   		 skz
+ 153 00a5 EC C9 00 00             		 br	!!.L6
+ 154                             		.loc 1 60 0 is_stmt 0 discriminator 1
+ 155 00a9 88 08                   		mov	a, [sp+8]
+ 156 00ab 4C 24                   		cmp	a, #36
+ 157 00ad 61 F8                   		 sknz
+ 158 00af EC C9 00 00             		 br	!!.L6
+  61:../src/user_functions.c **** 
+  62:../src/user_functions.c **** 		R_UART1_Send("error\x0d\x0a",7);
+ 159                             		.loc 1 62 0 is_stmt 1
+ 160 00b3 30 00 00                		movw	ax, #.LC0
+ 161 00b6 B8 00                   		movw	[sp], ax
+ 162 00b8 30 07 00                		movw	ax, #7
+ 163 00bb B8 02                   		movw	[sp+2], ax
+ 164 00bd FC 00 00 00             		call	!!%code(_R_UART1_Send)
+  63:../src/user_functions.c **** 		flag = 1;
+ 165                             		.loc 1 63 0
+ 166 00c1 E6                      		onew	ax
+ 167 00c2 BF 00 00                		movw	!_flag, ax
+ 168 00c5 EC E3 00 00             		br	!!.L3
+ 169                             	.L6:
+  64:../src/user_functions.c **** 	}
+  65:../src/user_functions.c **** 
+  66:../src/user_functions.c **** 	else{
+  67:../src/user_functions.c **** 		record[count] = recieved;
+ 170                             		.loc 1 67 0
+ 171 00c9 AF 00 00                		movw	ax, !_count
+ 172 00cc BD F0                   		movw	r8, ax
+ 173 00ce 88 08                   		mov	a, [sp+8]
+ 174 00d0 9D F2                   		mov	r10, a
+ 175 00d2 DA F0                   		movw	bc, r8
+ 176 00d4 48 00 00                		mov	_record[bc], a
+  68:../src/user_functions.c **** 		count++;
+ 177                             		.loc 1 68 0
+ 178 00d7 AF 00 00                		movw	ax, !_count
+ 179 00da BD F0                   		movw	r8, ax
+ 180 00dc A6 F0                   		incw	r8
+ 181 00de AD F0                   		movw	ax, r8
+ 182 00e0 BF 00 00                		movw	!_count, ax
+ 183                             	.L3:
+  69:../src/user_functions.c **** 	}
+  70:../src/user_functions.c **** 
+  71:../src/user_functions.c **** 
+  72:../src/user_functions.c **** 
+  73:../src/user_functions.c **** 	return recieved;
+ 184                             		.loc 1 73 0
+ 185 00e3 88 08                   		mov	a, [sp+8]
+ 186 00e5 9D F0                   		mov	r8, a
+  74:../src/user_functions.c **** }
+ 187                             		.loc 1 74 0
+ 188 00e7 10 04                   		addw	sp, #4
+ 189 00e9 D7                      		ret
+ 190                             	.LFE0:
+ 192                             		.section	.rodata
+ 193                             	.LC1:
+ 194 0008 24 45 30 25 30 32 64 2C 		.string	"$E0%02d,0,%02d\r\n"
+ 194      30 2C 25 30 32 64 0D 0A 
+ 194      00 
+ 195                             	.text
+ 196                             		.global	_processMSG
+ 198                             	_processMSG:
+ 199                             	.LFB1:
+  75:../src/user_functions.c **** 
+  76:../src/user_functions.c **** void processMSG(){
+ 200                             		.loc 1 76 0
+ 201                             		; start of function
+ 202                             		; locals: 34 bytes
+ 203                             		; outgoing: 8 bytes
+ 204 00ea 20 2A                   		subw	sp, #42
+ 205                             	.LCFI1:
+  77:../src/user_functions.c **** 	char ack[3];
+  78:../src/user_functions.c **** 	char str[30];
+  79:../src/user_functions.c **** 	if(errorTest()){
+ 206                             		.loc 1 79 0
+ 207 00ec FC 00 00 00             		call	!!%code(_errorTest)
+ 208 00f0 AD F0                   		movw	ax, r8
+ 209 00f2 44 00 00                		cmpw	ax, #0
+ 210 00f5 61 F8                   		 sknz
+ 211 00f7 EC B5 06 00             		 br	!!.L9
+  80:../src/user_functions.c **** 
+  81:../src/user_functions.c **** 		switch(record[1]){
+ 212                             		.loc 1 81 0
+ 213 00fb 8F 00 00                		mov	a, !_record+1
+ 214 00fe 9D F0                   		mov	r8, a
+ 215 0100 CD F1 00                		mov	r9, #0
+ 216 0103 AD F0                   		movw	ax, r8
+ 217 0105 44 33 00                		cmpw	ax, #51
+ 218 0108 61 F8                   		 sknz
+ 219 010a EC 67 02 00             		 br	!!.L11
+ 220 010e AD F0                   		movw	ax, r8
+ 221 0110 44 33 00                		cmpw	ax, #51
+ 222 0113 71 FF                   		 xor1	CY, a.7
+ 223 0115 61 F3                   		 sknh
+ 224 0117 EC 42 01 00             		 br	!!.L12
+ 225 011b AD F0                   		movw	ax, r8
+ 226 011d 44 31 00                		cmpw	ax, #49
+ 227 0120 61 F8                   		 sknz
+ 228 0122 EC DB 01 00             		 br	!!.L13
+ 229 0126 AD F0                   		movw	ax, r8
+ 230 0128 44 31 00                		cmpw	ax, #49
+ 231 012b 71 FF                   		 xor1	CY, a.7
+ 232 012d 61 F3                   		 sknh
+ 233 012f EC 33 02 00             		 br	!!.L14
+ 234 0133 AD F0                   		movw	ax, r8
+ 235 0135 44 30 00                		cmpw	ax, #48
+ 236 0138 61 F8                   		 sknz
+ 237 013a EC 83 01 00             		 br	!!.L15
+ 238 013e EC 70 06 00             		br	!!.L10
+ 239                             	.L12:
+ 240 0142 AD F0                   		movw	ax, r8
+ 241 0144 44 44 00                		cmpw	ax, #68
+ 242 0147 61 F8                   		 sknz
+ 243 0149 EC B5 02 00             		 br	!!.L16
+ 244 014d AD F0                   		movw	ax, r8
+ 245 014f 44 44 00                		cmpw	ax, #68
+ 246 0152 71 FF                   		 xor1	CY, a.7
+ 247 0154 61 F3                   		 sknh
+ 248 0156 EC 69 01 00             		 br	!!.L17
+ 249 015a AD F0                   		movw	ax, r8
+ 250 015c 44 42 00                		cmpw	ax, #66
+ 251 015f 61 F8                   		 sknz
+ 252 0161 EC 68 06 00             		 br	!!.L18
+ 253 0165 EC 70 06 00             		br	!!.L10
+ 254                             	.L17:
+ 255 0169 AD F0                   		movw	ax, r8
+ 256 016b 44 45 00                		cmpw	ax, #69
+ 257 016e 61 F8                   		 sknz
+ 258 0170 EC F5 05 00             		 br	!!.L19
+ 259 0174 AD F0                   		movw	ax, r8
+ 260 0176 44 4C 00                		cmpw	ax, #76
+ 261 0179 61 F8                   		 sknz
+ 262 017b EC 50 03 00             		 br	!!.L20
+ 263 017f EC 70 06 00             		br	!!.L10
+ 264                             	.L15:
+  82:../src/user_functions.c **** 		case '0': if(mode == 1){ack[0] = '0'; mode = 0;}
+ 265                             		.loc 1 82 0
+ 266 0183 AF 36 00                		movw	ax, !_mode
+ 267 0186 BD F0                   		movw	r8, ax
+ 268 0188 44 01 00                		cmpw	ax, #1
+ 269 018b 61 E8                   		 skz
+ 270 018d EC 9D 01 00             		 br	!!.L21
+ 271                             		.loc 1 82 0 is_stmt 0 discriminator 1
+ 272 0191 51 30                   		mov	a, #48
+ 273 0193 98 27                   		mov	[sp+39], a
+ 274 0195 F6                      		clrw	ax
+ 275 0196 BF 36 00                		movw	!_mode, ax
+ 276 0199 EC A1 01 00             		br	!!.L22
+ 277                             	.L21:
+  83:../src/user_functions.c **** 				  else{ack[0] = '3';}
+ 278                             		.loc 1 83 0 is_stmt 1
+ 279 019d 51 33                   		mov	a, #51
+ 280 019f 98 27                   		mov	[sp+39], a
+ 281                             	.L22:
+  84:../src/user_functions.c **** 				  ack[1] = '\x0d';
+ 282                             		.loc 1 84 0
+ 283 01a1 51 0D                   		mov	a, #13
+ 284 01a3 98 28                   		mov	[sp+40], a
+  85:../src/user_functions.c **** 				  ack[2] = '\x0a';
+ 285                             		.loc 1 85 0
+ 286 01a5 51 0A                   		mov	a, #10
+ 287 01a7 98 29                   		mov	[sp+41], a
+  86:../src/user_functions.c **** 				  strcpy(response, "$0");
+ 288                             		.loc 1 86 0
+ 289 01a9 51 24                   		mov	a, #36
+ 290 01ab 9F 04 00                		mov	!_response, a
+ 291 01ae 51 30                   		mov	a, #48
+ 292 01b0 9F 05 00                		mov	!_response+1, a
+ 293 01b3 F5 06 00                		clrb	!_response+2
+  87:../src/user_functions.c **** 				  strcat(response, ack);
+ 294                             		.loc 1 87 0
+ 295 01b6 30 04 00                		movw	ax, #_response
+ 296 01b9 B8 00                   		movw	[sp], ax
+ 297 01bb C9 F0 2A 00             		movw	r8, #42
+ 298 01bf AE F8                   		movw	ax, sp
+ 299 01c1 BD F0                   		movw	r8, ax
+ 300 01c3 04 2A 00                		addw	ax, #42
+ 301 01c6 BD F0                   		movw	r8, ax
+ 302 01c8 04 FD FF                		addw	ax, #-3
+ 303 01cb B8 02                   		movw	[sp+2], ax
+ 304 01cd FC 00 00 00             		call	!!%code(_strcat)
+  88:../src/user_functions.c **** 				  count = 5; break;
+ 305                             		.loc 1 88 0
+ 306 01d1 30 05 00                		movw	ax, #5
+ 307 01d4 BF 00 00                		movw	!_count, ax
+ 308 01d7 EC B5 06 00             		br	!!.L9
+ 309                             	.L13:
+  89:../src/user_functions.c **** 
+  90:../src/user_functions.c **** 
+  91:../src/user_functions.c **** 		case '1': if(mode == 0){ack[0] = '0'; mode = 1;}
+ 310                             		.loc 1 91 0
+ 311 01db AF 36 00                		movw	ax, !_mode
+ 312 01de BD F0                   		movw	r8, ax
+ 313 01e0 44 00 00                		cmpw	ax, #0
+ 314 01e3 61 E8                   		 skz
+ 315 01e5 EC F5 01 00             		 br	!!.L23
+ 316                             		.loc 1 91 0 is_stmt 0 discriminator 1
+ 317 01e9 51 30                   		mov	a, #48
+ 318 01eb 98 27                   		mov	[sp+39], a
+ 319 01ed E6                      		onew	ax
+ 320 01ee BF 36 00                		movw	!_mode, ax
+ 321 01f1 EC F9 01 00             		br	!!.L24
+ 322                             	.L23:
+  92:../src/user_functions.c **** 		  	  	  else{ack[0] = '3';}
+ 323                             		.loc 1 92 0 is_stmt 1
+ 324 01f5 51 33                   		mov	a, #51
+ 325 01f7 98 27                   		mov	[sp+39], a
+ 326                             	.L24:
+  93:../src/user_functions.c **** 				  ack[1] = '\x0d';
+ 327                             		.loc 1 93 0
+ 328 01f9 51 0D                   		mov	a, #13
+ 329 01fb 98 28                   		mov	[sp+40], a
+  94:../src/user_functions.c **** 				  ack[2] = '\x0a';
+ 330                             		.loc 1 94 0
+ 331 01fd 51 0A                   		mov	a, #10
+ 332 01ff 98 29                   		mov	[sp+41], a
+  95:../src/user_functions.c **** 				  strcpy(response, "$1");
+ 333                             		.loc 1 95 0
+ 334 0201 51 24                   		mov	a, #36
+ 335 0203 9F 04 00                		mov	!_response, a
+ 336 0206 51 31                   		mov	a, #49
+ 337 0208 9F 05 00                		mov	!_response+1, a
+ 338 020b F5 06 00                		clrb	!_response+2
+  96:../src/user_functions.c **** 				  strcat(response, ack);
+ 339                             		.loc 1 96 0
+ 340 020e 30 04 00                		movw	ax, #_response
+ 341 0211 B8 00                   		movw	[sp], ax
+ 342 0213 C9 F2 2A 00             		movw	r10, #42
+ 343 0217 AE F8                   		movw	ax, sp
+ 344 0219 BD F2                   		movw	r10, ax
+ 345 021b 04 2A 00                		addw	ax, #42
+ 346 021e BD F2                   		movw	r10, ax
+ 347 0220 04 FD FF                		addw	ax, #-3
+ 348 0223 B8 02                   		movw	[sp+2], ax
+ 349 0225 FC 00 00 00             		call	!!%code(_strcat)
+  97:../src/user_functions.c **** 				  count = 5; break;
+ 350                             		.loc 1 97 0
+ 351 0229 30 05 00                		movw	ax, #5
+ 352 022c BF 00 00                		movw	!_count, ax
+ 353 022f EC B5 06 00             		br	!!.L9
+ 354                             	.L14:
+  98:../src/user_functions.c **** 
+  99:../src/user_functions.c **** 		case '2': strcpy(mem, &record[2]);
+ 355                             		.loc 1 99 0
+ 356 0233 30 00 00                		movw	ax, #_mem
+ 357 0236 B8 00                   		movw	[sp], ax
+ 358 0238 30 00 00                		movw	ax, #_record+2
+ 359 023b B8 02                   		movw	[sp+2], ax
+ 360 023d FC 00 00 00             		call	!!%code(_strcpy)
+ 100:../src/user_functions.c **** 				  strcpy(response, "$20\x0d\x0a"); count = 5; break;
+ 361                             		.loc 1 100 0
+ 362 0241 51 24                   		mov	a, #36
+ 363 0243 9F 04 00                		mov	!_response, a
+ 364 0246 51 32                   		mov	a, #50
+ 365 0248 9F 05 00                		mov	!_response+1, a
+ 366 024b 51 30                   		mov	a, #48
+ 367 024d 9F 06 00                		mov	!_response+2, a
+ 368 0250 51 0D                   		mov	a, #13
+ 369 0252 9F 07 00                		mov	!_response+3, a
+ 370 0255 51 0A                   		mov	a, #10
+ 371 0257 9F 08 00                		mov	!_response+4, a
+ 372 025a F5 09 00                		clrb	!_response+5
+ 373 025d 30 05 00                		movw	ax, #5
+ 374 0260 BF 00 00                		movw	!_count, ax
+ 375 0263 EC B5 06 00             		br	!!.L9
+ 376                             	.L11:
+ 101:../src/user_functions.c **** 
+ 102:../src/user_functions.c **** 		case '3': strcpy(response, "$3019119038\x0d\x0a"); count = 13; break;
+ 377                             		.loc 1 102 0
+ 378 0267 51 24                   		mov	a, #36
+ 379 0269 9F 04 00                		mov	!_response, a
+ 380 026c 51 33                   		mov	a, #51
+ 381 026e 9F 05 00                		mov	!_response+1, a
+ 382 0271 51 30                   		mov	a, #48
+ 383 0273 9F 06 00                		mov	!_response+2, a
+ 384 0276 51 31                   		mov	a, #49
+ 385 0278 9F 07 00                		mov	!_response+3, a
+ 386 027b 51 39                   		mov	a, #57
+ 387 027d 9F 08 00                		mov	!_response+4, a
+ 388 0280 51 31                   		mov	a, #49
+ 389 0282 9F 09 00                		mov	!_response+5, a
+ 390 0285 51 31                   		mov	a, #49
+ 391 0287 9F 0A 00                		mov	!_response+6, a
+ 392 028a 51 39                   		mov	a, #57
+ 393 028c 9F 0B 00                		mov	!_response+7, a
+ 394 028f 51 30                   		mov	a, #48
+ 395 0291 9F 0C 00                		mov	!_response+8, a
+ 396 0294 51 33                   		mov	a, #51
+ 397 0296 9F 0D 00                		mov	!_response+9, a
+ 398 0299 51 38                   		mov	a, #56
+ 399 029b 9F 0E 00                		mov	!_response+10, a
+ 400 029e 51 0D                   		mov	a, #13
+ 401 02a0 9F 0F 00                		mov	!_response+11, a
+ 402 02a3 51 0A                   		mov	a, #10
+ 403 02a5 9F 10 00                		mov	!_response+12, a
+ 404 02a8 F5 11 00                		clrb	!_response+13
+ 405 02ab 30 0D 00                		movw	ax, #13
+ 406 02ae BF 00 00                		movw	!_count, ax
+ 407 02b1 EC B5 06 00             		br	!!.L9
+ 408                             	.L16:
+ 103:../src/user_functions.c **** 
+ 104:../src/user_functions.c **** 		case 'D': if(strlen(mem) <= 32){
+ 409                             		.loc 1 104 0
+ 410 02b5 30 00 00                		movw	ax, #_mem
+ 411 02b8 B8 00                   		movw	[sp], ax
+ 412 02ba FC 00 00 00             		call	!!%code(_strlen)
+ 413 02be AD F0                   		movw	ax, r8
+ 414 02c0 44 20 00                		cmpw	ax, #32
+ 415 02c3 61 F3                   		 sknh
+ 416 02c5 EC 03 03 00             		 br	!!.L25
+ 417                             	.LBB2:
+ 105:../src/user_functions.c **** 
+ 106:../src/user_functions.c **** 					strcpy(response, "$D0\x0d\x0a"); count = 5;
+ 418                             		.loc 1 106 0
+ 419 02c9 51 24                   		mov	a, #36
+ 420 02cb 9F 04 00                		mov	!_response, a
+ 421 02ce 51 44                   		mov	a, #68
+ 422 02d0 9F 05 00                		mov	!_response+1, a
+ 423 02d3 51 30                   		mov	a, #48
+ 424 02d5 9F 06 00                		mov	!_response+2, a
+ 425 02d8 51 0D                   		mov	a, #13
+ 426 02da 9F 07 00                		mov	!_response+3, a
+ 427 02dd 51 0A                   		mov	a, #10
+ 428 02df 9F 08 00                		mov	!_response+4, a
+ 429 02e2 F5 09 00                		clrb	!_response+5
+ 430 02e5 30 05 00                		movw	ax, #5
+ 431 02e8 BF 00 00                		movw	!_count, ax
+ 107:../src/user_functions.c **** 					offset = 0; display = 1; interval_timer_count = 0; R_IT_Start(); displayLCD();
+ 432                             		.loc 1 107 0
+ 433 02eb F6                      		clrw	ax
+ 434 02ec BF 3A 00                		movw	!_offset, ax
+ 435 02ef E6                      		onew	ax
+ 436 02f0 BF 38 00                		movw	!_display, ax
+ 437 02f3 F6                      		clrw	ax
+ 438 02f4 BF 00 00                		movw	!_interval_timer_count, ax
+ 439 02f7 FC 00 00 00             		call	!!%code(_R_IT_Start)
+ 440 02fb FC 00 00 00             		call	!!%code(_displayLCD)
+ 441                             	.LBE2:
+ 108:../src/user_functions.c **** 				  }
+ 109:../src/user_functions.c **** 				  else{
+ 110:../src/user_functions.c **** 				    writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
+ 111:../src/user_functions.c **** 					delayNoInt(1640);
+ 112:../src/user_functions.c **** 
+ 113:../src/user_functions.c **** 					writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
+ 114:../src/user_functions.c **** 					delayNoInt(1640);
+ 115:../src/user_functions.c **** 					strcpy(response, "$D3\x0d\x0a"); count = 5;
+ 116:../src/user_functions.c **** 				  }
+ 117:../src/user_functions.c **** 				  break;
+ 442                             		.loc 1 117 0
+ 443 02ff EC B5 06 00             		br	!!.L9
+ 444                             	.L25:
+ 110:../src/user_functions.c **** 					delayNoInt(1640);
+ 445                             		.loc 1 110 0
+ 446 0303 F1                      		clrb	a
+ 447 0304 98 00                   		mov	[sp], a
+ 448 0306 E1                      		oneb	a
+ 449 0307 98 02                   		mov	[sp+2], a
+ 450 0309 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 111:../src/user_functions.c **** 
+ 451                             		.loc 1 111 0
+ 452 030d 30 68 06                		movw	ax, #1640
+ 453 0310 B8 00                   		movw	[sp], ax
+ 454 0312 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 113:../src/user_functions.c **** 					delayNoInt(1640);
+ 455                             		.loc 1 113 0
+ 456 0316 F1                      		clrb	a
+ 457 0317 98 00                   		mov	[sp], a
+ 458 0319 51 80                   		mov	a, #-128
+ 459 031b 98 02                   		mov	[sp+2], a
+ 460 031d FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 114:../src/user_functions.c **** 					strcpy(response, "$D3\x0d\x0a"); count = 5;
+ 461                             		.loc 1 114 0
+ 462 0321 30 68 06                		movw	ax, #1640
+ 463 0324 B8 00                   		movw	[sp], ax
+ 464 0326 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 115:../src/user_functions.c **** 				  }
+ 465                             		.loc 1 115 0
+ 466 032a 51 24                   		mov	a, #36
+ 467 032c 9F 04 00                		mov	!_response, a
+ 468 032f 51 44                   		mov	a, #68
+ 469 0331 9F 05 00                		mov	!_response+1, a
+ 470 0334 51 33                   		mov	a, #51
+ 471 0336 9F 06 00                		mov	!_response+2, a
+ 472 0339 51 0D                   		mov	a, #13
+ 473 033b 9F 07 00                		mov	!_response+3, a
+ 474 033e 51 0A                   		mov	a, #10
+ 475 0340 9F 08 00                		mov	!_response+4, a
+ 476 0343 F5 09 00                		clrb	!_response+5
+ 477 0346 30 05 00                		movw	ax, #5
+ 478 0349 BF 00 00                		movw	!_count, ax
+ 479                             		.loc 1 117 0
+ 480 034c EC B5 06 00             		br	!!.L9
+ 481                             	.L20:
+ 118:../src/user_functions.c **** 
+ 119:../src/user_functions.c **** 		case 'L': if(record[2] == '0'){
+ 482                             		.loc 1 119 0
+ 483 0350 8F 00 00                		mov	a, !_record+2
+ 484 0353 9D F0                   		mov	r8, a
+ 485 0355 4A F0 30                		cmp	r8, #48
+ 486 0358 61 E8                   		 skz
+ 487 035a EC CF 03 00             		 br	!!.L27
+ 120:../src/user_functions.c **** 					  P4_bit.no1 = 0;
+ 488                             		.loc 1 120 0
+ 489 035e C9 F0 04 FF             		movw	r8, #-252
+ 490 0362 AD F0                   		movw	ax, r8
+ 491 0364 BD F4                   		movw	r12, ax
+ 492 0366 FA F4                   		movw	hl, r12
+ 493 0368 8B                      		mov	a, [hl]
+ 494 0369 9D F2                   		mov	r10, a
+ 495 036b 5A F2 FD                		and	r10, #-3
+ 496 036e AD F0                   		movw	ax, r8
+ 497 0370 DA F4                   		movw	bc, r12
+ 498 0372 8D F2                   		mov	a, r10
+ 499 0374 48 00 00                		mov	[bc], a
+ 121:../src/user_functions.c **** 					  P4_bit.no2 = 0;
+ 500                             		.loc 1 121 0
+ 501 0377 C9 F0 04 FF             		movw	r8, #-252
+ 502 037b AD F0                   		movw	ax, r8
+ 503 037d BD F4                   		movw	r12, ax
+ 504 037f FA F4                   		movw	hl, r12
+ 505 0381 8B                      		mov	a, [hl]
+ 506 0382 9D F2                   		mov	r10, a
+ 507 0384 5A F2 FB                		and	r10, #-5
+ 508 0387 AD F0                   		movw	ax, r8
+ 509 0389 DA F4                   		movw	bc, r12
+ 510 038b 8D F2                   		mov	a, r10
+ 511 038d 48 00 00                		mov	[bc], a
+ 122:../src/user_functions.c **** 					  P4_bit.no3 = 0;
+ 512                             		.loc 1 122 0
+ 513 0390 C9 F0 04 FF             		movw	r8, #-252
+ 514 0394 AD F0                   		movw	ax, r8
+ 515 0396 BD F4                   		movw	r12, ax
+ 516 0398 FA F4                   		movw	hl, r12
+ 517 039a 8B                      		mov	a, [hl]
+ 518 039b 9D F2                   		mov	r10, a
+ 519 039d 5A F2 F7                		and	r10, #-9
+ 520 03a0 AD F0                   		movw	ax, r8
+ 521 03a2 DA F4                   		movw	bc, r12
+ 522 03a4 8D F2                   		mov	a, r10
+ 523 03a6 48 00 00                		mov	[bc], a
+ 123:../src/user_functions.c **** 					  strcpy(response, "$L0\x0d\x0a"); count = 5;
+ 524                             		.loc 1 123 0
+ 525 03a9 51 24                   		mov	a, #36
+ 526 03ab 9F 04 00                		mov	!_response, a
+ 527 03ae 51 4C                   		mov	a, #76
+ 528 03b0 9F 05 00                		mov	!_response+1, a
+ 529 03b3 51 30                   		mov	a, #48
+ 530 03b5 9F 06 00                		mov	!_response+2, a
+ 531 03b8 51 0D                   		mov	a, #13
+ 532 03ba 9F 07 00                		mov	!_response+3, a
+ 533 03bd 51 0A                   		mov	a, #10
+ 534 03bf 9F 08 00                		mov	!_response+4, a
+ 535 03c2 F5 09 00                		clrb	!_response+5
+ 536 03c5 30 05 00                		movw	ax, #5
+ 537 03c8 BF 00 00                		movw	!_count, ax
+ 538 03cb EC F1 05 00             		br	!!.L28
+ 539                             	.L27:
+ 124:../src/user_functions.c **** 				  }
+ 125:../src/user_functions.c **** 				  else if(record[2] == '1'){
+ 540                             		.loc 1 125 0
+ 541 03cf 8F 00 00                		mov	a, !_record+2
+ 542 03d2 9D F0                   		mov	r8, a
+ 543 03d4 4A F0 31                		cmp	r8, #49
+ 544 03d7 61 E8                   		 skz
+ 545 03d9 EC 4E 04 00             		 br	!!.L29
+ 126:../src/user_functions.c **** 					  P4_bit.no1 = 0;
+ 546                             		.loc 1 126 0
+ 547 03dd C9 F0 04 FF             		movw	r8, #-252
+ 548 03e1 AD F0                   		movw	ax, r8
+ 549 03e3 BD F4                   		movw	r12, ax
+ 550 03e5 FA F4                   		movw	hl, r12
+ 551 03e7 8B                      		mov	a, [hl]
+ 552 03e8 9D F2                   		mov	r10, a
+ 553 03ea 5A F2 FD                		and	r10, #-3
+ 554 03ed AD F0                   		movw	ax, r8
+ 555 03ef DA F4                   		movw	bc, r12
+ 556 03f1 8D F2                   		mov	a, r10
+ 557 03f3 48 00 00                		mov	[bc], a
+ 127:../src/user_functions.c **** 					  P4_bit.no2 = 0;
+ 558                             		.loc 1 127 0
+ 559 03f6 C9 F0 04 FF             		movw	r8, #-252
+ 560 03fa AD F0                   		movw	ax, r8
+ 561 03fc BD F4                   		movw	r12, ax
+ 562 03fe FA F4                   		movw	hl, r12
+ 563 0400 8B                      		mov	a, [hl]
+ 564 0401 9D F2                   		mov	r10, a
+ 565 0403 5A F2 FB                		and	r10, #-5
+ 566 0406 AD F0                   		movw	ax, r8
+ 567 0408 DA F4                   		movw	bc, r12
+ 568 040a 8D F2                   		mov	a, r10
+ 569 040c 48 00 00                		mov	[bc], a
+ 128:../src/user_functions.c **** 					  P4_bit.no3 = 1;
+ 570                             		.loc 1 128 0
+ 571 040f C9 F0 04 FF             		movw	r8, #-252
+ 572 0413 AD F0                   		movw	ax, r8
+ 573 0415 BD F4                   		movw	r12, ax
+ 574 0417 FA F4                   		movw	hl, r12
+ 575 0419 8B                      		mov	a, [hl]
+ 576 041a 9D F2                   		mov	r10, a
+ 577 041c 6A F2 08                		or	r10, #8
+ 578 041f AD F0                   		movw	ax, r8
+ 579 0421 DA F4                   		movw	bc, r12
+ 580 0423 8D F2                   		mov	a, r10
+ 581 0425 48 00 00                		mov	[bc], a
+ 129:../src/user_functions.c **** 					  strcpy(response, "$L0\x0d\x0a"); count = 5;
+ 582                             		.loc 1 129 0
+ 583 0428 51 24                   		mov	a, #36
+ 584 042a 9F 04 00                		mov	!_response, a
+ 585 042d 51 4C                   		mov	a, #76
+ 586 042f 9F 05 00                		mov	!_response+1, a
+ 587 0432 51 30                   		mov	a, #48
+ 588 0434 9F 06 00                		mov	!_response+2, a
+ 589 0437 51 0D                   		mov	a, #13
+ 590 0439 9F 07 00                		mov	!_response+3, a
+ 591 043c 51 0A                   		mov	a, #10
+ 592 043e 9F 08 00                		mov	!_response+4, a
+ 593 0441 F5 09 00                		clrb	!_response+5
+ 594 0444 30 05 00                		movw	ax, #5
+ 595 0447 BF 00 00                		movw	!_count, ax
+ 596 044a EC F1 05 00             		br	!!.L28
+ 597                             	.L29:
+ 130:../src/user_functions.c **** 				  }
+ 131:../src/user_functions.c **** 				  else if(record[2] == '2'){
+ 598                             		.loc 1 131 0
+ 599 044e 8F 00 00                		mov	a, !_record+2
+ 600 0451 9D F0                   		mov	r8, a
+ 601 0453 4A F0 32                		cmp	r8, #50
+ 602 0456 61 E8                   		 skz
+ 603 0458 EC CD 04 00             		 br	!!.L30
+ 132:../src/user_functions.c **** 					  P4_bit.no1 = 1;
+ 604                             		.loc 1 132 0
+ 605 045c C9 F0 04 FF             		movw	r8, #-252
+ 606 0460 AD F0                   		movw	ax, r8
+ 607 0462 BD F4                   		movw	r12, ax
+ 608 0464 FA F4                   		movw	hl, r12
+ 609 0466 8B                      		mov	a, [hl]
+ 610 0467 9D F2                   		mov	r10, a
+ 611 0469 6A F2 02                		or	r10, #2
+ 612 046c AD F0                   		movw	ax, r8
+ 613 046e DA F4                   		movw	bc, r12
+ 614 0470 8D F2                   		mov	a, r10
+ 615 0472 48 00 00                		mov	[bc], a
+ 133:../src/user_functions.c **** 					  P4_bit.no2 = 0;
+ 616                             		.loc 1 133 0
+ 617 0475 C9 F0 04 FF             		movw	r8, #-252
+ 618 0479 AD F0                   		movw	ax, r8
+ 619 047b BD F4                   		movw	r12, ax
+ 620 047d FA F4                   		movw	hl, r12
+ 621 047f 8B                      		mov	a, [hl]
+ 622 0480 9D F2                   		mov	r10, a
+ 623 0482 5A F2 FB                		and	r10, #-5
+ 624 0485 AD F0                   		movw	ax, r8
+ 625 0487 DA F4                   		movw	bc, r12
+ 626 0489 8D F2                   		mov	a, r10
+ 627 048b 48 00 00                		mov	[bc], a
+ 134:../src/user_functions.c **** 					  P4_bit.no3 = 0;
+ 628                             		.loc 1 134 0
+ 629 048e C9 F0 04 FF             		movw	r8, #-252
+ 630 0492 AD F0                   		movw	ax, r8
+ 631 0494 BD F4                   		movw	r12, ax
+ 632 0496 FA F4                   		movw	hl, r12
+ 633 0498 8B                      		mov	a, [hl]
+ 634 0499 9D F2                   		mov	r10, a
+ 635 049b 5A F2 F7                		and	r10, #-9
+ 636 049e AD F0                   		movw	ax, r8
+ 637 04a0 DA F4                   		movw	bc, r12
+ 638 04a2 8D F2                   		mov	a, r10
+ 639 04a4 48 00 00                		mov	[bc], a
+ 135:../src/user_functions.c **** 					  strcpy(response, "$L0\x0d\x0a"); count = 5;
+ 640                             		.loc 1 135 0
+ 641 04a7 51 24                   		mov	a, #36
+ 642 04a9 9F 04 00                		mov	!_response, a
+ 643 04ac 51 4C                   		mov	a, #76
+ 644 04ae 9F 05 00                		mov	!_response+1, a
+ 645 04b1 51 30                   		mov	a, #48
+ 646 04b3 9F 06 00                		mov	!_response+2, a
+ 647 04b6 51 0D                   		mov	a, #13
+ 648 04b8 9F 07 00                		mov	!_response+3, a
+ 649 04bb 51 0A                   		mov	a, #10
+ 650 04bd 9F 08 00                		mov	!_response+4, a
+ 651 04c0 F5 09 00                		clrb	!_response+5
+ 652 04c3 30 05 00                		movw	ax, #5
+ 653 04c6 BF 00 00                		movw	!_count, ax
+ 654 04c9 EC F1 05 00             		br	!!.L28
+ 655                             	.L30:
+ 136:../src/user_functions.c **** 				  }
+ 137:../src/user_functions.c **** 				  else if(record[2] == '3'){
+ 656                             		.loc 1 137 0
+ 657 04cd 8F 00 00                		mov	a, !_record+2
+ 658 04d0 9D F0                   		mov	r8, a
+ 659 04d2 4A F0 33                		cmp	r8, #51
+ 660 04d5 61 E8                   		 skz
+ 661 04d7 EC 4C 05 00             		 br	!!.L31
+ 138:../src/user_functions.c **** 					  P4_bit.no1 = 0;
+ 662                             		.loc 1 138 0
+ 663 04db C9 F0 04 FF             		movw	r8, #-252
+ 664 04df AD F0                   		movw	ax, r8
+ 665 04e1 BD F4                   		movw	r12, ax
+ 666 04e3 FA F4                   		movw	hl, r12
+ 667 04e5 8B                      		mov	a, [hl]
+ 668 04e6 9D F2                   		mov	r10, a
+ 669 04e8 5A F2 FD                		and	r10, #-3
+ 670 04eb AD F0                   		movw	ax, r8
+ 671 04ed DA F4                   		movw	bc, r12
+ 672 04ef 8D F2                   		mov	a, r10
+ 673 04f1 48 00 00                		mov	[bc], a
+ 139:../src/user_functions.c **** 					  P4_bit.no2 = 1;
+ 674                             		.loc 1 139 0
+ 675 04f4 C9 F0 04 FF             		movw	r8, #-252
+ 676 04f8 AD F0                   		movw	ax, r8
+ 677 04fa BD F4                   		movw	r12, ax
+ 678 04fc FA F4                   		movw	hl, r12
+ 679 04fe 8B                      		mov	a, [hl]
+ 680 04ff 9D F2                   		mov	r10, a
+ 681 0501 6A F2 04                		or	r10, #4
+ 682 0504 AD F0                   		movw	ax, r8
+ 683 0506 DA F4                   		movw	bc, r12
+ 684 0508 8D F2                   		mov	a, r10
+ 685 050a 48 00 00                		mov	[bc], a
+ 140:../src/user_functions.c **** 					  P4_bit.no3 = 0;
+ 686                             		.loc 1 140 0
+ 687 050d C9 F0 04 FF             		movw	r8, #-252
+ 688 0511 AD F0                   		movw	ax, r8
+ 689 0513 BD F4                   		movw	r12, ax
+ 690 0515 FA F4                   		movw	hl, r12
+ 691 0517 8B                      		mov	a, [hl]
+ 692 0518 9D F2                   		mov	r10, a
+ 693 051a 5A F2 F7                		and	r10, #-9
+ 694 051d AD F0                   		movw	ax, r8
+ 695 051f DA F4                   		movw	bc, r12
+ 696 0521 8D F2                   		mov	a, r10
+ 697 0523 48 00 00                		mov	[bc], a
+ 141:../src/user_functions.c **** 					  strcpy(response, "$L0\x0d\x0a"); count = 5;
+ 698                             		.loc 1 141 0
+ 699 0526 51 24                   		mov	a, #36
+ 700 0528 9F 04 00                		mov	!_response, a
+ 701 052b 51 4C                   		mov	a, #76
+ 702 052d 9F 05 00                		mov	!_response+1, a
+ 703 0530 51 30                   		mov	a, #48
+ 704 0532 9F 06 00                		mov	!_response+2, a
+ 705 0535 51 0D                   		mov	a, #13
+ 706 0537 9F 07 00                		mov	!_response+3, a
+ 707 053a 51 0A                   		mov	a, #10
+ 708 053c 9F 08 00                		mov	!_response+4, a
+ 709 053f F5 09 00                		clrb	!_response+5
+ 710 0542 30 05 00                		movw	ax, #5
+ 711 0545 BF 00 00                		movw	!_count, ax
+ 712 0548 EC F1 05 00             		br	!!.L28
+ 713                             	.L31:
+ 142:../src/user_functions.c **** 				  }
+ 143:../src/user_functions.c **** 				  else if(record[2] == '4'){
+ 714                             		.loc 1 143 0
+ 715 054c 8F 00 00                		mov	a, !_record+2
+ 716 054f 9D F0                   		mov	r8, a
+ 717 0551 4A F0 34                		cmp	r8, #52
+ 718 0554 61 E8                   		 skz
+ 719 0556 EC CB 05 00             		 br	!!.L32
+ 144:../src/user_functions.c **** 					  P4_bit.no1 = 1;
+ 720                             		.loc 1 144 0
+ 721 055a C9 F0 04 FF             		movw	r8, #-252
+ 722 055e AD F0                   		movw	ax, r8
+ 723 0560 BD F4                   		movw	r12, ax
+ 724 0562 FA F4                   		movw	hl, r12
+ 725 0564 8B                      		mov	a, [hl]
+ 726 0565 9D F2                   		mov	r10, a
+ 727 0567 6A F2 02                		or	r10, #2
+ 728 056a AD F0                   		movw	ax, r8
+ 729 056c DA F4                   		movw	bc, r12
+ 730 056e 8D F2                   		mov	a, r10
+ 731 0570 48 00 00                		mov	[bc], a
+ 145:../src/user_functions.c **** 					  P4_bit.no2 = 1;
+ 732                             		.loc 1 145 0
+ 733 0573 C9 F0 04 FF             		movw	r8, #-252
+ 734 0577 AD F0                   		movw	ax, r8
+ 735 0579 BD F4                   		movw	r12, ax
+ 736 057b FA F4                   		movw	hl, r12
+ 737 057d 8B                      		mov	a, [hl]
+ 738 057e 9D F2                   		mov	r10, a
+ 739 0580 6A F2 04                		or	r10, #4
+ 740 0583 AD F0                   		movw	ax, r8
+ 741 0585 DA F4                   		movw	bc, r12
+ 742 0587 8D F2                   		mov	a, r10
+ 743 0589 48 00 00                		mov	[bc], a
+ 146:../src/user_functions.c **** 					  P4_bit.no3 = 0;
+ 744                             		.loc 1 146 0
+ 745 058c C9 F0 04 FF             		movw	r8, #-252
+ 746 0590 AD F0                   		movw	ax, r8
+ 747 0592 BD F4                   		movw	r12, ax
+ 748 0594 FA F4                   		movw	hl, r12
+ 749 0596 8B                      		mov	a, [hl]
+ 750 0597 9D F2                   		mov	r10, a
+ 751 0599 5A F2 F7                		and	r10, #-9
+ 752 059c AD F0                   		movw	ax, r8
+ 753 059e DA F4                   		movw	bc, r12
+ 754 05a0 8D F2                   		mov	a, r10
+ 755 05a2 48 00 00                		mov	[bc], a
+ 147:../src/user_functions.c **** 					  strcpy(response, "$L0\x0d\x0a"); count = 5;
+ 756                             		.loc 1 147 0
+ 757 05a5 51 24                   		mov	a, #36
+ 758 05a7 9F 04 00                		mov	!_response, a
+ 759 05aa 51 4C                   		mov	a, #76
+ 760 05ac 9F 05 00                		mov	!_response+1, a
+ 761 05af 51 30                   		mov	a, #48
+ 762 05b1 9F 06 00                		mov	!_response+2, a
+ 763 05b4 51 0D                   		mov	a, #13
+ 764 05b6 9F 07 00                		mov	!_response+3, a
+ 765 05b9 51 0A                   		mov	a, #10
+ 766 05bb 9F 08 00                		mov	!_response+4, a
+ 767 05be F5 09 00                		clrb	!_response+5
+ 768 05c1 30 05 00                		movw	ax, #5
+ 769 05c4 BF 00 00                		movw	!_count, ax
+ 770 05c7 EC F1 05 00             		br	!!.L28
+ 771                             	.L32:
+ 148:../src/user_functions.c **** 				  }
+ 149:../src/user_functions.c **** 				  else{
+ 150:../src/user_functions.c **** 					  strcpy(response, "$L2\x0d\x0a"); count = 5;
+ 772                             		.loc 1 150 0
+ 773 05cb 51 24                   		mov	a, #36
+ 774 05cd 9F 04 00                		mov	!_response, a
+ 775 05d0 51 4C                   		mov	a, #76
+ 776 05d2 9F 05 00                		mov	!_response+1, a
+ 777 05d5 51 32                   		mov	a, #50
+ 778 05d7 9F 06 00                		mov	!_response+2, a
+ 779 05da 51 0D                   		mov	a, #13
+ 780 05dc 9F 07 00                		mov	!_response+3, a
+ 781 05df 51 0A                   		mov	a, #10
+ 782 05e1 9F 08 00                		mov	!_response+4, a
+ 783 05e4 F5 09 00                		clrb	!_response+5
+ 784 05e7 30 05 00                		movw	ax, #5
+ 785 05ea BF 00 00                		movw	!_count, ax
+ 151:../src/user_functions.c **** 				  }
+ 152:../src/user_functions.c **** 				  break;
+ 786                             		.loc 1 152 0
+ 787 05ed EC B5 06 00             		br	!!.L9
+ 788                             	.L28:
+ 789 05f1 EC B5 06 00             		br	!!.L9
+ 790                             	.L19:
+ 153:../src/user_functions.c **** 		case 'E':
+ 154:../src/user_functions.c **** 
+ 155:../src/user_functions.c **** 				 collectADC();
+ 791                             		.loc 1 155 0
+ 792 05f5 FC 00 00 00             		call	!!%code(_collectADC)
+ 156:../src/user_functions.c **** 				 sprintf(str, "$E0%02d,0,%02d\x0d\x0a", voltage, current2);
+ 793                             		.loc 1 156 0
+ 794 05f9 8F 00 00                		mov	a, !_voltage
+ 795 05fc 9D F0                   		mov	r8, a
+ 796 05fe 70                      		mov	x, a 
+ 797 05ff 51 00                   		mov	a, #0
+ 798 0601 BD F2                   		movw	r10, ax
+ 799 0603 8F 00 00                		mov	a, !_current2
+ 800 0606 9D F0                   		mov	r8, a
+ 801 0608 CD F1 00                		mov	r9, #0
+ 802 060b C9 F4 2A 00             		movw	r12, #42
+ 803 060f AE F8                   		movw	ax, sp
+ 804 0611 BD F4                   		movw	r12, ax
+ 805 0613 04 2A 00                		addw	ax, #42
+ 806 0616 BD F4                   		movw	r12, ax
+ 807 0618 04 DF FF                		addw	ax, #-33
+ 808 061b B8 00                   		movw	[sp], ax
+ 809 061d 30 08 00                		movw	ax, #.LC1
+ 810 0620 B8 02                   		movw	[sp+2], ax
+ 811 0622 AD F2                   		movw	ax, r10
+ 812 0624 B8 04                   		movw	[sp+4], ax
+ 813 0626 AD F0                   		movw	ax, r8
+ 814 0628 B8 06                   		movw	[sp+6], ax
+ 815 062a FC 00 00 00             		call	!!%code(_sprintf)
+ 157:../src/user_functions.c **** 
+ 158:../src/user_functions.c **** 
+ 159:../src/user_functions.c **** //				  sprintf(str, "%d", voltage);
+ 160:../src/user_functions.c **** 
+ 161:../src/user_functions.c **** 			      strcpy(response, str); count = strlen(str);
+ 816                             		.loc 1 161 0
+ 817 062e 30 04 00                		movw	ax, #_response
+ 818 0631 B8 00                   		movw	[sp], ax
+ 819 0633 C9 F0 2A 00             		movw	r8, #42
+ 820 0637 AE F8                   		movw	ax, sp
+ 821 0639 BD F0                   		movw	r8, ax
+ 822 063b 04 2A 00                		addw	ax, #42
+ 823 063e BD F0                   		movw	r8, ax
+ 824 0640 04 DF FF                		addw	ax, #-33
+ 825 0643 B8 02                   		movw	[sp+2], ax
+ 826 0645 FC 00 00 00             		call	!!%code(_strcpy)
+ 827 0649 C9 F2 2A 00             		movw	r10, #42
+ 828 064d AE F8                   		movw	ax, sp
+ 829 064f BD F2                   		movw	r10, ax
+ 830 0651 04 2A 00                		addw	ax, #42
+ 831 0654 BD F2                   		movw	r10, ax
+ 832 0656 04 DF FF                		addw	ax, #-33
+ 833 0659 B8 00                   		movw	[sp], ax
+ 834 065b FC 00 00 00             		call	!!%code(_strlen)
+ 835 065f AD F0                   		movw	ax, r8
+ 836 0661 BF 00 00                		movw	!_count, ax
+ 162:../src/user_functions.c **** 
+ 163:../src/user_functions.c **** 				  break;
+ 837                             		.loc 1 163 0
+ 838 0664 EC B5 06 00             		br	!!.L9
+ 839                             	.L18:
+ 164:../src/user_functions.c **** 		 case'B': setRTC();
+ 840                             		.loc 1 164 0
+ 841 0668 FC 00 00 00             		call	!!%code(_setRTC)
+ 165:../src/user_functions.c **** 			      break;
+ 842                             		.loc 1 165 0
+ 843 066c EC B5 06 00             		br	!!.L9
+ 844                             	.L10:
+ 166:../src/user_functions.c **** 
+ 167:../src/user_functions.c **** 
+ 168:../src/user_functions.c **** 		default:
+ 169:../src/user_functions.c **** 				 strcpy(response, "$");
+ 845                             		.loc 1 169 0
+ 846 0670 51 24                   		mov	a, #36
+ 847 0672 9F 04 00                		mov	!_response, a
+ 848 0675 F5 05 00                		clrb	!_response+1
+ 170:../src/user_functions.c **** 				 strcat(response, &record[1]);
+ 849                             		.loc 1 170 0
+ 850 0678 30 04 00                		movw	ax, #_response
+ 851 067b B8 00                   		movw	[sp], ax
+ 852 067d 30 00 00                		movw	ax, #_record+1
+ 853 0680 B8 02                   		movw	[sp+2], ax
+ 854 0682 FC 00 00 00             		call	!!%code(_strcat)
+ 171:../src/user_functions.c **** 				 strcat(response, "1\x0d\x0a"); count = 5;
+ 855                             		.loc 1 171 0
+ 856 0686 30 04 00                		movw	ax, #_response
+ 857 0689 B8 00                   		movw	[sp], ax
+ 858 068b FC 00 00 00             		call	!!%code(_strlen)
+ 859 068f AD F0                   		movw	ax, r8
+ 860 0691 04 04 00                		addw	ax, #_response
+ 861 0694 BD F0                   		movw	r8, ax
+ 862 0696 BD F4                   		movw	r12, ax
+ 863 0698 DA F4                   		movw	bc, r12
+ 864 069a 51 31                   		mov	a, #49
+ 865 069c 48 00 00                		mov	[bc], a
+ 866 069f DA F0                   		movw	bc, r8
+ 867 06a1 51 0D                   		mov	a, #13
+ 868 06a3 48 01 00                		mov	1[bc], a
+ 869 06a6 51 0A                   		mov	a, #10
+ 870 06a8 48 02 00                		mov	2[bc], a
+ 871 06ab F1                      		clrb	a
+ 872 06ac 48 03 00                		mov	3[bc], a
+ 873 06af 30 05 00                		movw	ax, #5
+ 874 06b2 BF 00 00                		movw	!_count, ax
+ 875                             	.L9:
+ 172:../src/user_functions.c **** 
+ 173:../src/user_functions.c **** 		}
+ 174:../src/user_functions.c **** 	}
+ 175:../src/user_functions.c **** 
+ 176:../src/user_functions.c **** 	R_UART1_Send(response, count);
+ 876                             		.loc 1 176 0
+ 877 06b5 AF 00 00                		movw	ax, !_count
+ 878 06b8 BD F0                   		movw	r8, ax
+ 879 06ba 30 04 00                		movw	ax, #_response
+ 880 06bd B8 00                   		movw	[sp], ax
+ 881 06bf AD F0                   		movw	ax, r8
+ 882 06c1 B8 02                   		movw	[sp+2], ax
+ 883 06c3 FC 00 00 00             		call	!!%code(_R_UART1_Send)
+ 177:../src/user_functions.c **** }
+ 884                             		.loc 1 177 0
+ 885 06c7 10 2A                   		addw	sp, #42
+ 886 06c9 D7                      		ret
+ 887                             	.LFE1:
+ 889                             		.global	_errorTest
+ 891                             	_errorTest:
+ 892                             	.LFB2:
+ 178:../src/user_functions.c **** 
+ 179:../src/user_functions.c **** int errorTest(){
+ 893                             		.loc 1 179 0
+ 894                             		; start of function
+ 895                             		; locals: 8 bytes
+ 896                             		; outgoing: 4 bytes
+ 897 06ca 20 0C                   		subw	sp, #12
+ 898                             	.LCFI2:
+ 180:../src/user_functions.c **** 
+ 181:../src/user_functions.c **** //	if(record[1] == '0' || record[1] == '1' ||record[1] == '3'||record[1] == '2' || record[1] == 'D'
+ 182:../src/user_functions.c **** //	}
+ 183:../src/user_functions.c **** //	else{
+ 184:../src/user_functions.c **** //		char validChar[] = {'$',record[1],'1','\x0d','\x0a'};
+ 185:../src/user_functions.c **** //		strcpy(record, validChar);
+ 186:../src/user_functions.c **** //		count = 5;
+ 187:../src/user_functions.c **** //		return 0;
+ 188:../src/user_functions.c **** //	}
+ 189:../src/user_functions.c **** 
+ 190:../src/user_functions.c **** 	if(record[strlen(record) - 1] != '\x0a'){	//INVALID PARAMETERS
+ 899                             		.loc 1 190 0
+ 900 06cc 30 00 00                		movw	ax, #_record
+ 901 06cf B8 00                   		movw	[sp], ax
+ 902 06d1 FC 00 00 00             		call	!!%code(_strlen)
+ 903 06d5 B6 F0                   		decw	r8
+ 904 06d7 AD F0                   		movw	ax, r8
+ 905 06d9 04 00 00                		addw	ax, #_record
+ 906 06dc 16                      		movw	hl, ax
+ 907 06dd 8B                      		mov	a, [hl]
+ 908 06de 9D F0                   		mov	r8, a
+ 909 06e0 4A F0 0A                		cmp	r8, #10
+ 910 06e3 61 F8                   		 sknz
+ 911 06e5 EC 28 07 00             		 br	!!.L34
+ 912                             	.LBB3:
+ 191:../src/user_functions.c **** 		char validChar[] = {'$',record[1],'2','\x0d','\x0a'};
+ 913                             		.loc 1 191 0
+ 914 06e9 51 24                   		mov	a, #36
+ 915 06eb 98 07                   		mov	[sp+7], a
+ 916 06ed 8F 00 00                		mov	a, !_record+1
+ 917 06f0 9D F0                   		mov	r8, a
+ 918 06f2 98 08                   		mov	[sp+8], a
+ 919 06f4 51 32                   		mov	a, #50
+ 920 06f6 98 09                   		mov	[sp+9], a
+ 921 06f8 51 0D                   		mov	a, #13
+ 922 06fa 98 0A                   		mov	[sp+10], a
+ 923 06fc 51 0A                   		mov	a, #10
+ 924 06fe 98 0B                   		mov	[sp+11], a
+ 192:../src/user_functions.c **** 		strcpy(record, validChar);
+ 925                             		.loc 1 192 0
+ 926 0700 30 00 00                		movw	ax, #_record
+ 927 0703 B8 00                   		movw	[sp], ax
+ 928 0705 C9 F0 0C 00             		movw	r8, #12
+ 929 0709 AE F8                   		movw	ax, sp
+ 930 070b BD F0                   		movw	r8, ax
+ 931 070d 04 0C 00                		addw	ax, #12
+ 932 0710 BD F0                   		movw	r8, ax
+ 933 0712 04 FB FF                		addw	ax, #-5
+ 934 0715 B8 02                   		movw	[sp+2], ax
+ 935 0717 FC 00 00 00             		call	!!%code(_strcpy)
+ 193:../src/user_functions.c **** 		count = 5;
+ 936                             		.loc 1 193 0
+ 937 071b 30 05 00                		movw	ax, #5
+ 938 071e BF 00 00                		movw	!_count, ax
+ 194:../src/user_functions.c **** 		return 0;
+ 939                             		.loc 1 194 0
+ 940 0721 F6                      		clrw	ax
+ 941 0722 B8 04                   		movw	[sp+4], ax
+ 942 0724 EC 2B 07 00             		br	!!.L35
+ 943                             	.L34:
+ 944                             	.LBE3:
+ 195:../src/user_functions.c **** 	}
+ 196:../src/user_functions.c **** 
+ 197:../src/user_functions.c **** 	return 1;
+ 945                             		.loc 1 197 0
+ 946 0728 E6                      		onew	ax
+ 947 0729 B8 04                   		movw	[sp+4], ax
+ 948                             	.L35:
+ 949 072b A8 04                   		movw	ax, [sp+4]
+ 950 072d BD F0                   		movw	r8, ax
+ 198:../src/user_functions.c **** }
+ 951                             		.loc 1 198 0 discriminator 1
+ 952 072f 10 0C                   		addw	sp, #12
+ 953 0731 D7                      		ret
+ 954                             	.LFE2:
+ 956                             		.global	_displayLCD
+ 958                             	_displayLCD:
+ 959                             	.LFB3:
+ 199:../src/user_functions.c **** 
+ 200:../src/user_functions.c **** void displayLCD(){
+ 960                             		.loc 1 200 0
+ 961                             		; start of function
+ 962                             		; push 2: r16
+ 963                             		; locals: 2 bytes
+ 964                             		; outgoing: 4 bytes
+ 965 0732 61 EF                   		sel	rb2
+ 966 0734 C1                      		push	ax ; r16
+ 967                             	.LCFI3:
+ 968 0735 61 CF                   		sel	rb0
+ 969 0737 20 06                   		subw	sp, #6
+ 970                             	.LCFI4:
+ 201:../src/user_functions.c **** 
+ 202:../src/user_functions.c **** if(display){
+ 971                             		.loc 1 202 0
+ 972 0739 AF 38 00                		movw	ax, !_display
+ 973 073c BD F0                   		movw	r8, ax
+ 974 073e 44 00 00                		cmpw	ax, #0
+ 975 0741 61 F8                   		 sknz
+ 976 0743 EC F3 07 00             		 br	!!.L37
+ 977                             	.LBB4:
+ 203:../src/user_functions.c **** 
+ 204:../src/user_functions.c **** 	int i;
+ 205:../src/user_functions.c **** 
+ 206:../src/user_functions.c **** 	writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
+ 978                             		.loc 1 206 0
+ 979 0747 F1                      		clrb	a
+ 980 0748 98 00                   		mov	[sp], a
+ 981 074a E1                      		oneb	a
+ 982 074b 98 02                   		mov	[sp+2], a
+ 983 074d FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 207:../src/user_functions.c **** 	delayNoInt(1640);
+ 984                             		.loc 1 207 0
+ 985 0751 30 68 06                		movw	ax, #1640
+ 986 0754 B8 00                   		movw	[sp], ax
+ 987 0756 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 208:../src/user_functions.c **** 
+ 209:../src/user_functions.c **** 	writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
+ 988                             		.loc 1 209 0
+ 989 075a F1                      		clrb	a
+ 990 075b 98 00                   		mov	[sp], a
+ 991 075d 51 80                   		mov	a, #-128
+ 992 075f 98 02                   		mov	[sp+2], a
+ 993 0761 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 210:../src/user_functions.c **** 	delayNoInt(1640);
+ 994                             		.loc 1 210 0
+ 995 0765 30 68 06                		movw	ax, #1640
+ 996 0768 B8 00                   		movw	[sp], ax
+ 997 076a FC 00 00 00             		call	!!%code(_delayNoInt)
+ 211:../src/user_functions.c **** 
+ 212:../src/user_functions.c **** 	for(i = offset; i < strlen(mem) - 2; i++){
+ 998                             		.loc 1 212 0
+ 999 076e AF 3A 00                		movw	ax, !_offset
+ 1000 0771 BD F0                   		movw	r8, ax
+ 1001 0773 B8 04                   		movw	[sp+4], ax
+ 1002 0775 EC CC 07 00             		br	!!.L38
+ 1003                             	.L40:
+ 213:../src/user_functions.c **** 
+ 214:../src/user_functions.c **** 		if(i == (8 + offset)){
+ 1004                             		.loc 1 214 0
+ 1005 0779 AF 3A 00                		movw	ax, !_offset
+ 1006 077c BD F0                   		movw	r8, ax
+ 1007 077e 04 08 00                		addw	ax, #8
+ 1008 0781 BD F2                   		movw	r10, ax
+ 1009 0783 A8 04                   		movw	ax, [sp+4]
+ 1010 0785 BD F0                   		movw	r8, ax
+ 1011 0787 AD F2                   		movw	ax, r10
+ 1012 0789 46 F0                   		cmpw	ax, r8
+ 1013 078b 61 E8                   		 skz
+ 1014 078d EC A5 07 00             		 br	!!.L39
+ 215:../src/user_functions.c **** 			writeByteLcd(LCD_CTRL_WR, LCD_HOME_L2);
+ 1015                             		.loc 1 215 0
+ 1016 0791 F1                      		clrb	a
+ 1017 0792 98 00                   		mov	[sp], a
+ 1018 0794 51 C0                   		mov	a, #-64
+ 1019 0796 98 02                   		mov	[sp+2], a
+ 1020 0798 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 216:../src/user_functions.c **** 			delayNoInt(1640);
+ 1021                             		.loc 1 216 0
+ 1022 079c 30 68 06                		movw	ax, #1640
+ 1023 079f B8 00                   		movw	[sp], ax
+ 1024 07a1 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 1025                             	.L39:
+ 217:../src/user_functions.c **** 		}
+ 218:../src/user_functions.c **** 
+ 219:../src/user_functions.c **** 		writeByteLcd(LCD_DATA_WR, mem[i]);
+ 1026                             		.loc 1 219 0 discriminator 2
+ 1027 07a5 A8 04                   		movw	ax, [sp+4]
+ 1028 07a7 04 00 00                		addw	ax, #_mem
+ 1029 07aa BD F0                   		movw	r8, ax
+ 1030 07ac BD F2                   		movw	r10, ax
+ 1031 07ae FA F2                   		movw	hl, r10
+ 1032 07b0 8B                      		mov	a, [hl]
+ 1033 07b1 9D F0                   		mov	r8, a
+ 1034 07b3 E1                      		oneb	a
+ 1035 07b4 98 00                   		mov	[sp], a
+ 1036 07b6 8D F0                   		mov	a, r8
+ 1037 07b8 98 02                   		mov	[sp+2], a
+ 1038 07ba FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 220:../src/user_functions.c **** 		delayNoInt(40);
+ 1039                             		.loc 1 220 0 discriminator 2
+ 1040 07be 30 28 00                		movw	ax, #40
+ 1041 07c1 B8 00                   		movw	[sp], ax
+ 1042 07c3 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 212:../src/user_functions.c **** 
+ 1043                             		.loc 1 212 0 discriminator 2
+ 1044 07c7 A8 04                   		movw	ax, [sp+4]
+ 1045 07c9 A1                      		incw	ax
+ 1046 07ca B8 04                   		movw	[sp+4], ax
+ 1047                             	.L38:
+ 212:../src/user_functions.c **** 
+ 1048                             		.loc 1 212 0 is_stmt 0 discriminator 1
+ 1049 07cc A8 04                   		movw	ax, [sp+4]
+ 1050 07ce BD E8                   		movw	r16, ax
+ 1051 07d0 30 00 00                		movw	ax, #_mem
+ 1052 07d3 B8 00                   		movw	[sp], ax
+ 1053 07d5 FC 00 00 00             		call	!!%code(_strlen)
+ 1054 07d9 B6 F0                   		decw	r8 
+ 1055 07db B6 F0                   		decw	r8
+ 1056 07dd AD E8                   		movw	ax, r16
+ 1057 07df 46 F0                   		cmpw	ax, r8
+ 1058 07e1 61 D8                   		 sknc
+ 1059 07e3 EC 79 07 00             		 br	!!.L40
+ 221:../src/user_functions.c **** 
+ 222:../src/user_functions.c **** 	}
+ 223:../src/user_functions.c **** 	offset++;
+ 1060                             		.loc 1 223 0 is_stmt 1
+ 1061 07e7 AF 3A 00                		movw	ax, !_offset
+ 1062 07ea BD F0                   		movw	r8, ax
+ 1063 07ec A6 F0                   		incw	r8
+ 1064 07ee AD F0                   		movw	ax, r8
+ 1065 07f0 BF 3A 00                		movw	!_offset, ax
+ 1066                             	.L37:
+ 1067                             	.LBE4:
+ 224:../src/user_functions.c **** 
+ 225:../src/user_functions.c **** }
+ 226:../src/user_functions.c **** 
+ 227:../src/user_functions.c **** if(offset >= (strlen(mem) - 17) || strlen(mem) <= 18 ){
+ 1068                             		.loc 1 227 0
+ 1069 07f3 AF 3A 00                		movw	ax, !_offset
+ 1070 07f6 BD F0                   		movw	r8, ax
+ 1071 07f8 BD E8                   		movw	r16, ax
+ 1072 07fa 30 00 00                		movw	ax, #_mem
+ 1073 07fd B8 00                   		movw	[sp], ax
+ 1074 07ff FC 00 00 00             		call	!!%code(_strlen)
+ 1075 0803 AD F0                   		movw	ax, r8
+ 1076 0805 04 EF FF                		addw	ax, #-17
+ 1077 0808 BD F0                   		movw	r8, ax
+ 1078 080a AD E8                   		movw	ax, r16
+ 1079 080c 46 F0                   		cmpw	ax, r8
+ 1080 080e 61 C8                   		 skc
+ 1081 0810 EC 28 08 00             		 br	!!.L41
+ 1082                             		.loc 1 227 0 is_stmt 0 discriminator 1
+ 1083 0814 30 00 00                		movw	ax, #_mem
+ 1084 0817 B8 00                   		movw	[sp], ax
+ 1085 0819 FC 00 00 00             		call	!!%code(_strlen)
+ 1086 081d AD F0                   		movw	ax, r8
+ 1087 081f 44 12 00                		cmpw	ax, #18
+ 1088 0822 61 F3                   		 sknh
+ 1089 0824 EC 30 08 00             		 br	!!.L36
+ 1090                             	.L41:
+ 1091                             	.LBB5:
+ 228:../src/user_functions.c **** 	display = 0;
+ 1092                             		.loc 1 228 0 is_stmt 1
+ 1093 0828 F6                      		clrw	ax
+ 1094 0829 BF 38 00                		movw	!_display, ax
+ 229:../src/user_functions.c **** 	R_IT_Stop();
+ 1095                             		.loc 1 229 0
+ 1096 082c FC 00 00 00             		call	!!%code(_R_IT_Stop)
+ 1097                             	.L36:
+ 1098                             	.LBE5:
+ 230:../src/user_functions.c **** }
+ 231:../src/user_functions.c **** 
+ 232:../src/user_functions.c **** }
+ 1099                             		.loc 1 232 0
+ 1100 0830 10 06                   		addw	sp, #6
+ 1101 0832 61 EF                   		sel	rb2
+ 1102 0834 C0                      		pop	ax ; r16
+ 1103 0835 61 CF                   		sel	rb0
+ 1104 0837 D7                      		ret
+ 1105                             	.LFE3:
+ 1107                             		.global	_collectADC
+ 1109                             	_collectADC:
+ 1110                             	.LFB4:
+ 233:../src/user_functions.c **** 
+ 234:../src/user_functions.c **** void collectADC(){
+ 1111                             		.loc 1 234 0
+ 1112                             		; start of function
+ 1113                             		; outgoing: 2 bytes
+ 1114 0838 20 02                   		subw	sp, #2
+ 1115                             	.LCFI5:
+ 235:../src/user_functions.c **** 
+ 236:../src/user_functions.c **** 	 ADS = _00_AD_INPUT_CHANNEL_0;
+ 1116                             		.loc 1 236 0
+ 1117 083a C9 F0 31 FF             		movw	r8, #-207
+ 1118 083e AD F0                   		movw	ax, r8
+ 1119 0840 BD F2                   		movw	r10, ax
+ 1120 0842 DA F2                   		movw	bc, r10
+ 1121 0844 F1                      		clrb	a
+ 1122 0845 48 00 00                		mov	[bc], a
+ 237:../src/user_functions.c **** 	 R_ADC_Start();
+ 1123                             		.loc 1 237 0
+ 1124 0848 FC 00 00 00             		call	!!%code(_R_ADC_Start)
+ 238:../src/user_functions.c **** 	 while(ADCS);
+ 1125                             		.loc 1 238 0
+ 1126 084c 00                      		nop
+ 1127                             	.L44:
+ 1128                             		.loc 1 238 0 is_stmt 0 discriminator 1
+ 1129 084d C9 F0 30 FF             		movw	r8, #-208
+ 1130 0851 AD F0                   		movw	ax, r8
+ 1131 0853 BD F2                   		movw	r10, ax
+ 1132 0855 FA F2                   		movw	hl, r10
+ 1133 0857 8B                      		mov	a, [hl]
+ 1134 0858 9D F0                   		mov	r8, a
+ 1135 085a 31 7A                   		shr	a, 7
+ 1136 085c 9D F0                   		mov	r8, a
+ 1137 085e D4 F0                   		cmp0	r8
+ 1138 0860 61 E8                   		 skz
+ 1139 0862 EC 4D 08 00             		 br	!!.L44
+ 239:../src/user_functions.c **** 	 R_ADC_Start();
+ 1140                             		.loc 1 239 0 is_stmt 1
+ 1141 0866 FC 00 00 00             		call	!!%code(_R_ADC_Start)
+ 240:../src/user_functions.c **** 	 while(ADCS);
+ 1142                             		.loc 1 240 0
+ 1143 086a 00                      		nop
+ 1144                             	.L45:
+ 1145                             		.loc 1 240 0 is_stmt 0 discriminator 1
+ 1146 086b C9 F0 30 FF             		movw	r8, #-208
+ 1147 086f AD F0                   		movw	ax, r8
+ 1148 0871 BD F2                   		movw	r10, ax
+ 1149 0873 FA F2                   		movw	hl, r10
+ 1150 0875 8B                      		mov	a, [hl]
+ 1151 0876 9D F0                   		mov	r8, a
+ 1152 0878 31 7A                   		shr	a, 7
+ 1153 087a 9D F0                   		mov	r8, a
+ 1154 087c D4 F0                   		cmp0	r8
+ 1155 087e 61 E8                   		 skz
+ 1156 0880 EC 6B 08 00             		 br	!!.L45
+ 241:../src/user_functions.c **** 
+ 242:../src/user_functions.c **** 	 R_ADC_Get_Result_8bit(&voltage);
+ 1157                             		.loc 1 242 0 is_stmt 1
+ 1158 0884 30 00 00                		movw	ax, #_voltage
+ 1159 0887 B8 00                   		movw	[sp], ax
+ 1160 0889 FC 00 00 00             		call	!!%code(_R_ADC_Get_Result_8bit)
+ 243:../src/user_functions.c **** 	 voltage = voltage >> 1;
+ 1161                             		.loc 1 243 0
+ 1162 088d 8F 00 00                		mov	a, !_voltage
+ 1163 0890 9D F0                   		mov	r8, a
+ 1164 0892 31 1A                   		shr	a, 1
+ 1165 0894 9D F0                   		mov	r8, a
+ 1166 0896 9F 00 00                		mov	!_voltage, a
+ 244:../src/user_functions.c **** 
+ 245:../src/user_functions.c **** 	 ADS = _02_AD_INPUT_CHANNEL_2;
+ 1167                             		.loc 1 245 0
+ 1168 0899 C9 F0 31 FF             		movw	r8, #-207
+ 1169 089d AD F0                   		movw	ax, r8
+ 1170 089f BD F2                   		movw	r10, ax
+ 1171 08a1 DA F2                   		movw	bc, r10
+ 1172 08a3 51 02                   		mov	a, #2
+ 1173 08a5 48 00 00                		mov	[bc], a
+ 246:../src/user_functions.c **** 	 R_ADC_Start();
+ 1174                             		.loc 1 246 0
+ 1175 08a8 FC 00 00 00             		call	!!%code(_R_ADC_Start)
+ 247:../src/user_functions.c **** 	 while(ADCS);
+ 1176                             		.loc 1 247 0
+ 1177 08ac 00                      		nop
+ 1178                             	.L46:
+ 1179                             		.loc 1 247 0 is_stmt 0 discriminator 1
+ 1180 08ad C9 F0 30 FF             		movw	r8, #-208
+ 1181 08b1 AD F0                   		movw	ax, r8
+ 1182 08b3 BD F2                   		movw	r10, ax
+ 1183 08b5 FA F2                   		movw	hl, r10
+ 1184 08b7 8B                      		mov	a, [hl]
+ 1185 08b8 9D F0                   		mov	r8, a
+ 1186 08ba 31 7A                   		shr	a, 7
+ 1187 08bc 9D F0                   		mov	r8, a
+ 1188 08be D4 F0                   		cmp0	r8
+ 1189 08c0 61 E8                   		 skz
+ 1190 08c2 EC AD 08 00             		 br	!!.L46
+ 248:../src/user_functions.c **** 	 R_ADC_Start();
+ 1191                             		.loc 1 248 0 is_stmt 1
+ 1192 08c6 FC 00 00 00             		call	!!%code(_R_ADC_Start)
+ 249:../src/user_functions.c **** 	 while(ADCS);
+ 1193                             		.loc 1 249 0
+ 1194 08ca 00                      		nop
+ 1195                             	.L47:
+ 1196                             		.loc 1 249 0 is_stmt 0 discriminator 1
+ 1197 08cb C9 F0 30 FF             		movw	r8, #-208
+ 1198 08cf AD F0                   		movw	ax, r8
+ 1199 08d1 BD F2                   		movw	r10, ax
+ 1200 08d3 FA F2                   		movw	hl, r10
+ 1201 08d5 8B                      		mov	a, [hl]
+ 1202 08d6 9D F0                   		mov	r8, a
+ 1203 08d8 31 7A                   		shr	a, 7
+ 1204 08da 9D F0                   		mov	r8, a
+ 1205 08dc D4 F0                   		cmp0	r8
+ 1206 08de 61 E8                   		 skz
+ 1207 08e0 EC CB 08 00             		 br	!!.L47
+ 250:../src/user_functions.c **** 
+ 251:../src/user_functions.c **** 	 R_ADC_Get_Result_8bit(&current2);
+ 1208                             		.loc 1 251 0 is_stmt 1
+ 1209 08e4 30 00 00                		movw	ax, #_current2
+ 1210 08e7 B8 00                   		movw	[sp], ax
+ 1211 08e9 FC 00 00 00             		call	!!%code(_R_ADC_Get_Result_8bit)
+ 252:../src/user_functions.c **** 	 current2 = current2 >> 2;
+ 1212                             		.loc 1 252 0
+ 1213 08ed 8F 00 00                		mov	a, !_current2
+ 1214 08f0 9D F0                   		mov	r8, a
+ 1215 08f2 31 2A                   		shr	a, 2
+ 1216 08f4 9D F0                   		mov	r8, a
+ 1217 08f6 9F 00 00                		mov	!_current2, a
+ 253:../src/user_functions.c **** 
+ 254:../src/user_functions.c **** }
+ 1218                             		.loc 1 254 0
+ 1219 08f9 10 02                   		addw	sp, #2
+ 1220 08fb D7                      		ret
+ 1221                             	.LFE4:
+ 1223                             		.section	.rodata
+ 1224                             	.LC2:
+ 1225 0019 24 25 64 0D 0A 00       		.string	"$%d\r\n"
+ 1226                             	.text
+ 1227                             		.global	_setRTC
+ 1229                             	_setRTC:
+ 1230                             	.LFB5:
+ 255:../src/user_functions.c **** 
+ 256:../src/user_functions.c **** void setRTC(){
+ 1231                             		.loc 1 256 0
+ 1232                             		; start of function
+ 1233                             		; locals: 20 bytes
+ 1234                             		; outgoing: 8 bytes
+ 1235 08fc 20 1C                   		subw	sp, #28
+ 1236                             	.LCFI6:
+ 257:../src/user_functions.c **** 	uint8_t date[] = {0,0,0,0,0,0};
+ 1237                             		.loc 1 257 0
+ 1238 08fe F1                      		clrb	a
+ 1239 08ff 98 13                   		mov	[sp+19], a
+ 1240 0901 F1                      		clrb	a
+ 1241 0902 98 14                   		mov	[sp+20], a
+ 1242 0904 F1                      		clrb	a
+ 1243 0905 98 15                   		mov	[sp+21], a
+ 1244 0907 F1                      		clrb	a
+ 1245 0908 98 16                   		mov	[sp+22], a
+ 1246 090a F1                      		clrb	a
+ 1247 090b 98 17                   		mov	[sp+23], a
+ 1248 090d F1                      		clrb	a
+ 1249 090e 98 18                   		mov	[sp+24], a
+ 258:../src/user_functions.c **** 	count = 4;
+ 1250                             		.loc 1 258 0
+ 1251 0910 30 04 00                		movw	ax, #4
+ 1252 0913 BF 00 00                		movw	!_count, ax
+ 259:../src/user_functions.c **** 	int dateCount = 0;
+ 1253                             		.loc 1 259 0
+ 1254 0916 F6                      		clrw	ax
+ 1255 0917 B8 1A                   		movw	[sp+26], ax
+ 260:../src/user_functions.c **** 	rtc_counter_value_t theDate;
+ 261:../src/user_functions.c **** 
+ 262:../src/user_functions.c **** 	while(record[count] != '\r'){
+ 1256                             		.loc 1 262 0
+ 1257 0919 EC DC 09 00             		br	!!.L49
+ 1258                             	.L51:
+ 263:../src/user_functions.c **** 
+ 264:../src/user_functions.c **** 		date[dateCount] += record[count] - '0';
+ 1259                             		.loc 1 264 0
+ 1260 091d AE F8                   		movw	ax, sp
+ 1261 091f BD F2                   		movw	r10, ax
+ 1262 0921 04 13 00                		addw	ax, #19
+ 1263 0924 BD F0                   		movw	r8, ax
+ 1264 0926 A8 1A                   		movw	ax, [sp+26]
+ 1265 0928 06 F0                   		addw	ax, r8
+ 1266 092a BD F0                   		movw	r8, ax
+ 1267 092c BD F4                   		movw	r12, ax
+ 1268 092e FA F4                   		movw	hl, r12
+ 1269 0930 8B                      		mov	a, [hl]
+ 1270 0931 9D F2                   		mov	r10, a
+ 1271 0933 AF 00 00                		movw	ax, !_count
+ 1272 0936 BD F0                   		movw	r8, ax
+ 1273 0938 04 00 00                		addw	ax, #_record
+ 1274 093b 16                      		movw	hl, ax
+ 1275 093c 8B                      		mov	a, [hl]
+ 1276 093d 9D F0                   		mov	r8, a
+ 1277 093f 76                      		mov	l, a
+ 1278 0940 8D F2                   		mov	a, r10
+ 1279 0942 61 0E                   		add	a, l
+ 1280 0944 9D F0                   		mov	r8, a
+ 1281 0946 0C D0                   		add	a, #-48
+ 1282 0948 9D F2                   		mov	r10, a
+ 1283 094a AE F8                   		movw	ax, sp
+ 1284 094c BD F4                   		movw	r12, ax
+ 1285 094e 04 13 00                		addw	ax, #19
+ 1286 0951 BD F0                   		movw	r8, ax
+ 1287 0953 A8 1A                   		movw	ax, [sp+26]
+ 1288 0955 06 F0                   		addw	ax, r8
+ 1289 0957 BD F0                   		movw	r8, ax
+ 1290 0959 BD F4                   		movw	r12, ax
+ 1291 095b DA F4                   		movw	bc, r12
+ 1292 095d 8D F2                   		mov	a, r10
+ 1293 095f 48 00 00                		mov	[bc], a
+ 265:../src/user_functions.c **** 		count++;
+ 1294                             		.loc 1 265 0
+ 1295 0962 AF 00 00                		movw	ax, !_count
+ 1296 0965 BD F0                   		movw	r8, ax
+ 1297 0967 A6 F0                   		incw	r8
+ 1298 0969 AD F0                   		movw	ax, r8
+ 1299 096b BF 00 00                		movw	!_count, ax
+ 266:../src/user_functions.c **** 		if(record[count] == ','){
+ 1300                             		.loc 1 266 0
+ 1301 096e BD F0                   		movw	r8, ax
+ 1302 0970 04 00 00                		addw	ax, #_record
+ 1303 0973 16                      		movw	hl, ax
+ 1304 0974 8B                      		mov	a, [hl]
+ 1305 0975 9D F0                   		mov	r8, a
+ 1306 0977 4A F0 2C                		cmp	r8, #44
+ 1307 097a 61 E8                   		 skz
+ 1308 097c EC 95 09 00             		 br	!!.L50
+ 267:../src/user_functions.c **** 			dateCount++;
+ 1309                             		.loc 1 267 0
+ 1310 0980 A8 1A                   		movw	ax, [sp+26]
+ 1311 0982 A1                      		incw	ax
+ 1312 0983 B8 1A                   		movw	[sp+26], ax
+ 268:../src/user_functions.c **** 			count++;
+ 1313                             		.loc 1 268 0
+ 1314 0985 AF 00 00                		movw	ax, !_count
+ 1315 0988 BD F0                   		movw	r8, ax
+ 1316 098a A6 F0                   		incw	r8
+ 1317 098c AD F0                   		movw	ax, r8
+ 1318 098e BF 00 00                		movw	!_count, ax
+ 1319 0991 EC DC 09 00             		br	!!.L49
+ 1320                             	.L50:
+ 269:../src/user_functions.c **** 		}
+ 270:../src/user_functions.c **** 		else if(record[count] == '\r'){
+ 1321                             		.loc 1 270 0
+ 1322 0995 AF 00 00                		movw	ax, !_count
+ 1323 0998 BD F0                   		movw	r8, ax
+ 1324 099a 04 00 00                		addw	ax, #_record
+ 1325 099d 16                      		movw	hl, ax
+ 1326 099e 8B                      		mov	a, [hl]
+ 1327 099f 9D F0                   		mov	r8, a
+ 1328 09a1 4A F0 0D                		cmp	r8, #13
+ 1329 09a4 61 F8                   		 sknz
+ 1330 09a6 EC DC 09 00             		 br	!!.L49
+ 271:../src/user_functions.c **** 
+ 272:../src/user_functions.c **** 		}
+ 273:../src/user_functions.c **** 		else{
+ 274:../src/user_functions.c **** 			date[dateCount] = date[dateCount]<<4;
+ 1331                             		.loc 1 274 0
+ 1332 09aa AE F8                   		movw	ax, sp
+ 1333 09ac BD F2                   		movw	r10, ax
+ 1334 09ae 04 13 00                		addw	ax, #19
+ 1335 09b1 BD F0                   		movw	r8, ax
+ 1336 09b3 A8 1A                   		movw	ax, [sp+26]
+ 1337 09b5 06 F0                   		addw	ax, r8
+ 1338 09b7 BD F0                   		movw	r8, ax
+ 1339 09b9 BD F4                   		movw	r12, ax
+ 1340 09bb FA F4                   		movw	hl, r12
+ 1341 09bd 8B                      		mov	a, [hl]
+ 1342 09be 9D F0                   		mov	r8, a
+ 1343 09c0 31 49                   		shl	a, 4
+ 1344 09c2 9D F2                   		mov	r10, a
+ 1345 09c4 AE F8                   		movw	ax, sp
+ 1346 09c6 BD F4                   		movw	r12, ax
+ 1347 09c8 04 13 00                		addw	ax, #19
+ 1348 09cb BD F0                   		movw	r8, ax
+ 1349 09cd A8 1A                   		movw	ax, [sp+26]
+ 1350 09cf 06 F0                   		addw	ax, r8
+ 1351 09d1 BD F0                   		movw	r8, ax
+ 1352 09d3 BD F4                   		movw	r12, ax
+ 1353 09d5 DA F4                   		movw	bc, r12
+ 1354 09d7 8D F2                   		mov	a, r10
+ 1355 09d9 48 00 00                		mov	[bc], a
+ 1356                             	.L49:
+ 262:../src/user_functions.c **** 
+ 1357                             		.loc 1 262 0
+ 1358 09dc AF 00 00                		movw	ax, !_count
+ 1359 09df BD F0                   		movw	r8, ax
+ 1360 09e1 04 00 00                		addw	ax, #_record
+ 1361 09e4 16                      		movw	hl, ax
+ 1362 09e5 8B                      		mov	a, [hl]
+ 1363 09e6 9D F0                   		mov	r8, a
+ 1364 09e8 4A F0 0D                		cmp	r8, #13
+ 1365 09eb 61 E8                   		 skz
+ 1366 09ed EC 1D 09 00             		 br	!!.L51
+ 275:../src/user_functions.c **** 		}
+ 276:../src/user_functions.c **** 
+ 277:../src/user_functions.c **** 	}
+ 278:../src/user_functions.c **** 
+ 279:../src/user_functions.c **** 	theDate.year = date[0];
+ 1367                             		.loc 1 279 0
+ 1368 09f1 88 13                   		mov	a, [sp+19]
+ 1369 09f3 9D F0                   		mov	r8, a
+ 1370 09f5 98 12                   		mov	[sp+18], a
+ 280:../src/user_functions.c **** 	theDate.month = date[1];
+ 1371                             		.loc 1 280 0
+ 1372 09f7 88 14                   		mov	a, [sp+20]
+ 1373 09f9 9D F0                   		mov	r8, a
+ 1374 09fb 98 11                   		mov	[sp+17], a
+ 281:../src/user_functions.c **** 	theDate.day = date[2];
+ 1375                             		.loc 1 281 0
+ 1376 09fd 88 15                   		mov	a, [sp+21]
+ 1377 09ff 9D F0                   		mov	r8, a
+ 1378 0a01 98 0F                   		mov	[sp+15], a
+ 282:../src/user_functions.c **** 	theDate.hour = date[3];
+ 1379                             		.loc 1 282 0
+ 1380 0a03 88 16                   		mov	a, [sp+22]
+ 1381 0a05 9D F0                   		mov	r8, a
+ 1382 0a07 98 0E                   		mov	[sp+14], a
+ 283:../src/user_functions.c **** 	theDate.min = date[4];
+ 1383                             		.loc 1 283 0
+ 1384 0a09 88 17                   		mov	a, [sp+23]
+ 1385 0a0b 9D F0                   		mov	r8, a
+ 1386 0a0d 98 0D                   		mov	[sp+13], a
+ 284:../src/user_functions.c **** 	theDate.sec = date[5];
+ 1387                             		.loc 1 284 0
+ 1388 0a0f 88 18                   		mov	a, [sp+24]
+ 1389 0a11 9D F0                   		mov	r8, a
+ 1390 0a13 98 0C                   		mov	[sp+12], a
+ 285:../src/user_functions.c **** 
+ 286:../src/user_functions.c **** 	char str[4];
+ 287:../src/user_functions.c **** 	uint8_t ack = 0;
+ 1391                             		.loc 1 287 0
+ 1392 0a15 F1                      		clrb	a
+ 1393 0a16 98 19                   		mov	[sp+25], a
+ 288:../src/user_functions.c **** 	sprintf(str, "$%d\x0d\x0a", date[0]); count = strlen(str);
+ 1394                             		.loc 1 288 0
+ 1395 0a18 88 13                   		mov	a, [sp+19]
+ 1396 0a1a 9D F0                   		mov	r8, a
+ 1397 0a1c CD F1 00                		mov	r9, #0
+ 1398 0a1f C9 F2 1C 00             		movw	r10, #28
+ 1399 0a23 AE F8                   		movw	ax, sp
+ 1400 0a25 BD F2                   		movw	r10, ax
+ 1401 0a27 04 1C 00                		addw	ax, #28
+ 1402 0a2a BD F2                   		movw	r10, ax
+ 1403 0a2c 04 EC FF                		addw	ax, #-20
+ 1404 0a2f B8 00                   		movw	[sp], ax
+ 1405 0a31 30 19 00                		movw	ax, #.LC2
+ 1406 0a34 B8 02                   		movw	[sp+2], ax
+ 1407 0a36 AD F0                   		movw	ax, r8
+ 1408 0a38 B8 04                   		movw	[sp+4], ax
+ 1409 0a3a FC 00 00 00             		call	!!%code(_sprintf)
+ 1410 0a3e C9 F4 1C 00             		movw	r12, #28
+ 1411 0a42 AE F8                   		movw	ax, sp
+ 1412 0a44 BD F4                   		movw	r12, ax
+ 1413 0a46 04 1C 00                		addw	ax, #28
+ 1414 0a49 BD F4                   		movw	r12, ax
+ 1415 0a4b 04 EC FF                		addw	ax, #-20
+ 1416 0a4e B8 00                   		movw	[sp], ax
+ 1417 0a50 FC 00 00 00             		call	!!%code(_strlen)
+ 1418 0a54 AD F0                   		movw	ax, r8
+ 1419 0a56 BF 00 00                		movw	!_count, ax
+ 289:../src/user_functions.c **** 	strcpy(response, str);
+ 1420                             		.loc 1 289 0
+ 1421 0a59 30 04 00                		movw	ax, #_response
+ 1422 0a5c B8 00                   		movw	[sp], ax
+ 1423 0a5e C9 F0 1C 00             		movw	r8, #28
+ 1424 0a62 AE F8                   		movw	ax, sp
+ 1425 0a64 BD F0                   		movw	r8, ax
+ 1426 0a66 04 1C 00                		addw	ax, #28
+ 1427 0a69 BD F0                   		movw	r8, ax
+ 1428 0a6b 04 EC FF                		addw	ax, #-20
+ 1429 0a6e B8 02                   		movw	[sp+2], ax
+ 1430 0a70 FC 00 00 00             		call	!!%code(_strcpy)
+ 290:../src/user_functions.c **** 
+ 291:../src/user_functions.c **** 	if(ack == 0){
+ 1431                             		.loc 1 291 0
+ 1432 0a74 88 19                   		mov	a, [sp+25]
+ 1433 0a76 D1                      		cmp0	a
+ 1434 0a77 61 E8                   		 skz
+ 1435 0a79 EC 99 0A 00             		 br	!!.L48
+ 292:../src/user_functions.c **** 		R_RTC_Set_CounterValue(theDate);
+ 1436                             		.loc 1 292 0
+ 1437 0a7d A8 0C                   		movw	ax, [sp+12]
+ 1438 0a7f BD F0                   		movw	r8, ax
+ 1439 0a81 B8 00                   		movw	[sp], ax
+ 1440 0a83 A8 0E                   		movw	ax, [sp+14]
+ 1441 0a85 BD F0                   		movw	r8, ax
+ 1442 0a87 B8 02                   		movw	[sp+2], ax
+ 1443 0a89 A8 10                   		movw	ax, [sp+16]
+ 1444 0a8b BD F0                   		movw	r8, ax
+ 1445 0a8d B8 04                   		movw	[sp+4], ax
+ 1446 0a8f 88 12                   		mov	a, [sp+18]
+ 1447 0a91 9D F0                   		mov	r8, a
+ 1448 0a93 98 06                   		mov	[sp+6], a
+ 1449 0a95 FC 00 00 00             		call	!!%code(_R_RTC_Set_CounterValue)
+ 1450                             	.L48:
+ 293:../src/user_functions.c **** 	}
+ 294:../src/user_functions.c **** }
+ 1451                             		.loc 1 294 0
+ 1452 0a99 10 1C                   		addw	sp, #28
+ 1453 0a9b D7                      		ret
+ 1454                             	.LFE5:
+ 1456                             		.global	_testDate
+ 1458                             	_testDate:
+ 1459                             	.LFB6:
+ 295:../src/user_functions.c **** 
+ 296:../src/user_functions.c **** uint8_t testDate(uint8_t arr[]){
+ 1460                             		.loc 1 296 0
+ 297:../src/user_functions.c **** 
+ 298:../src/user_functions.c **** 
+ 299:../src/user_functions.c **** 	if(arr[0] > 153){
+ 1461                             		.loc 1 299 0
+ 1462 0a9c A8 04                   		movw	ax, [sp+4]
+ 1463 0a9e BD F0                   		movw	r8, ax
+ 1464 0aa0 BD F2                   		movw	r10, ax
+ 1465 0aa2 FA F2                   		movw	hl, r10
+ 1466 0aa4 8B                      		mov	a, [hl]
+ 1467 0aa5 9D F0                   		mov	r8, a
+ 1468 0aa7 4A F0 99                		cmp	r8, #-103
+ 1469 0aaa 61 E3                   		 skh
+ 1470 0aac EC B7 0A 00             		 br	!!.L54
+ 300:../src/user_functions.c **** 		return 2;
+ 1471                             		.loc 1 300 0
+ 1472 0ab0 CD F0 02                		mov	r8, #2
+ 1473 0ab3 EC 4D 0B 00             		br	!!.L55
+ 1474                             	.L54:
+ 301:../src/user_functions.c **** 	}
+ 302:../src/user_functions.c **** 	if(arr[1] > 18){
+ 1475                             		.loc 1 302 0
+ 1476 0ab7 A8 04                   		movw	ax, [sp+4]
+ 1477 0ab9 A1                      		incw	ax
+ 1478 0aba BD F0                   		movw	r8, ax
+ 1479 0abc BD F2                   		movw	r10, ax
+ 1480 0abe FA F2                   		movw	hl, r10
+ 1481 0ac0 8B                      		mov	a, [hl]
+ 1482 0ac1 9D F0                   		mov	r8, a
+ 1483 0ac3 4A F0 12                		cmp	r8, #18
+ 1484 0ac6 61 E3                   		 skh
+ 1485 0ac8 EC D3 0A 00             		 br	!!.L56
+ 303:../src/user_functions.c **** 		return 2;
+ 1486                             		.loc 1 303 0
+ 1487 0acc CD F0 02                		mov	r8, #2
+ 1488 0acf EC 4D 0B 00             		br	!!.L55
+ 1489                             	.L56:
+ 304:../src/user_functions.c **** 	}
+ 305:../src/user_functions.c **** 	if(arr[2] > 49){
+ 1490                             		.loc 1 305 0
+ 1491 0ad3 A8 04                   		movw	ax, [sp+4]
+ 1492 0ad5 04 02 00                		addw	ax, #2
+ 1493 0ad8 BD F0                   		movw	r8, ax
+ 1494 0ada BD F2                   		movw	r10, ax
+ 1495 0adc FA F2                   		movw	hl, r10
+ 1496 0ade 8B                      		mov	a, [hl]
+ 1497 0adf 9D F0                   		mov	r8, a
+ 1498 0ae1 4A F0 31                		cmp	r8, #49
+ 1499 0ae4 61 E3                   		 skh
+ 1500 0ae6 EC F1 0A 00             		 br	!!.L57
+ 306:../src/user_functions.c **** 		return 2;
+ 1501                             		.loc 1 306 0
+ 1502 0aea CD F0 02                		mov	r8, #2
+ 1503 0aed EC 4D 0B 00             		br	!!.L55
+ 1504                             	.L57:
+ 307:../src/user_functions.c **** 	}
+ 308:../src/user_functions.c **** 	if(arr[3] > 36){
+ 1505                             		.loc 1 308 0
+ 1506 0af1 A8 04                   		movw	ax, [sp+4]
+ 1507 0af3 04 03 00                		addw	ax, #3
+ 1508 0af6 BD F0                   		movw	r8, ax
+ 1509 0af8 BD F2                   		movw	r10, ax
+ 1510 0afa FA F2                   		movw	hl, r10
+ 1511 0afc 8B                      		mov	a, [hl]
+ 1512 0afd 9D F0                   		mov	r8, a
+ 1513 0aff 4A F0 24                		cmp	r8, #36
+ 1514 0b02 61 E3                   		 skh
+ 1515 0b04 EC 0F 0B 00             		 br	!!.L58
+ 309:../src/user_functions.c **** 		return 2;
+ 1516                             		.loc 1 309 0
+ 1517 0b08 CD F0 02                		mov	r8, #2
+ 1518 0b0b EC 4D 0B 00             		br	!!.L55
+ 1519                             	.L58:
+ 310:../src/user_functions.c **** 	}
+ 311:../src/user_functions.c **** 	if(arr[4] > 96){
+ 1520                             		.loc 1 311 0
+ 1521 0b0f A8 04                   		movw	ax, [sp+4]
+ 1522 0b11 04 04 00                		addw	ax, #4
+ 1523 0b14 BD F0                   		movw	r8, ax
+ 1524 0b16 BD F2                   		movw	r10, ax
+ 1525 0b18 FA F2                   		movw	hl, r10
+ 1526 0b1a 8B                      		mov	a, [hl]
+ 1527 0b1b 9D F0                   		mov	r8, a
+ 1528 0b1d 4A F0 60                		cmp	r8, #96
+ 1529 0b20 61 E3                   		 skh
+ 1530 0b22 EC 2D 0B 00             		 br	!!.L59
+ 312:../src/user_functions.c **** 		return 2;
+ 1531                             		.loc 1 312 0
+ 1532 0b26 CD F0 02                		mov	r8, #2
+ 1533 0b29 EC 4D 0B 00             		br	!!.L55
+ 1534                             	.L59:
+ 313:../src/user_functions.c **** 	}
+ 314:../src/user_functions.c **** 	if(arr[5] > 96){
+ 1535                             		.loc 1 314 0
+ 1536 0b2d A8 04                   		movw	ax, [sp+4]
+ 1537 0b2f 04 05 00                		addw	ax, #5
+ 1538 0b32 BD F0                   		movw	r8, ax
+ 1539 0b34 BD F2                   		movw	r10, ax
+ 1540 0b36 FA F2                   		movw	hl, r10
+ 1541 0b38 8B                      		mov	a, [hl]
+ 1542 0b39 9D F0                   		mov	r8, a
+ 1543 0b3b 4A F0 60                		cmp	r8, #96
+ 1544 0b3e 61 E3                   		 skh
+ 1545 0b40 EC 4B 0B 00             		 br	!!.L60
+ 315:../src/user_functions.c **** 		return 2;
+ 1546                             		.loc 1 315 0
+ 1547 0b44 CD F0 02                		mov	r8, #2
+ 1548 0b47 EC 4D 0B 00             		br	!!.L55
+ 1549                             	.L60:
+ 316:../src/user_functions.c **** 	}
+ 317:../src/user_functions.c **** 
+ 318:../src/user_functions.c **** 
+ 319:../src/user_functions.c **** 	return 0;
+ 1550                             		.loc 1 319 0
+ 1551 0b4b F4 F0                   		clrb	r8
+ 1552                             	.L55:
+ 320:../src/user_functions.c **** }
+ 1553                             		.loc 1 320 0
+ 1554 0b4d D7                      		ret
+ 1555                             	.LFE6:
+ 1659                             	.Letext0:
+ 1660                             		.file 2 "../src/iodefine.h"
+ 1661                             		.file 3 "../src/r_cg_macrodriver.h"
+ 1662                             		.file 4 "../src/r_cg_rtc.h"
+ 1663                             		.file 5 "../src/globals.h"
