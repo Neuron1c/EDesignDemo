@@ -26,19 +26,20 @@
   26                             	.Ltext0:
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
-  29                             		.comm	_timerFlag,2,2
-  30                             		.comm	_count,2,2
-  31                             		.comm	_interval_timer_count,2,2
-  32                             		.local	_low
-  33                             		.comm	_low,16,2
-  34                             		.local	_high
-  35                             		.comm	_high,16,2
-  36                             		.local	_flag
-  37                             		.comm	_flag,16,2
-  38                             		.global	_bounce_correction
-  40                             	_bounce_correction:
-  41                             	.LFB0:
-  42                             		.file 1 "../src/debounce.c"
+  29                             		.comm	_display_string,50,1
+  30                             		.comm	_timerFlag,2,2
+  31                             		.comm	_count,2,2
+  32                             		.comm	_interval_timer_count,2,2
+  33                             		.local	_low
+  34                             		.comm	_low,16,2
+  35                             		.local	_high
+  36                             		.comm	_high,16,2
+  37                             		.local	_flag
+  38                             		.comm	_flag,16,2
+  39                             		.global	_bounce_correction
+  41                             	_bounce_correction:
+  42                             	.LFB0:
+  43                             		.file 1 "../src/debounce.c"
    1:../src/debounce.c **** /*
    2:../src/debounce.c ****  * debounce.c
    3:../src/debounce.c ****  *
@@ -63,384 +64,384 @@
   22:../src/debounce.c **** static uint16_t flag[8];
   23:../src/debounce.c **** 
   24:../src/debounce.c **** uint8_t bounce_correction(volatile __BITS8 *port, int pin_no){
-  43                             		.loc 1 24 0
-  44                             		; start of function
-  45                             		; outgoing: 4 bytes
-  46 0000 20 04                   		subw	sp, #4
-  47                             	.LCFI0:
+  44                             		.loc 1 24 0
+  45                             		; start of function
+  46                             		; outgoing: 4 bytes
+  47 0000 20 04                   		subw	sp, #4
+  48                             	.LCFI0:
   25:../src/debounce.c **** 
   26:../src/debounce.c **** 
   27:../src/debounce.c **** if(getPin(port, pin_no) == 1){
-  48                             		.loc 1 27 0
-  49 0002 A8 08                   		movw	ax, [sp+8]
-  50 0004 BD F0                   		movw	r8, ax
-  51 0006 B8 00                   		movw	[sp], ax
-  52 0008 A8 0A                   		movw	ax, [sp+10]
-  53 000a BD F0                   		movw	r8, ax
-  54 000c B8 02                   		movw	[sp+2], ax
-  55 000e FC 00 00 00             		call	!!%code(_getPin)
-  56 0012 4A F0 01                		cmp	r8, #1
-  57 0015 61 E8                   		 skz
-  58 0017 EC 5E 00 00             		 br	!!.L2
+  49                             		.loc 1 27 0
+  50 0002 A8 08                   		movw	ax, [sp+8]
+  51 0004 BD F0                   		movw	r8, ax
+  52 0006 B8 00                   		movw	[sp], ax
+  53 0008 A8 0A                   		movw	ax, [sp+10]
+  54 000a BD F0                   		movw	r8, ax
+  55 000c B8 02                   		movw	[sp+2], ax
+  56 000e FC 00 00 00             		call	!!%code(_getPin)
+  57 0012 4A F0 01                		cmp	r8, #1
+  58 0015 61 E8                   		 skz
+  59 0017 EC 5E 00 00             		 br	!!.L2
   28:../src/debounce.c **** 	high[pin_no]++;
-  59                             		.loc 1 28 0
-  60 001b A8 0A                   		movw	ax, [sp+10]
-  61 001d BD F0                   		movw	r8, ax
-  62 001f 01                      		addw	ax, ax
-  63 0020 BD F0                   		movw	r8, ax
-  64 0022 04 10 00                		addw	ax, #_high
-  65 0025 BD F0                   		movw	r8, ax
-  66 0027 BD F2                   		movw	r10, ax
-  67 0029 FA F2                   		movw	hl, r10
-  68 002b AB                      		movw	ax, [hl]
-  69 002c BD F0                   		movw	r8, ax
-  70 002e A1                      		incw	ax
-  71 002f BD F2                   		movw	r10, ax
-  72 0031 A8 0A                   		movw	ax, [sp+10]
-  73 0033 BD F0                   		movw	r8, ax
-  74 0035 01                      		addw	ax, ax
-  75 0036 BD F0                   		movw	r8, ax
-  76 0038 04 10 00                		addw	ax, #_high
-  77 003b BD F0                   		movw	r8, ax
-  78 003d BD F4                   		movw	r12, ax
-  79 003f DA F4                   		movw	bc, r12
-  80 0041 AD F2                   		movw	ax, r10
-  81 0043 78 00 00                		movw	[bc], ax
+  60                             		.loc 1 28 0
+  61 001b A8 0A                   		movw	ax, [sp+10]
+  62 001d BD F0                   		movw	r8, ax
+  63 001f 01                      		addw	ax, ax
+  64 0020 BD F0                   		movw	r8, ax
+  65 0022 04 10 00                		addw	ax, #_high
+  66 0025 BD F0                   		movw	r8, ax
+  67 0027 BD F2                   		movw	r10, ax
+  68 0029 FA F2                   		movw	hl, r10
+  69 002b AB                      		movw	ax, [hl]
+  70 002c BD F0                   		movw	r8, ax
+  71 002e A1                      		incw	ax
+  72 002f BD F2                   		movw	r10, ax
+  73 0031 A8 0A                   		movw	ax, [sp+10]
+  74 0033 BD F0                   		movw	r8, ax
+  75 0035 01                      		addw	ax, ax
+  76 0036 BD F0                   		movw	r8, ax
+  77 0038 04 10 00                		addw	ax, #_high
+  78 003b BD F0                   		movw	r8, ax
+  79 003d BD F4                   		movw	r12, ax
+  80 003f DA F4                   		movw	bc, r12
+  81 0041 AD F2                   		movw	ax, r10
+  82 0043 78 00 00                		movw	[bc], ax
   29:../src/debounce.c **** 	low[pin_no] = 0;
-  82                             		.loc 1 29 0
-  83 0046 A8 0A                   		movw	ax, [sp+10]
-  84 0048 BD F0                   		movw	r8, ax
-  85 004a 01                      		addw	ax, ax
-  86 004b BD F0                   		movw	r8, ax
-  87 004d 04 00 00                		addw	ax, #_low
-  88 0050 BD F0                   		movw	r8, ax
-  89 0052 BD F2                   		movw	r10, ax
-  90 0054 DA F2                   		movw	bc, r10
-  91 0056 F6                      		clrw	ax
-  92 0057 78 00 00                		movw	[bc], ax
-  93 005a EC 9D 00 00             		br	!!.L3
-  94                             	.L2:
+  83                             		.loc 1 29 0
+  84 0046 A8 0A                   		movw	ax, [sp+10]
+  85 0048 BD F0                   		movw	r8, ax
+  86 004a 01                      		addw	ax, ax
+  87 004b BD F0                   		movw	r8, ax
+  88 004d 04 00 00                		addw	ax, #_low
+  89 0050 BD F0                   		movw	r8, ax
+  90 0052 BD F2                   		movw	r10, ax
+  91 0054 DA F2                   		movw	bc, r10
+  92 0056 F6                      		clrw	ax
+  93 0057 78 00 00                		movw	[bc], ax
+  94 005a EC 9D 00 00             		br	!!.L3
+  95                             	.L2:
   30:../src/debounce.c **** }
   31:../src/debounce.c **** else{
   32:../src/debounce.c **** 	low[pin_no]++;
-  95                             		.loc 1 32 0
-  96 005e A8 0A                   		movw	ax, [sp+10]
-  97 0060 BD F0                   		movw	r8, ax
-  98 0062 01                      		addw	ax, ax
-  99 0063 BD F0                   		movw	r8, ax
- 100 0065 04 00 00                		addw	ax, #_low
- 101 0068 BD F0                   		movw	r8, ax
- 102 006a BD F4                   		movw	r12, ax
- 103 006c FA F4                   		movw	hl, r12
- 104 006e AB                      		movw	ax, [hl]
- 105 006f BD F0                   		movw	r8, ax
- 106 0071 A1                      		incw	ax
- 107 0072 BD F2                   		movw	r10, ax
- 108 0074 A8 0A                   		movw	ax, [sp+10]
- 109 0076 BD F0                   		movw	r8, ax
- 110 0078 01                      		addw	ax, ax
- 111 0079 BD F0                   		movw	r8, ax
- 112 007b 04 00 00                		addw	ax, #_low
- 113 007e BD F0                   		movw	r8, ax
- 114 0080 BD F4                   		movw	r12, ax
- 115 0082 DA F4                   		movw	bc, r12
- 116 0084 AD F2                   		movw	ax, r10
- 117 0086 78 00 00                		movw	[bc], ax
+  96                             		.loc 1 32 0
+  97 005e A8 0A                   		movw	ax, [sp+10]
+  98 0060 BD F0                   		movw	r8, ax
+  99 0062 01                      		addw	ax, ax
+ 100 0063 BD F0                   		movw	r8, ax
+ 101 0065 04 00 00                		addw	ax, #_low
+ 102 0068 BD F0                   		movw	r8, ax
+ 103 006a BD F4                   		movw	r12, ax
+ 104 006c FA F4                   		movw	hl, r12
+ 105 006e AB                      		movw	ax, [hl]
+ 106 006f BD F0                   		movw	r8, ax
+ 107 0071 A1                      		incw	ax
+ 108 0072 BD F2                   		movw	r10, ax
+ 109 0074 A8 0A                   		movw	ax, [sp+10]
+ 110 0076 BD F0                   		movw	r8, ax
+ 111 0078 01                      		addw	ax, ax
+ 112 0079 BD F0                   		movw	r8, ax
+ 113 007b 04 00 00                		addw	ax, #_low
+ 114 007e BD F0                   		movw	r8, ax
+ 115 0080 BD F4                   		movw	r12, ax
+ 116 0082 DA F4                   		movw	bc, r12
+ 117 0084 AD F2                   		movw	ax, r10
+ 118 0086 78 00 00                		movw	[bc], ax
   33:../src/debounce.c **** 	high[pin_no] = 0;
- 118                             		.loc 1 33 0
- 119 0089 A8 0A                   		movw	ax, [sp+10]
- 120 008b BD F0                   		movw	r8, ax
- 121 008d 01                      		addw	ax, ax
- 122 008e BD F0                   		movw	r8, ax
- 123 0090 04 10 00                		addw	ax, #_high
- 124 0093 BD F0                   		movw	r8, ax
- 125 0095 BD F2                   		movw	r10, ax
- 126 0097 DA F2                   		movw	bc, r10
- 127 0099 F6                      		clrw	ax
- 128 009a 78 00 00                		movw	[bc], ax
- 129                             	.L3:
+ 119                             		.loc 1 33 0
+ 120 0089 A8 0A                   		movw	ax, [sp+10]
+ 121 008b BD F0                   		movw	r8, ax
+ 122 008d 01                      		addw	ax, ax
+ 123 008e BD F0                   		movw	r8, ax
+ 124 0090 04 10 00                		addw	ax, #_high
+ 125 0093 BD F0                   		movw	r8, ax
+ 126 0095 BD F2                   		movw	r10, ax
+ 127 0097 DA F2                   		movw	bc, r10
+ 128 0099 F6                      		clrw	ax
+ 129 009a 78 00 00                		movw	[bc], ax
+ 130                             	.L3:
   34:../src/debounce.c **** }
   35:../src/debounce.c **** 
   36:../src/debounce.c **** if(high[pin_no] > 1250){
- 130                             		.loc 1 36 0
- 131 009d A8 0A                   		movw	ax, [sp+10]
- 132 009f BD F0                   		movw	r8, ax
- 133 00a1 01                      		addw	ax, ax
- 134 00a2 BD F0                   		movw	r8, ax
- 135 00a4 04 10 00                		addw	ax, #_high
- 136 00a7 BD F0                   		movw	r8, ax
- 137 00a9 BD F4                   		movw	r12, ax
- 138 00ab FA F4                   		movw	hl, r12
- 139 00ad AB                      		movw	ax, [hl]
- 140 00ae BD F0                   		movw	r8, ax
- 141 00b0 44 E2 04                		cmpw	ax, #1250
- 142 00b3 61 E3                   		 skh
- 143 00b5 EC 05 01 00             		 br	!!.L4
+ 131                             		.loc 1 36 0
+ 132 009d A8 0A                   		movw	ax, [sp+10]
+ 133 009f BD F0                   		movw	r8, ax
+ 134 00a1 01                      		addw	ax, ax
+ 135 00a2 BD F0                   		movw	r8, ax
+ 136 00a4 04 10 00                		addw	ax, #_high
+ 137 00a7 BD F0                   		movw	r8, ax
+ 138 00a9 BD F4                   		movw	r12, ax
+ 139 00ab FA F4                   		movw	hl, r12
+ 140 00ad AB                      		movw	ax, [hl]
+ 141 00ae BD F0                   		movw	r8, ax
+ 142 00b0 44 E2 04                		cmpw	ax, #1250
+ 143 00b3 61 E3                   		 skh
+ 144 00b5 EC 05 01 00             		 br	!!.L4
   37:../src/debounce.c **** 	high[pin_no] = 1251;
- 144                             		.loc 1 37 0
- 145 00b9 A8 0A                   		movw	ax, [sp+10]
- 146 00bb BD F0                   		movw	r8, ax
- 147 00bd 01                      		addw	ax, ax
- 148 00be BD F0                   		movw	r8, ax
- 149 00c0 04 10 00                		addw	ax, #_high
- 150 00c3 BD F0                   		movw	r8, ax
- 151 00c5 BD F2                   		movw	r10, ax
- 152 00c7 DA F2                   		movw	bc, r10
- 153 00c9 30 E3 04                		movw	ax, #1251
- 154 00cc 78 00 00                		movw	[bc], ax
+ 145                             		.loc 1 37 0
+ 146 00b9 A8 0A                   		movw	ax, [sp+10]
+ 147 00bb BD F0                   		movw	r8, ax
+ 148 00bd 01                      		addw	ax, ax
+ 149 00be BD F0                   		movw	r8, ax
+ 150 00c0 04 10 00                		addw	ax, #_high
+ 151 00c3 BD F0                   		movw	r8, ax
+ 152 00c5 BD F2                   		movw	r10, ax
+ 153 00c7 DA F2                   		movw	bc, r10
+ 154 00c9 30 E3 04                		movw	ax, #1251
+ 155 00cc 78 00 00                		movw	[bc], ax
   38:../src/debounce.c **** 	if(flag[pin_no] == 0){
- 155                             		.loc 1 38 0
- 156 00cf A8 0A                   		movw	ax, [sp+10]
- 157 00d1 BD F0                   		movw	r8, ax
- 158 00d3 01                      		addw	ax, ax
- 159 00d4 BD F0                   		movw	r8, ax
- 160 00d6 04 20 00                		addw	ax, #_flag
- 161 00d9 BD F0                   		movw	r8, ax
- 162 00db BD F4                   		movw	r12, ax
- 163 00dd FA F4                   		movw	hl, r12
- 164 00df AB                      		movw	ax, [hl]
- 165 00e0 BD F0                   		movw	r8, ax
- 166 00e2 44 00 00                		cmpw	ax, #0
- 167 00e5 61 E8                   		 skz
- 168 00e7 EC 49 01 00             		 br	!!.L5
+ 156                             		.loc 1 38 0
+ 157 00cf A8 0A                   		movw	ax, [sp+10]
+ 158 00d1 BD F0                   		movw	r8, ax
+ 159 00d3 01                      		addw	ax, ax
+ 160 00d4 BD F0                   		movw	r8, ax
+ 161 00d6 04 20 00                		addw	ax, #_flag
+ 162 00d9 BD F0                   		movw	r8, ax
+ 163 00db BD F4                   		movw	r12, ax
+ 164 00dd FA F4                   		movw	hl, r12
+ 165 00df AB                      		movw	ax, [hl]
+ 166 00e0 BD F0                   		movw	r8, ax
+ 167 00e2 44 00 00                		cmpw	ax, #0
+ 168 00e5 61 E8                   		 skz
+ 169 00e7 EC 49 01 00             		 br	!!.L5
   39:../src/debounce.c **** 		flag[pin_no] = 1;
- 169                             		.loc 1 39 0
- 170 00eb A8 0A                   		movw	ax, [sp+10]
- 171 00ed BD F0                   		movw	r8, ax
- 172 00ef 01                      		addw	ax, ax
- 173 00f0 BD F0                   		movw	r8, ax
- 174 00f2 04 20 00                		addw	ax, #_flag
- 175 00f5 BD F0                   		movw	r8, ax
- 176 00f7 BD F2                   		movw	r10, ax
- 177 00f9 DA F2                   		movw	bc, r10
- 178 00fb E6                      		onew	ax
- 179 00fc 78 00 00                		movw	[bc], ax
+ 170                             		.loc 1 39 0
+ 171 00eb A8 0A                   		movw	ax, [sp+10]
+ 172 00ed BD F0                   		movw	r8, ax
+ 173 00ef 01                      		addw	ax, ax
+ 174 00f0 BD F0                   		movw	r8, ax
+ 175 00f2 04 20 00                		addw	ax, #_flag
+ 176 00f5 BD F0                   		movw	r8, ax
+ 177 00f7 BD F2                   		movw	r10, ax
+ 178 00f9 DA F2                   		movw	bc, r10
+ 179 00fb E6                      		onew	ax
+ 180 00fc 78 00 00                		movw	[bc], ax
   40:../src/debounce.c **** 		return 1;
- 180                             		.loc 1 40 0
- 181 00ff E4 F0                   		oneb	r8
- 182 0101 EC 4B 01 00             		br	!!.L6
- 183                             	.L4:
+ 181                             		.loc 1 40 0
+ 182 00ff E4 F0                   		oneb	r8
+ 183 0101 EC 4B 01 00             		br	!!.L6
+ 184                             	.L4:
   41:../src/debounce.c **** 	}
   42:../src/debounce.c **** }
   43:../src/debounce.c **** else if(low[pin_no] > 1250){
- 184                             		.loc 1 43 0
- 185 0105 A8 0A                   		movw	ax, [sp+10]
- 186 0107 BD F0                   		movw	r8, ax
- 187 0109 01                      		addw	ax, ax
- 188 010a BD F0                   		movw	r8, ax
- 189 010c 04 00 00                		addw	ax, #_low
- 190 010f BD F0                   		movw	r8, ax
- 191 0111 BD F4                   		movw	r12, ax
- 192 0113 FA F4                   		movw	hl, r12
- 193 0115 AB                      		movw	ax, [hl]
- 194 0116 BD F0                   		movw	r8, ax
- 195 0118 44 E2 04                		cmpw	ax, #1250
- 196 011b 61 E3                   		 skh
- 197 011d EC 49 01 00             		 br	!!.L5
+ 185                             		.loc 1 43 0
+ 186 0105 A8 0A                   		movw	ax, [sp+10]
+ 187 0107 BD F0                   		movw	r8, ax
+ 188 0109 01                      		addw	ax, ax
+ 189 010a BD F0                   		movw	r8, ax
+ 190 010c 04 00 00                		addw	ax, #_low
+ 191 010f BD F0                   		movw	r8, ax
+ 192 0111 BD F4                   		movw	r12, ax
+ 193 0113 FA F4                   		movw	hl, r12
+ 194 0115 AB                      		movw	ax, [hl]
+ 195 0116 BD F0                   		movw	r8, ax
+ 196 0118 44 E2 04                		cmpw	ax, #1250
+ 197 011b 61 E3                   		 skh
+ 198 011d EC 49 01 00             		 br	!!.L5
   44:../src/debounce.c **** 		flag[pin_no] = 0;
- 198                             		.loc 1 44 0
- 199 0121 A8 0A                   		movw	ax, [sp+10]
- 200 0123 BD F0                   		movw	r8, ax
- 201 0125 01                      		addw	ax, ax
- 202 0126 BD F0                   		movw	r8, ax
- 203 0128 04 20 00                		addw	ax, #_flag
- 204 012b BD F0                   		movw	r8, ax
- 205 012d BD F2                   		movw	r10, ax
- 206 012f DA F2                   		movw	bc, r10
- 207 0131 F6                      		clrw	ax
- 208 0132 78 00 00                		movw	[bc], ax
+ 199                             		.loc 1 44 0
+ 200 0121 A8 0A                   		movw	ax, [sp+10]
+ 201 0123 BD F0                   		movw	r8, ax
+ 202 0125 01                      		addw	ax, ax
+ 203 0126 BD F0                   		movw	r8, ax
+ 204 0128 04 20 00                		addw	ax, #_flag
+ 205 012b BD F0                   		movw	r8, ax
+ 206 012d BD F2                   		movw	r10, ax
+ 207 012f DA F2                   		movw	bc, r10
+ 208 0131 F6                      		clrw	ax
+ 209 0132 78 00 00                		movw	[bc], ax
   45:../src/debounce.c **** 		low[pin_no] = 0;
- 209                             		.loc 1 45 0
- 210 0135 A8 0A                   		movw	ax, [sp+10]
- 211 0137 BD F0                   		movw	r8, ax
- 212 0139 01                      		addw	ax, ax
- 213 013a BD F0                   		movw	r8, ax
- 214 013c 04 00 00                		addw	ax, #_low
- 215 013f BD F0                   		movw	r8, ax
- 216 0141 BD F4                   		movw	r12, ax
- 217 0143 DA F4                   		movw	bc, r12
- 218 0145 F6                      		clrw	ax
- 219 0146 78 00 00                		movw	[bc], ax
- 220                             	.L5:
+ 210                             		.loc 1 45 0
+ 211 0135 A8 0A                   		movw	ax, [sp+10]
+ 212 0137 BD F0                   		movw	r8, ax
+ 213 0139 01                      		addw	ax, ax
+ 214 013a BD F0                   		movw	r8, ax
+ 215 013c 04 00 00                		addw	ax, #_low
+ 216 013f BD F0                   		movw	r8, ax
+ 217 0141 BD F4                   		movw	r12, ax
+ 218 0143 DA F4                   		movw	bc, r12
+ 219 0145 F6                      		clrw	ax
+ 220 0146 78 00 00                		movw	[bc], ax
+ 221                             	.L5:
   46:../src/debounce.c **** }
   47:../src/debounce.c **** 
   48:../src/debounce.c **** return 0;
- 221                             		.loc 1 48 0
- 222 0149 F4 F0                   		clrb	r8
- 223                             	.L6:
+ 222                             		.loc 1 48 0
+ 223 0149 F4 F0                   		clrb	r8
+ 224                             	.L6:
   49:../src/debounce.c **** 
   50:../src/debounce.c **** }
- 224                             		.loc 1 50 0
- 225 014b 10 04                   		addw	sp, #4
- 226 014d D7                      		ret
- 227                             	.LFE0:
- 229                             		.global	_getPin
- 231                             	_getPin:
- 232                             	.LFB1:
+ 225                             		.loc 1 50 0
+ 226 014b 10 04                   		addw	sp, #4
+ 227 014d D7                      		ret
+ 228                             	.LFE0:
+ 230                             		.global	_getPin
+ 232                             	_getPin:
+ 233                             	.LFB1:
   51:../src/debounce.c **** 
   52:../src/debounce.c **** unsigned char getPin(volatile __BITS8 *port, int pin_no){
- 233                             		.loc 1 52 0
+ 234                             		.loc 1 52 0
   53:../src/debounce.c **** 
   54:../src/debounce.c **** 	switch(pin_no){
- 234                             		.loc 1 54 0
- 235 014e A8 06                   		movw	ax, [sp+6]
- 236 0150 BD F0                   		movw	r8, ax
- 237 0152 44 03 00                		cmpw	ax, #3
- 238 0155 61 F8                   		 sknz
- 239 0157 EC FE 01 00             		 br	!!.L9
- 240 015b AD F0                   		movw	ax, r8
- 241 015d 44 03 00                		cmpw	ax, #3
- 242 0160 71 FF                   		 xor1	CY, a.7
- 243 0162 61 F3                   		 sknh
- 244 0164 EC 8F 01 00             		 br	!!.L10
- 245 0168 AD F0                   		movw	ax, r8
- 246 016a 44 01 00                		cmpw	ax, #1
- 247 016d 61 F8                   		 sknz
- 248 016f EC D2 01 00             		 br	!!.L11
- 249 0173 AD F0                   		movw	ax, r8
- 250 0175 44 01 00                		cmpw	ax, #1
- 251 0178 71 FF                   		 xor1	CY, a.7
- 252 017a 61 F3                   		 sknh
- 253 017c EC E8 01 00             		 br	!!.L12
- 254 0180 AD F0                   		movw	ax, r8
- 255 0182 44 00 00                		cmpw	ax, #0
- 256 0185 61 F8                   		 sknz
- 257 0187 EC C1 01 00             		 br	!!.L13
- 258 018b EC 69 02 00             		br	!!.L8
- 259                             	.L10:
- 260 018f AD F0                   		movw	ax, r8
- 261 0191 44 05 00                		cmpw	ax, #5
- 262 0194 61 F8                   		 sknz
- 263 0196 EC 2A 02 00             		 br	!!.L14
- 264 019a AD F0                   		movw	ax, r8
- 265 019c 44 05 00                		cmpw	ax, #5
- 266 019f 71 FF                   		 xor1	CY, a.7
- 267 01a1 61 D8                   		 sknc
- 268 01a3 EC 14 02 00             		 br	!!.L15
- 269 01a7 AD F0                   		movw	ax, r8
- 270 01a9 44 06 00                		cmpw	ax, #6
- 271 01ac 61 F8                   		 sknz
- 272 01ae EC 40 02 00             		 br	!!.L16
- 273 01b2 AD F0                   		movw	ax, r8
- 274 01b4 44 07 00                		cmpw	ax, #7
- 275 01b7 61 F8                   		 sknz
- 276 01b9 EC 56 02 00             		 br	!!.L17
- 277 01bd EC 69 02 00             		br	!!.L8
- 278                             	.L13:
+ 235                             		.loc 1 54 0
+ 236 014e A8 06                   		movw	ax, [sp+6]
+ 237 0150 BD F0                   		movw	r8, ax
+ 238 0152 44 03 00                		cmpw	ax, #3
+ 239 0155 61 F8                   		 sknz
+ 240 0157 EC FE 01 00             		 br	!!.L9
+ 241 015b AD F0                   		movw	ax, r8
+ 242 015d 44 03 00                		cmpw	ax, #3
+ 243 0160 71 FF                   		 xor1	CY, a.7
+ 244 0162 61 F3                   		 sknh
+ 245 0164 EC 8F 01 00             		 br	!!.L10
+ 246 0168 AD F0                   		movw	ax, r8
+ 247 016a 44 01 00                		cmpw	ax, #1
+ 248 016d 61 F8                   		 sknz
+ 249 016f EC D2 01 00             		 br	!!.L11
+ 250 0173 AD F0                   		movw	ax, r8
+ 251 0175 44 01 00                		cmpw	ax, #1
+ 252 0178 71 FF                   		 xor1	CY, a.7
+ 253 017a 61 F3                   		 sknh
+ 254 017c EC E8 01 00             		 br	!!.L12
+ 255 0180 AD F0                   		movw	ax, r8
+ 256 0182 44 00 00                		cmpw	ax, #0
+ 257 0185 61 F8                   		 sknz
+ 258 0187 EC C1 01 00             		 br	!!.L13
+ 259 018b EC 69 02 00             		br	!!.L8
+ 260                             	.L10:
+ 261 018f AD F0                   		movw	ax, r8
+ 262 0191 44 05 00                		cmpw	ax, #5
+ 263 0194 61 F8                   		 sknz
+ 264 0196 EC 2A 02 00             		 br	!!.L14
+ 265 019a AD F0                   		movw	ax, r8
+ 266 019c 44 05 00                		cmpw	ax, #5
+ 267 019f 71 FF                   		 xor1	CY, a.7
+ 268 01a1 61 D8                   		 sknc
+ 269 01a3 EC 14 02 00             		 br	!!.L15
+ 270 01a7 AD F0                   		movw	ax, r8
+ 271 01a9 44 06 00                		cmpw	ax, #6
+ 272 01ac 61 F8                   		 sknz
+ 273 01ae EC 40 02 00             		 br	!!.L16
+ 274 01b2 AD F0                   		movw	ax, r8
+ 275 01b4 44 07 00                		cmpw	ax, #7
+ 276 01b7 61 F8                   		 sknz
+ 277 01b9 EC 56 02 00             		 br	!!.L17
+ 278 01bd EC 69 02 00             		br	!!.L8
+ 279                             	.L13:
   55:../src/debounce.c **** 		case 0: return port->no0; break;
- 279                             		.loc 1 55 0
- 280 01c1 A8 04                   		movw	ax, [sp+4]
- 281 01c3 BD F0                   		movw	r8, ax
- 282 01c5 BD F2                   		movw	r10, ax
- 283 01c7 EA F2                   		movw	de, r10
- 284 01c9 89                      		mov	a, [de]
- 285 01ca 5C 01                   		and	a, #1
- 286 01cc 9D F0                   		mov	r8, a
- 287 01ce EC 6C 02 00             		br	!!.L18
- 288                             	.L11:
+ 280                             		.loc 1 55 0
+ 281 01c1 A8 04                   		movw	ax, [sp+4]
+ 282 01c3 BD F0                   		movw	r8, ax
+ 283 01c5 BD F2                   		movw	r10, ax
+ 284 01c7 EA F2                   		movw	de, r10
+ 285 01c9 89                      		mov	a, [de]
+ 286 01ca 5C 01                   		and	a, #1
+ 287 01cc 9D F0                   		mov	r8, a
+ 288 01ce EC 6C 02 00             		br	!!.L18
+ 289                             	.L11:
   56:../src/debounce.c **** 		case 1: return port->no1; break;
- 289                             		.loc 1 56 0
- 290 01d2 A8 04                   		movw	ax, [sp+4]
- 291 01d4 BD F0                   		movw	r8, ax
- 292 01d6 BD F2                   		movw	r10, ax
- 293 01d8 FA F2                   		movw	hl, r10
- 294 01da 8B                      		mov	a, [hl]
- 295 01db 9D F0                   		mov	r8, a
- 296 01dd 31 1A                   		shr	a, 1
- 297 01df 9D F0                   		mov	r8, a
- 298 01e1 5A F0 01                		and	r8, #1
- 299 01e4 EC 6C 02 00             		br	!!.L18
- 300                             	.L12:
+ 290                             		.loc 1 56 0
+ 291 01d2 A8 04                   		movw	ax, [sp+4]
+ 292 01d4 BD F0                   		movw	r8, ax
+ 293 01d6 BD F2                   		movw	r10, ax
+ 294 01d8 FA F2                   		movw	hl, r10
+ 295 01da 8B                      		mov	a, [hl]
+ 296 01db 9D F0                   		mov	r8, a
+ 297 01dd 31 1A                   		shr	a, 1
+ 298 01df 9D F0                   		mov	r8, a
+ 299 01e1 5A F0 01                		and	r8, #1
+ 300 01e4 EC 6C 02 00             		br	!!.L18
+ 301                             	.L12:
   57:../src/debounce.c **** 		case 2: return port->no2; break;
- 301                             		.loc 1 57 0
- 302 01e8 A8 04                   		movw	ax, [sp+4]
- 303 01ea BD F0                   		movw	r8, ax
- 304 01ec BD F2                   		movw	r10, ax
- 305 01ee FA F2                   		movw	hl, r10
- 306 01f0 8B                      		mov	a, [hl]
- 307 01f1 9D F0                   		mov	r8, a
- 308 01f3 31 2A                   		shr	a, 2
- 309 01f5 9D F0                   		mov	r8, a
- 310 01f7 5A F0 01                		and	r8, #1
- 311 01fa EC 6C 02 00             		br	!!.L18
- 312                             	.L9:
+ 302                             		.loc 1 57 0
+ 303 01e8 A8 04                   		movw	ax, [sp+4]
+ 304 01ea BD F0                   		movw	r8, ax
+ 305 01ec BD F2                   		movw	r10, ax
+ 306 01ee FA F2                   		movw	hl, r10
+ 307 01f0 8B                      		mov	a, [hl]
+ 308 01f1 9D F0                   		mov	r8, a
+ 309 01f3 31 2A                   		shr	a, 2
+ 310 01f5 9D F0                   		mov	r8, a
+ 311 01f7 5A F0 01                		and	r8, #1
+ 312 01fa EC 6C 02 00             		br	!!.L18
+ 313                             	.L9:
   58:../src/debounce.c **** 		case 3: return port->no3; break;
- 313                             		.loc 1 58 0
- 314 01fe A8 04                   		movw	ax, [sp+4]
- 315 0200 BD F0                   		movw	r8, ax
- 316 0202 BD F2                   		movw	r10, ax
- 317 0204 FA F2                   		movw	hl, r10
- 318 0206 8B                      		mov	a, [hl]
- 319 0207 9D F0                   		mov	r8, a
- 320 0209 31 3A                   		shr	a, 3
- 321 020b 9D F0                   		mov	r8, a
- 322 020d 5A F0 01                		and	r8, #1
- 323 0210 EC 6C 02 00             		br	!!.L18
- 324                             	.L15:
+ 314                             		.loc 1 58 0
+ 315 01fe A8 04                   		movw	ax, [sp+4]
+ 316 0200 BD F0                   		movw	r8, ax
+ 317 0202 BD F2                   		movw	r10, ax
+ 318 0204 FA F2                   		movw	hl, r10
+ 319 0206 8B                      		mov	a, [hl]
+ 320 0207 9D F0                   		mov	r8, a
+ 321 0209 31 3A                   		shr	a, 3
+ 322 020b 9D F0                   		mov	r8, a
+ 323 020d 5A F0 01                		and	r8, #1
+ 324 0210 EC 6C 02 00             		br	!!.L18
+ 325                             	.L15:
   59:../src/debounce.c **** 		case 4: return port->no4; break;
- 325                             		.loc 1 59 0
- 326 0214 A8 04                   		movw	ax, [sp+4]
- 327 0216 BD F0                   		movw	r8, ax
- 328 0218 BD F2                   		movw	r10, ax
- 329 021a FA F2                   		movw	hl, r10
- 330 021c 8B                      		mov	a, [hl]
- 331 021d 9D F0                   		mov	r8, a
- 332 021f 31 4A                   		shr	a, 4
- 333 0221 9D F0                   		mov	r8, a
- 334 0223 5A F0 01                		and	r8, #1
- 335 0226 EC 6C 02 00             		br	!!.L18
- 336                             	.L14:
+ 326                             		.loc 1 59 0
+ 327 0214 A8 04                   		movw	ax, [sp+4]
+ 328 0216 BD F0                   		movw	r8, ax
+ 329 0218 BD F2                   		movw	r10, ax
+ 330 021a FA F2                   		movw	hl, r10
+ 331 021c 8B                      		mov	a, [hl]
+ 332 021d 9D F0                   		mov	r8, a
+ 333 021f 31 4A                   		shr	a, 4
+ 334 0221 9D F0                   		mov	r8, a
+ 335 0223 5A F0 01                		and	r8, #1
+ 336 0226 EC 6C 02 00             		br	!!.L18
+ 337                             	.L14:
   60:../src/debounce.c **** 		case 5: return port->no5; break;
- 337                             		.loc 1 60 0
- 338 022a A8 04                   		movw	ax, [sp+4]
- 339 022c BD F0                   		movw	r8, ax
- 340 022e BD F2                   		movw	r10, ax
- 341 0230 FA F2                   		movw	hl, r10
- 342 0232 8B                      		mov	a, [hl]
- 343 0233 9D F0                   		mov	r8, a
- 344 0235 31 5A                   		shr	a, 5
- 345 0237 9D F0                   		mov	r8, a
- 346 0239 5A F0 01                		and	r8, #1
- 347 023c EC 6C 02 00             		br	!!.L18
- 348                             	.L16:
+ 338                             		.loc 1 60 0
+ 339 022a A8 04                   		movw	ax, [sp+4]
+ 340 022c BD F0                   		movw	r8, ax
+ 341 022e BD F2                   		movw	r10, ax
+ 342 0230 FA F2                   		movw	hl, r10
+ 343 0232 8B                      		mov	a, [hl]
+ 344 0233 9D F0                   		mov	r8, a
+ 345 0235 31 5A                   		shr	a, 5
+ 346 0237 9D F0                   		mov	r8, a
+ 347 0239 5A F0 01                		and	r8, #1
+ 348 023c EC 6C 02 00             		br	!!.L18
+ 349                             	.L16:
   61:../src/debounce.c **** 		case 6: return port->no6; break;
- 349                             		.loc 1 61 0
- 350 0240 A8 04                   		movw	ax, [sp+4]
- 351 0242 BD F0                   		movw	r8, ax
- 352 0244 BD F2                   		movw	r10, ax
- 353 0246 FA F2                   		movw	hl, r10
- 354 0248 8B                      		mov	a, [hl]
- 355 0249 9D F0                   		mov	r8, a
- 356 024b 31 6A                   		shr	a, 6
- 357 024d 9D F0                   		mov	r8, a
- 358 024f 5A F0 01                		and	r8, #1
- 359 0252 EC 6C 02 00             		br	!!.L18
- 360                             	.L17:
+ 350                             		.loc 1 61 0
+ 351 0240 A8 04                   		movw	ax, [sp+4]
+ 352 0242 BD F0                   		movw	r8, ax
+ 353 0244 BD F2                   		movw	r10, ax
+ 354 0246 FA F2                   		movw	hl, r10
+ 355 0248 8B                      		mov	a, [hl]
+ 356 0249 9D F0                   		mov	r8, a
+ 357 024b 31 6A                   		shr	a, 6
+ 358 024d 9D F0                   		mov	r8, a
+ 359 024f 5A F0 01                		and	r8, #1
+ 360 0252 EC 6C 02 00             		br	!!.L18
+ 361                             	.L17:
   62:../src/debounce.c **** 		case 7: return port->no7; break;
- 361                             		.loc 1 62 0
- 362 0256 A8 04                   		movw	ax, [sp+4]
- 363 0258 BD F0                   		movw	r8, ax
- 364 025a BD F2                   		movw	r10, ax
- 365 025c FA F2                   		movw	hl, r10
- 366 025e 8B                      		mov	a, [hl]
- 367 025f 9D F0                   		mov	r8, a
- 368 0261 31 7A                   		shr	a, 7
- 369 0263 9D F0                   		mov	r8, a
- 370 0265 EC 6C 02 00             		br	!!.L18
- 371                             	.L8:
+ 362                             		.loc 1 62 0
+ 363 0256 A8 04                   		movw	ax, [sp+4]
+ 364 0258 BD F0                   		movw	r8, ax
+ 365 025a BD F2                   		movw	r10, ax
+ 366 025c FA F2                   		movw	hl, r10
+ 367 025e 8B                      		mov	a, [hl]
+ 368 025f 9D F0                   		mov	r8, a
+ 369 0261 31 7A                   		shr	a, 7
+ 370 0263 9D F0                   		mov	r8, a
+ 371 0265 EC 6C 02 00             		br	!!.L18
+ 372                             	.L8:
   63:../src/debounce.c **** 		default: return -1;
- 372                             		.loc 1 63 0
- 373 0269 CD F0 FF                		mov	r8, #-1
- 374                             	.L18:
+ 373                             		.loc 1 63 0
+ 374 0269 CD F0 FF                		mov	r8, #-1
+ 375                             	.L18:
   64:../src/debounce.c **** 
   65:../src/debounce.c **** 	}
   66:../src/debounce.c **** 
   67:../src/debounce.c **** 	return 0;
   68:../src/debounce.c **** }
- 375                             		.loc 1 68 0
- 376 026c D7                      		ret
- 377                             	.LFE1:
- 417                             	.Letext0:
- 418                             		.file 2 "../src/iodefine.h"
- 419                             		.file 3 "../src/r_cg_macrodriver.h"
- 420                             		.file 4 "../src/globals.h"
+ 376                             		.loc 1 68 0
+ 377 026c D7                      		ret
+ 378                             	.LFE1:
+ 418                             	.Letext0:
+ 419                             		.file 2 "../src/iodefine.h"
+ 420                             		.file 3 "../src/r_cg_macrodriver.h"
+ 421                             		.file 4 "../src/globals.h"

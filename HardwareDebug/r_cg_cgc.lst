@@ -26,13 +26,14 @@
   26                             	.Ltext0:
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
-  29                             		.comm	_timerFlag,2,2
-  30                             		.comm	_count,2,2
-  31                             		.comm	_interval_timer_count,2,2
-  32                             		.global	_R_CGC_Create
-  34                             	_R_CGC_Create:
-  35                             	.LFB0:
-  36                             		.file 1 "../src/r_cg_cgc.c"
+  29                             		.comm	_display_string,50,1
+  30                             		.comm	_timerFlag,2,2
+  31                             		.comm	_count,2,2
+  32                             		.comm	_interval_timer_count,2,2
+  33                             		.global	_R_CGC_Create
+  35                             	_R_CGC_Create:
+  36                             	.LFB0:
+  37                             		.file 1 "../src/r_cg_cgc.c"
    1:../src/r_cg_cgc.c **** /**************************************************************************************************
    2:../src/r_cg_cgc.c **** * DISCLAIMER
    3:../src/r_cg_cgc.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -84,136 +85,136 @@
   49:../src/r_cg_cgc.c **** ***************************************************************************************************
   50:../src/r_cg_cgc.c **** void R_CGC_Create(void)
   51:../src/r_cg_cgc.c **** {
-  37                             		.loc 1 51 0
-  38                             		; start of function
-  39                             		; locals: 2 bytes
-  40 0000 20 02                   		subw	sp, #2
-  41                             	.LCFI0:
+  38                             		.loc 1 51 0
+  39                             		; start of function
+  40                             		; locals: 2 bytes
+  41 0000 20 02                   		subw	sp, #2
+  42                             	.LCFI0:
   52:../src/r_cg_cgc.c ****     volatile uint16_t w_count;
   53:../src/r_cg_cgc.c **** 
   54:../src/r_cg_cgc.c ****     /* Set fMX */
   55:../src/r_cg_cgc.c ****     CMC = _00_CGC_HISYS_PORT | _10_CGC_SUB_OSC | _00_CGC_SYSOSC_DEFAULT | _00_CGC_SUBMODE_LOW;
-  42                             		.loc 1 55 0
-  43 0002 C9 F0 A0 FF             		movw	r8, #-96
-  44 0006 AD F0                   		movw	ax, r8
-  45 0008 BD F2                   		movw	r10, ax
-  46 000a DA F2                   		movw	bc, r10
-  47 000c 51 10                   		mov	a, #16
-  48 000e 48 00 00                		mov	[bc], a
+  43                             		.loc 1 55 0
+  44 0002 C9 F0 A0 FF             		movw	r8, #-96
+  45 0006 AD F0                   		movw	ax, r8
+  46 0008 BD F2                   		movw	r10, ax
+  47 000a DA F2                   		movw	bc, r10
+  48 000c 51 10                   		mov	a, #16
+  49 000e 48 00 00                		mov	[bc], a
   56:../src/r_cg_cgc.c ****     MSTOP = 1U;
-  49                             		.loc 1 56 0
-  50 0011 C9 F0 A1 FF             		movw	r8, #-95
-  51 0015 AD F0                   		movw	ax, r8
-  52 0017 BD F4                   		movw	r12, ax
-  53 0019 FA F4                   		movw	hl, r12
-  54 001b 8B                      		mov	a, [hl]
-  55 001c 9D F2                   		mov	r10, a
-  56 001e 6A F2 80                		or	r10, #-128
-  57 0021 AD F0                   		movw	ax, r8
-  58 0023 DA F4                   		movw	bc, r12
-  59 0025 8D F2                   		mov	a, r10
-  60 0027 48 00 00                		mov	[bc], a
+  50                             		.loc 1 56 0
+  51 0011 C9 F0 A1 FF             		movw	r8, #-95
+  52 0015 AD F0                   		movw	ax, r8
+  53 0017 BD F4                   		movw	r12, ax
+  54 0019 FA F4                   		movw	hl, r12
+  55 001b 8B                      		mov	a, [hl]
+  56 001c 9D F2                   		mov	r10, a
+  57 001e 6A F2 80                		or	r10, #-128
+  58 0021 AD F0                   		movw	ax, r8
+  59 0023 DA F4                   		movw	bc, r12
+  60 0025 8D F2                   		mov	a, r10
+  61 0027 48 00 00                		mov	[bc], a
   57:../src/r_cg_cgc.c ****     /* Set fMAIN */
   58:../src/r_cg_cgc.c ****     MCM0 = 0U;
-  61                             		.loc 1 58 0
-  62 002a C9 F0 A4 FF             		movw	r8, #-92
-  63 002e AD F0                   		movw	ax, r8
-  64 0030 BD F4                   		movw	r12, ax
-  65 0032 FA F4                   		movw	hl, r12
-  66 0034 8B                      		mov	a, [hl]
-  67 0035 9D F2                   		mov	r10, a
-  68 0037 5A F2 EF                		and	r10, #-17
-  69 003a AD F0                   		movw	ax, r8
-  70 003c DA F4                   		movw	bc, r12
-  71 003e 8D F2                   		mov	a, r10
-  72 0040 48 00 00                		mov	[bc], a
+  62                             		.loc 1 58 0
+  63 002a C9 F0 A4 FF             		movw	r8, #-92
+  64 002e AD F0                   		movw	ax, r8
+  65 0030 BD F4                   		movw	r12, ax
+  66 0032 FA F4                   		movw	hl, r12
+  67 0034 8B                      		mov	a, [hl]
+  68 0035 9D F2                   		mov	r10, a
+  69 0037 5A F2 EF                		and	r10, #-17
+  70 003a AD F0                   		movw	ax, r8
+  71 003c DA F4                   		movw	bc, r12
+  72 003e 8D F2                   		mov	a, r10
+  73 0040 48 00 00                		mov	[bc], a
   59:../src/r_cg_cgc.c ****     /* Set fSUB */
   60:../src/r_cg_cgc.c ****     XTSTOP = 0U;
-  73                             		.loc 1 60 0
-  74 0043 C9 F0 A1 FF             		movw	r8, #-95
-  75 0047 AD F0                   		movw	ax, r8
-  76 0049 BD F4                   		movw	r12, ax
-  77 004b FA F4                   		movw	hl, r12
-  78 004d 8B                      		mov	a, [hl]
-  79 004e 9D F2                   		mov	r10, a
-  80 0050 5A F2 BF                		and	r10, #-65
-  81 0053 AD F0                   		movw	ax, r8
-  82 0055 DA F4                   		movw	bc, r12
-  83 0057 8D F2                   		mov	a, r10
-  84 0059 48 00 00                		mov	[bc], a
+  74                             		.loc 1 60 0
+  75 0043 C9 F0 A1 FF             		movw	r8, #-95
+  76 0047 AD F0                   		movw	ax, r8
+  77 0049 BD F4                   		movw	r12, ax
+  78 004b FA F4                   		movw	hl, r12
+  79 004d 8B                      		mov	a, [hl]
+  80 004e 9D F2                   		mov	r10, a
+  81 0050 5A F2 BF                		and	r10, #-65
+  82 0053 AD F0                   		movw	ax, r8
+  83 0055 DA F4                   		movw	bc, r12
+  84 0057 8D F2                   		mov	a, r10
+  85 0059 48 00 00                		mov	[bc], a
   61:../src/r_cg_cgc.c **** 
   62:../src/r_cg_cgc.c ****     /* Change the waiting time according to the system */
   63:../src/r_cg_cgc.c ****     for (w_count = 0U; w_count <= CGC_SUBWAITTIME; w_count++)
-  85                             		.loc 1 63 0
-  86 005c F6                      		clrw	ax
-  87 005d B8 00                   		movw	[sp], ax
-  88 005f EC 6E 00 00             		br	!!.L2
-  89                             	.L3:
+  86                             		.loc 1 63 0
+  87 005c F6                      		clrw	ax
+  88 005d B8 00                   		movw	[sp], ax
+  89 005f EC 6E 00 00             		br	!!.L2
+  90                             	.L3:
   64:../src/r_cg_cgc.c ****     {
   65:../src/r_cg_cgc.c ****         NOP();
-  90                             		.loc 1 65 0 discriminator 3
-  91                             	 ; 65 "../src/r_cg_cgc.c" 1
-  92 0063 00                      		nop
-  93                             	 ; 0 "" 2
+  91                             		.loc 1 65 0 discriminator 3
+  92                             	 ; 65 "../src/r_cg_cgc.c" 1
+  93 0063 00                      		nop
+  94                             	 ; 0 "" 2
   63:../src/r_cg_cgc.c ****     {
-  94                             		.loc 1 63 0 discriminator 3
-  95 0064 A8 00                   		movw	ax, [sp]
-  96 0066 BD F0                   		movw	r8, ax
-  97 0068 A6 F0                   		incw	r8
-  98 006a AD F0                   		movw	ax, r8
-  99 006c B8 00                   		movw	[sp], ax
- 100                             	.L2:
+  95                             		.loc 1 63 0 discriminator 3
+  96 0064 A8 00                   		movw	ax, [sp]
+  97 0066 BD F0                   		movw	r8, ax
+  98 0068 A6 F0                   		incw	r8
+  99 006a AD F0                   		movw	ax, r8
+ 100 006c B8 00                   		movw	[sp], ax
+ 101                             	.L2:
   63:../src/r_cg_cgc.c ****     {
- 101                             		.loc 1 63 0 is_stmt 0 discriminator 1
- 102 006e A8 00                   		movw	ax, [sp]
- 103 0070 BD F0                   		movw	r8, ax
- 104 0072 44 A0 00                		cmpw	ax, #160
- 105 0075 61 E3                   		 skh
- 106 0077 EC 63 00 00             		 br	!!.L3
+ 102                             		.loc 1 63 0 is_stmt 0 discriminator 1
+ 103 006e A8 00                   		movw	ax, [sp]
+ 104 0070 BD F0                   		movw	r8, ax
+ 105 0072 44 A0 00                		cmpw	ax, #160
+ 106 0075 61 E3                   		 skh
+ 107 0077 EC 63 00 00             		 br	!!.L3
   66:../src/r_cg_cgc.c ****     }
   67:../src/r_cg_cgc.c ****     
   68:../src/r_cg_cgc.c ****     OSMC = _00_CGC_SUBINHALT_ON | _00_CGC_RTC_CLK_FSUB;
- 107                             		.loc 1 68 0 is_stmt 1
- 108 007b C9 F0 F3 00             		movw	r8, #243
- 109 007f AD F0                   		movw	ax, r8
- 110 0081 BD F2                   		movw	r10, ax
- 111 0083 DA F2                   		movw	bc, r10
- 112 0085 F1                      		clrb	a
- 113 0086 48 00 00                		mov	[bc], a
+ 108                             		.loc 1 68 0 is_stmt 1
+ 109 007b C9 F0 F3 00             		movw	r8, #243
+ 110 007f AD F0                   		movw	ax, r8
+ 111 0081 BD F2                   		movw	r10, ax
+ 112 0083 DA F2                   		movw	bc, r10
+ 113 0085 F1                      		clrb	a
+ 114 0086 48 00 00                		mov	[bc], a
   69:../src/r_cg_cgc.c ****     /* Set fCLK */
   70:../src/r_cg_cgc.c ****     CSS = 0U;
- 114                             		.loc 1 70 0
- 115 0089 C9 F0 A4 FF             		movw	r8, #-92
- 116 008d AD F0                   		movw	ax, r8
- 117 008f BD F4                   		movw	r12, ax
- 118 0091 FA F4                   		movw	hl, r12
- 119 0093 8B                      		mov	a, [hl]
- 120 0094 9D F2                   		mov	r10, a
- 121 0096 5A F2 BF                		and	r10, #-65
- 122 0099 AD F0                   		movw	ax, r8
- 123 009b DA F4                   		movw	bc, r12
- 124 009d 8D F2                   		mov	a, r10
- 125 009f 48 00 00                		mov	[bc], a
+ 115                             		.loc 1 70 0
+ 116 0089 C9 F0 A4 FF             		movw	r8, #-92
+ 117 008d AD F0                   		movw	ax, r8
+ 118 008f BD F4                   		movw	r12, ax
+ 119 0091 FA F4                   		movw	hl, r12
+ 120 0093 8B                      		mov	a, [hl]
+ 121 0094 9D F2                   		mov	r10, a
+ 122 0096 5A F2 BF                		and	r10, #-65
+ 123 0099 AD F0                   		movw	ax, r8
+ 124 009b DA F4                   		movw	bc, r12
+ 125 009d 8D F2                   		mov	a, r10
+ 126 009f 48 00 00                		mov	[bc], a
   71:../src/r_cg_cgc.c ****     /* Set fIH */
   72:../src/r_cg_cgc.c ****     HIOSTOP = 0U;
- 126                             		.loc 1 72 0
- 127 00a2 C9 F0 A1 FF             		movw	r8, #-95
- 128 00a6 AD F0                   		movw	ax, r8
- 129 00a8 BD F4                   		movw	r12, ax
- 130 00aa FA F4                   		movw	hl, r12
- 131 00ac 8B                      		mov	a, [hl]
- 132 00ad 9D F2                   		mov	r10, a
- 133 00af 5A F2 FE                		and	r10, #-2
- 134 00b2 AD F0                   		movw	ax, r8
- 135 00b4 DA F4                   		movw	bc, r12
- 136 00b6 8D F2                   		mov	a, r10
- 137 00b8 48 00 00                		mov	[bc], a
+ 127                             		.loc 1 72 0
+ 128 00a2 C9 F0 A1 FF             		movw	r8, #-95
+ 129 00a6 AD F0                   		movw	ax, r8
+ 130 00a8 BD F4                   		movw	r12, ax
+ 131 00aa FA F4                   		movw	hl, r12
+ 132 00ac 8B                      		mov	a, [hl]
+ 133 00ad 9D F2                   		mov	r10, a
+ 134 00af 5A F2 FE                		and	r10, #-2
+ 135 00b2 AD F0                   		movw	ax, r8
+ 136 00b4 DA F4                   		movw	bc, r12
+ 137 00b6 8D F2                   		mov	a, r10
+ 138 00b8 48 00 00                		mov	[bc], a
   73:../src/r_cg_cgc.c **** }
- 138                             		.loc 1 73 0
- 139 00bb 10 02                   		addw	sp, #2
- 140 00bd D7                      		ret
- 141                             	.LFE0:
- 173                             	.Letext0:
- 174                             		.file 2 "../src/iodefine.h"
- 175                             		.file 3 "../src/r_cg_macrodriver.h"
- 176                             		.file 4 "../src/globals.h"
+ 139                             		.loc 1 73 0
+ 140 00bb 10 02                   		addw	sp, #2
+ 141 00bd D7                      		ret
+ 142                             	.LFE0:
+ 174                             	.Letext0:
+ 175                             		.file 2 "../src/iodefine.h"
+ 176                             		.file 3 "../src/r_cg_macrodriver.h"
+ 177                             		.file 4 "../src/globals.h"

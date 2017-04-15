@@ -26,13 +26,14 @@
   26                             	.Ltext0:
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
-  29                             		.comm	_timerFlag,2,2
-  30                             		.comm	_count,2,2
-  31                             		.comm	_interval_timer_count,2,2
-  32                             		.global	_r_adc_interrupt
-  34                             	_r_adc_interrupt:
-  35                             	.LFB0:
-  36                             		.file 1 "../src/r_cg_adc_user.c"
+  29                             		.comm	_display_string,50,1
+  30                             		.comm	_timerFlag,2,2
+  31                             		.comm	_count,2,2
+  32                             		.comm	_interval_timer_count,2,2
+  33                             		.global	_r_adc_interrupt
+  35                             	_r_adc_interrupt:
+  36                             	.LFB0:
+  37                             		.file 1 "../src/r_cg_adc_user.c"
    1:../src/r_cg_adc_user.c **** /**************************************************************************************************
    2:../src/r_cg_adc_user.c **** * DISCLAIMER
    3:../src/r_cg_adc_user.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -84,28 +85,28 @@
   49:../src/r_cg_adc_user.c **** ***************************************************************************************************
   50:../src/r_cg_adc_user.c **** void r_adc_interrupt(void)
   51:../src/r_cg_adc_user.c **** {
-  37                             		.loc 1 51 0
-  38                             		; start of function
-  39                             		; push 8: ax bc de hl
-  40 0000 61 CF                   		sel	rb0
-  41 0002 C1                      		push	ax
-  42                             	.LCFI0:
-  43 0003 C3                      		push	bc
-  44                             	.LCFI1:
-  45 0004 C5                      		push	de
-  46                             	.LCFI2:
-  47 0005 C7                      		push	hl
-  48                             	.LCFI3:
+  38                             		.loc 1 51 0
+  39                             		; start of function
+  40                             		; push 8: ax bc de hl
+  41 0000 61 CF                   		sel	rb0
+  42 0002 C1                      		push	ax
+  43                             	.LCFI0:
+  44 0003 C3                      		push	bc
+  45                             	.LCFI1:
+  46 0004 C5                      		push	de
+  47                             	.LCFI2:
+  48 0005 C7                      		push	hl
+  49                             	.LCFI3:
   52:../src/r_cg_adc_user.c ****     /* Start user code. Do not edit comment generated here */
   53:../src/r_cg_adc_user.c ****     /* End user code. Do not edit comment generated here */
   54:../src/r_cg_adc_user.c **** }
-  49                             		.loc 1 54 0
-  50 0006 C6                      		pop	hl
-  51 0007 C4                      		pop	de
-  52 0008 C2                      		pop	bc
-  53 0009 C0                      		pop	ax
-  54 000a 61 FC                   		reti
-  55                             	.LFE0:
-  99                             	.Letext0:
- 100                             		.file 2 "../src/globals.h"
- 101                             		.file 3 "../src/r_cg_macrodriver.h"
+  50                             		.loc 1 54 0
+  51 0006 C6                      		pop	hl
+  52 0007 C4                      		pop	de
+  53 0008 C2                      		pop	bc
+  54 0009 C0                      		pop	ax
+  55 000a 61 FC                   		reti
+  56                             	.LFE0:
+ 100                             	.Letext0:
+ 101                             		.file 2 "../src/globals.h"
+ 102                             		.file 3 "../src/r_cg_macrodriver.h"

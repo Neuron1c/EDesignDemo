@@ -16,6 +16,7 @@
 
 extern uint8_t record[RX_BUF_LEN];
 extern uint8_t mem[RX_BUF_LEN];
+extern uint8_t display_string[RX_BUF_LEN];
 extern int count;
 extern int interval_timer_count;
 static uint8_t response[RX_BUF_LEN];
@@ -85,6 +86,7 @@ void processMSG(){
 				  ack[2] = '\x0a';
 				  strcpy(response, "$0");
 				  strcat(response, ack);
+				  recieveInstruction(7);
 				  count = 5; break;
 
 
@@ -94,6 +96,7 @@ void processMSG(){
 				  ack[2] = '\x0a';
 				  strcpy(response, "$1");
 				  strcat(response, ack);
+				  recieveInstruction(6);
 				  count = 5; break;
 
 		case '2': strcpy(mem, &record[2]);
@@ -104,7 +107,8 @@ void processMSG(){
 		case 'D': if(strlen(mem) <= 32){
 
 					strcpy(response, "$D0\x0d\x0a"); count = 5;
-					offset = 0; display = 1; interval_timer_count = 0; R_IT_Start(); displayLCD();
+					strcpy(display_string,mem);
+					displayLCD(1);
 				  }
 				  else{
 				    writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
@@ -196,10 +200,17 @@ int errorTest(){
 
 	return 1;
 }
-//reset = 1 clears screen and starts over
+//reset >= 1 clears screen and starts over
 //reset = 0 just keep going
 
 void displayLCD(int reset){
+
+if(reset){
+	offset = 0;
+	display = 1;
+	interval_timer_count = 0;
+	R_IT_Start();
+}
 
 if(display){
 
@@ -211,14 +222,14 @@ if(display){
 	writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
 	delayNoInt(1640);
 
-	for(i = offset; i < strlen(mem) - 2; i++){
+	for(i = offset; i < strlen(display_string) - 2; i++){
 
 		if(i == (8 + offset)){
 			writeByteLcd(LCD_CTRL_WR, LCD_HOME_L2);
 			delayNoInt(1640);
 		}
 
-		writeByteLcd(LCD_DATA_WR, mem[i]);
+		writeByteLcd(LCD_DATA_WR, display_string[i]);
 		delayNoInt(40);
 
 	}
@@ -226,7 +237,7 @@ if(display){
 
 }
 
-if(offset >= (strlen(mem) - 17) || strlen(mem) <= 18 ){
+if(offset >= (strlen(display_string) - 17) || strlen(display_string) <= 18 ){
 	display = 0;
 	R_IT_Stop();
 }

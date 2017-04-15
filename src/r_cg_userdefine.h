@@ -40,6 +40,7 @@ User definitions
 #include "r_cg_rtc.h"
 #include "r_cg_adc.h"
 #include "debounce.h"
+#include "StateMachine.h"
 
 /* End user code. Do not edit comment generated here */
 #endif

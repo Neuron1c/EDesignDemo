@@ -16,6 +16,7 @@
 
 uint8_t record[RX_BUF_LEN];
 uint8_t mem[RX_BUF_LEN];
+uint8_t display_string[RX_BUF_LEN];
 int timerFlag;
 int count;
 int interval_timer_count;

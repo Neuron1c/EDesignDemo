@@ -26,13 +26,14 @@
   26                             	.Ltext0:
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
-  29                             		.comm	_timerFlag,2,2
-  30                             		.comm	_count,2,2
-  31                             		.comm	_interval_timer_count,2,2
-  32                             		.global	_R_CGC_Get_ResetSource
-  34                             	_R_CGC_Get_ResetSource:
-  35                             	.LFB0:
-  36                             		.file 1 "../src/r_cg_cgc_user.c"
+  29                             		.comm	_display_string,50,1
+  30                             		.comm	_timerFlag,2,2
+  31                             		.comm	_count,2,2
+  32                             		.comm	_interval_timer_count,2,2
+  33                             		.global	_R_CGC_Get_ResetSource
+  35                             	_R_CGC_Get_ResetSource:
+  36                             	.LFB0:
+  37                             		.file 1 "../src/r_cg_cgc_user.c"
    1:../src/r_cg_cgc_user.c **** /**************************************************************************************************
    2:../src/r_cg_cgc_user.c **** * DISCLAIMER
    3:../src/r_cg_cgc_user.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -84,27 +85,27 @@
   49:../src/r_cg_cgc_user.c **** ***************************************************************************************************
   50:../src/r_cg_cgc_user.c **** void R_CGC_Get_ResetSource(void)
   51:../src/r_cg_cgc_user.c **** {
-  37                             		.loc 1 51 0
-  38                             		; start of function
-  39                             		; locals: 2 bytes
-  40 0000 20 02                   		subw	sp, #2
-  41                             	.LCFI0:
+  38                             		.loc 1 51 0
+  39                             		; start of function
+  40                             		; locals: 2 bytes
+  41 0000 20 02                   		subw	sp, #2
+  42                             	.LCFI0:
   52:../src/r_cg_cgc_user.c ****     uint8_t reset_flag = RESF;
-  42                             		.loc 1 52 0
-  43 0002 C9 F0 A8 FF             		movw	r8, #-88
-  44 0006 AD F0                   		movw	ax, r8
-  45 0008 BD F2                   		movw	r10, ax
-  46 000a FA F2                   		movw	hl, r10
-  47 000c 8B                      		mov	a, [hl]
-  48 000d 9D F0                   		mov	r8, a
-  49 000f 98 01                   		mov	[sp+1], a
+  43                             		.loc 1 52 0
+  44 0002 C9 F0 A8 FF             		movw	r8, #-88
+  45 0006 AD F0                   		movw	ax, r8
+  46 0008 BD F2                   		movw	r10, ax
+  47 000a FA F2                   		movw	hl, r10
+  48 000c 8B                      		mov	a, [hl]
+  49 000d 9D F0                   		mov	r8, a
+  50 000f 98 01                   		mov	[sp+1], a
   53:../src/r_cg_cgc_user.c ****     /* Start user code. Do not edit comment generated here */
   54:../src/r_cg_cgc_user.c ****     /* End user code. Do not edit comment generated here */
   55:../src/r_cg_cgc_user.c **** }
-  50                             		.loc 1 55 0
-  51 0011 10 02                   		addw	sp, #2
-  52 0013 D7                      		ret
-  53                             	.LFE0:
-  85                             	.Letext0:
-  86                             		.file 2 "../src/globals.h"
-  87                             		.file 3 "../src/r_cg_macrodriver.h"
+  51                             		.loc 1 55 0
+  52 0011 10 02                   		addw	sp, #2
+  53 0013 D7                      		ret
+  54                             	.LFE0:
+  86                             	.Letext0:
+  87                             		.file 2 "../src/globals.h"
+  88                             		.file 3 "../src/r_cg_macrodriver.h"

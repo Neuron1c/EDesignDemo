@@ -26,13 +26,14 @@
   26                             	.Ltext0:
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
-  29                             		.comm	_timerFlag,2,2
-  30                             		.comm	_count,2,2
-  31                             		.comm	_interval_timer_count,2,2
-  32                             		.global	_R_PORT_Create
-  34                             	_R_PORT_Create:
-  35                             	.LFB0:
-  36                             		.file 1 "../src/r_cg_port.c"
+  29                             		.comm	_display_string,50,1
+  30                             		.comm	_timerFlag,2,2
+  31                             		.comm	_count,2,2
+  32                             		.comm	_interval_timer_count,2,2
+  33                             		.global	_R_PORT_Create
+  35                             	_R_PORT_Create:
+  36                             	.LFB0:
+  37                             		.file 1 "../src/r_cg_port.c"
    1:../src/r_cg_port.c **** /**************************************************************************************************
    2:../src/r_cg_port.c **** * DISCLAIMER
    3:../src/r_cg_port.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -84,80 +85,80 @@
   49:../src/r_cg_port.c **** ***************************************************************************************************
   50:../src/r_cg_port.c **** void R_PORT_Create(void)
   51:../src/r_cg_port.c **** {
-  37                             		.loc 1 51 0
+  38                             		.loc 1 51 0
   52:../src/r_cg_port.c ****     P4 = _00_Pn1_OUTPUT_0 | _00_Pn2_OUTPUT_0 | _00_Pn3_OUTPUT_0;
-  38                             		.loc 1 52 0
-  39 0000 C9 F0 04 FF             		movw	r8, #-252
-  40 0004 AD F0                   		movw	ax, r8
-  41 0006 BD F2                   		movw	r10, ax
-  42 0008 DA F2                   		movw	bc, r10
-  43 000a F1                      		clrb	a
-  44 000b 48 00 00                		mov	[bc], a
+  39                             		.loc 1 52 0
+  40 0000 C9 F0 04 FF             		movw	r8, #-252
+  41 0004 AD F0                   		movw	ax, r8
+  42 0006 BD F2                   		movw	r10, ax
+  43 0008 DA F2                   		movw	bc, r10
+  44 000a F1                      		clrb	a
+  45 000b 48 00 00                		mov	[bc], a
   53:../src/r_cg_port.c ****     P7 = _00_Pn0_OUTPUT_0 | _00_Pn1_OUTPUT_0 | _00_Pn2_OUTPUT_0 | _00_Pn3_OUTPUT_0 | _00_Pn4_OUTPUT
-  45                             		.loc 1 53 0
-  46 000e C9 F0 07 FF             		movw	r8, #-249
-  47 0012 AD F0                   		movw	ax, r8
-  48 0014 BD F2                   		movw	r10, ax
-  49 0016 DA F2                   		movw	bc, r10
-  50 0018 F1                      		clrb	a
-  51 0019 48 00 00                		mov	[bc], a
+  46                             		.loc 1 53 0
+  47 000e C9 F0 07 FF             		movw	r8, #-249
+  48 0012 AD F0                   		movw	ax, r8
+  49 0014 BD F2                   		movw	r10, ax
+  50 0016 DA F2                   		movw	bc, r10
+  51 0018 F1                      		clrb	a
+  52 0019 48 00 00                		mov	[bc], a
   54:../src/r_cg_port.c ****          _00_Pn5_OUTPUT_0 | _00_Pn6_OUTPUT_0 | _00_Pn7_OUTPUT_0;
   55:../src/r_cg_port.c ****     PU0 = _08_PUn3_PULLUP_ON;
-  52                             		.loc 1 55 0
-  53 001c C9 F0 30 00             		movw	r8, #48
-  54 0020 AD F0                   		movw	ax, r8
-  55 0022 BD F2                   		movw	r10, ax
-  56 0024 DA F2                   		movw	bc, r10
-  57 0026 51 08                   		mov	a, #8
-  58 0028 48 00 00                		mov	[bc], a
+  53                             		.loc 1 55 0
+  54 001c C9 F0 30 00             		movw	r8, #48
+  55 0020 AD F0                   		movw	ax, r8
+  56 0022 BD F2                   		movw	r10, ax
+  57 0024 DA F2                   		movw	bc, r10
+  58 0026 51 08                   		mov	a, #8
+  59 0028 48 00 00                		mov	[bc], a
   56:../src/r_cg_port.c ****     PU4 = _01_PUn0_PULLUP_ON;
-  59                             		.loc 1 56 0
-  60 002b C9 F0 34 00             		movw	r8, #52
-  61 002f AD F0                   		movw	ax, r8
-  62 0031 BD F2                   		movw	r10, ax
-  63 0033 DA F2                   		movw	bc, r10
-  64 0035 E1                      		oneb	a
-  65 0036 48 00 00                		mov	[bc], a
+  60                             		.loc 1 56 0
+  61 002b C9 F0 34 00             		movw	r8, #52
+  62 002f AD F0                   		movw	ax, r8
+  63 0031 BD F2                   		movw	r10, ax
+  64 0033 DA F2                   		movw	bc, r10
+  65 0035 E1                      		oneb	a
+  66 0036 48 00 00                		mov	[bc], a
   57:../src/r_cg_port.c ****     PIM0 = _08_PIMn3_TTL_ON;
-  66                             		.loc 1 57 0
-  67 0039 C9 F0 40 00             		movw	r8, #64
-  68 003d AD F0                   		movw	ax, r8
-  69 003f BD F2                   		movw	r10, ax
-  70 0041 DA F2                   		movw	bc, r10
-  71 0043 51 08                   		mov	a, #8
-  72 0045 48 00 00                		mov	[bc], a
+  67                             		.loc 1 57 0
+  68 0039 C9 F0 40 00             		movw	r8, #64
+  69 003d AD F0                   		movw	ax, r8
+  70 003f BD F2                   		movw	r10, ax
+  71 0041 DA F2                   		movw	bc, r10
+  72 0043 51 08                   		mov	a, #8
+  73 0045 48 00 00                		mov	[bc], a
   58:../src/r_cg_port.c ****     PM4 = _01_PMn0_NOT_USE | _00_PMn1_MODE_OUTPUT | _00_PMn2_MODE_OUTPUT | _00_PMn3_MODE_OUTPUT | _
-  73                             		.loc 1 58 0
-  74 0048 C9 F0 24 FF             		movw	r8, #-220
-  75 004c AD F0                   		movw	ax, r8
-  76 004e BD F2                   		movw	r10, ax
-  77 0050 DA F2                   		movw	bc, r10
-  78 0052 51 F1                   		mov	a, #-15
-  79 0054 48 00 00                		mov	[bc], a
+  74                             		.loc 1 58 0
+  75 0048 C9 F0 24 FF             		movw	r8, #-220
+  76 004c AD F0                   		movw	ax, r8
+  77 004e BD F2                   		movw	r10, ax
+  78 0050 DA F2                   		movw	bc, r10
+  79 0052 51 F1                   		mov	a, #-15
+  80 0054 48 00 00                		mov	[bc], a
   59:../src/r_cg_port.c ****     PM5 = _01_PMn0_NOT_USE | _02_PMn1_NOT_USE | _04_PMn2_MODE_INPUT | _08_PMn3_MODE_INPUT | _10_PMn
-  80                             		.loc 1 59 0
-  81 0057 C9 F0 25 FF             		movw	r8, #-219
-  82 005b AD F0                   		movw	ax, r8
-  83 005d BD F2                   		movw	r10, ax
-  84 005f DA F2                   		movw	bc, r10
-  85 0061 51 FF                   		mov	a, #-1
-  86 0063 48 00 00                		mov	[bc], a
+  81                             		.loc 1 59 0
+  82 0057 C9 F0 25 FF             		movw	r8, #-219
+  83 005b AD F0                   		movw	ax, r8
+  84 005d BD F2                   		movw	r10, ax
+  85 005f DA F2                   		movw	bc, r10
+  86 0061 51 FF                   		mov	a, #-1
+  87 0063 48 00 00                		mov	[bc], a
   60:../src/r_cg_port.c ****           _20_PMn5_MODE_INPUT | _C0_PM5_DEFAULT;
   61:../src/r_cg_port.c ****     PM7 = _00_PMn0_MODE_OUTPUT | _00_PMn1_MODE_OUTPUT | _00_PMn2_MODE_OUTPUT | _00_PMn3_MODE_OUTPUT
-  87                             		.loc 1 61 0
-  88 0066 C9 F0 27 FF             		movw	r8, #-217
-  89 006a AD F0                   		movw	ax, r8
-  90 006c BD F2                   		movw	r10, ax
-  91 006e DA F2                   		movw	bc, r10
-  92 0070 F1                      		clrb	a
-  93 0071 48 00 00                		mov	[bc], a
+  88                             		.loc 1 61 0
+  89 0066 C9 F0 27 FF             		movw	r8, #-217
+  90 006a AD F0                   		movw	ax, r8
+  91 006c BD F2                   		movw	r10, ax
+  92 006e DA F2                   		movw	bc, r10
+  93 0070 F1                      		clrb	a
+  94 0071 48 00 00                		mov	[bc], a
   62:../src/r_cg_port.c ****           _00_PMn4_MODE_OUTPUT | _00_PMn5_MODE_OUTPUT | _00_PMn6_MODE_OUTPUT | _00_PMn7_MODE_OUTPUT
   63:../src/r_cg_port.c **** }
-  94                             		.loc 1 63 0
-  95 0074 D7                      		ret
-  96                             	.LFE0:
- 124                             	.Letext0:
- 125                             		.file 2 "../src/iodefine.h"
- 126                             		.file 3 "../src/iodefine_ext.h"
- 127                             		.file 4 "../src/r_cg_macrodriver.h"
- 128                             		.file 5 "../src/globals.h"
+  95                             		.loc 1 63 0
+  96 0074 D7                      		ret
+  97                             	.LFE0:
+ 125                             	.Letext0:
+ 126                             		.file 2 "../src/iodefine.h"
+ 127                             		.file 3 "../src/iodefine_ext.h"
+ 128                             		.file 4 "../src/r_cg_macrodriver.h"
+ 129                             		.file 5 "../src/globals.h"

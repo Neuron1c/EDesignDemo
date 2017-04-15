@@ -6,9 +6,11 @@
  */
 
 #include "r_cg_userdefine.h"
+#include <string.h>
+#include <stdio.h>
 
 static int state = 0;
-extern uint8_t mem[RX_BUF_LEN];
+extern uint8_t display_string[RX_BUF_LEN];
 
 //Recieve instruction, value from 1 to 7
 //1 = right button (accept/okay)
@@ -60,15 +62,15 @@ void recieveInstruction(int instr){
 	}
 
 	switch(state){
-		case 0: break;
-		case 1: break;
-		case 2: break;
-		case 3: break;
-		case 4: break;
-		case 5: break;
-		case 6: break;
-		case 7: break;
-		case 8: break;
-		case 9: break;
+		case 0: strcpy(display_string,"0\x0d\x0a"); displayLCD(1); break;
+		case 1: strcpy(display_string,"1\x0d\x0a"); displayLCD(1); break;
+		case 2: strcpy(display_string,"2\x0d\x0a"); displayLCD(1); break;
+		case 3: strcpy(display_string,"3\x0d\x0a"); displayLCD(1); break;
+		case 4: strcpy(display_string,"4\x0d\x0a"); displayLCD(1); break;
+		case 5: strcpy(display_string,"5\x0d\x0a"); displayLCD(1); break;
+		case 6: strcpy(display_string,"6\x0d\x0a"); displayLCD(1); break;
+		case 7: strcpy(display_string,"7\x0d\x0a"); displayLCD(1); break;
+		case 8: strcpy(display_string,"8\x0d\x0a"); displayLCD(1); break;
+		case 9: strcpy(display_string,"9\x0d\x0a"); displayLCD(1); break;
 	}
 }

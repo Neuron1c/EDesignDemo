@@ -90,16 +90,16 @@ void main(void)
 		 while(ADCS);
 
 		 if(bounce_correction(&P5_bit, 5)){
-			 R_UART1_Send("a\x0d\x0a",3);
+			 recieveInstruction(5);
 		 }
 		 if(bounce_correction(&P5_bit, 4)){
-		 	 R_UART1_Send("b\x0d\x0a",3);
+			 recieveInstruction(3);
 		 }
 		 if(bounce_correction(&P5_bit, 3)){
-		 	 R_UART1_Send("c\x0d\x0a",3);
+			 recieveInstruction(4);
 		 }
 		 if(bounce_correction(&P5_bit, 2)){
-		 	 R_UART1_Send("d\x0d\x0a",3);
+			 recieveInstruction(1);
 		 }
 
             if (uart1RxFlag)

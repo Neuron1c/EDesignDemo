@@ -55,7 +55,7 @@ void r_it_interrupt(void)
 	++interval_timer_count;
 
 	if(interval_timer_count%4 == 0){
-		displayLCD();
+		displayLCD(0);
 	}
     /* End user code. Do not edit comment generated here */
 }

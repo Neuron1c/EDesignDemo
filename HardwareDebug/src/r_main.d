@@ -5,7 +5,7 @@ src/r_main.o src/r_main.d: ../src/r_main.c ../src/r_cg_macrodriver.h \
  C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/string.h \
  C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stddef.h \
  ../src/r_cg_userdefine.h ../src/user_functions.h ../src/globals.h \
- ../src/lcd.h ../src/debounce.h
+ ../src/lcd.h ../src/debounce.h ../src/StateMachine.h
 
 ../src/r_cg_macrodriver.h:
 
@@ -42,3 +42,5 @@ C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stddef.h:
 ../src/lcd.h:
 
 ../src/debounce.h:
+
+../src/StateMachine.h:
