@@ -2,7 +2,7 @@
 
 This is a basic project that I am using for my first runthrough with git.
 
-====================
+-----------------
 
 # Installation Instructions
 
