@@ -130,28 +130,26 @@
   74 002a 44 00 00                		cmpw	ax, #0
   75 002d 61 E8                   		 skz
   76 002f EC 37 00 00             		 br	!!.L1
-  77                             	.LBB2:
   58:../src/r_cg_it_user.c **** 		displayLCD();
-  78                             		.loc 1 58 0
-  79 0033 FC 00 00 00             		call	!!%code(_displayLCD)
-  80                             	.L1:
-  81                             	.LBE2:
+  77                             		.loc 1 58 0
+  78 0033 FC 00 00 00             		call	!!%code(_displayLCD)
+  79                             	.L1:
   59:../src/r_cg_it_user.c **** 	}
   60:../src/r_cg_it_user.c ****     /* End user code. Do not edit comment generated here */
   61:../src/r_cg_it_user.c **** }
-  82                             		.loc 1 61 0
-  83 0037 61 DF                   		sel	rb1
-  84 0039 C6                      		pop	hl ; r14
-  85 003a C4                      		pop	de ; r12
-  86 003b C2                      		pop	bc ; r10
-  87 003c C0                      		pop	ax ; r8
-  88 003d 61 CF                   		sel	rb0
-  89 003f C6                      		pop	hl
-  90 0040 C4                      		pop	de
-  91 0041 C2                      		pop	bc
-  92 0042 C0                      		pop	ax
-  93 0043 61 FC                   		reti
-  94                             	.LFE0:
- 154                             	.Letext0:
- 155                             		.file 2 "../src/globals.h"
- 156                             		.file 3 "../src/r_cg_macrodriver.h"
+  80                             		.loc 1 61 0
+  81 0037 61 DF                   		sel	rb1
+  82 0039 C6                      		pop	hl ; r14
+  83 003a C4                      		pop	de ; r12
+  84 003b C2                      		pop	bc ; r10
+  85 003c C0                      		pop	ax ; r8
+  86 003d 61 CF                   		sel	rb0
+  87 003f C6                      		pop	hl
+  88 0040 C4                      		pop	de
+  89 0041 C2                      		pop	bc
+  90 0042 C0                      		pop	ax
+  91 0043 61 FC                   		reti
+  92                             	.LFE0:
+ 152                             	.Letext0:
+ 153                             		.file 2 "../src/globals.h"
+ 154                             		.file 3 "../src/r_cg_macrodriver.h"

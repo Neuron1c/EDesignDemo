@@ -9,6 +9,7 @@
 #define USER_FUNCTIONS_H_
 
 char populate(char recieved);
+void displayLCD();
 
 
 #endif /* USER_FUNCTIONS_H_ */

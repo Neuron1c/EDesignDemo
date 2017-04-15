@@ -196,8 +196,10 @@ int errorTest(){
 
 	return 1;
 }
+//reset = 1 clears screen and starts over
+//reset = 0 just keep going
 
-void displayLCD(){
+void displayLCD(int reset){
 
 if(display){
 

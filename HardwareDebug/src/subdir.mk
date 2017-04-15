@@ -7,6 +7,7 @@ ASM_SRCS += \
 ..\src/r_reset_program.asm 
 
 C_SRCS += \
+..\src/StateMachine.c \
 ..\src/debounce.c \
 ..\src/lcd.c \
 ..\src/r_cg_adc.c \
@@ -29,6 +30,7 @@ C_SRCS += \
 ..\src/user_functions.c 
 
 C_DEPS += \
+./src/StateMachine.d \
 ./src/debounce.d \
 ./src/lcd.d \
 ./src/r_cg_adc.d \
@@ -51,6 +53,7 @@ C_DEPS += \
 ./src/user_functions.d 
 
 OBJS += \
+./src/StateMachine.o \
 ./src/debounce.o \
 ./src/lcd.o \
 ./src/r_cg_adc.o \

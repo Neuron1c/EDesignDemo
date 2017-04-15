@@ -1,0 +1,14 @@
+To add some changes
+
+git add .
+git commit -m "Your Message"
+git push OR git push -u origin branchname (branchname is usually master)
+
+To make a new repo:
+
+cd into repo directory
+then,
+
+git init
+git add .
+git commit -m "Initial Commit"

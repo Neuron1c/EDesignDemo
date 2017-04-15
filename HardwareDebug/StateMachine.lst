@@ -1,0 +1,564 @@
+   1                             	r8	=	0xffef0
+   2                             	r16	=	0xffee8
+   3                             	r24	=	0xffee0
+   4                             	r9	=	0xffef1
+   5                             	r17	=	0xffee9
+   6                             	r25	=	0xffee1
+   7                             	r10	=	0xffef2
+   8                             	r18	=	0xffeea
+   9                             	r26	=	0xffee2
+  10                             	r11	=	0xffef3
+  11                             	r19	=	0xffeeb
+  12                             	r27	=	0xffee3
+  13                             	r12	=	0xffef4
+  14                             	r20	=	0xffeec
+  15                             	r28	=	0xffee4
+  16                             	r13	=	0xffef5
+  17                             	r21	=	0xffeed
+  18                             	r29	=	0xffee5
+  19                             	r14	=	0xffef6
+  20                             	r22	=	0xffeee
+  21                             	r30	=	0xffee6
+  22                             	r15	=	0xffef7
+  23                             	r23	=	0xffeef
+  24                             	r31	=	0xffee7
+  25                             	.text
+  26                             	.Ltext0:
+  27                             		.comm	_record,50,1
+  28                             		.comm	_mem,50,1
+  29                             		.comm	_timerFlag,2,2
+  30                             		.comm	_count,2,2
+  31                             		.comm	_interval_timer_count,2,2
+  32                             		.local	_state
+  33                             		.comm	_state,2,2
+  34                             		.global	_recieveInstruction
+  36                             	_recieveInstruction:
+  37                             	.LFB0:
+  38                             		.file 1 "../src/StateMachine.c"
+   1:../src/StateMachine.c **** /*
+   2:../src/StateMachine.c ****  * StateMachine.c
+   3:../src/StateMachine.c ****  *
+   4:../src/StateMachine.c ****  *  Created on: 15 Apr 2017
+   5:../src/StateMachine.c ****  *      Author: Neuron1c
+   6:../src/StateMachine.c ****  */
+   7:../src/StateMachine.c **** 
+   8:../src/StateMachine.c **** #include "r_cg_userdefine.h"
+   9:../src/StateMachine.c **** 
+  10:../src/StateMachine.c **** static int state = 0;
+  11:../src/StateMachine.c **** extern uint8_t mem[RX_BUF_LEN];
+  12:../src/StateMachine.c **** 
+  13:../src/StateMachine.c **** //Recieve instruction, value from 1 to 7
+  14:../src/StateMachine.c **** //1 = right button (accept/okay)
+  15:../src/StateMachine.c **** //2 = middle button
+  16:../src/StateMachine.c **** //3 = down button
+  17:../src/StateMachine.c **** //4 = up button
+  18:../src/StateMachine.c **** //5 = left button (back/cancel)
+  19:../src/StateMachine.c **** //6 = switch to test mode
+  20:../src/StateMachine.c **** //7 = switch to normal mode
+  21:../src/StateMachine.c **** 
+  22:../src/StateMachine.c **** void recieveInstruction(int instr){
+  39                             		.loc 1 22 0
+  23:../src/StateMachine.c **** 	switch(state){
+  40                             		.loc 1 23 0
+  41 0000 AF 00 00                		movw	ax, !_state
+  42 0003 BD F0                   		movw	r8, ax
+  43 0005 44 04 00                		cmpw	ax, #4
+  44 0008 61 F8                   		 sknz
+  45 000a EC DE 01 00             		 br	!!.L3
+  46 000e AD F0                   		movw	ax, r8
+  47 0010 44 04 00                		cmpw	ax, #4
+  48 0013 71 FF                   		 xor1	CY, a.7
+  49 0015 61 F3                   		 sknh
+  50 0017 EC 5C 00 00             		 br	!!.L4
+  51 001b AD F0                   		movw	ax, r8
+  52 001d 44 01 00                		cmpw	ax, #1
+  53 0020 61 F8                   		 sknz
+  54 0022 EC F1 00 00             		 br	!!.L5
+  55 0026 AD F0                   		movw	ax, r8
+  56 0028 44 01 00                		cmpw	ax, #1
+  57 002b 71 FF                   		 xor1	CY, a.7
+  58 002d 61 F3                   		 sknh
+  59 002f EC 42 00 00             		 br	!!.L6
+  60 0033 AD F0                   		movw	ax, r8
+  61 0035 44 00 00                		cmpw	ax, #0
+  62 0038 61 F8                   		 sknz
+  63 003a EC A8 00 00             		 br	!!.L7
+  64 003e EC 97 03 00             		br	!!.L2
+  65                             	.L6:
+  66 0042 AD F0                   		movw	ax, r8
+  67 0044 44 02 00                		cmpw	ax, #2
+  68 0047 61 F8                   		 sknz
+  69 0049 EC 40 01 00             		 br	!!.L8
+  70 004d AD F0                   		movw	ax, r8
+  71 004f 44 03 00                		cmpw	ax, #3
+  72 0052 61 F8                   		 sknz
+  73 0054 EC 8F 01 00             		 br	!!.L9
+  74 0058 EC 97 03 00             		br	!!.L2
+  75                             	.L4:
+  76 005c AD F0                   		movw	ax, r8
+  77 005e 44 07 00                		cmpw	ax, #7
+  78 0061 61 F8                   		 sknz
+  79 0063 EC B9 02 00             		 br	!!.L10
+  80 0067 AD F0                   		movw	ax, r8
+  81 0069 44 07 00                		cmpw	ax, #7
+  82 006c 71 FF                   		 xor1	CY, a.7
+  83 006e 61 F3                   		 sknh
+  84 0070 EC 8E 00 00             		 br	!!.L11
+  85 0074 AD F0                   		movw	ax, r8
+  86 0076 44 05 00                		cmpw	ax, #5
+  87 0079 61 F8                   		 sknz
+  88 007b EC 25 02 00             		 br	!!.L12
+  89 007f AD F0                   		movw	ax, r8
+  90 0081 44 06 00                		cmpw	ax, #6
+  91 0084 61 F8                   		 sknz
+  92 0086 EC 6C 02 00             		 br	!!.L13
+  93 008a EC 97 03 00             		br	!!.L2
+  94                             	.L11:
+  95 008e AD F0                   		movw	ax, r8
+  96 0090 44 08 00                		cmpw	ax, #8
+  97 0093 61 F8                   		 sknz
+  98 0095 EC 06 03 00             		 br	!!.L14
+  99 0099 AD F0                   		movw	ax, r8
+ 100 009b 44 09 00                		cmpw	ax, #9
+ 101 009e 61 F8                   		 sknz
+ 102 00a0 EC 53 03 00             		 br	!!.L15
+ 103 00a4 EC 97 03 00             		br	!!.L2
+ 104                             	.L7:
+  24:../src/StateMachine.c **** 
+  25:../src/StateMachine.c **** 	//---------------------------------------------------- normal mode
+  26:../src/StateMachine.c **** 
+  27:../src/StateMachine.c **** 	case 0: if(instr == 3)state++;
+ 105                             		.loc 1 27 0
+ 106 00a8 A8 04                   		movw	ax, [sp+4]
+ 107 00aa 44 03 00                		cmpw	ax, #3
+ 108 00ad 61 E8                   		 skz
+ 109 00af EC C3 00 00             		 br	!!.L16
+ 110                             		.loc 1 27 0 is_stmt 0 discriminator 1
+ 111 00b3 AF 00 00                		movw	ax, !_state
+ 112 00b6 BD F0                   		movw	r8, ax
+ 113 00b8 A6 F0                   		incw	r8
+ 114 00ba AD F0                   		movw	ax, r8
+ 115 00bc BF 00 00                		movw	!_state, ax
+ 116 00bf EC ED 00 00             		br	!!.L17
+ 117                             	.L16:
+  28:../src/StateMachine.c **** 			else if(instr == 4)state = 4;
+ 118                             		.loc 1 28 0 is_stmt 1
+ 119 00c3 A8 04                   		movw	ax, [sp+4]
+ 120 00c5 44 04 00                		cmpw	ax, #4
+ 121 00c8 61 E8                   		 skz
+ 122 00ca EC D8 00 00             		 br	!!.L18
+ 123                             		.loc 1 28 0 is_stmt 0 discriminator 1
+ 124 00ce 30 04 00                		movw	ax, #4
+ 125 00d1 BF 00 00                		movw	!_state, ax
+ 126 00d4 EC ED 00 00             		br	!!.L17
+ 127                             	.L18:
+  29:../src/StateMachine.c **** 			else if(instr == 6)state = 5; break;
+ 128                             		.loc 1 29 0 is_stmt 1
+ 129 00d8 A8 04                   		movw	ax, [sp+4]
+ 130 00da 44 06 00                		cmpw	ax, #6
+ 131 00dd 61 E8                   		 skz
+ 132 00df EC ED 00 00             		 br	!!.L17
+ 133                             		.loc 1 29 0 is_stmt 0 discriminator 1
+ 134 00e3 30 05 00                		movw	ax, #5
+ 135 00e6 BF 00 00                		movw	!_state, ax
+ 136 00e9 EC 97 03 00             		br	!!.L2
+ 137                             	.L17:
+ 138                             		.loc 1 29 0
+ 139 00ed EC 97 03 00             		br	!!.L2
+ 140                             	.L5:
+  30:../src/StateMachine.c **** 	case 1: if(instr == 3)state++;
+ 141                             		.loc 1 30 0 is_stmt 1
+ 142 00f1 A8 04                   		movw	ax, [sp+4]
+ 143 00f3 44 03 00                		cmpw	ax, #3
+ 144 00f6 61 E8                   		 skz
+ 145 00f8 EC 0C 01 00             		 br	!!.L19
+ 146                             		.loc 1 30 0 is_stmt 0 discriminator 1
+ 147 00fc AF 00 00                		movw	ax, !_state
+ 148 00ff BD F0                   		movw	r8, ax
+ 149 0101 A6 F0                   		incw	r8
+ 150 0103 AD F0                   		movw	ax, r8
+ 151 0105 BF 00 00                		movw	!_state, ax
+ 152 0108 EC 3C 01 00             		br	!!.L20
+ 153                             	.L19:
+  31:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 154                             		.loc 1 31 0 is_stmt 1
+ 155 010c A8 04                   		movw	ax, [sp+4]
+ 156 010e 44 04 00                		cmpw	ax, #4
+ 157 0111 61 E8                   		 skz
+ 158 0113 EC 27 01 00             		 br	!!.L21
+ 159                             		.loc 1 31 0 is_stmt 0 discriminator 1
+ 160 0117 AF 00 00                		movw	ax, !_state
+ 161 011a BD F0                   		movw	r8, ax
+ 162 011c B6 F0                   		decw	r8
+ 163 011e AD F0                   		movw	ax, r8
+ 164 0120 BF 00 00                		movw	!_state, ax
+ 165 0123 EC 3C 01 00             		br	!!.L20
+ 166                             	.L21:
+  32:../src/StateMachine.c **** 			else if(instr == 6)state = 5; break;
+ 167                             		.loc 1 32 0 is_stmt 1
+ 168 0127 A8 04                   		movw	ax, [sp+4]
+ 169 0129 44 06 00                		cmpw	ax, #6
+ 170 012c 61 E8                   		 skz
+ 171 012e EC 3C 01 00             		 br	!!.L20
+ 172                             		.loc 1 32 0 is_stmt 0 discriminator 1
+ 173 0132 30 05 00                		movw	ax, #5
+ 174 0135 BF 00 00                		movw	!_state, ax
+ 175 0138 EC 97 03 00             		br	!!.L2
+ 176                             	.L20:
+ 177                             		.loc 1 32 0
+ 178 013c EC 97 03 00             		br	!!.L2
+ 179                             	.L8:
+  33:../src/StateMachine.c **** 	case 2: if(instr == 3)state++;
+ 180                             		.loc 1 33 0 is_stmt 1
+ 181 0140 A8 04                   		movw	ax, [sp+4]
+ 182 0142 44 03 00                		cmpw	ax, #3
+ 183 0145 61 E8                   		 skz
+ 184 0147 EC 5B 01 00             		 br	!!.L22
+ 185                             		.loc 1 33 0 is_stmt 0 discriminator 1
+ 186 014b AF 00 00                		movw	ax, !_state
+ 187 014e BD F0                   		movw	r8, ax
+ 188 0150 A6 F0                   		incw	r8
+ 189 0152 AD F0                   		movw	ax, r8
+ 190 0154 BF 00 00                		movw	!_state, ax
+ 191 0157 EC 8B 01 00             		br	!!.L23
+ 192                             	.L22:
+  34:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 193                             		.loc 1 34 0 is_stmt 1
+ 194 015b A8 04                   		movw	ax, [sp+4]
+ 195 015d 44 04 00                		cmpw	ax, #4
+ 196 0160 61 E8                   		 skz
+ 197 0162 EC 76 01 00             		 br	!!.L24
+ 198                             		.loc 1 34 0 is_stmt 0 discriminator 1
+ 199 0166 AF 00 00                		movw	ax, !_state
+ 200 0169 BD F0                   		movw	r8, ax
+ 201 016b B6 F0                   		decw	r8
+ 202 016d AD F0                   		movw	ax, r8
+ 203 016f BF 00 00                		movw	!_state, ax
+ 204 0172 EC 8B 01 00             		br	!!.L23
+ 205                             	.L24:
+  35:../src/StateMachine.c **** 			else if(instr == 6)state = 5;break;
+ 206                             		.loc 1 35 0 is_stmt 1
+ 207 0176 A8 04                   		movw	ax, [sp+4]
+ 208 0178 44 06 00                		cmpw	ax, #6
+ 209 017b 61 E8                   		 skz
+ 210 017d EC 8B 01 00             		 br	!!.L23
+ 211                             		.loc 1 35 0 is_stmt 0 discriminator 1
+ 212 0181 30 05 00                		movw	ax, #5
+ 213 0184 BF 00 00                		movw	!_state, ax
+ 214 0187 EC 97 03 00             		br	!!.L2
+ 215                             	.L23:
+ 216                             		.loc 1 35 0
+ 217 018b EC 97 03 00             		br	!!.L2
+ 218                             	.L9:
+  36:../src/StateMachine.c **** 	case 3: if(instr == 3)state++;
+ 219                             		.loc 1 36 0 is_stmt 1
+ 220 018f A8 04                   		movw	ax, [sp+4]
+ 221 0191 44 03 00                		cmpw	ax, #3
+ 222 0194 61 E8                   		 skz
+ 223 0196 EC AA 01 00             		 br	!!.L25
+ 224                             		.loc 1 36 0 is_stmt 0 discriminator 1
+ 225 019a AF 00 00                		movw	ax, !_state
+ 226 019d BD F0                   		movw	r8, ax
+ 227 019f A6 F0                   		incw	r8
+ 228 01a1 AD F0                   		movw	ax, r8
+ 229 01a3 BF 00 00                		movw	!_state, ax
+ 230 01a6 EC DA 01 00             		br	!!.L26
+ 231                             	.L25:
+  37:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 232                             		.loc 1 37 0 is_stmt 1
+ 233 01aa A8 04                   		movw	ax, [sp+4]
+ 234 01ac 44 04 00                		cmpw	ax, #4
+ 235 01af 61 E8                   		 skz
+ 236 01b1 EC C5 01 00             		 br	!!.L27
+ 237                             		.loc 1 37 0 is_stmt 0 discriminator 1
+ 238 01b5 AF 00 00                		movw	ax, !_state
+ 239 01b8 BD F0                   		movw	r8, ax
+ 240 01ba B6 F0                   		decw	r8
+ 241 01bc AD F0                   		movw	ax, r8
+ 242 01be BF 00 00                		movw	!_state, ax
+ 243 01c1 EC DA 01 00             		br	!!.L26
+ 244                             	.L27:
+  38:../src/StateMachine.c **** 			else if(instr == 6)state = 5; break;
+ 245                             		.loc 1 38 0 is_stmt 1
+ 246 01c5 A8 04                   		movw	ax, [sp+4]
+ 247 01c7 44 06 00                		cmpw	ax, #6
+ 248 01ca 61 E8                   		 skz
+ 249 01cc EC DA 01 00             		 br	!!.L26
+ 250                             		.loc 1 38 0 is_stmt 0 discriminator 1
+ 251 01d0 30 05 00                		movw	ax, #5
+ 252 01d3 BF 00 00                		movw	!_state, ax
+ 253 01d6 EC 97 03 00             		br	!!.L2
+ 254                             	.L26:
+ 255                             		.loc 1 38 0
+ 256 01da EC 97 03 00             		br	!!.L2
+ 257                             	.L3:
+  39:../src/StateMachine.c **** 	case 4: if(instr == 3)state = 0;
+ 258                             		.loc 1 39 0 is_stmt 1
+ 259 01de A8 04                   		movw	ax, [sp+4]
+ 260 01e0 44 03 00                		cmpw	ax, #3
+ 261 01e3 61 E8                   		 skz
+ 262 01e5 EC F1 01 00             		 br	!!.L28
+ 263                             		.loc 1 39 0 is_stmt 0 discriminator 1
+ 264 01e9 F6                      		clrw	ax
+ 265 01ea BF 00 00                		movw	!_state, ax
+ 266 01ed EC 21 02 00             		br	!!.L29
+ 267                             	.L28:
+  40:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 268                             		.loc 1 40 0 is_stmt 1
+ 269 01f1 A8 04                   		movw	ax, [sp+4]
+ 270 01f3 44 04 00                		cmpw	ax, #4
+ 271 01f6 61 E8                   		 skz
+ 272 01f8 EC 0C 02 00             		 br	!!.L30
+ 273                             		.loc 1 40 0 is_stmt 0 discriminator 1
+ 274 01fc AF 00 00                		movw	ax, !_state
+ 275 01ff BD F0                   		movw	r8, ax
+ 276 0201 B6 F0                   		decw	r8
+ 277 0203 AD F0                   		movw	ax, r8
+ 278 0205 BF 00 00                		movw	!_state, ax
+ 279 0208 EC 21 02 00             		br	!!.L29
+ 280                             	.L30:
+  41:../src/StateMachine.c **** 			else if(instr == 6)state = 5; break;
+ 281                             		.loc 1 41 0 is_stmt 1
+ 282 020c A8 04                   		movw	ax, [sp+4]
+ 283 020e 44 06 00                		cmpw	ax, #6
+ 284 0211 61 E8                   		 skz
+ 285 0213 EC 21 02 00             		 br	!!.L29
+ 286                             		.loc 1 41 0 is_stmt 0 discriminator 1
+ 287 0217 30 05 00                		movw	ax, #5
+ 288 021a BF 00 00                		movw	!_state, ax
+ 289 021d EC 97 03 00             		br	!!.L2
+ 290                             	.L29:
+ 291                             		.loc 1 41 0
+ 292 0221 EC 97 03 00             		br	!!.L2
+ 293                             	.L12:
+  42:../src/StateMachine.c **** 
+  43:../src/StateMachine.c **** 	//---------------------------------------------------- test mode
+  44:../src/StateMachine.c **** 
+  45:../src/StateMachine.c **** 	case 5: if(instr == 3)state++;
+ 294                             		.loc 1 45 0 is_stmt 1
+ 295 0225 A8 04                   		movw	ax, [sp+4]
+ 296 0227 44 03 00                		cmpw	ax, #3
+ 297 022a 61 E8                   		 skz
+ 298 022c EC 40 02 00             		 br	!!.L31
+ 299                             		.loc 1 45 0 is_stmt 0 discriminator 1
+ 300 0230 AF 00 00                		movw	ax, !_state
+ 301 0233 BD F0                   		movw	r8, ax
+ 302 0235 A6 F0                   		incw	r8
+ 303 0237 AD F0                   		movw	ax, r8
+ 304 0239 BF 00 00                		movw	!_state, ax
+ 305 023c EC 68 02 00             		br	!!.L32
+ 306                             	.L31:
+  46:../src/StateMachine.c **** 			else if(instr == 4)state = 9;
+ 307                             		.loc 1 46 0 is_stmt 1
+ 308 0240 A8 04                   		movw	ax, [sp+4]
+ 309 0242 44 04 00                		cmpw	ax, #4
+ 310 0245 61 E8                   		 skz
+ 311 0247 EC 55 02 00             		 br	!!.L33
+ 312                             		.loc 1 46 0 is_stmt 0 discriminator 1
+ 313 024b 30 09 00                		movw	ax, #9
+ 314 024e BF 00 00                		movw	!_state, ax
+ 315 0251 EC 68 02 00             		br	!!.L32
+ 316                             	.L33:
+  47:../src/StateMachine.c **** 			else if(instr == 7)state = 0; break;
+ 317                             		.loc 1 47 0 is_stmt 1
+ 318 0255 A8 04                   		movw	ax, [sp+4]
+ 319 0257 44 07 00                		cmpw	ax, #7
+ 320 025a 61 E8                   		 skz
+ 321 025c EC 68 02 00             		 br	!!.L32
+ 322                             		.loc 1 47 0 is_stmt 0 discriminator 1
+ 323 0260 F6                      		clrw	ax
+ 324 0261 BF 00 00                		movw	!_state, ax
+ 325 0264 EC 97 03 00             		br	!!.L2
+ 326                             	.L32:
+ 327                             		.loc 1 47 0
+ 328 0268 EC 97 03 00             		br	!!.L2
+ 329                             	.L13:
+  48:../src/StateMachine.c **** 	case 6: if(instr == 3)state++;
+ 330                             		.loc 1 48 0 is_stmt 1
+ 331 026c A8 04                   		movw	ax, [sp+4]
+ 332 026e 44 03 00                		cmpw	ax, #3
+ 333 0271 61 E8                   		 skz
+ 334 0273 EC 87 02 00             		 br	!!.L34
+ 335                             		.loc 1 48 0 is_stmt 0 discriminator 1
+ 336 0277 AF 00 00                		movw	ax, !_state
+ 337 027a BD F0                   		movw	r8, ax
+ 338 027c A6 F0                   		incw	r8
+ 339 027e AD F0                   		movw	ax, r8
+ 340 0280 BF 00 00                		movw	!_state, ax
+ 341 0283 EC B5 02 00             		br	!!.L35
+ 342                             	.L34:
+  49:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 343                             		.loc 1 49 0 is_stmt 1
+ 344 0287 A8 04                   		movw	ax, [sp+4]
+ 345 0289 44 04 00                		cmpw	ax, #4
+ 346 028c 61 E8                   		 skz
+ 347 028e EC A2 02 00             		 br	!!.L36
+ 348                             		.loc 1 49 0 is_stmt 0 discriminator 1
+ 349 0292 AF 00 00                		movw	ax, !_state
+ 350 0295 BD F0                   		movw	r8, ax
+ 351 0297 B6 F0                   		decw	r8
+ 352 0299 AD F0                   		movw	ax, r8
+ 353 029b BF 00 00                		movw	!_state, ax
+ 354 029e EC B5 02 00             		br	!!.L35
+ 355                             	.L36:
+  50:../src/StateMachine.c **** 			else if(instr == 7)state = 0; break;
+ 356                             		.loc 1 50 0 is_stmt 1
+ 357 02a2 A8 04                   		movw	ax, [sp+4]
+ 358 02a4 44 07 00                		cmpw	ax, #7
+ 359 02a7 61 E8                   		 skz
+ 360 02a9 EC B5 02 00             		 br	!!.L35
+ 361                             		.loc 1 50 0 is_stmt 0 discriminator 1
+ 362 02ad F6                      		clrw	ax
+ 363 02ae BF 00 00                		movw	!_state, ax
+ 364 02b1 EC 97 03 00             		br	!!.L2
+ 365                             	.L35:
+ 366                             		.loc 1 50 0
+ 367 02b5 EC 97 03 00             		br	!!.L2
+ 368                             	.L10:
+  51:../src/StateMachine.c **** 	case 7: if(instr == 3)state++;
+ 369                             		.loc 1 51 0 is_stmt 1
+ 370 02b9 A8 04                   		movw	ax, [sp+4]
+ 371 02bb 44 03 00                		cmpw	ax, #3
+ 372 02be 61 E8                   		 skz
+ 373 02c0 EC D4 02 00             		 br	!!.L37
+ 374                             		.loc 1 51 0 is_stmt 0 discriminator 1
+ 375 02c4 AF 00 00                		movw	ax, !_state
+ 376 02c7 BD F0                   		movw	r8, ax
+ 377 02c9 A6 F0                   		incw	r8
+ 378 02cb AD F0                   		movw	ax, r8
+ 379 02cd BF 00 00                		movw	!_state, ax
+ 380 02d0 EC 02 03 00             		br	!!.L38
+ 381                             	.L37:
+  52:../src/StateMachine.c **** 		    else if(instr == 4)state--;
+ 382                             		.loc 1 52 0 is_stmt 1
+ 383 02d4 A8 04                   		movw	ax, [sp+4]
+ 384 02d6 44 04 00                		cmpw	ax, #4
+ 385 02d9 61 E8                   		 skz
+ 386 02db EC EF 02 00             		 br	!!.L39
+ 387                             		.loc 1 52 0 is_stmt 0 discriminator 1
+ 388 02df AF 00 00                		movw	ax, !_state
+ 389 02e2 BD F0                   		movw	r8, ax
+ 390 02e4 B6 F0                   		decw	r8
+ 391 02e6 AD F0                   		movw	ax, r8
+ 392 02e8 BF 00 00                		movw	!_state, ax
+ 393 02eb EC 02 03 00             		br	!!.L38
+ 394                             	.L39:
+  53:../src/StateMachine.c **** 		    else if(instr == 7)state = 0;  break;
+ 395                             		.loc 1 53 0 is_stmt 1
+ 396 02ef A8 04                   		movw	ax, [sp+4]
+ 397 02f1 44 07 00                		cmpw	ax, #7
+ 398 02f4 61 E8                   		 skz
+ 399 02f6 EC 02 03 00             		 br	!!.L38
+ 400                             		.loc 1 53 0 is_stmt 0 discriminator 1
+ 401 02fa F6                      		clrw	ax
+ 402 02fb BF 00 00                		movw	!_state, ax
+ 403 02fe EC 97 03 00             		br	!!.L2
+ 404                             	.L38:
+ 405                             		.loc 1 53 0
+ 406 0302 EC 97 03 00             		br	!!.L2
+ 407                             	.L14:
+  54:../src/StateMachine.c **** 	case 8: if(instr == 3)state++;
+ 408                             		.loc 1 54 0 is_stmt 1
+ 409 0306 A8 04                   		movw	ax, [sp+4]
+ 410 0308 44 03 00                		cmpw	ax, #3
+ 411 030b 61 E8                   		 skz
+ 412 030d EC 21 03 00             		 br	!!.L40
+ 413                             		.loc 1 54 0 is_stmt 0 discriminator 1
+ 414 0311 AF 00 00                		movw	ax, !_state
+ 415 0314 BD F0                   		movw	r8, ax
+ 416 0316 A6 F0                   		incw	r8
+ 417 0318 AD F0                   		movw	ax, r8
+ 418 031a BF 00 00                		movw	!_state, ax
+ 419 031d EC 4F 03 00             		br	!!.L41
+ 420                             	.L40:
+  55:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 421                             		.loc 1 55 0 is_stmt 1
+ 422 0321 A8 04                   		movw	ax, [sp+4]
+ 423 0323 44 04 00                		cmpw	ax, #4
+ 424 0326 61 E8                   		 skz
+ 425 0328 EC 3C 03 00             		 br	!!.L42
+ 426                             		.loc 1 55 0 is_stmt 0 discriminator 1
+ 427 032c AF 00 00                		movw	ax, !_state
+ 428 032f BD F0                   		movw	r8, ax
+ 429 0331 B6 F0                   		decw	r8
+ 430 0333 AD F0                   		movw	ax, r8
+ 431 0335 BF 00 00                		movw	!_state, ax
+ 432 0338 EC 4F 03 00             		br	!!.L41
+ 433                             	.L42:
+  56:../src/StateMachine.c **** 			else if(instr == 7)state = 0; break;
+ 434                             		.loc 1 56 0 is_stmt 1
+ 435 033c A8 04                   		movw	ax, [sp+4]
+ 436 033e 44 07 00                		cmpw	ax, #7
+ 437 0341 61 E8                   		 skz
+ 438 0343 EC 4F 03 00             		 br	!!.L41
+ 439                             		.loc 1 56 0 is_stmt 0 discriminator 1
+ 440 0347 F6                      		clrw	ax
+ 441 0348 BF 00 00                		movw	!_state, ax
+ 442 034b EC 97 03 00             		br	!!.L2
+ 443                             	.L41:
+ 444                             		.loc 1 56 0
+ 445 034f EC 97 03 00             		br	!!.L2
+ 446                             	.L15:
+  57:../src/StateMachine.c **** 	case 9: if(instr == 3)state = 5;
+ 447                             		.loc 1 57 0 is_stmt 1
+ 448 0353 A8 04                   		movw	ax, [sp+4]
+ 449 0355 44 03 00                		cmpw	ax, #3
+ 450 0358 61 E8                   		 skz
+ 451 035a EC 68 03 00             		 br	!!.L43
+ 452                             		.loc 1 57 0 is_stmt 0 discriminator 1
+ 453 035e 30 05 00                		movw	ax, #5
+ 454 0361 BF 00 00                		movw	!_state, ax
+ 455 0364 EC 96 03 00             		br	!!.L44
+ 456                             	.L43:
+  58:../src/StateMachine.c **** 			else if(instr == 4)state--;
+ 457                             		.loc 1 58 0 is_stmt 1
+ 458 0368 A8 04                   		movw	ax, [sp+4]
+ 459 036a 44 04 00                		cmpw	ax, #4
+ 460 036d 61 E8                   		 skz
+ 461 036f EC 83 03 00             		 br	!!.L45
+ 462                             		.loc 1 58 0 is_stmt 0 discriminator 1
+ 463 0373 AF 00 00                		movw	ax, !_state
+ 464 0376 BD F0                   		movw	r8, ax
+ 465 0378 B6 F0                   		decw	r8
+ 466 037a AD F0                   		movw	ax, r8
+ 467 037c BF 00 00                		movw	!_state, ax
+ 468 037f EC 96 03 00             		br	!!.L44
+ 469                             	.L45:
+  59:../src/StateMachine.c **** 			else if(instr == 7)state = 0; break;
+ 470                             		.loc 1 59 0 is_stmt 1
+ 471 0383 A8 04                   		movw	ax, [sp+4]
+ 472 0385 44 07 00                		cmpw	ax, #7
+ 473 0388 61 E8                   		 skz
+ 474 038a EC 96 03 00             		 br	!!.L44
+ 475                             		.loc 1 59 0 is_stmt 0 discriminator 1
+ 476 038e F6                      		clrw	ax
+ 477 038f BF 00 00                		movw	!_state, ax
+ 478 0392 EC 96 03 00             		br	!!.L60
+ 479                             	.L44:
+ 480                             	.L60:
+ 481                             		.loc 1 59 0
+ 482 0396 00                      		nop
+ 483                             	.L2:
+  60:../src/StateMachine.c **** 	}
+  61:../src/StateMachine.c **** 
+  62:../src/StateMachine.c **** 	switch(state){
+  63:../src/StateMachine.c **** 		case 0: break;
+  64:../src/StateMachine.c **** 		case 1: break;
+  65:../src/StateMachine.c **** 		case 2: break;
+  66:../src/StateMachine.c **** 		case 3: break;
+  67:../src/StateMachine.c **** 		case 4: break;
+ 484                             		.loc 1 67 0 is_stmt 1
+ 485 0397 00                      		nop
+  68:../src/StateMachine.c **** 		case 5: break;
+  69:../src/StateMachine.c **** 		case 6: break;
+  70:../src/StateMachine.c **** 		case 7: break;
+  71:../src/StateMachine.c **** 		case 8: break;
+  72:../src/StateMachine.c **** 		case 9: break;
+  73:../src/StateMachine.c **** 	}
+  74:../src/StateMachine.c **** }
+ 486                             		.loc 1 74 0
+ 487 0398 D7                      		ret
+ 488                             	.LFE0:
+ 516                             	.Letext0:
+ 517                             		.file 2 "../src/globals.h"
+ 518                             		.file 3 "../src/r_cg_macrodriver.h"
