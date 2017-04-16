@@ -13,6 +13,7 @@
 #include "debounce.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 extern uint8_t record[RX_BUF_LEN];
 extern uint8_t mem[RX_BUF_LEN];
@@ -33,6 +34,8 @@ int errorTest();
 void displayLCD();
 void readRTC();
 void setRTC();
+void getRTC();
+void BCDtoDEC(uint8_t arr[]);
 void collectADC();
 uint8_t testDate(uint8_t arr[]);
 
@@ -80,8 +83,14 @@ void processMSG(){
 	if(errorTest()){
 
 		switch(record[1]){
-		case '0': if(mode == 1){ack[0] = '0'; mode = 0;}
-				  else{ack[0] = '3';}
+		case '0': if(mode == 1){
+					 ack[0] = '0'; mode = 0;
+				  }
+
+				  else{
+					  ack[0] = '3';
+				  }
+
 				  ack[1] = '\x0d';
 				  ack[2] = '\x0a';
 				  strcpy(response, "$0");
@@ -90,8 +99,14 @@ void processMSG(){
 				  count = 5; break;
 
 
-		case '1': if(mode == 0){ack[0] = '0'; mode = 1;}
-		  	  	  else{ack[0] = '3';}
+		case '1': if(mode == 0){
+					  ack[0] = '0'; mode = 1;
+				  }
+
+		  	  	  else{
+		  	  		  ack[0] = '3';
+		  	  	  }
+
 				  ack[1] = '\x0d';
 				  ack[2] = '\x0a';
 				  strcpy(response, "$1");
@@ -156,17 +171,19 @@ void processMSG(){
 				  break;
 		case 'E':
 
-				 collectADC();
-				 sprintf(str, "$E0%02d,0,%02d\x0d\x0a", voltage, current2);
+					 collectADC();
+					 sprintf(str, "$E0%02d,0,%02d\x0d\x0a", voltage, current2);
 
+	//				  sprintf(str, "%d", voltage);
 
-//				  sprintf(str, "%d", voltage);
+					  strcpy(response, str); count = strlen(str);
 
-			      strcpy(response, str); count = strlen(str);
+					  break;
 
-				  break;
-		 case'B': setRTC();
-			      break;
+	     case 'B':    setRTC();
+					  break;
+		 case 'C':	  getRTC();
+		 	 	 	  break;
 
 
 		default:
@@ -267,7 +284,8 @@ void collectADC(){
 }
 
 void setRTC(){
-	uint8_t date[] = {0,0,0,0,0,0};
+	uint8_t date[6] = {0,0,0,0,0,0};
+	uint8_t actualDate[6] = {0,0,0,0,0,0};
 	count = 4;
 	int dateCount = 0;
 	rtc_counter_value_t theDate;
@@ -275,6 +293,7 @@ void setRTC(){
 	while(record[count] != '\r'){
 
 		date[dateCount] += record[count] - '0';
+		actualDate[dateCount] += record[count] - '0';
 		count++;
 		if(record[count] == ','){
 			dateCount++;
@@ -285,49 +304,102 @@ void setRTC(){
 		}
 		else{
 			date[dateCount] = date[dateCount]<<4;
+			actualDate[dateCount] = actualDate[dateCount]*10;
 		}
 
 	}
 
-	theDate.year = date[0];
-	theDate.month = date[1];
-	theDate.day = date[2];
-	theDate.hour = date[3];
-	theDate.min = date[4];
-	theDate.sec = date[5];
+	if(testDate(actualDate)){
 
-	char str[4];
-	uint8_t ack = 0;
-	sprintf(str, "$%d\x0d\x0a", date[0]); count = strlen(str);
-	strcpy(response, str);
+		theDate.year = date[0];
+		theDate.month = date[1];
+		theDate.day = date[2];
+		theDate.hour = date[3];
+		theDate.min = date[4];
+		theDate.sec = date[5];
 
-	if(ack == 0){
+		char str[4];
+		sprintf(str, "$B0\x0d\x0a");
+		count = strlen(str);
+		strcpy(response, str);
+
 		R_RTC_Set_CounterValue(theDate);
+	}
+	else{
+		char str[4];
+		uint8_t ack = 0;
+		sprintf(str, "$B2\x0d\x0a");
+		count = strlen(str);
+		strcpy(response, str);
+
+	}
+
+}
+
+void getRTC(){
+	rtc_counter_value_t theDate;
+	uint8_t date[] = {0,0,0,0,0,0};
+//	uint8_t *date;
+//	date = (uint8_t *)malloc(6);
+
+
+	R_RTC_Get_CounterValue(&theDate);
+
+	date[0] = theDate.year;
+	date[1] = theDate.month;
+	date[2] = theDate.day;
+	date[3] = theDate.hour;
+	date[4] = theDate.min;
+	date[5] = theDate.sec;
+
+	BCDtoDEC(date);
+
+	char *str;
+	str = (char *)malloc(32);
+	sprintf(str, "$C020%d,%d,%d,%d,%d,%d\x0d\x0a", date[0], date[1], date[2], date[3], date[4], date[5]);
+//	free(date);
+	count = strlen(str);
+	strcpy(response, str);
+	free(str);
+
+}
+
+void BCDtoDEC(uint8_t arr[]){
+
+	uint8_t len =  6;
+	uint8_t upper, lower;
+	int i;
+	for(i = 0; i < len; i++){
+		lower = arr[i] & 0x0f;
+		upper = (arr[i] & 0xf0)>>4;
+
+		arr[i] = upper*10 + lower;
 	}
 }
 
+// arr format [year,month,day,hour,minute,second]
 uint8_t testDate(uint8_t arr[]){
 
+	int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-	if(arr[0] > 153){
-		return 2;
+	if(arr[1] > 12){
+		return 0;
 	}
-	if(arr[1] > 18){
-		return 2;
+	else if(arr[2] > daysInMonth[arr[1]]){
+		return 0;
 	}
-	if(arr[2] > 49){
-		return 2;
+	else if(arr[3] > 24){
+		return 0;
 	}
-	if(arr[3] > 36){
-		return 2;
+	else if(arr[4] > 60){
+		return 0;
 	}
-	if(arr[4] > 96){
-		return 2;
+	else if(arr[5] > 60){
+		return 0;
 	}
-	if(arr[5] > 96){
-		return 2;
+	else{
+		return 1;
+
 	}
 
-
-	return 0;
 }

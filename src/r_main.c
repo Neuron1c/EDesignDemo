@@ -76,6 +76,9 @@ void main(void)
     R_IT_Create();
 //  R_IT_Start();
 
+    R_RTC_Create();
+    R_RTC_Start();
+
     initLcd();
 
     char welcome[] = "Welcome\x0d\x0a";

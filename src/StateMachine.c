@@ -61,6 +61,26 @@ void recieveInstruction(int instr){
 			else if(instr == 7)state = 0; break;
 	}
 
+	//STATE FUNCTIONS
+
+	/*
+	 * Normal mode functions
+	 *
+	 * 0 - adjust date time
+	 * 1 - measure open circuit voltage and short circuit current
+	 * 2 - N/A
+	 * 3 - N/A
+	 * 4 - N/A
+	 *
+	 * Test mode functions
+	 *
+	 * 5 - $L0
+	 * 6 - $L1
+	 * 7 - $L2
+	 * 8 - $L3
+	 * 9 - $L4
+	 */
+
 	switch(state){
 		case 0: strcpy(display_string,"0\x0d\x0a"); displayLCD(1); break;
 		case 1: strcpy(display_string,"1\x0d\x0a"); displayLCD(1); break;

@@ -7,7 +7,8 @@ src/user_functions.o src/user_functions.d: ../src/user_functions.c \
  C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/string.h \
  C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stddef.h \
  C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdio.h \
- C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdarg.h
+ C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdarg.h \
+ C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdlib.h
 
 ../src/r_cg_macrodriver.h:
 
@@ -48,3 +49,5 @@ C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stddef.h:
 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdio.h:
 
 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdarg.h:
+
+C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/optlibinc/stdlib.h:

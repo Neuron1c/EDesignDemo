@@ -548,8 +548,28 @@
  488                             	.L2:
   62:../src/StateMachine.c **** 	}
   63:../src/StateMachine.c **** 
-  64:../src/StateMachine.c **** 	switch(state){
- 489                             		.loc 1 64 0 is_stmt 1
+  64:../src/StateMachine.c **** 	//STATE FUNCTIONS
+  65:../src/StateMachine.c **** 
+  66:../src/StateMachine.c **** 	/*
+  67:../src/StateMachine.c **** 	 * Normal mode functions
+  68:../src/StateMachine.c **** 	 *
+  69:../src/StateMachine.c **** 	 * 0 - adjust date time
+  70:../src/StateMachine.c **** 	 * 1 - measure open circuit voltage and short circuit current
+  71:../src/StateMachine.c **** 	 * 2 - N/A
+  72:../src/StateMachine.c **** 	 * 3 - N/A
+  73:../src/StateMachine.c **** 	 * 4 - N/A
+  74:../src/StateMachine.c **** 	 *
+  75:../src/StateMachine.c **** 	 * Test mode functions
+  76:../src/StateMachine.c **** 	 *
+  77:../src/StateMachine.c **** 	 * 5 - $L0
+  78:../src/StateMachine.c **** 	 * 6 - $L1
+  79:../src/StateMachine.c **** 	 * 7 - $L2
+  80:../src/StateMachine.c **** 	 * 8 - $L3
+  81:../src/StateMachine.c **** 	 * 9 - $L4
+  82:../src/StateMachine.c **** 	 */
+  83:../src/StateMachine.c **** 
+  84:../src/StateMachine.c **** 	switch(state){
+ 489                             		.loc 1 84 0 is_stmt 1
  490 0399 AF 00 00                		movw	ax, !_state
  491 039c BD F0                   		movw	r8, ax
  492 039e 44 04 00                		cmpw	ax, #4
@@ -614,8 +634,8 @@
  551 0439 EC 46 05 00             		 br	!!.L59
  552 043d EC 60 05 00             		br	!!.L1
  553                             	.L51:
-  65:../src/StateMachine.c **** 		case 0: strcpy(display_string,"0\x0d\x0a"); displayLCD(1); break;
- 554                             		.loc 1 65 0
+  85:../src/StateMachine.c **** 		case 0: strcpy(display_string,"0\x0d\x0a"); displayLCD(1); break;
+ 554                             		.loc 1 85 0
  555 0441 51 30                   		mov	a, #48
  556 0443 9F 00 00                		mov	!_display_string, a
  557 0446 51 0D                   		mov	a, #13
@@ -628,8 +648,8 @@
  564 0456 FC 00 00 00             		call	!!%code(_displayLCD)
  565 045a EC 60 05 00             		br	!!.L1
  566                             	.L49:
-  66:../src/StateMachine.c **** 		case 1: strcpy(display_string,"1\x0d\x0a"); displayLCD(1); break;
- 567                             		.loc 1 66 0
+  86:../src/StateMachine.c **** 		case 1: strcpy(display_string,"1\x0d\x0a"); displayLCD(1); break;
+ 567                             		.loc 1 86 0
  568 045e 51 31                   		mov	a, #49
  569 0460 9F 00 00                		mov	!_display_string, a
  570 0463 51 0D                   		mov	a, #13
@@ -642,8 +662,8 @@
  577 0473 FC 00 00 00             		call	!!%code(_displayLCD)
  578 0477 EC 60 05 00             		br	!!.L1
  579                             	.L52:
-  67:../src/StateMachine.c **** 		case 2: strcpy(display_string,"2\x0d\x0a"); displayLCD(1); break;
- 580                             		.loc 1 67 0
+  87:../src/StateMachine.c **** 		case 2: strcpy(display_string,"2\x0d\x0a"); displayLCD(1); break;
+ 580                             		.loc 1 87 0
  581 047b 51 32                   		mov	a, #50
  582 047d 9F 00 00                		mov	!_display_string, a
  583 0480 51 0D                   		mov	a, #13
@@ -656,8 +676,8 @@
  590 0490 FC 00 00 00             		call	!!%code(_displayLCD)
  591 0494 EC 60 05 00             		br	!!.L1
  592                             	.L53:
-  68:../src/StateMachine.c **** 		case 3: strcpy(display_string,"3\x0d\x0a"); displayLCD(1); break;
- 593                             		.loc 1 68 0
+  88:../src/StateMachine.c **** 		case 3: strcpy(display_string,"3\x0d\x0a"); displayLCD(1); break;
+ 593                             		.loc 1 88 0
  594 0498 51 33                   		mov	a, #51
  595 049a 9F 00 00                		mov	!_display_string, a
  596 049d 51 0D                   		mov	a, #13
@@ -670,8 +690,8 @@
  603 04ad FC 00 00 00             		call	!!%code(_displayLCD)
  604 04b1 EC 60 05 00             		br	!!.L1
  605                             	.L47:
-  69:../src/StateMachine.c **** 		case 4: strcpy(display_string,"4\x0d\x0a"); displayLCD(1); break;
- 606                             		.loc 1 69 0
+  89:../src/StateMachine.c **** 		case 4: strcpy(display_string,"4\x0d\x0a"); displayLCD(1); break;
+ 606                             		.loc 1 89 0
  607 04b5 51 34                   		mov	a, #52
  608 04b7 9F 00 00                		mov	!_display_string, a
  609 04ba 51 0D                   		mov	a, #13
@@ -684,8 +704,8 @@
  616 04ca FC 00 00 00             		call	!!%code(_displayLCD)
  617 04ce EC 60 05 00             		br	!!.L1
  618                             	.L56:
-  70:../src/StateMachine.c **** 		case 5: strcpy(display_string,"5\x0d\x0a"); displayLCD(1); break;
- 619                             		.loc 1 70 0
+  90:../src/StateMachine.c **** 		case 5: strcpy(display_string,"5\x0d\x0a"); displayLCD(1); break;
+ 619                             		.loc 1 90 0
  620 04d2 51 35                   		mov	a, #53
  621 04d4 9F 00 00                		mov	!_display_string, a
  622 04d7 51 0D                   		mov	a, #13
@@ -698,8 +718,8 @@
  629 04e7 FC 00 00 00             		call	!!%code(_displayLCD)
  630 04eb EC 60 05 00             		br	!!.L1
  631                             	.L57:
-  71:../src/StateMachine.c **** 		case 6: strcpy(display_string,"6\x0d\x0a"); displayLCD(1); break;
- 632                             		.loc 1 71 0
+  91:../src/StateMachine.c **** 		case 6: strcpy(display_string,"6\x0d\x0a"); displayLCD(1); break;
+ 632                             		.loc 1 91 0
  633 04ef 51 36                   		mov	a, #54
  634 04f1 9F 00 00                		mov	!_display_string, a
  635 04f4 51 0D                   		mov	a, #13
@@ -712,8 +732,8 @@
  642 0504 FC 00 00 00             		call	!!%code(_displayLCD)
  643 0508 EC 60 05 00             		br	!!.L1
  644                             	.L54:
-  72:../src/StateMachine.c **** 		case 7: strcpy(display_string,"7\x0d\x0a"); displayLCD(1); break;
- 645                             		.loc 1 72 0
+  92:../src/StateMachine.c **** 		case 7: strcpy(display_string,"7\x0d\x0a"); displayLCD(1); break;
+ 645                             		.loc 1 92 0
  646 050c 51 37                   		mov	a, #55
  647 050e 9F 00 00                		mov	!_display_string, a
  648 0511 51 0D                   		mov	a, #13
@@ -726,8 +746,8 @@
  655 0521 FC 00 00 00             		call	!!%code(_displayLCD)
  656 0525 EC 60 05 00             		br	!!.L1
  657                             	.L58:
-  73:../src/StateMachine.c **** 		case 8: strcpy(display_string,"8\x0d\x0a"); displayLCD(1); break;
- 658                             		.loc 1 73 0
+  93:../src/StateMachine.c **** 		case 8: strcpy(display_string,"8\x0d\x0a"); displayLCD(1); break;
+ 658                             		.loc 1 93 0
  659 0529 51 38                   		mov	a, #56
  660 052b 9F 00 00                		mov	!_display_string, a
  661 052e 51 0D                   		mov	a, #13
@@ -740,8 +760,8 @@
  668 053e FC 00 00 00             		call	!!%code(_displayLCD)
  669 0542 EC 60 05 00             		br	!!.L1
  670                             	.L59:
-  74:../src/StateMachine.c **** 		case 9: strcpy(display_string,"9\x0d\x0a"); displayLCD(1); break;
- 671                             		.loc 1 74 0
+  94:../src/StateMachine.c **** 		case 9: strcpy(display_string,"9\x0d\x0a"); displayLCD(1); break;
+ 671                             		.loc 1 94 0
  672 0546 51 39                   		mov	a, #57
  673 0548 9F 00 00                		mov	!_display_string, a
  674 054b 51 0D                   		mov	a, #13
@@ -754,9 +774,9 @@
  681 055b FC 00 00 00             		call	!!%code(_displayLCD)
  682 055f 00                      		nop
  683                             	.L1:
-  75:../src/StateMachine.c **** 	}
-  76:../src/StateMachine.c **** }
- 684                             		.loc 1 76 0
+  95:../src/StateMachine.c **** 	}
+  96:../src/StateMachine.c **** }
+ 684                             		.loc 1 96 0
  685 0560 10 02                   		addw	sp, #2
  686 0562 D7                      		ret
  687                             	.LFE0:
