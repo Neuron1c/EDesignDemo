@@ -118,36 +118,37 @@
   50                             		; outgoing: 4 bytes
   51 0000 20 0E                   		subw	sp, #14
   52                             	.LCFI0:
-  70:../src/r_main.c ****     R_MAIN_UserInit();
-  53                             		.loc 1 70 0
+  70:../src/r_main.c **** 
+  71:../src/r_main.c **** 	R_MAIN_UserInit();
+  53                             		.loc 1 71 0
   54 0002 FC 00 00 00             		call	!!%code(_R_MAIN_UserInit)
-  71:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
-  72:../src/r_main.c **** 
-  73:../src/r_main.c ****     R_UART1_Create();
-  55                             		.loc 1 73 0
+  72:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
+  73:../src/r_main.c **** 
+  74:../src/r_main.c ****     R_UART1_Create();
+  55                             		.loc 1 74 0
   56 0006 FC 00 00 00             		call	!!%code(_R_UART1_Create)
-  74:../src/r_main.c ****     R_UART1_Start();
-  57                             		.loc 1 74 0
+  75:../src/r_main.c ****     R_UART1_Start();
+  57                             		.loc 1 75 0
   58 000a FC 00 00 00             		call	!!%code(_R_UART1_Start)
-  75:../src/r_main.c **** 
-  76:../src/r_main.c ****     R_IT_Create();
-  59                             		.loc 1 76 0
+  76:../src/r_main.c **** 
+  77:../src/r_main.c ****     R_IT_Create();
+  59                             		.loc 1 77 0
   60 000e FC 00 00 00             		call	!!%code(_R_IT_Create)
-  77:../src/r_main.c **** //  R_IT_Start();
-  78:../src/r_main.c **** 
-  79:../src/r_main.c ****     R_RTC_Create();
-  61                             		.loc 1 79 0
+  78:../src/r_main.c **** //  R_IT_Start();
+  79:../src/r_main.c **** 
+  80:../src/r_main.c ****     R_RTC_Create();
+  61                             		.loc 1 80 0
   62 0012 FC 00 00 00             		call	!!%code(_R_RTC_Create)
-  80:../src/r_main.c ****     R_RTC_Start();
-  63                             		.loc 1 80 0
+  81:../src/r_main.c ****     R_RTC_Start();
+  63                             		.loc 1 81 0
   64 0016 FC 00 00 00             		call	!!%code(_R_RTC_Start)
-  81:../src/r_main.c **** 
-  82:../src/r_main.c ****     initLcd();
-  65                             		.loc 1 82 0
+  82:../src/r_main.c **** 
+  83:../src/r_main.c ****     initLcd();
+  65                             		.loc 1 83 0
   66 001a FC 00 00 00             		call	!!%code(_initLcd)
-  83:../src/r_main.c **** 
-  84:../src/r_main.c ****     char welcome[] = "Welcome\x0d\x0a";
-  67                             		.loc 1 84 0
+  84:../src/r_main.c **** 
+  85:../src/r_main.c ****     char welcome[] = "Welcome\x0d\x0a";
+  67                             		.loc 1 85 0
   68 001e 30 57 65                		movw	ax, #25943
   69 0021 B8 04                   		movw	[sp+4], ax
   70 0023 30 6C 63                		movw	ax, #25452
@@ -158,8 +159,8 @@
   75 0030 B8 0A                   		movw	[sp+10], ax
   76 0032 30 0A 00                		movw	ax, #10
   77 0035 B8 0C                   		movw	[sp+12], ax
-  85:../src/r_main.c ****     R_UART1_Send(welcome,9);
-  78                             		.loc 1 85 0
+  86:../src/r_main.c ****     R_UART1_Send(welcome,9);
+  78                             		.loc 1 86 0
   79 0037 C9 F0 0E 00             		movw	r8, #14
   80 003b AE F8                   		movw	ax, sp
   81 003d BD F0                   		movw	r8, ax
@@ -170,9 +171,9 @@
   86 0049 30 09 00                		movw	ax, #9
   87 004c B8 02                   		movw	[sp+2], ax
   88 004e FC 00 00 00             		call	!!%code(_R_UART1_Send)
-  86:../src/r_main.c **** 
-  87:../src/r_main.c ****     uart1Status = R_UART1_Receive(&uart1RxBuf[0],1);
-  89                             		.loc 1 87 0
+  87:../src/r_main.c **** 
+  88:../src/r_main.c ****     uart1Status = R_UART1_Receive(&uart1RxBuf[0],1);
+  89                             		.loc 1 88 0
   90 0052 30 00 00                		movw	ax, #_uart1RxBuf
   91 0055 B8 00                   		movw	[sp], ax
   92 0057 E6                      		onew	ax
@@ -181,18 +182,18 @@
   95 005e AD F0                   		movw	ax, r8
   96 0060 BF 00 00                		movw	!_uart1Status, ax
   97                             	.L8:
-  88:../src/r_main.c **** 
-  89:../src/r_main.c ****     while (1U)
-  90:../src/r_main.c ****     {
-  91:../src/r_main.c **** 		 R_ADC_Set_OperationOn();
-  98                             		.loc 1 91 0
+  89:../src/r_main.c **** 
+  90:../src/r_main.c ****     while (1U)
+  91:../src/r_main.c ****     {
+  92:../src/r_main.c **** 		 R_ADC_Set_OperationOn();
+  98                             		.loc 1 92 0
   99 0063 FC 00 00 00             		call	!!%code(_R_ADC_Set_OperationOn)
-  92:../src/r_main.c **** 
-  93:../src/r_main.c **** 		 while(ADCS);
- 100                             		.loc 1 93 0
+  93:../src/r_main.c **** 
+  94:../src/r_main.c **** 		 while(ADCS);
+ 100                             		.loc 1 94 0
  101 0067 00                      		nop
  102                             	.L2:
- 103                             		.loc 1 93 0 is_stmt 0 discriminator 1
+ 103                             		.loc 1 94 0 is_stmt 0 discriminator 1
  104 0068 C9 F0 30 FF             		movw	r8, #-208
  105 006c AD F0                   		movw	ax, r8
  106 006e BD F2                   		movw	r10, ax
@@ -204,9 +205,9 @@
  112 0079 D4 F0                   		cmp0	r8
  113 007b 61 E8                   		 skz
  114 007d EC 68 00 00             		 br	!!.L2
-  94:../src/r_main.c **** 
-  95:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 5)){
- 115                             		.loc 1 95 0 is_stmt 1
+  95:../src/r_main.c **** 
+  96:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 5)){
+ 115                             		.loc 1 96 0 is_stmt 1
  116 0081 30 05 FF                		movw	ax, #-251
  117 0084 B8 00                   		movw	[sp], ax
  118 0086 30 05 00                		movw	ax, #5
@@ -215,15 +216,15 @@
  121 008f D4 F0                   		cmp0	r8
  122 0091 61 F8                   		 sknz
  123 0093 EC A0 00 00             		 br	!!.L3
-  96:../src/r_main.c **** 			 recieveInstruction(5);
- 124                             		.loc 1 96 0
+  97:../src/r_main.c **** 			 recieveInstruction(5);
+ 124                             		.loc 1 97 0
  125 0097 30 05 00                		movw	ax, #5
  126 009a B8 00                   		movw	[sp], ax
  127 009c FC 00 00 00             		call	!!%code(_recieveInstruction)
  128                             	.L3:
-  97:../src/r_main.c **** 		 }
-  98:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 4)){
- 129                             		.loc 1 98 0
+  98:../src/r_main.c **** 		 }
+  99:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 4)){
+ 129                             		.loc 1 99 0
  130 00a0 30 05 FF                		movw	ax, #-251
  131 00a3 B8 00                   		movw	[sp], ax
  132 00a5 30 04 00                		movw	ax, #4
@@ -232,15 +233,15 @@
  135 00ae D4 F0                   		cmp0	r8
  136 00b0 61 F8                   		 sknz
  137 00b2 EC BF 00 00             		 br	!!.L4
-  99:../src/r_main.c **** 			 recieveInstruction(3);
- 138                             		.loc 1 99 0
+ 100:../src/r_main.c **** 			 recieveInstruction(3);
+ 138                             		.loc 1 100 0
  139 00b6 30 03 00                		movw	ax, #3
  140 00b9 B8 00                   		movw	[sp], ax
  141 00bb FC 00 00 00             		call	!!%code(_recieveInstruction)
  142                             	.L4:
- 100:../src/r_main.c **** 		 }
- 101:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 3)){
- 143                             		.loc 1 101 0
+ 101:../src/r_main.c **** 		 }
+ 102:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 3)){
+ 143                             		.loc 1 102 0
  144 00bf 30 05 FF                		movw	ax, #-251
  145 00c2 B8 00                   		movw	[sp], ax
  146 00c4 30 03 00                		movw	ax, #3
@@ -249,15 +250,15 @@
  149 00cd D4 F0                   		cmp0	r8
  150 00cf 61 F8                   		 sknz
  151 00d1 EC DE 00 00             		 br	!!.L5
- 102:../src/r_main.c **** 			 recieveInstruction(4);
- 152                             		.loc 1 102 0
+ 103:../src/r_main.c **** 			 recieveInstruction(4);
+ 152                             		.loc 1 103 0
  153 00d5 30 04 00                		movw	ax, #4
  154 00d8 B8 00                   		movw	[sp], ax
  155 00da FC 00 00 00             		call	!!%code(_recieveInstruction)
  156                             	.L5:
- 103:../src/r_main.c **** 		 }
- 104:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 2)){
- 157                             		.loc 1 104 0
+ 104:../src/r_main.c **** 		 }
+ 105:../src/r_main.c **** 		 if(bounce_correction(&P5_bit, 2)){
+ 157                             		.loc 1 105 0
  158 00de 30 05 FF                		movw	ax, #-251
  159 00e1 B8 00                   		movw	[sp], ax
  160 00e3 30 02 00                		movw	ax, #2
@@ -266,35 +267,35 @@
  163 00ec D4 F0                   		cmp0	r8
  164 00ee 61 F8                   		 sknz
  165 00f0 EC FB 00 00             		 br	!!.L6
- 105:../src/r_main.c **** 			 recieveInstruction(1);
- 166                             		.loc 1 105 0
+ 106:../src/r_main.c **** 			 recieveInstruction(1);
+ 166                             		.loc 1 106 0
  167 00f4 E6                      		onew	ax
  168 00f5 B8 00                   		movw	[sp], ax
  169 00f7 FC 00 00 00             		call	!!%code(_recieveInstruction)
  170                             	.L6:
- 106:../src/r_main.c **** 		 }
- 107:../src/r_main.c **** 
- 108:../src/r_main.c ****             if (uart1RxFlag)
- 171                             		.loc 1 108 0
+ 107:../src/r_main.c **** 		 }
+ 108:../src/r_main.c **** 
+ 109:../src/r_main.c ****             if (uart1RxFlag)
+ 171                             		.loc 1 109 0
  172 00fb 8F 00 00                		mov	a, !_uart1RxFlag
  173 00fe 9D F0                   		mov	r8, a
  174 0100 D4 F0                   		cmp0	r8
  175 0102 61 F8                   		 sknz
  176 0104 EC 27 01 00             		 br	!!.L7
- 109:../src/r_main.c ****             {
- 110:../src/r_main.c ****             	uart1RxFlag = 0U;
- 177                             		.loc 1 110 0
+ 110:../src/r_main.c ****             {
+ 111:../src/r_main.c ****             	uart1RxFlag = 0U;
+ 177                             		.loc 1 111 0
  178 0108 F5 00 00                		clrb	!_uart1RxFlag
- 111:../src/r_main.c **** 
- 112:../src/r_main.c ****             	populate(uart1RxBuf[0]);
- 179                             		.loc 1 112 0
+ 112:../src/r_main.c **** 
+ 113:../src/r_main.c ****             	populate(uart1RxBuf[0]);
+ 179                             		.loc 1 113 0
  180 010b 8F 00 00                		mov	a, !_uart1RxBuf
  181 010e 9D F0                   		mov	r8, a
  182 0110 98 00                   		mov	[sp], a
  183 0112 FC 00 00 00             		call	!!%code(_populate)
- 113:../src/r_main.c **** 
- 114:../src/r_main.c ****                 uart1Status = R_UART1_Receive(uart1RxBuf,1);
- 184                             		.loc 1 114 0
+ 114:../src/r_main.c **** 
+ 115:../src/r_main.c ****                 uart1Status = R_UART1_Receive(uart1RxBuf,1);
+ 184                             		.loc 1 115 0
  185 0116 30 00 00                		movw	ax, #_uart1RxBuf
  186 0119 B8 00                   		movw	[sp], ax
  187 011b E6                      		onew	ax
@@ -303,44 +304,37 @@
  190 0122 AD F0                   		movw	ax, r8
  191 0124 BF 00 00                		movw	!_uart1Status, ax
  192                             	.L7:
- 115:../src/r_main.c ****             }
- 116:../src/r_main.c **** 
+ 116:../src/r_main.c ****             }
  117:../src/r_main.c **** 
- 118:../src/r_main.c ****             //If a character has been transmitted
- 119:../src/r_main.c **** //            if (ITIF != 0 && display == 1)
- 120:../src/r_main.c **** //            {
- 121:../src/r_main.c **** //            	displayLCD();
- 122:../src/r_main.c **** //            	ITIF = 0U;
- 123:../src/r_main.c **** //            }
- 124:../src/r_main.c ****     }
- 193                             		.loc 1 124 0
+ 118:../src/r_main.c ****     }
+ 193                             		.loc 1 118 0
  194 0127 EC 63 00 00             		br	!!.L8
  195                             	.LFE0:
  197                             		.global	_R_MAIN_UserInit
  199                             	_R_MAIN_UserInit:
  200                             	.LFB1:
- 125:../src/r_main.c ****     /* End user code. Do not edit comment generated here */
- 126:../src/r_main.c **** }
- 127:../src/r_main.c **** 
- 128:../src/r_main.c **** 
- 129:../src/r_main.c **** /**************************************************************************************************
- 130:../src/r_main.c **** * Function Name: R_MAIN_UserInit
- 131:../src/r_main.c **** * Description  : This function adds user code before implementing main function.
- 132:../src/r_main.c **** * Arguments    : None
- 133:../src/r_main.c **** * Return Value : None
- 134:../src/r_main.c **** ***************************************************************************************************
- 135:../src/r_main.c **** void R_MAIN_UserInit(void)
- 136:../src/r_main.c **** {
- 201                             		.loc 1 136 0
- 137:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
- 138:../src/r_main.c ****     EI();
- 202                             		.loc 1 138 0
- 203                             	 ; 138 "../src/r_main.c" 1
+ 119:../src/r_main.c ****     /* End user code. Do not edit comment generated here */
+ 120:../src/r_main.c **** }
+ 121:../src/r_main.c **** 
+ 122:../src/r_main.c **** 
+ 123:../src/r_main.c **** /**************************************************************************************************
+ 124:../src/r_main.c **** * Function Name: R_MAIN_UserInit
+ 125:../src/r_main.c **** * Description  : This function adds user code before implementing main function.
+ 126:../src/r_main.c **** * Arguments    : None
+ 127:../src/r_main.c **** * Return Value : None
+ 128:../src/r_main.c **** ***************************************************************************************************
+ 129:../src/r_main.c **** void R_MAIN_UserInit(void)
+ 130:../src/r_main.c **** {
+ 201                             		.loc 1 130 0
+ 131:../src/r_main.c ****     /* Start user code. Do not edit comment generated here */
+ 132:../src/r_main.c ****     EI();
+ 202                             		.loc 1 132 0
+ 203                             	 ; 132 "../src/r_main.c" 1
  204 012b 71 7A FA                		ei
  205                             	 ; 0 "" 2
- 139:../src/r_main.c ****     /* End user code. Do not edit comment generated here */
- 140:../src/r_main.c **** }
- 206                             		.loc 1 140 0
+ 133:../src/r_main.c ****     /* End user code. Do not edit comment generated here */
+ 134:../src/r_main.c **** }
+ 206                             		.loc 1 134 0
  207 012e D7                      		ret
  208                             	.LFE1:
  248                             	.Letext0:

@@ -1,4 +1,5 @@
 /*
+
  * debounce.c
  *
  *  Created on: 12 Apr 2017
@@ -7,15 +8,6 @@
 
 #include "r_cg_userdefine.h"
 #include "debounce.h"
-
-//static uint16_t high[pin_no];
-//static uint16_t low[pin_no];
-//static uint16_t high0,high1,high2,high3,high4,high5,high6,high7;
-//static uint16_t low0,low1,low2,low3,low3,low4,low5,low6,low7;
-//static uint8_t flag0,flag1,flag2,flag3,flag4,flag5,flag6,flag7;
-//uint8_t flag[pin_no];
-
-//This is a change which will be tracked in git
 
 static uint16_t low[8];
 static uint16_t high[8];

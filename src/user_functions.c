@@ -122,6 +122,7 @@ void processMSG(){
 		case 'D': if(strlen(mem) <= 32){
 
 					strcpy(response, "$D0\x0d\x0a"); count = 5;
+
 					strcpy(display_string,mem);
 					displayLCD(1);
 				  }
@@ -172,7 +173,7 @@ void processMSG(){
 		case 'E':
 
 					 collectADC();
-					 sprintf(str, "$E0%02d,0,%02d\x0d\x0a", voltage, current2);
+					 sprintf(str, "$E0%02d,%02d,%0d\x0d\x0a", voltage, current2, current1);
 
 	//				  sprintf(str, "%d", voltage);
 
@@ -187,9 +188,11 @@ void processMSG(){
 
 
 		default:
-				 strcpy(response, "$");
-				 strcat(response, &record[1]);
-				 strcat(response, "1\x0d\x0a"); count = 5;
+				 sprintf(response, "$%c1\x0d\x0a", record[1]);
+				 count = 5;
+//				 strcpy(response, "$");
+//				 strcat(response, &record[1]);
+//				 strcat(response, "1\x0d\x0a"); count = 5;
 
 		}
 	}
@@ -272,6 +275,15 @@ void collectADC(){
 	 R_ADC_Get_Result_8bit(&voltage);
 	 voltage = voltage >> 1;
 
+	 ADS = _01_AD_INPUT_CHANNEL_1;
+	 R_ADC_Start();
+	 while(ADCS);
+	 R_ADC_Start();
+	 while(ADCS);
+
+	 R_ADC_Get_Result_8bit(&current1);
+	 current1 = current1 >> 2;
+
 	 ADS = _02_AD_INPUT_CHANNEL_2;
 	 R_ADC_Start();
 	 while(ADCS);
@@ -318,10 +330,8 @@ void setRTC(){
 		theDate.min = date[4];
 		theDate.sec = date[5];
 
-		char str[4];
-		sprintf(str, "$B0\x0d\x0a");
-		count = strlen(str);
-		strcpy(response, str);
+		count = 5;
+		strcpy(response, "$B0\x0d\x0a");
 
 		R_RTC_Set_CounterValue(theDate);
 	}
@@ -339,8 +349,7 @@ void setRTC(){
 void getRTC(){
 	rtc_counter_value_t theDate;
 	uint8_t date[] = {0,0,0,0,0,0};
-//	uint8_t *date;
-//	date = (uint8_t *)malloc(6);
+
 
 
 	R_RTC_Get_CounterValue(&theDate);
@@ -380,7 +389,7 @@ void BCDtoDEC(uint8_t arr[]){
 // arr format [year,month,day,hour,minute,second]
 uint8_t testDate(uint8_t arr[]){
 
-	int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+	int daysInMonth[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
 	if(arr[1] > 12){
 		return 0;
@@ -388,13 +397,13 @@ uint8_t testDate(uint8_t arr[]){
 	else if(arr[2] > daysInMonth[arr[1]]){
 		return 0;
 	}
-	else if(arr[3] > 24){
+	else if(arr[3] > 23){
 		return 0;
 	}
-	else if(arr[4] > 60){
+	else if(arr[4] > 59){
 		return 0;
 	}
-	else if(arr[5] > 60){
+	else if(arr[5] > 59){
 		return 0;
 	}
 	else{

@@ -67,7 +67,8 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
-    R_MAIN_UserInit();
+
+	R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
 
     R_UART1_Create();
@@ -114,13 +115,6 @@ void main(void)
                 uart1Status = R_UART1_Receive(uart1RxBuf,1);
             }
 
-
-            //If a character has been transmitted
-//            if (ITIF != 0 && display == 1)
-//            {
-//            	displayLCD();
-//            	ITIF = 0U;
-//            }
     }
     /* End user code. Do not edit comment generated here */
 }

@@ -1,63 +1,63 @@
 Archive member included because of file (symbol)
 
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
                               ./src/user_functions.o (free)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o) (_last_heap_object)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o) (_last_heap_object)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
                               ./src/user_functions.o (malloc)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
                               ./src/user_functions.o (sprintf)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
                               ./src/user_functions.o (strcat)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
                               ./src/user_functions.o (strcpy)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
                               ./src/user_functions.o (strlen)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o) (_formatted_write)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__extendsfdf2)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__subdf3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__muldf3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__divdf3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__nedf2)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__gedf2)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__ltdf2)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__ledf2)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__floatsidf)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__fixdfsi)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o) (__make_dp)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__thenan_df)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__divhi3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o) (__clzsi2)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o) (__muldi3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__lshrdi3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o) (__ashldi3)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o) (__unpack_f)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__pack_d)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__unpack_d)
-C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
-                              C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o) (__fpcmp_parts_d)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o) (_formatted_write)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__extendsfdf2)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__subdf3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__muldf3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__divdf3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__nedf2)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__gedf2)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__ltdf2)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__ledf2)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__floatsidf)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__fixdfsi)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o) (__make_dp)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__thenan_df)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o) (__divhi3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o) (__clzsi2)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o) (__muldi3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__lshrdi3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o) (__ashldi3)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o) (__unpack_f)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__pack_d)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o) (__unpack_d)
+C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
+                              C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o) (__fpcmp_parts_d)
 
 Allocating common symbols
 Common symbol       size              file
@@ -146,234 +146,235 @@ Linker script and memory map
                 0x000000d8                __DTOR_END__ = .
                 0x000000d8                _mdata = .
 
-.text           0x000000d8     0xade8
+.text           0x000000d8     0xb108
  *(.text)
- .text          0x000000d8      0x563 ./src/StateMachine.o
+ .text          0x000000d8      0x851 ./src/StateMachine.o
                 0x000000d8                recieveInstruction
- .text          0x0000063b      0x26d ./src/debounce.o
-                0x0000063b                bounce_correction
-                0x00000789                getPin
- .text          0x000008a8      0x27e ./src/lcd.o
-                0x000008a8                writeByteLcd
-                0x000008d9                writeNibbleLcd
-                0x000009df                initLcd
-                0x00000ab9                startTMR0
-                0x00000af4                delayNoInt
- .text          0x00000b26      0x202 ./src/r_cg_adc.o
-                0x00000b26                R_ADC_Create
-                0x00000c41                R_ADC_Start
-                0x00000c8d                R_ADC_Stop
-                0x00000cd9                R_ADC_Set_OperationOn
-                0x00000cf3                R_ADC_Set_OperationOff
-                0x00000d0d                R_ADC_Get_Result_8bit
- .text          0x00000d28        0xc ./src/r_cg_adc_user.o
-                0x00000d28                r_adc_interrupt
- .text          0x00000d34       0xbe ./src/r_cg_cgc.o
-                0x00000d34                R_CGC_Create
- .text          0x00000df2       0x14 ./src/r_cg_cgc_user.o
-                0x00000df2                R_CGC_Get_ResetSource
- .text          0x00000e06      0x152 ./src/r_cg_it.o
-                0x00000e06                R_IT_Create
-                0x00000ea2                R_IT_Start
-                0x00000efd                R_IT_Stop
- .text          0x00000f58       0x4c ./src/r_cg_it_user.o
-                0x00000f58                r_it_interrupt
- .text          0x00000fa4       0x75 ./src/r_cg_port.o
-                0x00000fa4                R_PORT_Create
- .text          0x00001019        0x0 ./src/r_cg_port_user.o
- .text          0x00001019      0x439 ./src/r_cg_rtc.o
-                0x00001019                R_RTC_Create
-                0x00001125                R_RTC_Start
-                0x0000113f                R_RTC_Stop
-                0x00001159                R_RTC_Get_CounterValue
-                0x000012e8                R_RTC_Set_CounterValue
- .text          0x00001452        0x0 ./src/r_cg_rtc_user.o
- .text          0x00001452      0x566 ./src/r_cg_serial.o
-                0x00001452                R_SAU0_Create
-                0x00001484                R_UART1_Create
-                0x00001757                R_UART1_Start
-                0x0000183a                R_UART1_Stop
-                0x000018f3                R_UART1_Receive
-                0x00001925                R_UART1_Send
- .text          0x000019b8      0x143 ./src/r_cg_serial_user.o
-                0x000019b8                r_uart1_interrupt_receive
-                0x00001a8c                r_uart1_interrupt_send
- .text          0x00001afb      0x54c ./src/r_cg_timer.o
-                0x00001afb                R_TAU0_Create
-                0x00001edb                R_TAU0_Channel0_Start
-                0x00001f36                R_TAU0_Channel0_Stop
-                0x00001f91                R_TAU0_Channel1_Start
-                0x00001fec                R_TAU0_Channel1_Stop
- .text          0x00002047       0x3e ./src/r_cg_timer_user.o
-                0x00002047                r_tau0_channel0_interrupt
-                0x00002079                r_tau0_channel1_interrupt
- .text          0x00002085        0xc ./src/r_cg_vector_table.o
-                0x00002085                R_Dummy
- .text          0x00002091       0x4e ./src/r_hardware_setup.o
-                0x00002091                R_Systeminit
-                0x000020ce                HardwareSetup
- .text          0x000020df      0x12f ./src/r_main.o
-                0x000020df                main
-                0x0000220a                R_MAIN_UserInit
- .text          0x0000220e       0x60 ./src/r_reset_program.o
-                0x00002210                PowerON_Reset
- .text          0x0000226e      0xe79 ./src/user_functions.o
-                0x0000226e                populate
-                0x00002358                processMSG
-                0x0000295e                errorTest
-                0x000029c6                displayLCD
-                0x00002ae7                collectADC
-                0x00002bab                setRTC
-                0x00002e4a                getRTC
-                0x00002f51                BCDtoDEC
-                0x00002fd9                testDate
- .text          0x000030e7       0xe7 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
-                0x000030e7                free
- .text          0x000031ce        0x5 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
-                0x000031ce                _top_of_heap
- .text          0x000031d3      0x123 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
-                0x000031d3                _make_new_mem_hole
-                0x000031fe                malloc
- .text          0x000032f6       0x45 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
-                0x0000330e                sprintf
- .text          0x0000333b       0x4e C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
-                0x0000333b                strcat
- .text          0x00003389       0x27 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
-                0x00003389                strcpy
- .text          0x000033b0       0x29 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
-                0x000033b0                strlen
- .text          0x000033d9     0x1595 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
-                0x000033d9                _formatted_write
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
- .text          0x0000496e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
+ .text          0x00000929      0x26d ./src/debounce.o
+                0x00000929                bounce_correction
+                0x00000a77                getPin
+ .text          0x00000b96      0x27e ./src/lcd.o
+                0x00000b96                writeByteLcd
+                0x00000bc7                writeNibbleLcd
+                0x00000ccd                initLcd
+                0x00000da7                startTMR0
+                0x00000de2                delayNoInt
+ .text          0x00000e14      0x202 ./src/r_cg_adc.o
+                0x00000e14                R_ADC_Create
+                0x00000f2f                R_ADC_Start
+                0x00000f7b                R_ADC_Stop
+                0x00000fc7                R_ADC_Set_OperationOn
+                0x00000fe1                R_ADC_Set_OperationOff
+                0x00000ffb                R_ADC_Get_Result_8bit
+ .text          0x00001016        0xc ./src/r_cg_adc_user.o
+                0x00001016                r_adc_interrupt
+ .text          0x00001022       0xbe ./src/r_cg_cgc.o
+                0x00001022                R_CGC_Create
+ .text          0x000010e0       0x14 ./src/r_cg_cgc_user.o
+                0x000010e0                R_CGC_Get_ResetSource
+ .text          0x000010f4      0x152 ./src/r_cg_it.o
+                0x000010f4                R_IT_Create
+                0x00001190                R_IT_Start
+                0x000011eb                R_IT_Stop
+ .text          0x00001246       0x4c ./src/r_cg_it_user.o
+                0x00001246                r_it_interrupt
+ .text          0x00001292       0x75 ./src/r_cg_port.o
+                0x00001292                R_PORT_Create
+ .text          0x00001307        0x0 ./src/r_cg_port_user.o
+ .text          0x00001307      0x439 ./src/r_cg_rtc.o
+                0x00001307                R_RTC_Create
+                0x00001413                R_RTC_Start
+                0x0000142d                R_RTC_Stop
+                0x00001447                R_RTC_Get_CounterValue
+                0x000015d6                R_RTC_Set_CounterValue
+ .text          0x00001740        0x0 ./src/r_cg_rtc_user.o
+ .text          0x00001740      0x566 ./src/r_cg_serial.o
+                0x00001740                R_SAU0_Create
+                0x00001772                R_UART1_Create
+                0x00001a45                R_UART1_Start
+                0x00001b28                R_UART1_Stop
+                0x00001be1                R_UART1_Receive
+                0x00001c13                R_UART1_Send
+ .text          0x00001ca6      0x143 ./src/r_cg_serial_user.o
+                0x00001ca6                r_uart1_interrupt_receive
+                0x00001d7a                r_uart1_interrupt_send
+ .text          0x00001de9      0x54c ./src/r_cg_timer.o
+                0x00001de9                R_TAU0_Create
+                0x000021c9                R_TAU0_Channel0_Start
+                0x00002224                R_TAU0_Channel0_Stop
+                0x0000227f                R_TAU0_Channel1_Start
+                0x000022da                R_TAU0_Channel1_Stop
+ .text          0x00002335       0x3e ./src/r_cg_timer_user.o
+                0x00002335                r_tau0_channel0_interrupt
+                0x00002367                r_tau0_channel1_interrupt
+ .text          0x00002373        0xc ./src/r_cg_vector_table.o
+                0x00002373                R_Dummy
+ .text          0x0000237f       0x4e ./src/r_hardware_setup.o
+                0x0000237f                R_Systeminit
+                0x000023bc                HardwareSetup
+ .text          0x000023cd      0x12f ./src/r_main.o
+                0x000023cd                main
+                0x000024f8                R_MAIN_UserInit
+ .text          0x000024fc       0x60 ./src/r_reset_program.o
+                0x000024fe                PowerON_Reset
+ .text          0x0000255c      0xeaa ./src/user_functions.o
+                0x0000255c                populate
+                0x00002646                processMSG
+                0x00002c53                errorTest
+                0x00002cbb                displayLCD
+                0x00002ddc                collectADC
+                0x00002eff                setRTC
+                0x00003169                getRTC
+                0x00003270                BCDtoDEC
+                0x000032f8                testDate
+ .text          0x00003406       0xe7 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
+                0x00003406                free
+ .text          0x000034ed        0x5 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
+                0x000034ed                _top_of_heap
+ .text          0x000034f2      0x123 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
+                0x000034f2                _make_new_mem_hole
+                0x0000351d                malloc
+ .text          0x00003615       0x45 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
+                0x0000362d                sprintf
+ .text          0x0000365a       0x4e C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
+                0x0000365a                strcat
+ .text          0x000036a8       0x27 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
+                0x000036a8                strcpy
+ .text          0x000036cf       0x29 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
+                0x000036cf                strlen
+ .text          0x000036f8     0x1595 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
+                0x000036f8                _formatted_write
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
+ .text          0x00004c8d        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
  *(.text.*)
  .text.__extendsfdf2
-                0x0000496e      0x123 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
-                0x0000496e                __extendsfdf2
+                0x00004c8d      0x123 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
+                0x00004c8d                __extendsfdf2
  .text._fpadd_parts
-                0x00004a91     0x1753 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+                0x00004db0     0x1753 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
  .text.__adddf3
-                0x000061e4      0x117 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
-                0x000061e4                __adddf3
+                0x00006503      0x117 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+                0x00006503                __adddf3
  .text.__subdf3
-                0x000062fb      0x121 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
-                0x000062fb                __subdf3
+                0x0000661a      0x121 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+                0x0000661a                __subdf3
  .text.__muldf3
-                0x0000641c     0x1633 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
-                0x0000641c                __muldf3
+                0x0000673b     0x1633 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
+                0x0000673b                __muldf3
  .text.__divdf3
-                0x00007a4f      0xbd7 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
-                0x00007a4f                __divdf3
- .text.__nedf2  0x00008626       0xe6 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
-                0x00008626                __nedf2
- .text.__gedf2  0x0000870c       0xe7 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
-                0x0000870c                __gedf2
- .text.__ltdf2  0x000087f3       0xe6 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
-                0x000087f3                __ltdf2
- .text.__ledf2  0x000088d9       0xe6 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
-                0x000088d9                __ledf2
+                0x00007d6e      0xbd7 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
+                0x00007d6e                __divdf3
+ .text.__nedf2  0x00008945       0xe6 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
+                0x00008945                __nedf2
+ .text.__gedf2  0x00008a2b       0xe7 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
+                0x00008a2b                __gedf2
+ .text.__ltdf2  0x00008b12       0xe6 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
+                0x00008b12                __ltdf2
+ .text.__ledf2  0x00008bf8       0xe6 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
+                0x00008bf8                __ledf2
  .text.__floatsidf
-                0x000089bf      0x19f C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
-                0x000089bf                __floatsidf
+                0x00008cde      0x19f C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
+                0x00008cde                __floatsidf
  .text.__fixdfsi
-                0x00008b5e      0x142 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
-                0x00008b5e                __fixdfsi
+                0x00008e7d      0x142 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
+                0x00008e7d                __fixdfsi
  .text.__make_dp
-                0x00008ca0       0x9d C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
-                0x00008ca0                __make_dp
+                0x00008fbf       0x9d C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
+                0x00008fbf                __make_dp
  .text.___divhi3
-                0x00008d3d       0x61 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
-                0x00008d3d                __divhi3
+                0x0000905c       0x61 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+                0x0000905c                __divhi3
  .text.___modhi3
-                0x00008d9e       0x62 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
-                0x00008d9e                __modhi3
+                0x000090bd       0x62 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+                0x000090bd                __modhi3
  .text.___udivhi3
-                0x00008e00       0x23 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
-                0x00008e00                __udivhi3
+                0x0000911f       0x23 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+                0x0000911f                __udivhi3
  .text.___umodhi3
-                0x00008e23       0x23 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
-                0x00008e23                __umodhi3
+                0x00009142       0x23 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+                0x00009142                __umodhi3
  .text.___clzhi2
-                0x00008e46       0x16 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008e46                __clzhi2
-                0x00008e48                _clzhi2_internal
+                0x00009165       0x16 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x00009165                __clzhi2
+                0x00009167                _clzhi2_internal
  .text.___clzsi2
-                0x00008e5c       0x17 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008e5c                __clzsi2
+                0x0000917b       0x17 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x0000917b                __clzsi2
  .text.___ctzhi2
-                0x00008e73       0x16 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008e73                __ctzhi2
-                0x00008e75                _ctzhi2_internal
+                0x00009192       0x16 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x00009192                __ctzhi2
+                0x00009194                _ctzhi2_internal
  .text.___ctzsi2
-                0x00008e89       0x17 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008e89                __ctzsi2
+                0x000091a8       0x17 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x000091a8                __ctzsi2
  .text.___ffshi2
-                0x00008ea0       0x16 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008ea0                __ffshi2
-                0x00008ea2                _ffshi2_internal
+                0x000091bf       0x16 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x000091bf                __ffshi2
+                0x000091c1                _ffshi2_internal
  .text.___ffssi2
-                0x00008eb6       0x1c C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008eb6                __ffssi2
+                0x000091d5       0x1c C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x000091d5                __ffssi2
  .text.___parityqi_internal
-                0x00008ed2       0x19 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008ed2                __parityqi_internal
+                0x000091f1       0x19 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x000091f1                __parityqi_internal
  .text.___parityhi2
-                0x00008eeb        0x6 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008eeb                __parityhi2
+                0x0000920a        0x6 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x0000920a                __parityhi2
  .text.___paritysi2
-                0x00008ef1        0xd C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008ef1                __paritysi2
+                0x00009210        0xd C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x00009210                __paritysi2
  .text.___popcounthi2
-                0x00008efe        0x4 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008efe                __popcounthi2
+                0x0000921d        0x4 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x0000921d                __popcounthi2
  .text.___popcountsi2
-                0x00008f02        0x4 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008f02                __popcountsi2
+                0x00009221        0x4 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x00009221                __popcountsi2
  .text.___popcountqi_internal
-                0x00008f06       0x20 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
-                0x00008f06                __popcountqi_internal
+                0x00009225       0x20 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+                0x00009225                __popcountqi_internal
  .text.__muldi3
-                0x00008f26      0x395 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
-                0x00008f26                __muldi3
+                0x00009245      0x395 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
+                0x00009245                __muldi3
  .text.__lshrdi3
-                0x000092bb      0x1e6 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
-                0x000092bb                __lshrdi3
+                0x000095da      0x1e6 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
+                0x000095da                __lshrdi3
  .text.__ashldi3
-                0x000094a1      0x1c4 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
-                0x000094a1                __ashldi3
+                0x000097c0      0x1c4 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
+                0x000097c0                __ashldi3
  .text.__unpack_f
-                0x00009665      0x18c C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
-                0x00009665                __unpack_f
+                0x00009984      0x18c C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
+                0x00009984                __unpack_f
  .text.__pack_d
-                0x000097f1      0xfc2 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
-                0x000097f1                __pack_d
+                0x00009b10      0xfc2 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
+                0x00009b10                __pack_d
  .text.__unpack_d
-                0x0000a7b3      0x467 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
-                0x0000a7b3                __unpack_d
+                0x0000aad2      0x467 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
+                0x0000aad2                __unpack_d
  .text.__fpcmp_parts_d
-                0x0000ac1a      0x2a6 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
-                0x0000ac1a                __fpcmp_parts_d
-                0x0000aec0                etext = .
-                0x0000aec0                . = ALIGN (0x2)
+                0x0000af39      0x2a6 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
+                0x0000af39                __fpcmp_parts_d
+                0x0000b1df                etext = .
+                0x0000b1e0                . = ALIGN (0x2)
+ *fill*         0x0000b1df        0x1 
 
 .init
  *(.init)
@@ -385,17 +386,18 @@ Linker script and memory map
  *(.got)
  *(.got.plt)
 
-.rodata         0x0000aec0       0x7c
-                0x0000aec0                . = ALIGN (0x2)
+.rodata         0x0000b1e0       0x86
+                0x0000b1e0                . = ALIGN (0x2)
  *(.rodata)
- .rodata        0x0000aec0        0x7 ./src/r_cg_timer_user.o
- .rodata        0x0000aec7       0x32 ./src/user_functions.o
- .rodata        0x0000aef9       0x35 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
+ .rodata        0x0000b1e0        0x7 ./src/r_cg_timer_user.o
+ .rodata        0x0000b1e7       0x3b ./src/user_functions.o
+ .rodata        0x0000b222       0x35 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
  *(.rodata.*)
+ *fill*         0x0000b257        0x1 
  .rodata.__thenan_df
-                0x0000af2e        0xe C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
-                0x0000af2e                __thenan_df
-                0x0000af3c                _erodata = .
+                0x0000b258        0xe C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
+                0x0000b258                __thenan_df
+                0x0000b266                _erodata = .
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
@@ -403,9 +405,9 @@ Linker script and memory map
 .eh_frame
  *(.eh_frame)
 
-.jcr            0x0000af3c        0x0
+.jcr            0x0000b266        0x0
  *(.jcr)
-                0x0000af3c                . = ALIGN (0x2)
+                0x0000b266                . = ALIGN (0x2)
 
 .data           0x000fef00        0x0 load address 0x000000d8
                 0x000fef00                . = ALIGN (0x2)
@@ -433,35 +435,35 @@ Linker script and memory map
  .data          0x000fef00        0x0 ./src/r_main.o
  .data          0x000fef00        0x0 ./src/r_reset_program.o
  .data          0x000fef00        0x0 ./src/user_functions.o
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
- .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
+ .data          0x000fef00        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
  *(.data.*)
                 0x000fef00                . = ALIGN (0x2)
                 0x000fef00                _edata = .
@@ -495,37 +497,37 @@ Linker script and memory map
  .bss           0x000fef32       0x3c ./src/user_functions.o
                 0x000fef32                D
                 0x000fef34                flag
- .bss           0x000fef6e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
- .bss           0x000fef6e        0x4 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
+ .bss           0x000fef6e        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
+ .bss           0x000fef6e        0x4 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
                 0x000fef6e                _last_heap_object
                 0x000fef70                _heap_of_memory
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
- .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(divmodhi.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(bit-count.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
+ .bss           0x000fef72        0x0 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
  *(.bss.**)
                 0x000fef72                . = ALIGN (0x2)
  *(COMMON)
@@ -588,9 +590,9 @@ LOAD ./src/r_main.o
 LOAD ./src/r_reset_program.o
 LOAD ./src/user_functions.o
 START GROUP
-LOAD C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptm.a
-LOAD C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a
-LOAD C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptm.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a
+LOAD C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a
 END GROUP
 OUTPUT(EdesignDemo.x elf32-rl78)
 
@@ -615,53 +617,53 @@ OUTPUT(EdesignDemo.x elf32-rl78)
  .debug_frame   0x00000644       0x3c ./src/r_main.o
  .debug_frame   0x00000680      0x108 ./src/user_functions.o
 
-.debug_info     0x00000000     0x3195
- .debug_info    0x00000000      0x11b ./src/StateMachine.o
- .debug_info    0x0000011b      0x230 ./src/debounce.o
- .debug_info    0x0000034b      0x3f1 ./src/lcd.o
- .debug_info    0x0000073c      0x359 ./src/r_cg_adc.o
- .debug_info    0x00000a95       0xf0 ./src/r_cg_adc_user.o
- .debug_info    0x00000b85      0x1e5 ./src/r_cg_cgc.o
- .debug_info    0x00000d6a      0x103 ./src/r_cg_cgc_user.o
- .debug_info    0x00000e6d      0x264 ./src/r_cg_it.o
- .debug_info    0x000010d1       0xf0 ./src/r_cg_it_user.o
- .debug_info    0x000011c1      0x292 ./src/r_cg_port.o
- .debug_info    0x00001453       0xd7 ./src/r_cg_port_user.o
- .debug_info    0x0000152a      0x3b0 ./src/r_cg_rtc.o
- .debug_info    0x000018da       0xd7 ./src/r_cg_rtc_user.o
- .debug_info    0x000019b1      0x507 ./src/r_cg_serial.o
- .debug_info    0x00001eb8      0x1f4 ./src/r_cg_serial_user.o
- .debug_info    0x000020ac      0x460 ./src/r_cg_timer.o
- .debug_info    0x0000250c      0x113 ./src/r_cg_timer_user.o
- .debug_info    0x0000261f      0x185 ./src/r_cg_vector_table.o
- .debug_info    0x000027a4      0x105 ./src/r_hardware_setup.o
- .debug_info    0x000028a9      0x2b2 ./src/r_main.o
- .debug_info    0x00002b5b       0x6a ./src/r_reset_program.o
- .debug_info    0x00002bc5      0x5d0 ./src/user_functions.o
+.debug_info     0x00000000     0x3240
+ .debug_info    0x00000000      0x1c9 ./src/StateMachine.o
+ .debug_info    0x000001c9      0x230 ./src/debounce.o
+ .debug_info    0x000003f9      0x3f1 ./src/lcd.o
+ .debug_info    0x000007ea      0x359 ./src/r_cg_adc.o
+ .debug_info    0x00000b43       0xf0 ./src/r_cg_adc_user.o
+ .debug_info    0x00000c33      0x1e5 ./src/r_cg_cgc.o
+ .debug_info    0x00000e18      0x103 ./src/r_cg_cgc_user.o
+ .debug_info    0x00000f1b      0x264 ./src/r_cg_it.o
+ .debug_info    0x0000117f       0xf0 ./src/r_cg_it_user.o
+ .debug_info    0x0000126f      0x292 ./src/r_cg_port.o
+ .debug_info    0x00001501       0xd7 ./src/r_cg_port_user.o
+ .debug_info    0x000015d8      0x3b0 ./src/r_cg_rtc.o
+ .debug_info    0x00001988       0xd7 ./src/r_cg_rtc_user.o
+ .debug_info    0x00001a5f      0x507 ./src/r_cg_serial.o
+ .debug_info    0x00001f66      0x1f4 ./src/r_cg_serial_user.o
+ .debug_info    0x0000215a      0x460 ./src/r_cg_timer.o
+ .debug_info    0x000025ba      0x113 ./src/r_cg_timer_user.o
+ .debug_info    0x000026cd      0x185 ./src/r_cg_vector_table.o
+ .debug_info    0x00002852      0x105 ./src/r_hardware_setup.o
+ .debug_info    0x00002957      0x2b2 ./src/r_main.o
+ .debug_info    0x00002c09       0x84 ./src/r_reset_program.o
+ .debug_info    0x00002c8d      0x5b3 ./src/user_functions.o
 
-.debug_abbrev   0x00000000     0x135f
- .debug_abbrev  0x00000000       0xa3 ./src/StateMachine.o
- .debug_abbrev  0x000000a3      0x102 ./src/debounce.o
- .debug_abbrev  0x000001a5      0x169 ./src/lcd.o
- .debug_abbrev  0x0000030e      0x130 ./src/r_cg_adc.o
- .debug_abbrev  0x0000043e       0x83 ./src/r_cg_adc_user.o
- .debug_abbrev  0x000004c1       0xd9 ./src/r_cg_cgc.o
- .debug_abbrev  0x0000059a       0x94 ./src/r_cg_cgc_user.o
- .debug_abbrev  0x0000062e       0xf7 ./src/r_cg_it.o
- .debug_abbrev  0x00000725       0x83 ./src/r_cg_it_user.o
- .debug_abbrev  0x000007a8       0xce ./src/r_cg_port.o
- .debug_abbrev  0x00000876       0x67 ./src/r_cg_port_user.o
- .debug_abbrev  0x000008dd      0x15f ./src/r_cg_rtc.o
- .debug_abbrev  0x00000a3c       0x67 ./src/r_cg_rtc_user.o
- .debug_abbrev  0x00000aa3      0x175 ./src/r_cg_serial.o
- .debug_abbrev  0x00000c18      0x10a ./src/r_cg_serial_user.o
- .debug_abbrev  0x00000d22      0x10c ./src/r_cg_timer.o
- .debug_abbrev  0x00000e2e       0xb3 ./src/r_cg_timer_user.o
- .debug_abbrev  0x00000ee1       0x98 ./src/r_cg_vector_table.o
- .debug_abbrev  0x00000f79       0x9d ./src/r_hardware_setup.o
- .debug_abbrev  0x00001016       0xf7 ./src/r_main.o
- .debug_abbrev  0x0000110d       0x14 ./src/r_reset_program.o
- .debug_abbrev  0x00001121      0x23e ./src/user_functions.o
+.debug_abbrev   0x00000000     0x139d
+ .debug_abbrev  0x00000000       0xe1 ./src/StateMachine.o
+ .debug_abbrev  0x000000e1      0x102 ./src/debounce.o
+ .debug_abbrev  0x000001e3      0x169 ./src/lcd.o
+ .debug_abbrev  0x0000034c      0x130 ./src/r_cg_adc.o
+ .debug_abbrev  0x0000047c       0x83 ./src/r_cg_adc_user.o
+ .debug_abbrev  0x000004ff       0xd9 ./src/r_cg_cgc.o
+ .debug_abbrev  0x000005d8       0x94 ./src/r_cg_cgc_user.o
+ .debug_abbrev  0x0000066c       0xf7 ./src/r_cg_it.o
+ .debug_abbrev  0x00000763       0x83 ./src/r_cg_it_user.o
+ .debug_abbrev  0x000007e6       0xce ./src/r_cg_port.o
+ .debug_abbrev  0x000008b4       0x67 ./src/r_cg_port_user.o
+ .debug_abbrev  0x0000091b      0x15f ./src/r_cg_rtc.o
+ .debug_abbrev  0x00000a7a       0x67 ./src/r_cg_rtc_user.o
+ .debug_abbrev  0x00000ae1      0x175 ./src/r_cg_serial.o
+ .debug_abbrev  0x00000c56      0x10a ./src/r_cg_serial_user.o
+ .debug_abbrev  0x00000d60      0x10c ./src/r_cg_timer.o
+ .debug_abbrev  0x00000e6c       0xb3 ./src/r_cg_timer_user.o
+ .debug_abbrev  0x00000f1f       0x98 ./src/r_cg_vector_table.o
+ .debug_abbrev  0x00000fb7       0x9d ./src/r_hardware_setup.o
+ .debug_abbrev  0x00001054       0xf7 ./src/r_main.o
+ .debug_abbrev  0x0000114b       0x14 ./src/r_reset_program.o
+ .debug_abbrev  0x0000115f      0x23e ./src/user_functions.o
 
 .debug_aranges  0x00000000      0x2b0
  .debug_aranges
@@ -709,50 +711,50 @@ OUTPUT(EdesignDemo.x elf32-rl78)
  .debug_aranges
                 0x00000290       0x20 ./src/user_functions.o
 
-.debug_line     0x00000000     0x1db8
- .debug_line    0x00000000      0x30f ./src/StateMachine.o
- .debug_line    0x0000030f      0x115 ./src/debounce.o
- .debug_line    0x00000424      0x1ac ./src/lcd.o
- .debug_line    0x000005d0      0x151 ./src/r_cg_adc.o
- .debug_line    0x00000721       0x70 ./src/r_cg_adc_user.o
- .debug_line    0x00000791       0xc9 ./src/r_cg_cgc.o
- .debug_line    0x0000085a       0x76 ./src/r_cg_cgc_user.o
- .debug_line    0x000008d0       0xf0 ./src/r_cg_it.o
- .debug_line    0x000009c0       0x81 ./src/r_cg_it_user.o
- .debug_line    0x00000a41       0xbc ./src/r_cg_port.o
- .debug_line    0x00000afd       0x47 ./src/r_cg_port_user.o
- .debug_line    0x00000b44      0x275 ./src/r_cg_rtc.o
- .debug_line    0x00000db9       0x47 ./src/r_cg_rtc_user.o
- .debug_line    0x00000e00      0x250 ./src/r_cg_serial.o
- .debug_line    0x00001050      0x121 ./src/r_cg_serial_user.o
- .debug_line    0x00001171      0x1e3 ./src/r_cg_timer.o
- .debug_line    0x00001354       0x8a ./src/r_cg_timer_user.o
- .debug_line    0x000013de       0x75 ./src/r_cg_vector_table.o
- .debug_line    0x00001453       0xcd ./src/r_hardware_setup.o
- .debug_line    0x00001520      0x126 ./src/r_main.o
- .debug_line    0x00001646      0x15f ./src/r_reset_program.o
- .debug_line    0x000017a5      0x613 ./src/user_functions.o
+.debug_line     0x00000000     0x1e7c
+ .debug_line    0x00000000      0x3ad ./src/StateMachine.o
+ .debug_line    0x000003ad      0x115 ./src/debounce.o
+ .debug_line    0x000004c2      0x1ac ./src/lcd.o
+ .debug_line    0x0000066e      0x151 ./src/r_cg_adc.o
+ .debug_line    0x000007bf       0x70 ./src/r_cg_adc_user.o
+ .debug_line    0x0000082f       0xc9 ./src/r_cg_cgc.o
+ .debug_line    0x000008f8       0x76 ./src/r_cg_cgc_user.o
+ .debug_line    0x0000096e       0xf0 ./src/r_cg_it.o
+ .debug_line    0x00000a5e       0x81 ./src/r_cg_it_user.o
+ .debug_line    0x00000adf       0xbc ./src/r_cg_port.o
+ .debug_line    0x00000b9b       0x47 ./src/r_cg_port_user.o
+ .debug_line    0x00000be2      0x275 ./src/r_cg_rtc.o
+ .debug_line    0x00000e57       0x47 ./src/r_cg_rtc_user.o
+ .debug_line    0x00000e9e      0x250 ./src/r_cg_serial.o
+ .debug_line    0x000010ee      0x121 ./src/r_cg_serial_user.o
+ .debug_line    0x0000120f      0x1e3 ./src/r_cg_timer.o
+ .debug_line    0x000013f2       0x8a ./src/r_cg_timer_user.o
+ .debug_line    0x0000147c       0x75 ./src/r_cg_vector_table.o
+ .debug_line    0x000014f1       0xcd ./src/r_hardware_setup.o
+ .debug_line    0x000015be      0x126 ./src/r_main.o
+ .debug_line    0x000016e4      0x15f ./src/r_reset_program.o
+ .debug_line    0x00001843      0x639 ./src/user_functions.o
 
 .debug_str      0x00000000      0xa6b
- .debug_str     0x00000000      0x196 ./src/StateMachine.o
-                                0x1b5 (size before relaxing)
- .debug_str     0x00000196       0x4d ./src/debounce.o
+ .debug_str     0x00000000      0x1a4 ./src/StateMachine.o
+                                0x1c3 (size before relaxing)
+ .debug_str     0x000001a4       0x45 ./src/debounce.o
                                 0x1c5 (size before relaxing)
- .debug_str     0x000001e3       0xb8 ./src/lcd.o
+ .debug_str     0x000001e9       0xb8 ./src/lcd.o
                                 0x23c (size before relaxing)
- .debug_str     0x0000029b       0xd0 ./src/r_cg_adc.o
+ .debug_str     0x000002a1       0xd0 ./src/r_cg_adc.o
                                 0x275 (size before relaxing)
- .debug_str     0x0000036b       0x27 ./src/r_cg_adc_user.o
+ .debug_str     0x00000371       0x27 ./src/r_cg_adc_user.o
                                 0x19a (size before relaxing)
- .debug_str     0x00000392       0x35 ./src/r_cg_cgc.o
+ .debug_str     0x00000398       0x35 ./src/r_cg_cgc.o
                                 0x1b9 (size before relaxing)
- .debug_str     0x000003c7       0x38 ./src/r_cg_cgc_user.o
+ .debug_str     0x000003cd       0x38 ./src/r_cg_cgc_user.o
                                 0x1ab (size before relaxing)
- .debug_str     0x000003ff       0x32 ./src/r_cg_it.o
+ .debug_str     0x00000405       0x32 ./src/r_cg_it.o
                                 0x1fb (size before relaxing)
- .debug_str     0x00000431       0x25 ./src/r_cg_it_user.o
+ .debug_str     0x00000437       0x25 ./src/r_cg_it_user.o
                                 0x198 (size before relaxing)
- .debug_str     0x00000456       0x4b ./src/r_cg_port.o
+ .debug_str     0x0000045c       0x45 ./src/r_cg_port.o
                                 0x1d8 (size before relaxing)
  .debug_str     0x000004a1       0x18 ./src/r_cg_port_user.o
                                 0x18b (size before relaxing)
@@ -800,30 +802,30 @@ OUTPUT(EdesignDemo.x elf32-rl78)
  .comment       0x00000000       0x95 ./src/r_hardware_setup.o
  .comment       0x00000000       0x95 ./src/r_main.o
  .comment       0x00000000       0x95 ./src/user_functions.o
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
- .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02~\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newfree.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newheap.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(newmalloc.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(sprintf.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcat.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strcpy.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(strlen.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13\liboptc.a(frmwri.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_sf_to_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_addsub_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_mul_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_div_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ne_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ge_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lt_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_le_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_si_to_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_df_to_si.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_make_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_thenan_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_muldi3.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_lshrdi3.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_ashldi3.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_sf.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_pack_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_unpack_df.o)
+ .comment       0x00000000       0x95 C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13\libgcc.a(_fpcmp_parts_df.o)
