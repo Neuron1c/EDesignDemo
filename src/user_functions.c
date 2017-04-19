@@ -19,7 +19,11 @@ extern uint8_t record[RX_BUF_LEN];
 extern uint8_t mem[RX_BUF_LEN];
 extern uint8_t display_string[RX_BUF_LEN];
 extern int count;
-extern int interval_timer_count;
+extern uint16_t scrollCount;
+extern uint8_t scrollFlag;
+extern uint8_t tempFlag;
+
+static uint16_t finalTemp;
 static uint8_t response[RX_BUF_LEN];
 static int mode = 0;
 static int display = 0;
@@ -37,6 +41,9 @@ void setRTC();
 void getRTC();
 void BCDtoDEC(uint8_t arr[]);
 void collectADC();
+void checkFlags();
+void measureTemp();
+void setTemp();
 uint8_t testDate(uint8_t arr[]);
 
 
@@ -185,6 +192,9 @@ void processMSG(){
 					  break;
 		 case 'C':	  getRTC();
 		 	 	 	  break;
+		 case 'I':	  sprintf(response, "$I0%d\x0d\x0a", finalTemp);
+		 	 	 	  count = strlen(response);
+		 	 	 	  break;
 
 
 		default:
@@ -228,8 +238,7 @@ void displayLCD(int reset){
 if(reset){
 	offset = 0;
 	display = 1;
-	interval_timer_count = 0;
-	R_IT_Start();
+	scrollCount = 0;
 }
 
 if(display){
@@ -259,7 +268,6 @@ if(display){
 
 if(offset >= (strlen(display_string) - 17) || strlen(display_string) <= 18 ){
 	display = 0;
-	R_IT_Stop();
 }
 
 }
@@ -410,5 +418,29 @@ uint8_t testDate(uint8_t arr[]){
 		return 1;
 
 	}
+
+}
+
+void checkFlags(){
+	 if(scrollFlag){
+		 scrollFlag = 0;
+		 displayLCD(0);
+	 }
+	 if(tempFlag){
+		 tempFlag = 0;
+		 P1_bit.no7 = !P1_bit.no7;
+
+		 if(!P1_bit.no7){
+			 setTemp();
+		 }
+	 }
+}
+
+void setTemp(){
+	uint16_t temp = 4096 - TCR01;
+	finalTemp = temp/16;
+	finalTemp -= 50;
+	R_TAU0_Channel1_Stop();
+	R_TAU0_Channel1_Start();
 
 }

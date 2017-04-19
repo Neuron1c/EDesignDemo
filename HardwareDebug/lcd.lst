@@ -27,13 +27,15 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_timerFlag,2,2
-  31                             		.comm	_count,2,2
-  32                             		.comm	_interval_timer_count,2,2
-  33                             		.global	_writeByteLcd
-  35                             	_writeByteLcd:
-  36                             	.LFB0:
-  37                             		.file 1 "../src/lcd.c"
+  30                             		.comm	_scrollFlag,1,1
+  31                             		.comm	_tempFlag,1,1
+  32                             		.comm	_scrollCount,2,2
+  33                             		.comm	_timerFlag,2,2
+  34                             		.comm	_count,2,2
+  35                             		.global	_writeByteLcd
+  37                             	_writeByteLcd:
+  38                             	.LFB0:
+  39                             		.file 1 "../src/lcd.c"
    1:../src/lcd.c  **** /*
    2:../src/lcd.c  ****  * lcd.c
    3:../src/lcd.c  ****  *
@@ -66,51 +68,51 @@
   30:../src/lcd.c  **** 
   31:../src/lcd.c  **** void writeByteLcd(uint8_t reg, uint8_t value)
   32:../src/lcd.c  **** {
-  38                             		.loc 1 32 0
-  39                             		; start of function
-  40                             		; locals: 2 bytes
-  41                             		; outgoing: 4 bytes
-  42 0000 20 06                   		subw	sp, #6
-  43                             	.LCFI0:
+  40                             		.loc 1 32 0
+  41                             		; start of function
+  42                             		; locals: 2 bytes
+  43                             		; outgoing: 4 bytes
+  44 0000 20 06                   		subw	sp, #6
+  45                             	.LCFI0:
   33:../src/lcd.c  **** 	uint8_t tempReg;
   34:../src/lcd.c  **** 
   35:../src/lcd.c  ****     tempReg = value >> 4;			// Get high nibble
-  44                             		.loc 1 35 0
-  45 0002 88 0C                   		mov	a, [sp+12]
-  46 0004 31 4A                   		shr	a, 4
-  47 0006 98 05                   		mov	[sp+5], a
+  46                             		.loc 1 35 0
+  47 0002 88 0C                   		mov	a, [sp+12]
+  48 0004 31 4A                   		shr	a, 4
+  49 0006 98 05                   		mov	[sp+5], a
   36:../src/lcd.c  ****     writeNibbleLcd(reg, tempReg);	// Write high nibble
-  48                             		.loc 1 36 0
-  49 0008 88 0A                   		mov	a, [sp+10]
-  50 000a 9D F0                   		mov	r8, a
-  51 000c 98 00                   		mov	[sp], a
-  52 000e 88 05                   		mov	a, [sp+5]
-  53 0010 9D F0                   		mov	r8, a
-  54 0012 98 02                   		mov	[sp+2], a
-  55 0014 FC 00 00 00             		call	!!%code(_writeNibbleLcd)
+  50                             		.loc 1 36 0
+  51 0008 88 0A                   		mov	a, [sp+10]
+  52 000a 9D F0                   		mov	r8, a
+  53 000c 98 00                   		mov	[sp], a
+  54 000e 88 05                   		mov	a, [sp+5]
+  55 0010 9D F0                   		mov	r8, a
+  56 0012 98 02                   		mov	[sp+2], a
+  57 0014 FC 00 00 00             		call	!!%code(_writeNibbleLcd)
   37:../src/lcd.c  **** 
   38:../src/lcd.c  **** 	tempReg = value & 0x0F;			// Get lower nibble
-  56                             		.loc 1 38 0
-  57 0018 88 0C                   		mov	a, [sp+12]
-  58 001a 5C 0F                   		and	a, #15
-  59 001c 98 05                   		mov	[sp+5], a
+  58                             		.loc 1 38 0
+  59 0018 88 0C                   		mov	a, [sp+12]
+  60 001a 5C 0F                   		and	a, #15
+  61 001c 98 05                   		mov	[sp+5], a
   39:../src/lcd.c  ****     writeNibbleLcd(reg, tempReg);	// Write lower nibble
-  60                             		.loc 1 39 0
-  61 001e 88 0A                   		mov	a, [sp+10]
-  62 0020 9D F0                   		mov	r8, a
-  63 0022 98 00                   		mov	[sp], a
-  64 0024 88 05                   		mov	a, [sp+5]
-  65 0026 9D F0                   		mov	r8, a
-  66 0028 98 02                   		mov	[sp+2], a
-  67 002a FC 00 00 00             		call	!!%code(_writeNibbleLcd)
+  62                             		.loc 1 39 0
+  63 001e 88 0A                   		mov	a, [sp+10]
+  64 0020 9D F0                   		mov	r8, a
+  65 0022 98 00                   		mov	[sp], a
+  66 0024 88 05                   		mov	a, [sp+5]
+  67 0026 9D F0                   		mov	r8, a
+  68 0028 98 02                   		mov	[sp+2], a
+  69 002a FC 00 00 00             		call	!!%code(_writeNibbleLcd)
   40:../src/lcd.c  **** }
-  68                             		.loc 1 40 0
-  69 002e 10 06                   		addw	sp, #6
-  70 0030 D7                      		ret
-  71                             	.LFE0:
-  73                             		.global	_writeNibbleLcd
-  75                             	_writeNibbleLcd:
-  76                             	.LFB1:
+  70                             		.loc 1 40 0
+  71 002e 10 06                   		addw	sp, #6
+  72 0030 D7                      		ret
+  73                             	.LFE0:
+  75                             		.global	_writeNibbleLcd
+  77                             	_writeNibbleLcd:
+  78                             	.LFB1:
   41:../src/lcd.c  **** 
   42:../src/lcd.c  **** /************************************************************************
   43:../src/lcd.c  **** * Function Name: writeNibbleLcd()
@@ -123,186 +125,186 @@
   50:../src/lcd.c  **** 
   51:../src/lcd.c  **** void writeNibbleLcd(uint8_t reg, uint8_t nibble)
   52:../src/lcd.c  **** {
-  77                             		.loc 1 52 0
-  78                             		; start of function
-  79                             		; locals: 2 bytes
-  80 0031 20 02                   		subw	sp, #2
-  81                             	.LCFI1:
+  79                             		.loc 1 52 0
+  80                             		; start of function
+  81                             		; locals: 2 bytes
+  82 0031 20 02                   		subw	sp, #2
+  83                             	.LCFI1:
   53:../src/lcd.c  **** 	uint8_t tempReg;
   54:../src/lcd.c  **** 
   55:../src/lcd.c  ****     if (reg)
-  82                             		.loc 1 55 0
-  83 0033 88 06                   		mov	a, [sp+6]
-  84 0035 D1                      		cmp0	a
-  85 0036 61 F8                   		 sknz
-  86 0038 EC 59 00 00             		 br	!!.L3
+  84                             		.loc 1 55 0
+  85 0033 88 06                   		mov	a, [sp+6]
+  86 0035 D1                      		cmp0	a
+  87 0036 61 F8                   		 sknz
+  88 0038 EC 59 00 00             		 br	!!.L3
   56:../src/lcd.c  ****         LCD_RS = 1U;							// Read/write RAM
-  87                             		.loc 1 56 0
-  88 003c C9 F0 07 FF             		movw	r8, #-249
-  89 0040 AD F0                   		movw	ax, r8
-  90 0042 BD F4                   		movw	r12, ax
-  91 0044 FA F4                   		movw	hl, r12
-  92 0046 8B                      		mov	a, [hl]
-  93 0047 9D F2                   		mov	r10, a
-  94 0049 6A F2 01                		or	r10, #1
-  95 004c AD F0                   		movw	ax, r8
-  96 004e DA F4                   		movw	bc, r12
-  97 0050 8D F2                   		mov	a, r10
-  98 0052 48 00 00                		mov	[bc], a
-  99 0055 EC 72 00 00             		br	!!.L4
- 100                             	.L3:
+  89                             		.loc 1 56 0
+  90 003c C9 F0 07 FF             		movw	r8, #-249
+  91 0040 AD F0                   		movw	ax, r8
+  92 0042 BD F4                   		movw	r12, ax
+  93 0044 FA F4                   		movw	hl, r12
+  94 0046 8B                      		mov	a, [hl]
+  95 0047 9D F2                   		mov	r10, a
+  96 0049 6A F2 01                		or	r10, #1
+  97 004c AD F0                   		movw	ax, r8
+  98 004e DA F4                   		movw	bc, r12
+  99 0050 8D F2                   		mov	a, r10
+ 100 0052 48 00 00                		mov	[bc], a
+ 101 0055 EC 72 00 00             		br	!!.L4
+ 102                             	.L3:
   57:../src/lcd.c  ****     else
   58:../src/lcd.c  ****         LCD_RS = 0U;							// Command
- 101                             		.loc 1 58 0
- 102 0059 C9 F0 07 FF             		movw	r8, #-249
- 103 005d AD F0                   		movw	ax, r8
- 104 005f BD F4                   		movw	r12, ax
- 105 0061 FA F4                   		movw	hl, r12
- 106 0063 8B                      		mov	a, [hl]
- 107 0064 9D F2                   		mov	r10, a
- 108 0066 5A F2 FE                		and	r10, #-2
- 109 0069 AD F0                   		movw	ax, r8
- 110 006b DA F4                   		movw	bc, r12
- 111 006d 8D F2                   		mov	a, r10
- 112 006f 48 00 00                		mov	[bc], a
- 113                             	.L4:
+ 103                             		.loc 1 58 0
+ 104 0059 C9 F0 07 FF             		movw	r8, #-249
+ 105 005d AD F0                   		movw	ax, r8
+ 106 005f BD F4                   		movw	r12, ax
+ 107 0061 FA F4                   		movw	hl, r12
+ 108 0063 8B                      		mov	a, [hl]
+ 109 0064 9D F2                   		mov	r10, a
+ 110 0066 5A F2 FE                		and	r10, #-2
+ 111 0069 AD F0                   		movw	ax, r8
+ 112 006b DA F4                   		movw	bc, r12
+ 113 006d 8D F2                   		mov	a, r10
+ 114 006f 48 00 00                		mov	[bc], a
+ 115                             	.L4:
   59:../src/lcd.c  **** 
   60:../src/lcd.c  ****     LCD_RW   = 0U;								// Set to Write mode
- 114                             		.loc 1 60 0
- 115 0072 C9 F0 07 FF             		movw	r8, #-249
- 116 0076 AD F0                   		movw	ax, r8
- 117 0078 BD F4                   		movw	r12, ax
- 118 007a FA F4                   		movw	hl, r12
- 119 007c 8B                      		mov	a, [hl]
- 120 007d 9D F2                   		mov	r10, a
- 121 007f 5A F2 FD                		and	r10, #-3
- 122 0082 AD F0                   		movw	ax, r8
- 123 0084 DA F4                   		movw	bc, r12
- 124 0086 8D F2                   		mov	a, r10
- 125 0088 48 00 00                		mov	[bc], a
+ 116                             		.loc 1 60 0
+ 117 0072 C9 F0 07 FF             		movw	r8, #-249
+ 118 0076 AD F0                   		movw	ax, r8
+ 119 0078 BD F4                   		movw	r12, ax
+ 120 007a FA F4                   		movw	hl, r12
+ 121 007c 8B                      		mov	a, [hl]
+ 122 007d 9D F2                   		mov	r10, a
+ 123 007f 5A F2 FD                		and	r10, #-3
+ 124 0082 AD F0                   		movw	ax, r8
+ 125 0084 DA F4                   		movw	bc, r12
+ 126 0086 8D F2                   		mov	a, r10
+ 127 0088 48 00 00                		mov	[bc], a
   61:../src/lcd.c  ****     PM7     &= 0xF0;        					// Set Port 7 Data nibble to output mode
- 126                             		.loc 1 61 0
- 127 008b C9 F2 27 FF             		movw	r10, #-217
- 128 008f C9 F0 27 FF             		movw	r8, #-217
- 129 0093 AD F0                   		movw	ax, r8
- 130 0095 BD F4                   		movw	r12, ax
- 131 0097 FA F4                   		movw	hl, r12
- 132 0099 8B                      		mov	a, [hl]
- 133 009a 9D F0                   		mov	r8, a
- 134 009c 5A F0 F0                		and	r8, #-16
- 135 009f AD F2                   		movw	ax, r10
- 136 00a1 BD F4                   		movw	r12, ax
- 137 00a3 DA F4                   		movw	bc, r12
- 138 00a5 8D F0                   		mov	a, r8
- 139 00a7 48 00 00                		mov	[bc], a
+ 128                             		.loc 1 61 0
+ 129 008b C9 F2 27 FF             		movw	r10, #-217
+ 130 008f C9 F0 27 FF             		movw	r8, #-217
+ 131 0093 AD F0                   		movw	ax, r8
+ 132 0095 BD F4                   		movw	r12, ax
+ 133 0097 FA F4                   		movw	hl, r12
+ 134 0099 8B                      		mov	a, [hl]
+ 135 009a 9D F0                   		mov	r8, a
+ 136 009c 5A F0 F0                		and	r8, #-16
+ 137 009f AD F2                   		movw	ax, r10
+ 138 00a1 BD F4                   		movw	r12, ax
+ 139 00a3 DA F4                   		movw	bc, r12
+ 140 00a5 8D F0                   		mov	a, r8
+ 141 00a7 48 00 00                		mov	[bc], a
   62:../src/lcd.c  ****     tempReg  = (P7 & 0x0F) | (nibble << 4);  	// Combine nibble and P7
- 140                             		.loc 1 62 0
- 141 00aa C9 F0 07 FF             		movw	r8, #-249
- 142 00ae AD F0                   		movw	ax, r8
- 143 00b0 BD F2                   		movw	r10, ax
- 144 00b2 FA F2                   		movw	hl, r10
- 145 00b4 8B                      		mov	a, [hl]
- 146 00b5 9D F0                   		mov	r8, a
- 147 00b7 5C 0F                   		and	a, #15
- 148 00b9 9D F2                   		mov	r10, a
- 149 00bb 88 08                   		mov	a, [sp+8]
- 150 00bd 70                      		mov	x, a 
- 151 00be 51 00                   		mov	a, #0
- 152 00c0 BD F0                   		movw	r8, ax
- 153 00c2 31 4D                   		shlw	ax, 4
- 154 00c4 BD F0                   		movw	r8, ax
- 155 00c6 8D F2                   		mov	a, r10
- 156 00c8 6B F0                   		or	a, r8
- 157 00ca 9D F0                   		mov	r8, a
- 158 00cc 98 01                   		mov	[sp+1], a
+ 142                             		.loc 1 62 0
+ 143 00aa C9 F0 07 FF             		movw	r8, #-249
+ 144 00ae AD F0                   		movw	ax, r8
+ 145 00b0 BD F2                   		movw	r10, ax
+ 146 00b2 FA F2                   		movw	hl, r10
+ 147 00b4 8B                      		mov	a, [hl]
+ 148 00b5 9D F0                   		mov	r8, a
+ 149 00b7 5C 0F                   		and	a, #15
+ 150 00b9 9D F2                   		mov	r10, a
+ 151 00bb 88 08                   		mov	a, [sp+8]
+ 152 00bd 70                      		mov	x, a 
+ 153 00be 51 00                   		mov	a, #0
+ 154 00c0 BD F0                   		movw	r8, ax
+ 155 00c2 31 4D                   		shlw	ax, 4
+ 156 00c4 BD F0                   		movw	r8, ax
+ 157 00c6 8D F2                   		mov	a, r10
+ 158 00c8 6B F0                   		or	a, r8
+ 159 00ca 9D F0                   		mov	r8, a
+ 160 00cc 98 01                   		mov	[sp+1], a
   63:../src/lcd.c  ****     P7       = tempReg;     					// Load Port 7 data nibble
- 159                             		.loc 1 63 0
- 160 00ce C9 F0 07 FF             		movw	r8, #-249
- 161 00d2 88 01                   		mov	a, [sp+1]
- 162 00d4 9D F2                   		mov	r10, a
- 163 00d6 AD F0                   		movw	ax, r8
- 164 00d8 BD F4                   		movw	r12, ax
- 165 00da DA F4                   		movw	bc, r12
- 166 00dc 8D F2                   		mov	a, r10
- 167 00de 48 00 00                		mov	[bc], a
+ 161                             		.loc 1 63 0
+ 162 00ce C9 F0 07 FF             		movw	r8, #-249
+ 163 00d2 88 01                   		mov	a, [sp+1]
+ 164 00d4 9D F2                   		mov	r10, a
+ 165 00d6 AD F0                   		movw	ax, r8
+ 166 00d8 BD F4                   		movw	r12, ax
+ 167 00da DA F4                   		movw	bc, r12
+ 168 00dc 8D F2                   		mov	a, r10
+ 169 00de 48 00 00                		mov	[bc], a
   64:../src/lcd.c  ****     SET_LCD_EN_HIGH;							// LCD_E  = 1U; (Enable high)
- 168                             		.loc 1 64 0
- 169 00e1 C9 F0 07 FF             		movw	r8, #-249
- 170 00e5 AD F0                   		movw	ax, r8
- 171 00e7 BD F4                   		movw	r12, ax
- 172 00e9 FA F4                   		movw	hl, r12
- 173 00eb 8B                      		mov	a, [hl]
- 174 00ec 9D F2                   		mov	r10, a
- 175 00ee 6A F2 04                		or	r10, #4
- 176 00f1 AD F0                   		movw	ax, r8
- 177 00f3 DA F4                   		movw	bc, r12
- 178 00f5 8D F2                   		mov	a, r10
- 179 00f7 48 00 00                		mov	[bc], a
+ 170                             		.loc 1 64 0
+ 171 00e1 C9 F0 07 FF             		movw	r8, #-249
+ 172 00e5 AD F0                   		movw	ax, r8
+ 173 00e7 BD F4                   		movw	r12, ax
+ 174 00e9 FA F4                   		movw	hl, r12
+ 175 00eb 8B                      		mov	a, [hl]
+ 176 00ec 9D F2                   		mov	r10, a
+ 177 00ee 6A F2 04                		or	r10, #4
+ 178 00f1 AD F0                   		movw	ax, r8
+ 179 00f3 DA F4                   		movw	bc, r12
+ 180 00f5 8D F2                   		mov	a, r10
+ 181 00f7 48 00 00                		mov	[bc], a
   65:../src/lcd.c  ****         // Wait > 0.3 usec
   66:../src/lcd.c  ****     NOP(); NOP(); NOP(); NOP(); NOP(); NOP();
- 180                             		.loc 1 66 0
- 181                             	 ; 66 "../src/lcd.c" 1
- 182 00fa 00                      		nop
- 183                             	 ; 0 "" 2
- 184                             	 ; 66 "../src/lcd.c" 1
- 185 00fb 00                      		nop
- 186                             	 ; 0 "" 2
- 187                             	 ; 66 "../src/lcd.c" 1
- 188 00fc 00                      		nop
- 189                             	 ; 0 "" 2
- 190                             	 ; 66 "../src/lcd.c" 1
- 191 00fd 00                      		nop
- 192                             	 ; 0 "" 2
- 193                             	 ; 66 "../src/lcd.c" 1
- 194 00fe 00                      		nop
- 195                             	 ; 0 "" 2
- 196                             	 ; 66 "../src/lcd.c" 1
- 197 00ff 00                      		nop
- 198                             	 ; 0 "" 2
+ 182                             		.loc 1 66 0
+ 183                             	 ; 66 "../src/lcd.c" 1
+ 184 00fa 00                      		nop
+ 185                             	 ; 0 "" 2
+ 186                             	 ; 66 "../src/lcd.c" 1
+ 187 00fb 00                      		nop
+ 188                             	 ; 0 "" 2
+ 189                             	 ; 66 "../src/lcd.c" 1
+ 190 00fc 00                      		nop
+ 191                             	 ; 0 "" 2
+ 192                             	 ; 66 "../src/lcd.c" 1
+ 193 00fd 00                      		nop
+ 194                             	 ; 0 "" 2
+ 195                             	 ; 66 "../src/lcd.c" 1
+ 196 00fe 00                      		nop
+ 197                             	 ; 0 "" 2
+ 198                             	 ; 66 "../src/lcd.c" 1
+ 199 00ff 00                      		nop
+ 200                             	 ; 0 "" 2
   67:../src/lcd.c  **** 
   68:../src/lcd.c  ****     SET_LCD_EN_LOW;								// LCD_E  = 0U; (Set Enable low)
- 199                             		.loc 1 68 0
- 200 0100 C9 F0 07 FF             		movw	r8, #-249
- 201 0104 AD F0                   		movw	ax, r8
- 202 0106 BD F4                   		movw	r12, ax
- 203 0108 FA F4                   		movw	hl, r12
- 204 010a 8B                      		mov	a, [hl]
- 205 010b 9D F2                   		mov	r10, a
- 206 010d 5A F2 FB                		and	r10, #-5
- 207 0110 AD F0                   		movw	ax, r8
- 208 0112 DA F4                   		movw	bc, r12
- 209 0114 8D F2                   		mov	a, r10
- 210 0116 48 00 00                		mov	[bc], a
+ 201                             		.loc 1 68 0
+ 202 0100 C9 F0 07 FF             		movw	r8, #-249
+ 203 0104 AD F0                   		movw	ax, r8
+ 204 0106 BD F4                   		movw	r12, ax
+ 205 0108 FA F4                   		movw	hl, r12
+ 206 010a 8B                      		mov	a, [hl]
+ 207 010b 9D F2                   		mov	r10, a
+ 208 010d 5A F2 FB                		and	r10, #-5
+ 209 0110 AD F0                   		movw	ax, r8
+ 210 0112 DA F4                   		movw	bc, r12
+ 211 0114 8D F2                   		mov	a, r10
+ 212 0116 48 00 00                		mov	[bc], a
   69:../src/lcd.c  ****     NOP(); NOP();   							// Wait (2 x T_CLK)
- 211                             		.loc 1 69 0
- 212                             	 ; 69 "../src/lcd.c" 1
- 213 0119 00                      		nop
- 214                             	 ; 0 "" 2
- 215                             	 ; 69 "../src/lcd.c" 1
- 216 011a 00                      		nop
- 217                             	 ; 0 "" 2
+ 213                             		.loc 1 69 0
+ 214                             	 ; 69 "../src/lcd.c" 1
+ 215 0119 00                      		nop
+ 216                             	 ; 0 "" 2
+ 217                             	 ; 69 "../src/lcd.c" 1
+ 218 011a 00                      		nop
+ 219                             	 ; 0 "" 2
   70:../src/lcd.c  **** //    PM7 |= 0x0F;    							// Set Port 7 Data to input mode
   71:../src/lcd.c  ****     LCD_RW = 1U;    							// Set to Read mode
- 218                             		.loc 1 71 0
- 219 011b C9 F0 07 FF             		movw	r8, #-249
- 220 011f AD F0                   		movw	ax, r8
- 221 0121 BD F4                   		movw	r12, ax
- 222 0123 FA F4                   		movw	hl, r12
- 223 0125 8B                      		mov	a, [hl]
- 224 0126 9D F2                   		mov	r10, a
- 225 0128 6A F2 02                		or	r10, #2
- 226 012b AD F0                   		movw	ax, r8
- 227 012d DA F4                   		movw	bc, r12
- 228 012f 8D F2                   		mov	a, r10
- 229 0131 48 00 00                		mov	[bc], a
+ 220                             		.loc 1 71 0
+ 221 011b C9 F0 07 FF             		movw	r8, #-249
+ 222 011f AD F0                   		movw	ax, r8
+ 223 0121 BD F4                   		movw	r12, ax
+ 224 0123 FA F4                   		movw	hl, r12
+ 225 0125 8B                      		mov	a, [hl]
+ 226 0126 9D F2                   		mov	r10, a
+ 227 0128 6A F2 02                		or	r10, #2
+ 228 012b AD F0                   		movw	ax, r8
+ 229 012d DA F4                   		movw	bc, r12
+ 230 012f 8D F2                   		mov	a, r10
+ 231 0131 48 00 00                		mov	[bc], a
   72:../src/lcd.c  **** }
- 230                             		.loc 1 72 0
- 231 0134 10 02                   		addw	sp, #2
- 232 0136 D7                      		ret
- 233                             	.LFE1:
- 235                             		.global	_initLcd
- 237                             	_initLcd:
- 238                             	.LFB2:
+ 232                             		.loc 1 72 0
+ 233 0134 10 02                   		addw	sp, #2
+ 234 0136 D7                      		ret
+ 235                             	.LFE1:
+ 237                             		.global	_initLcd
+ 239                             	_initLcd:
+ 240                             	.LFB2:
   73:../src/lcd.c  **** 
   74:../src/lcd.c  **** 
   75:../src/lcd.c  **** /************************************************************************
@@ -315,242 +317,242 @@
   82:../src/lcd.c  **** 
   83:../src/lcd.c  **** void initLcd(void)
   84:../src/lcd.c  **** {
- 239                             		.loc 1 84 0
- 240                             		; start of function
- 241                             		; outgoing: 4 bytes
- 242 0137 20 04                   		subw	sp, #4
- 243                             	.LCFI2:
+ 241                             		.loc 1 84 0
+ 242                             		; start of function
+ 243                             		; outgoing: 4 bytes
+ 244 0137 20 04                   		subw	sp, #4
+ 245                             	.LCFI2:
   85:../src/lcd.c  **** 	TMMK00 = 1U;					// Do not use interrupts here, just wait for the flags
- 244                             		.loc 1 85 0
- 245 0139 C9 F0 E6 FF             		movw	r8, #-26
- 246 013d AD F0                   		movw	ax, r8
- 247 013f BD F4                   		movw	r12, ax
- 248 0141 FA F4                   		movw	hl, r12
- 249 0143 8B                      		mov	a, [hl]
- 250 0144 9D F2                   		mov	r10, a
- 251 0146 6A F2 10                		or	r10, #16
- 252 0149 AD F0                   		movw	ax, r8
- 253 014b DA F4                   		movw	bc, r12
- 254 014d 8D F2                   		mov	a, r10
- 255 014f 48 00 00                		mov	[bc], a
+ 246                             		.loc 1 85 0
+ 247 0139 C9 F0 E6 FF             		movw	r8, #-26
+ 248 013d AD F0                   		movw	ax, r8
+ 249 013f BD F4                   		movw	r12, ax
+ 250 0141 FA F4                   		movw	hl, r12
+ 251 0143 8B                      		mov	a, [hl]
+ 252 0144 9D F2                   		mov	r10, a
+ 253 0146 6A F2 10                		or	r10, #16
+ 254 0149 AD F0                   		movw	ax, r8
+ 255 014b DA F4                   		movw	bc, r12
+ 256 014d 8D F2                   		mov	a, r10
+ 257 014f 48 00 00                		mov	[bc], a
   86:../src/lcd.c  **** 
   87:../src/lcd.c  **** 	delayNoInt(15000);				// wait 15 msec for LCD power up
- 256                             		.loc 1 87 0
- 257 0152 30 98 3A                		movw	ax, #15000
- 258 0155 B8 00                   		movw	[sp], ax
- 259 0157 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 258                             		.loc 1 87 0
+ 259 0152 30 98 3A                		movw	ax, #15000
+ 260 0155 B8 00                   		movw	[sp], ax
+ 261 0157 FC 00 00 00             		call	!!%code(_delayNoInt)
   88:../src/lcd.c  **** 
   89:../src/lcd.c  ****     writeNibbleLcd(LCD_CTRL_WR, 0x3); 	// Command 1 -> 8 bits
- 260                             		.loc 1 89 0
- 261 015b F1                      		clrb	a
- 262 015c 98 00                   		mov	[sp], a
- 263 015e 51 03                   		mov	a, #3
- 264 0160 98 02                   		mov	[sp+2], a
- 265 0162 FC 00 00 00             		call	!!%code(_writeNibbleLcd)
+ 262                             		.loc 1 89 0
+ 263 015b F1                      		clrb	a
+ 264 015c 98 00                   		mov	[sp], a
+ 265 015e 51 03                   		mov	a, #3
+ 266 0160 98 02                   		mov	[sp+2], a
+ 267 0162 FC 00 00 00             		call	!!%code(_writeNibbleLcd)
   90:../src/lcd.c  ****     delayNoInt(4100);				// Start timer with 4100 usec delay
- 266                             		.loc 1 90 0
- 267 0166 30 04 10                		movw	ax, #4100
- 268 0169 B8 00                   		movw	[sp], ax
- 269 016b FC 00 00 00             		call	!!%code(_delayNoInt)
+ 268                             		.loc 1 90 0
+ 269 0166 30 04 10                		movw	ax, #4100
+ 270 0169 B8 00                   		movw	[sp], ax
+ 271 016b FC 00 00 00             		call	!!%code(_delayNoInt)
   91:../src/lcd.c  **** 
   92:../src/lcd.c  ****     writeNibbleLcd(LCD_CTRL_WR, 0x3);	// Command 2 -> 8 bits
- 270                             		.loc 1 92 0
- 271 016f F1                      		clrb	a
- 272 0170 98 00                   		mov	[sp], a
- 273 0172 51 03                   		mov	a, #3
- 274 0174 98 02                   		mov	[sp+2], a
- 275 0176 FC 00 00 00             		call	!!%code(_writeNibbleLcd)
+ 272                             		.loc 1 92 0
+ 273 016f F1                      		clrb	a
+ 274 0170 98 00                   		mov	[sp], a
+ 275 0172 51 03                   		mov	a, #3
+ 276 0174 98 02                   		mov	[sp+2], a
+ 277 0176 FC 00 00 00             		call	!!%code(_writeNibbleLcd)
   93:../src/lcd.c  ****     delayNoInt(100);				// Start timer with 100 usec delay
- 276                             		.loc 1 93 0
- 277 017a 30 64 00                		movw	ax, #100
- 278 017d B8 00                   		movw	[sp], ax
- 279 017f FC 00 00 00             		call	!!%code(_delayNoInt)
+ 278                             		.loc 1 93 0
+ 279 017a 30 64 00                		movw	ax, #100
+ 280 017d B8 00                   		movw	[sp], ax
+ 281 017f FC 00 00 00             		call	!!%code(_delayNoInt)
   94:../src/lcd.c  **** 
   95:../src/lcd.c  ****     writeNibbleLcd(LCD_CTRL_WR, 0x3);	// Command 3 -> 8 bits
- 280                             		.loc 1 95 0
- 281 0183 F1                      		clrb	a
- 282 0184 98 00                   		mov	[sp], a
- 283 0186 51 03                   		mov	a, #3
- 284 0188 98 02                   		mov	[sp+2], a
- 285 018a FC 00 00 00             		call	!!%code(_writeNibbleLcd)
+ 282                             		.loc 1 95 0
+ 283 0183 F1                      		clrb	a
+ 284 0184 98 00                   		mov	[sp], a
+ 285 0186 51 03                   		mov	a, #3
+ 286 0188 98 02                   		mov	[sp+2], a
+ 287 018a FC 00 00 00             		call	!!%code(_writeNibbleLcd)
   96:../src/lcd.c  ****     delayNoInt(40);					// Start timer with 40 usec delay
- 286                             		.loc 1 96 0
- 287 018e 30 28 00                		movw	ax, #40
- 288 0191 B8 00                   		movw	[sp], ax
- 289 0193 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 288                             		.loc 1 96 0
+ 289 018e 30 28 00                		movw	ax, #40
+ 290 0191 B8 00                   		movw	[sp], ax
+ 291 0193 FC 00 00 00             		call	!!%code(_delayNoInt)
   97:../src/lcd.c  **** 
   98:../src/lcd.c  ****     writeNibbleLcd(LCD_CTRL_WR, 0x2);	// Command 4 -> 4 bits
- 290                             		.loc 1 98 0
- 291 0197 F1                      		clrb	a
- 292 0198 98 00                   		mov	[sp], a
- 293 019a 51 02                   		mov	a, #2
- 294 019c 98 02                   		mov	[sp+2], a
- 295 019e FC 00 00 00             		call	!!%code(_writeNibbleLcd)
+ 292                             		.loc 1 98 0
+ 293 0197 F1                      		clrb	a
+ 294 0198 98 00                   		mov	[sp], a
+ 295 019a 51 02                   		mov	a, #2
+ 296 019c 98 02                   		mov	[sp+2], a
+ 297 019e FC 00 00 00             		call	!!%code(_writeNibbleLcd)
   99:../src/lcd.c  ****     delayNoInt(40);					// Start timer with 40 usec delay
- 296                             		.loc 1 99 0
- 297 01a2 30 28 00                		movw	ax, #40
- 298 01a5 B8 00                   		movw	[sp], ax
- 299 01a7 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 298                             		.loc 1 99 0
+ 299 01a2 30 28 00                		movw	ax, #40
+ 300 01a5 B8 00                   		movw	[sp], ax
+ 301 01a7 FC 00 00 00             		call	!!%code(_delayNoInt)
  100:../src/lcd.c  **** 
  101:../src/lcd.c  ****     writeByteLcd(LCD_CTRL_WR, FUNCTION_SET);  // Set 2 lines, 5x7 dots
- 300                             		.loc 1 101 0
- 301 01ab F1                      		clrb	a
- 302 01ac 98 00                   		mov	[sp], a
- 303 01ae 51 28                   		mov	a, #40
- 304 01b0 98 02                   		mov	[sp+2], a
- 305 01b2 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 302                             		.loc 1 101 0
+ 303 01ab F1                      		clrb	a
+ 304 01ac 98 00                   		mov	[sp], a
+ 305 01ae 51 28                   		mov	a, #40
+ 306 01b0 98 02                   		mov	[sp+2], a
+ 307 01b2 FC 00 00 00             		call	!!%code(_writeByteLcd)
  102:../src/lcd.c  **** 	delayNoInt(40);					// Start timer with 40 usec delay
- 306                             		.loc 1 102 0
- 307 01b6 30 28 00                		movw	ax, #40
- 308 01b9 B8 00                   		movw	[sp], ax
- 309 01bb FC 00 00 00             		call	!!%code(_delayNoInt)
+ 308                             		.loc 1 102 0
+ 309 01b6 30 28 00                		movw	ax, #40
+ 310 01b9 B8 00                   		movw	[sp], ax
+ 311 01bb FC 00 00 00             		call	!!%code(_delayNoInt)
  103:../src/lcd.c  **** 
  104:../src/lcd.c  **** 	writeByteLcd(LCD_CTRL_WR, LCD_CURSOR_ON);     // Display Cursor ON
- 310                             		.loc 1 104 0
- 311 01bf F1                      		clrb	a
- 312 01c0 98 00                   		mov	[sp], a
- 313 01c2 51 0E                   		mov	a, #14
- 314 01c4 98 02                   		mov	[sp+2], a
- 315 01c6 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 312                             		.loc 1 104 0
+ 313 01bf F1                      		clrb	a
+ 314 01c0 98 00                   		mov	[sp], a
+ 315 01c2 51 0E                   		mov	a, #14
+ 316 01c4 98 02                   		mov	[sp+2], a
+ 317 01c6 FC 00 00 00             		call	!!%code(_writeByteLcd)
  105:../src/lcd.c  **** 	delayNoInt(40);					// Start timer with 40 usec delay
- 316                             		.loc 1 105 0
- 317 01ca 30 28 00                		movw	ax, #40
- 318 01cd B8 00                   		movw	[sp], ax
- 319 01cf FC 00 00 00             		call	!!%code(_delayNoInt)
+ 318                             		.loc 1 105 0
+ 319 01ca 30 28 00                		movw	ax, #40
+ 320 01cd B8 00                   		movw	[sp], ax
+ 321 01cf FC 00 00 00             		call	!!%code(_delayNoInt)
  106:../src/lcd.c  **** 
  107:../src/lcd.c  **** 	writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);          // Clear Display
- 320                             		.loc 1 107 0
- 321 01d3 F1                      		clrb	a
- 322 01d4 98 00                   		mov	[sp], a
- 323 01d6 E1                      		oneb	a
- 324 01d7 98 02                   		mov	[sp+2], a
- 325 01d9 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 322                             		.loc 1 107 0
+ 323 01d3 F1                      		clrb	a
+ 324 01d4 98 00                   		mov	[sp], a
+ 325 01d6 E1                      		oneb	a
+ 326 01d7 98 02                   		mov	[sp+2], a
+ 327 01d9 FC 00 00 00             		call	!!%code(_writeByteLcd)
  108:../src/lcd.c  **** 	delayNoInt(1640);				// Start timer with 1640 usec delay
- 326                             		.loc 1 108 0
- 327 01dd 30 68 06                		movw	ax, #1640
- 328 01e0 B8 00                   		movw	[sp], ax
- 329 01e2 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 328                             		.loc 1 108 0
+ 329 01dd 30 68 06                		movw	ax, #1640
+ 330 01e0 B8 00                   		movw	[sp], ax
+ 331 01e2 FC 00 00 00             		call	!!%code(_delayNoInt)
  109:../src/lcd.c  **** 
  110:../src/lcd.c  **** 	writeByteLcd(LCD_CTRL_WR, CURSOR_MODE_INC);    // Entry Mode set
- 330                             		.loc 1 110 0
- 331 01e6 F1                      		clrb	a
- 332 01e7 98 00                   		mov	[sp], a
- 333 01e9 51 06                   		mov	a, #6
- 334 01eb 98 02                   		mov	[sp+2], a
- 335 01ed FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 332                             		.loc 1 110 0
+ 333 01e6 F1                      		clrb	a
+ 334 01e7 98 00                   		mov	[sp], a
+ 335 01e9 51 06                   		mov	a, #6
+ 336 01eb 98 02                   		mov	[sp+2], a
+ 337 01ed FC 00 00 00             		call	!!%code(_writeByteLcd)
  111:../src/lcd.c  **** 	delayNoInt(40);					// Start timer with 40 usec delay
- 336                             		.loc 1 111 0
- 337 01f1 30 28 00                		movw	ax, #40
- 338 01f4 B8 00                   		movw	[sp], ax
- 339 01f6 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 338                             		.loc 1 111 0
+ 339 01f1 30 28 00                		movw	ax, #40
+ 340 01f4 B8 00                   		movw	[sp], ax
+ 341 01f6 FC 00 00 00             		call	!!%code(_delayNoInt)
  112:../src/lcd.c  **** 
  113:../src/lcd.c  **** 	writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
- 340                             		.loc 1 113 0
- 341 01fa F1                      		clrb	a
- 342 01fb 98 00                   		mov	[sp], a
- 343 01fd 51 80                   		mov	a, #-128
- 344 01ff 98 02                   		mov	[sp+2], a
- 345 0201 FC 00 00 00             		call	!!%code(_writeByteLcd)
+ 342                             		.loc 1 113 0
+ 343 01fa F1                      		clrb	a
+ 344 01fb 98 00                   		mov	[sp], a
+ 345 01fd 51 80                   		mov	a, #-128
+ 346 01ff 98 02                   		mov	[sp+2], a
+ 347 0201 FC 00 00 00             		call	!!%code(_writeByteLcd)
  114:../src/lcd.c  **** 	delayNoInt(40);					// Start timer with 40 usec delay
- 346                             		.loc 1 114 0
- 347 0205 30 28 00                		movw	ax, #40
- 348 0208 B8 00                   		movw	[sp], ax
- 349 020a FC 00 00 00             		call	!!%code(_delayNoInt)
+ 348                             		.loc 1 114 0
+ 349 0205 30 28 00                		movw	ax, #40
+ 350 0208 B8 00                   		movw	[sp], ax
+ 351 020a FC 00 00 00             		call	!!%code(_delayNoInt)
  115:../src/lcd.c  **** 
  116:../src/lcd.c  **** }
- 350                             		.loc 1 116 0
- 351 020e 10 04                   		addw	sp, #4
- 352 0210 D7                      		ret
- 353                             	.LFE2:
- 355                             		.global	_startTMR0
- 357                             	_startTMR0:
- 358                             	.LFB3:
+ 352                             		.loc 1 116 0
+ 353 020e 10 04                   		addw	sp, #4
+ 354 0210 D7                      		ret
+ 355                             	.LFE2:
+ 357                             		.global	_startTMR0
+ 359                             	_startTMR0:
+ 360                             	.LFB3:
  117:../src/lcd.c  **** 
  118:../src/lcd.c  **** void startTMR0(int delay){
- 359                             		.loc 1 118 0
+ 361                             		.loc 1 118 0
  119:../src/lcd.c  **** 	TMIF00 = 0U; // Clear any interrupt flag
- 360                             		.loc 1 119 0
- 361 0211 C9 F0 E2 FF             		movw	r8, #-30
- 362 0215 AD F0                   		movw	ax, r8
- 363 0217 BD F4                   		movw	r12, ax
- 364 0219 FA F4                   		movw	hl, r12
- 365 021b 8B                      		mov	a, [hl]
- 366 021c 9D F2                   		mov	r10, a
- 367 021e 5A F2 EF                		and	r10, #-17
- 368 0221 AD F0                   		movw	ax, r8
- 369 0223 DA F4                   		movw	bc, r12
- 370 0225 8D F2                   		mov	a, r10
- 371 0227 48 00 00                		mov	[bc], a
+ 362                             		.loc 1 119 0
+ 363 0211 C9 F0 E2 FF             		movw	r8, #-30
+ 364 0215 AD F0                   		movw	ax, r8
+ 365 0217 BD F4                   		movw	r12, ax
+ 366 0219 FA F4                   		movw	hl, r12
+ 367 021b 8B                      		mov	a, [hl]
+ 368 021c 9D F2                   		mov	r10, a
+ 369 021e 5A F2 EF                		and	r10, #-17
+ 370 0221 AD F0                   		movw	ax, r8
+ 371 0223 DA F4                   		movw	bc, r12
+ 372 0225 8D F2                   		mov	a, r10
+ 373 0227 48 00 00                		mov	[bc], a
  120:../src/lcd.c  **** 	TDR00 = delay; // Load register (in 1 usec units)
- 372                             		.loc 1 120 0
- 373 022a C9 F2 18 FF             		movw	r10, #-232
- 374 022e A8 04                   		movw	ax, [sp+4]
- 375 0230 BD F0                   		movw	r8, ax
- 376 0232 AD F2                   		movw	ax, r10
- 377 0234 BD F4                   		movw	r12, ax
- 378 0236 DA F4                   		movw	bc, r12
- 379 0238 AD F0                   		movw	ax, r8
- 380 023a 78 00 00                		movw	[bc], ax
+ 374                             		.loc 1 120 0
+ 375 022a C9 F2 18 FF             		movw	r10, #-232
+ 376 022e A8 04                   		movw	ax, [sp+4]
+ 377 0230 BD F0                   		movw	r8, ax
+ 378 0232 AD F2                   		movw	ax, r10
+ 379 0234 BD F4                   		movw	r12, ax
+ 380 0236 DA F4                   		movw	bc, r12
+ 381 0238 AD F0                   		movw	ax, r8
+ 382 023a 78 00 00                		movw	[bc], ax
  121:../src/lcd.c  **** 	TS0 = 1U; // Start timer
- 381                             		.loc 1 121 0
- 382 023d C9 F0 B2 01             		movw	r8, #434
- 383 0241 AD F0                   		movw	ax, r8
- 384 0243 BD F2                   		movw	r10, ax
- 385 0245 DA F2                   		movw	bc, r10
- 386 0247 E6                      		onew	ax
- 387 0248 78 00 00                		movw	[bc], ax
+ 383                             		.loc 1 121 0
+ 384 023d C9 F0 B2 01             		movw	r8, #434
+ 385 0241 AD F0                   		movw	ax, r8
+ 386 0243 BD F2                   		movw	r10, ax
+ 387 0245 DA F2                   		movw	bc, r10
+ 388 0247 E6                      		onew	ax
+ 389 0248 78 00 00                		movw	[bc], ax
  122:../src/lcd.c  **** }
- 388                             		.loc 1 122 0
- 389 024b D7                      		ret
- 390                             	.LFE3:
- 392                             		.global	_delayNoInt
- 394                             	_delayNoInt:
- 395                             	.LFB4:
+ 390                             		.loc 1 122 0
+ 391 024b D7                      		ret
+ 392                             	.LFE3:
+ 394                             		.global	_delayNoInt
+ 396                             	_delayNoInt:
+ 397                             	.LFB4:
  123:../src/lcd.c  **** void delayNoInt(uint16_t delay){
- 396                             		.loc 1 123 0
- 397                             		; start of function
- 398                             		; outgoing: 2 bytes
- 399 024c 20 02                   		subw	sp, #2
- 400                             	.LCFI3:
+ 398                             		.loc 1 123 0
+ 399                             		; start of function
+ 400                             		; outgoing: 2 bytes
+ 401 024c 20 02                   		subw	sp, #2
+ 402                             	.LCFI3:
  124:../src/lcd.c  **** 	startTMR0(delay); // Start timer with delay value
- 401                             		.loc 1 124 0
- 402 024e A8 06                   		movw	ax, [sp+6]
- 403 0250 BD F0                   		movw	r8, ax
- 404 0252 B8 00                   		movw	[sp], ax
- 405 0254 FC 00 00 00             		call	!!%code(_startTMR0)
+ 403                             		.loc 1 124 0
+ 404 024e A8 06                   		movw	ax, [sp+6]
+ 405 0250 BD F0                   		movw	r8, ax
+ 406 0252 B8 00                   		movw	[sp], ax
+ 407 0254 FC 00 00 00             		call	!!%code(_startTMR0)
  125:../src/lcd.c  **** 		while(TMIF00 == 0) // Wait for timer flag
- 406                             		.loc 1 125 0
- 407 0258 EC 5D 02 00             		br	!!.L8
- 408                             	.L9:
+ 408                             		.loc 1 125 0
+ 409 0258 EC 5D 02 00             		br	!!.L8
+ 410                             	.L9:
  126:../src/lcd.c  **** 			NOP();
- 409                             		.loc 1 126 0
- 410                             	 ; 126 "../src/lcd.c" 1
- 411 025c 00                      		nop
- 412                             	 ; 0 "" 2
- 413                             	.L8:
+ 411                             		.loc 1 126 0
+ 412                             	 ; 126 "../src/lcd.c" 1
+ 413 025c 00                      		nop
+ 414                             	 ; 0 "" 2
+ 415                             	.L8:
  125:../src/lcd.c  **** 		while(TMIF00 == 0) // Wait for timer flag
- 414                             		.loc 1 125 0
- 415 025d C9 F0 E2 FF             		movw	r8, #-30
- 416 0261 AD F0                   		movw	ax, r8
- 417 0263 BD F2                   		movw	r10, ax
- 418 0265 FA F2                   		movw	hl, r10
- 419 0267 8B                      		mov	a, [hl]
- 420 0268 9D F0                   		mov	r8, a
- 421 026a 31 4A                   		shr	a, 4
- 422 026c 9D F0                   		mov	r8, a
- 423 026e 5A F0 01                		and	r8, #1
- 424 0271 61 F8                   		sknz
- 425 0273 EC 5C 02 00             		 br	!!.L9
- 426                             		 # zero-comparison eliminated
+ 416                             		.loc 1 125 0
+ 417 025d C9 F0 E2 FF             		movw	r8, #-30
+ 418 0261 AD F0                   		movw	ax, r8
+ 419 0263 BD F2                   		movw	r10, ax
+ 420 0265 FA F2                   		movw	hl, r10
+ 421 0267 8B                      		mov	a, [hl]
+ 422 0268 9D F0                   		mov	r8, a
+ 423 026a 31 4A                   		shr	a, 4
+ 424 026c 9D F0                   		mov	r8, a
+ 425 026e 5A F0 01                		and	r8, #1
+ 426 0271 61 F8                   		sknz
+ 427 0273 EC 5C 02 00             		 br	!!.L9
+ 428                             		 # zero-comparison eliminated
  127:../src/lcd.c  **** 		    R_TAU0_Channel0_Stop(); // Stop timer and clear all flags
- 427                             		.loc 1 127 0
- 428 0277 FC 00 00 00             		call	!!%code(_R_TAU0_Channel0_Stop)
+ 429                             		.loc 1 127 0
+ 430 0277 FC 00 00 00             		call	!!%code(_R_TAU0_Channel0_Stop)
  128:../src/lcd.c  **** }
- 429                             		.loc 1 128 0
- 430 027b 10 02                   		addw	sp, #2
- 431 027d D7                      		ret
- 432                             	.LFE4:
- 508                             	.Letext0:
- 509                             		.file 2 "../src/iodefine.h"
- 510                             		.file 3 "../src/r_cg_macrodriver.h"
- 511                             		.file 4 "../src/globals.h"
+ 431                             		.loc 1 128 0
+ 432 027b 10 02                   		addw	sp, #2
+ 433 027d D7                      		ret
+ 434                             	.LFE4:
+ 510                             	.Letext0:
+ 511                             		.file 2 "../src/iodefine.h"
+ 512                             		.file 3 "../src/r_cg_macrodriver.h"
+ 513                             		.file 4 "../src/globals.h"

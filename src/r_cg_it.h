@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2017/04/12
+* Creation Date: 2017/04/19
 ***********************************************************************************************************************/
 
 #ifndef IT_H
@@ -43,7 +43,7 @@ Macro definitions (Register bit)
 Macro definitions
 ***********************************************************************************************************************/
 /* Interval timer compare value (ITMCMP11 - 0) */
-#define _0FFF_ITMCMP_VALUE            (0x0FFFU)
+#define _0020_ITMCMP_VALUE            (0x0020U)
 
 /***********************************************************************************************************************
 Typedef definitions

@@ -27,13 +27,15 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_timerFlag,2,2
-  31                             		.comm	_count,2,2
-  32                             		.comm	_interval_timer_count,2,2
-  33                             		.global	_R_IT_Create
-  35                             	_R_IT_Create:
-  36                             	.LFB0:
-  37                             		.file 1 "../src/r_cg_it.c"
+  30                             		.comm	_scrollFlag,1,1
+  31                             		.comm	_tempFlag,1,1
+  32                             		.comm	_scrollCount,2,2
+  33                             		.comm	_timerFlag,2,2
+  34                             		.comm	_count,2,2
+  35                             		.global	_R_IT_Create
+  37                             	_R_IT_Create:
+  38                             	.LFB0:
+  39                             		.file 1 "../src/r_cg_it.c"
    1:../src/r_cg_it.c **** /**************************************************************************************************
    2:../src/r_cg_it.c **** * DISCLAIMER
    3:../src/r_cg_it.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -59,7 +61,7 @@
   23:../src/r_cg_it.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_it.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_it.c **** * Description  : This file implements device driver for IT module.
-  26:../src/r_cg_it.c **** * Creation Date: 2017/04/12
+  26:../src/r_cg_it.c **** * Creation Date: 2017/04/19
   27:../src/r_cg_it.c **** ***************************************************************************************************
   28:../src/r_cg_it.c **** 
   29:../src/r_cg_it.c **** /**************************************************************************************************
@@ -85,96 +87,96 @@
   49:../src/r_cg_it.c **** ***************************************************************************************************
   50:../src/r_cg_it.c **** void R_IT_Create(void)
   51:../src/r_cg_it.c **** {
-  38                             		.loc 1 51 0
+  40                             		.loc 1 51 0
   52:../src/r_cg_it.c ****     RTCEN = 1U;    /* supply IT clock */
-  39                             		.loc 1 52 0
-  40 0000 C9 F0 F0 00             		movw	r8, #240
-  41 0004 AD F0                   		movw	ax, r8
-  42 0006 BD F4                   		movw	r12, ax
-  43 0008 FA F4                   		movw	hl, r12
-  44 000a 8B                      		mov	a, [hl]
-  45 000b 9D F2                   		mov	r10, a
-  46 000d 6A F2 80                		or	r10, #-128
-  47 0010 AD F0                   		movw	ax, r8
-  48 0012 DA F4                   		movw	bc, r12
-  49 0014 8D F2                   		mov	a, r10
-  50 0016 48 00 00                		mov	[bc], a
+  41                             		.loc 1 52 0
+  42 0000 C9 F0 F0 00             		movw	r8, #240
+  43 0004 AD F0                   		movw	ax, r8
+  44 0006 BD F4                   		movw	r12, ax
+  45 0008 FA F4                   		movw	hl, r12
+  46 000a 8B                      		mov	a, [hl]
+  47 000b 9D F2                   		mov	r10, a
+  48 000d 6A F2 80                		or	r10, #-128
+  49 0010 AD F0                   		movw	ax, r8
+  50 0012 DA F4                   		movw	bc, r12
+  51 0014 8D F2                   		mov	a, r10
+  52 0016 48 00 00                		mov	[bc], a
   53:../src/r_cg_it.c ****     ITMC = _0000_IT_OPERATION_DISABLE;    /* disable IT operation */
-  51                             		.loc 1 53 0
-  52 0019 C9 F0 90 FF             		movw	r8, #-112
-  53 001d AD F0                   		movw	ax, r8
-  54 001f BD F2                   		movw	r10, ax
-  55 0021 DA F2                   		movw	bc, r10
-  56 0023 F6                      		clrw	ax
-  57 0024 78 00 00                		movw	[bc], ax
+  53                             		.loc 1 53 0
+  54 0019 C9 F0 90 FF             		movw	r8, #-112
+  55 001d AD F0                   		movw	ax, r8
+  56 001f BD F2                   		movw	r10, ax
+  57 0021 DA F2                   		movw	bc, r10
+  58 0023 F6                      		clrw	ax
+  59 0024 78 00 00                		movw	[bc], ax
   54:../src/r_cg_it.c ****     ITMK = 1U;    /* disable INTIT interrupt */
-  58                             		.loc 1 54 0
-  59 0027 C9 F0 E7 FF             		movw	r8, #-25
-  60 002b AD F0                   		movw	ax, r8
-  61 002d BD F4                   		movw	r12, ax
-  62 002f FA F4                   		movw	hl, r12
-  63 0031 8B                      		mov	a, [hl]
-  64 0032 9D F2                   		mov	r10, a
-  65 0034 6A F2 04                		or	r10, #4
-  66 0037 AD F0                   		movw	ax, r8
-  67 0039 DA F4                   		movw	bc, r12
-  68 003b 8D F2                   		mov	a, r10
-  69 003d 48 00 00                		mov	[bc], a
+  60                             		.loc 1 54 0
+  61 0027 C9 F0 E7 FF             		movw	r8, #-25
+  62 002b AD F0                   		movw	ax, r8
+  63 002d BD F4                   		movw	r12, ax
+  64 002f FA F4                   		movw	hl, r12
+  65 0031 8B                      		mov	a, [hl]
+  66 0032 9D F2                   		mov	r10, a
+  67 0034 6A F2 04                		or	r10, #4
+  68 0037 AD F0                   		movw	ax, r8
+  69 0039 DA F4                   		movw	bc, r12
+  70 003b 8D F2                   		mov	a, r10
+  71 003d 48 00 00                		mov	[bc], a
   55:../src/r_cg_it.c ****     ITIF = 0U;    /* clear INTIT interrupt flag */
-  70                             		.loc 1 55 0
-  71 0040 C9 F0 E3 FF             		movw	r8, #-29
-  72 0044 AD F0                   		movw	ax, r8
-  73 0046 BD F4                   		movw	r12, ax
-  74 0048 FA F4                   		movw	hl, r12
-  75 004a 8B                      		mov	a, [hl]
-  76 004b 9D F2                   		mov	r10, a
-  77 004d 5A F2 FB                		and	r10, #-5
-  78 0050 AD F0                   		movw	ax, r8
-  79 0052 DA F4                   		movw	bc, r12
-  80 0054 8D F2                   		mov	a, r10
-  81 0056 48 00 00                		mov	[bc], a
+  72                             		.loc 1 55 0
+  73 0040 C9 F0 E3 FF             		movw	r8, #-29
+  74 0044 AD F0                   		movw	ax, r8
+  75 0046 BD F4                   		movw	r12, ax
+  76 0048 FA F4                   		movw	hl, r12
+  77 004a 8B                      		mov	a, [hl]
+  78 004b 9D F2                   		mov	r10, a
+  79 004d 5A F2 FB                		and	r10, #-5
+  80 0050 AD F0                   		movw	ax, r8
+  81 0052 DA F4                   		movw	bc, r12
+  82 0054 8D F2                   		mov	a, r10
+  83 0056 48 00 00                		mov	[bc], a
   56:../src/r_cg_it.c ****     /* Set INTIT level 1 priority */
   57:../src/r_cg_it.c ****     ITPR1 = 0U;
-  82                             		.loc 1 57 0
-  83 0059 C9 F0 EF FF             		movw	r8, #-17
-  84 005d AD F0                   		movw	ax, r8
-  85 005f BD F4                   		movw	r12, ax
-  86 0061 FA F4                   		movw	hl, r12
-  87 0063 8B                      		mov	a, [hl]
-  88 0064 9D F2                   		mov	r10, a
-  89 0066 5A F2 FB                		and	r10, #-5
-  90 0069 AD F0                   		movw	ax, r8
-  91 006b DA F4                   		movw	bc, r12
-  92 006d 8D F2                   		mov	a, r10
-  93 006f 48 00 00                		mov	[bc], a
+  84                             		.loc 1 57 0
+  85 0059 C9 F0 EF FF             		movw	r8, #-17
+  86 005d AD F0                   		movw	ax, r8
+  87 005f BD F4                   		movw	r12, ax
+  88 0061 FA F4                   		movw	hl, r12
+  89 0063 8B                      		mov	a, [hl]
+  90 0064 9D F2                   		mov	r10, a
+  91 0066 5A F2 FB                		and	r10, #-5
+  92 0069 AD F0                   		movw	ax, r8
+  93 006b DA F4                   		movw	bc, r12
+  94 006d 8D F2                   		mov	a, r10
+  95 006f 48 00 00                		mov	[bc], a
   58:../src/r_cg_it.c ****     ITPR0 = 1U;
-  94                             		.loc 1 58 0
-  95 0072 C9 F0 EB FF             		movw	r8, #-21
-  96 0076 AD F0                   		movw	ax, r8
-  97 0078 BD F4                   		movw	r12, ax
-  98 007a FA F4                   		movw	hl, r12
-  99 007c 8B                      		mov	a, [hl]
- 100 007d 9D F2                   		mov	r10, a
- 101 007f 6A F2 04                		or	r10, #4
- 102 0082 AD F0                   		movw	ax, r8
- 103 0084 DA F4                   		movw	bc, r12
- 104 0086 8D F2                   		mov	a, r10
- 105 0088 48 00 00                		mov	[bc], a
-  59:../src/r_cg_it.c ****     ITMC = _0FFF_ITMCMP_VALUE;
- 106                             		.loc 1 59 0
- 107 008b C9 F0 90 FF             		movw	r8, #-112
- 108 008f AD F0                   		movw	ax, r8
- 109 0091 BD F2                   		movw	r10, ax
- 110 0093 DA F2                   		movw	bc, r10
- 111 0095 30 FF 0F                		movw	ax, #4095
- 112 0098 78 00 00                		movw	[bc], ax
+  96                             		.loc 1 58 0
+  97 0072 C9 F0 EB FF             		movw	r8, #-21
+  98 0076 AD F0                   		movw	ax, r8
+  99 0078 BD F4                   		movw	r12, ax
+ 100 007a FA F4                   		movw	hl, r12
+ 101 007c 8B                      		mov	a, [hl]
+ 102 007d 9D F2                   		mov	r10, a
+ 103 007f 6A F2 04                		or	r10, #4
+ 104 0082 AD F0                   		movw	ax, r8
+ 105 0084 DA F4                   		movw	bc, r12
+ 106 0086 8D F2                   		mov	a, r10
+ 107 0088 48 00 00                		mov	[bc], a
+  59:../src/r_cg_it.c ****     ITMC = _0020_ITMCMP_VALUE;
+ 108                             		.loc 1 59 0
+ 109 008b C9 F0 90 FF             		movw	r8, #-112
+ 110 008f AD F0                   		movw	ax, r8
+ 111 0091 BD F2                   		movw	r10, ax
+ 112 0093 DA F2                   		movw	bc, r10
+ 113 0095 30 20 00                		movw	ax, #32
+ 114 0098 78 00 00                		movw	[bc], ax
   60:../src/r_cg_it.c **** }
- 113                             		.loc 1 60 0
- 114 009b D7                      		ret
- 115                             	.LFE0:
- 117                             		.global	_R_IT_Start
- 119                             	_R_IT_Start:
- 120                             	.LFB1:
+ 115                             		.loc 1 60 0
+ 116 009b D7                      		ret
+ 117                             	.LFE0:
+ 119                             		.global	_R_IT_Start
+ 121                             	_R_IT_Start:
+ 122                             	.LFB1:
   61:../src/r_cg_it.c **** 
   62:../src/r_cg_it.c **** /**************************************************************************************************
   63:../src/r_cg_it.c **** * Function Name: R_IT_Start
@@ -184,60 +186,60 @@
   67:../src/r_cg_it.c **** ***************************************************************************************************
   68:../src/r_cg_it.c **** void R_IT_Start(void)
   69:../src/r_cg_it.c **** {
- 121                             		.loc 1 69 0
+ 123                             		.loc 1 69 0
   70:../src/r_cg_it.c ****     ITIF = 0U;    /* clear INTIT interrupt flag */
- 122                             		.loc 1 70 0
- 123 009c C9 F2 E3 FF             		movw	r10, #-29
- 124 00a0 AD F2                   		movw	ax, r10
- 125 00a2 BD F0                   		movw	r8, ax
- 126 00a4 FA F0                   		movw	hl, r8
- 127 00a6 8B                      		mov	a, [hl]
- 128 00a7 9D F4                   		mov	r12, a
- 129 00a9 5A F4 FB                		and	r12, #-5
- 130 00ac AD F2                   		movw	ax, r10
- 131 00ae DA F0                   		movw	bc, r8
- 132 00b0 8D F4                   		mov	a, r12
- 133 00b2 48 00 00                		mov	[bc], a
+ 124                             		.loc 1 70 0
+ 125 009c C9 F2 E3 FF             		movw	r10, #-29
+ 126 00a0 AD F2                   		movw	ax, r10
+ 127 00a2 BD F0                   		movw	r8, ax
+ 128 00a4 FA F0                   		movw	hl, r8
+ 129 00a6 8B                      		mov	a, [hl]
+ 130 00a7 9D F4                   		mov	r12, a
+ 131 00a9 5A F4 FB                		and	r12, #-5
+ 132 00ac AD F2                   		movw	ax, r10
+ 133 00ae DA F0                   		movw	bc, r8
+ 134 00b0 8D F4                   		mov	a, r12
+ 135 00b2 48 00 00                		mov	[bc], a
   71:../src/r_cg_it.c ****     ITMK = 0U;    /* enable INTIT interrupt */
- 134                             		.loc 1 71 0
- 135 00b5 C9 F2 E7 FF             		movw	r10, #-25
- 136 00b9 AD F2                   		movw	ax, r10
- 137 00bb BD F0                   		movw	r8, ax
- 138 00bd FA F0                   		movw	hl, r8
- 139 00bf 8B                      		mov	a, [hl]
- 140 00c0 9D F4                   		mov	r12, a
- 141 00c2 5A F4 FB                		and	r12, #-5
- 142 00c5 AD F2                   		movw	ax, r10
- 143 00c7 DA F0                   		movw	bc, r8
- 144 00c9 8D F4                   		mov	a, r12
- 145 00cb 48 00 00                		mov	[bc], a
+ 136                             		.loc 1 71 0
+ 137 00b5 C9 F2 E7 FF             		movw	r10, #-25
+ 138 00b9 AD F2                   		movw	ax, r10
+ 139 00bb BD F0                   		movw	r8, ax
+ 140 00bd FA F0                   		movw	hl, r8
+ 141 00bf 8B                      		mov	a, [hl]
+ 142 00c0 9D F4                   		mov	r12, a
+ 143 00c2 5A F4 FB                		and	r12, #-5
+ 144 00c5 AD F2                   		movw	ax, r10
+ 145 00c7 DA F0                   		movw	bc, r8
+ 146 00c9 8D F4                   		mov	a, r12
+ 147 00cb 48 00 00                		mov	[bc], a
   72:../src/r_cg_it.c ****     ITMC |= _8000_IT_OPERATION_ENABLE;    /* enable IT operation */
- 146                             		.loc 1 72 0
- 147 00ce C9 F4 90 FF             		movw	r12, #-112
- 148 00d2 C9 F2 90 FF             		movw	r10, #-112
- 149 00d6 AD F2                   		movw	ax, r10
- 150 00d8 BD F0                   		movw	r8, ax
- 151 00da FA F0                   		movw	hl, r8
- 152 00dc AB                      		movw	ax, [hl]
- 153 00dd BD F2                   		movw	r10, ax
- 154 00df 8D F2                   		mov	a, r10
- 155 00e1 6C 00                   		or	a, #0
- 156 00e3 9D F0                   		mov	r8, a
- 157 00e5 8D F3                   		mov	a, r11
- 158 00e7 6C 80                   		or	a, #-128
- 159 00e9 9D F1                   		mov	r9, a
- 160 00eb AD F4                   		movw	ax, r12
- 161 00ed BD F2                   		movw	r10, ax
- 162 00ef DA F2                   		movw	bc, r10
- 163 00f1 AD F0                   		movw	ax, r8
- 164 00f3 78 00 00                		movw	[bc], ax
+ 148                             		.loc 1 72 0
+ 149 00ce C9 F4 90 FF             		movw	r12, #-112
+ 150 00d2 C9 F2 90 FF             		movw	r10, #-112
+ 151 00d6 AD F2                   		movw	ax, r10
+ 152 00d8 BD F0                   		movw	r8, ax
+ 153 00da FA F0                   		movw	hl, r8
+ 154 00dc AB                      		movw	ax, [hl]
+ 155 00dd BD F2                   		movw	r10, ax
+ 156 00df 8D F2                   		mov	a, r10
+ 157 00e1 6C 00                   		or	a, #0
+ 158 00e3 9D F0                   		mov	r8, a
+ 159 00e5 8D F3                   		mov	a, r11
+ 160 00e7 6C 80                   		or	a, #-128
+ 161 00e9 9D F1                   		mov	r9, a
+ 162 00eb AD F4                   		movw	ax, r12
+ 163 00ed BD F2                   		movw	r10, ax
+ 164 00ef DA F2                   		movw	bc, r10
+ 165 00f1 AD F0                   		movw	ax, r8
+ 166 00f3 78 00 00                		movw	[bc], ax
   73:../src/r_cg_it.c **** }
- 165                             		.loc 1 73 0
- 166 00f6 D7                      		ret
- 167                             	.LFE1:
- 169                             		.global	_R_IT_Stop
- 171                             	_R_IT_Stop:
- 172                             	.LFB2:
+ 167                             		.loc 1 73 0
+ 168 00f6 D7                      		ret
+ 169                             	.LFE1:
+ 171                             		.global	_R_IT_Stop
+ 173                             	_R_IT_Stop:
+ 174                             	.LFB2:
   74:../src/r_cg_it.c **** 
   75:../src/r_cg_it.c **** /**************************************************************************************************
   76:../src/r_cg_it.c **** * Function Name: R_IT_Stop
@@ -247,59 +249,59 @@
   80:../src/r_cg_it.c **** ***************************************************************************************************
   81:../src/r_cg_it.c **** void R_IT_Stop(void)
   82:../src/r_cg_it.c **** {
- 173                             		.loc 1 82 0
+ 175                             		.loc 1 82 0
   83:../src/r_cg_it.c ****     ITMK = 1U;    /* disable INTIT interrupt */
- 174                             		.loc 1 83 0
- 175 00f7 C9 F2 E7 FF             		movw	r10, #-25
- 176 00fb AD F2                   		movw	ax, r10
- 177 00fd BD F0                   		movw	r8, ax
- 178 00ff FA F0                   		movw	hl, r8
- 179 0101 8B                      		mov	a, [hl]
- 180 0102 9D F4                   		mov	r12, a
- 181 0104 6A F4 04                		or	r12, #4
- 182 0107 AD F2                   		movw	ax, r10
- 183 0109 DA F0                   		movw	bc, r8
- 184 010b 8D F4                   		mov	a, r12
- 185 010d 48 00 00                		mov	[bc], a
+ 176                             		.loc 1 83 0
+ 177 00f7 C9 F2 E7 FF             		movw	r10, #-25
+ 178 00fb AD F2                   		movw	ax, r10
+ 179 00fd BD F0                   		movw	r8, ax
+ 180 00ff FA F0                   		movw	hl, r8
+ 181 0101 8B                      		mov	a, [hl]
+ 182 0102 9D F4                   		mov	r12, a
+ 183 0104 6A F4 04                		or	r12, #4
+ 184 0107 AD F2                   		movw	ax, r10
+ 185 0109 DA F0                   		movw	bc, r8
+ 186 010b 8D F4                   		mov	a, r12
+ 187 010d 48 00 00                		mov	[bc], a
   84:../src/r_cg_it.c ****     ITIF = 0U;    /* clear INTIT interrupt flag */
- 186                             		.loc 1 84 0
- 187 0110 C9 F2 E3 FF             		movw	r10, #-29
- 188 0114 AD F2                   		movw	ax, r10
- 189 0116 BD F0                   		movw	r8, ax
- 190 0118 FA F0                   		movw	hl, r8
- 191 011a 8B                      		mov	a, [hl]
- 192 011b 9D F4                   		mov	r12, a
- 193 011d 5A F4 FB                		and	r12, #-5
- 194 0120 AD F2                   		movw	ax, r10
- 195 0122 DA F0                   		movw	bc, r8
- 196 0124 8D F4                   		mov	a, r12
- 197 0126 48 00 00                		mov	[bc], a
+ 188                             		.loc 1 84 0
+ 189 0110 C9 F2 E3 FF             		movw	r10, #-29
+ 190 0114 AD F2                   		movw	ax, r10
+ 191 0116 BD F0                   		movw	r8, ax
+ 192 0118 FA F0                   		movw	hl, r8
+ 193 011a 8B                      		mov	a, [hl]
+ 194 011b 9D F4                   		mov	r12, a
+ 195 011d 5A F4 FB                		and	r12, #-5
+ 196 0120 AD F2                   		movw	ax, r10
+ 197 0122 DA F0                   		movw	bc, r8
+ 198 0124 8D F4                   		mov	a, r12
+ 199 0126 48 00 00                		mov	[bc], a
   85:../src/r_cg_it.c ****     ITMC &= (uint16_t)~_8000_IT_OPERATION_ENABLE;    /* disable IT operation */
- 198                             		.loc 1 85 0
- 199 0129 C9 F4 90 FF             		movw	r12, #-112
- 200 012d C9 F2 90 FF             		movw	r10, #-112
- 201 0131 AD F2                   		movw	ax, r10
- 202 0133 BD F0                   		movw	r8, ax
- 203 0135 FA F0                   		movw	hl, r8
- 204 0137 AB                      		movw	ax, [hl]
- 205 0138 BD F2                   		movw	r10, ax
- 206 013a 8D F2                   		mov	a, r10
- 207 013c 5C FF                   		and	a, #-1
- 208 013e 9D F0                   		mov	r8, a
- 209 0140 8D F3                   		mov	a, r11
- 210 0142 5C 7F                   		and	a, #127
- 211 0144 9D F1                   		mov	r9, a
- 212 0146 AD F4                   		movw	ax, r12
- 213 0148 BD F2                   		movw	r10, ax
- 214 014a DA F2                   		movw	bc, r10
- 215 014c AD F0                   		movw	ax, r8
- 216 014e 78 00 00                		movw	[bc], ax
+ 200                             		.loc 1 85 0
+ 201 0129 C9 F4 90 FF             		movw	r12, #-112
+ 202 012d C9 F2 90 FF             		movw	r10, #-112
+ 203 0131 AD F2                   		movw	ax, r10
+ 204 0133 BD F0                   		movw	r8, ax
+ 205 0135 FA F0                   		movw	hl, r8
+ 206 0137 AB                      		movw	ax, [hl]
+ 207 0138 BD F2                   		movw	r10, ax
+ 208 013a 8D F2                   		mov	a, r10
+ 209 013c 5C FF                   		and	a, #-1
+ 210 013e 9D F0                   		mov	r8, a
+ 211 0140 8D F3                   		mov	a, r11
+ 212 0142 5C 7F                   		and	a, #127
+ 213 0144 9D F1                   		mov	r9, a
+ 214 0146 AD F4                   		movw	ax, r12
+ 215 0148 BD F2                   		movw	r10, ax
+ 216 014a DA F2                   		movw	bc, r10
+ 217 014c AD F0                   		movw	ax, r8
+ 218 014e 78 00 00                		movw	[bc], ax
   86:../src/r_cg_it.c **** }
- 217                             		.loc 1 86 0
- 218 0151 D7                      		ret
- 219                             	.LFE2:
- 263                             	.Letext0:
- 264                             		.file 2 "../src/iodefine.h"
- 265                             		.file 3 "../src/iodefine_ext.h"
- 266                             		.file 4 "../src/r_cg_macrodriver.h"
- 267                             		.file 5 "../src/globals.h"
+ 219                             		.loc 1 86 0
+ 220 0151 D7                      		ret
+ 221                             	.LFE2:
+ 265                             	.Letext0:
+ 266                             		.file 2 "../src/iodefine.h"
+ 267                             		.file 3 "../src/iodefine_ext.h"
+ 268                             		.file 4 "../src/r_cg_macrodriver.h"
+ 269                             		.file 5 "../src/globals.h"

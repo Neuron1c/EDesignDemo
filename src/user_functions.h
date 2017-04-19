@@ -10,6 +10,7 @@
 
 char populate(char recieved);
 void displayLCD();
+void checkFlags();
 
 
 #endif /* USER_FUNCTIONS_H_ */

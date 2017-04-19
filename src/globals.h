@@ -17,8 +17,10 @@
 uint8_t record[RX_BUF_LEN];
 uint8_t mem[RX_BUF_LEN];
 uint8_t display_string[RX_BUF_LEN];
+uint8_t scrollFlag;
+uint8_t tempFlag;
+uint16_t scrollCount;
 int timerFlag;
 int count;
-int interval_timer_count;
 
 #endif /* GLOBALS_H_ */

@@ -82,7 +82,7 @@ EdesignDemo.mot: $(LINKER_OUTPUT_OUTPUTS)
 EdesignDemo.x: $(OBJS) $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS) $(ALL_ASMS)
 	@echo 'Invoking: Linker'
 	@echo 'Building target:'
-	rl78-elf-ld -o "EdesignDemo.x" -T"C:\Users\19119038\e2_studio\workspace\EDesignDemo\HardwareDebug\EdesignDemo_HardwareDebug_auto.gsi" @"C:\Users\19119038\e2_studio\workspace\EDesignDemo\HardwareDebug\LinkerSubCommand.tmp" $(USER_OBJS) $(LIBS) $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS) -M=EdesignDemo.map -L"C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13" -L"C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13" --start-group -loptm -loptc -lgcc --end-group -e_PowerON_Reset
+	rl78-elf-ld -o "EdesignDemo.x" -T"H:\E Design\EDesignDemo\HardwareDebug\EdesignDemo_HardwareDebug_auto.gsi" @"H:\E Design\EDesignDemo\HardwareDebug\LinkerSubCommand.tmp" $(USER_OBJS) $(LIBS) $(LIBRARY_GENERATOR_OUTPUTTYPE_OUTPUTS) -M=EdesignDemo.map -L"C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/lib/gcc/rl78-elf/4.9-GNURL78_v15.02/g13" -L"C:\PROGRA~2\KPIT\GNURL7~1.02-\rl78-elf/rl78-elf/lib/g13" --start-group -loptm -loptc -lgcc --end-group -e_PowerON_Reset
 	@echo 'Finished building:'
 	@echo.
 

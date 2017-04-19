@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2017/04/12
+* Creation Date: 2017/04/19
 ***********************************************************************************************************************/
 
 #ifndef TAU_H
@@ -398,9 +398,9 @@ Macro definitions
 /* Clock divisor for TAU0 channel 0 */
 #define _0010_TAU0_CHANNEL0_DIVISOR             (0x0010U)
 /* 16-bit timer data register 01 (TDR01) */
-#define _9C3F_TAU_TDR01_VALUE                   (0x9C3FU)
+#define _0FFF_TAU_TDR01_VALUE                   (0x0FFFU)
 /* Clock divisor for TAU0 channel 1 */
-#define _0004_TAU0_CHANNEL1_DIVISOR             (0x0004U)
+#define _0001_TAU0_CHANNEL1_DIVISOR             (0x0001U)
 
 /***********************************************************************************************************************
 Typedef definitions

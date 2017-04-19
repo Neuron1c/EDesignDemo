@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements main function.
-* Creation Date: 2017/04/12
+* Creation Date: 2017/04/19
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,6 +55,7 @@ uint8_t uart1TxFlag;
 uint8_t	uart1RxErrFlag;	// UART2 Receive Error Flag
 uint8_t uart1RxOvrFlag;	// UART2 Receive Overrun Flag
 MD_STATUS uart1Status;
+extern uint8_t display_string[RX_BUF_LEN];
 //extern uint8_t mem[RX_BUF_LEN];
 /* End user code. Do not edit comment generated here */
 void R_MAIN_UserInit(void);
@@ -67,20 +68,25 @@ void R_MAIN_UserInit(void);
 ***********************************************************************************************************************/
 void main(void)
 {
-
-	R_MAIN_UserInit();
+    R_MAIN_UserInit();
     /* Start user code. Do not edit comment generated here */
 
     R_UART1_Create();
     R_UART1_Start();
 
     R_IT_Create();
-//  R_IT_Start();
+    R_IT_Start();
 
     R_RTC_Create();
     R_RTC_Start();
 
+    R_TAU0_Create();
+    R_TAU0_Channel1_Start();
+
     initLcd();
+
+    strcpy(display_string,"Potato OS 3.0\x0d\x0a");
+    displayLCD(1);
 
     char welcome[] = "Welcome\x0d\x0a";
     R_UART1_Send(welcome,9);
@@ -105,6 +111,8 @@ void main(void)
 		 if(bounce_correction(&P5_bit, 2)){
 			 recieveInstruction(1);
 		 }
+
+		 checkFlags();
 
             if (uart1RxFlag)
             {

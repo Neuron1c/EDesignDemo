@@ -27,9 +27,11 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_timerFlag,2,2
-  31                             		.comm	_count,2,2
-  32                             		.comm	_interval_timer_count,2,2
-  33                             	.Letext0:
-  34                             		.file 1 "../src/globals.h"
-  35                             		.file 2 "../src/r_cg_macrodriver.h"
+  30                             		.comm	_scrollFlag,1,1
+  31                             		.comm	_tempFlag,1,1
+  32                             		.comm	_scrollCount,2,2
+  33                             		.comm	_timerFlag,2,2
+  34                             		.comm	_count,2,2
+  35                             	.Letext0:
+  36                             		.file 1 "../src/r_cg_macrodriver.h"
+  37                             		.file 2 "../src/globals.h"

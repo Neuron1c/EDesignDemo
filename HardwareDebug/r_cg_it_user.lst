@@ -27,13 +27,17 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_timerFlag,2,2
-  31                             		.comm	_count,2,2
-  32                             		.comm	_interval_timer_count,2,2
-  33                             		.global	_r_it_interrupt
-  35                             	_r_it_interrupt:
-  36                             	.LFB0:
-  37                             		.file 1 "../src/r_cg_it_user.c"
+  30                             		.comm	_scrollFlag,1,1
+  31                             		.comm	_tempFlag,1,1
+  32                             		.comm	_scrollCount,2,2
+  33                             		.comm	_timerFlag,2,2
+  34                             		.comm	_count,2,2
+  35                             		.local	_tempCount
+  36                             		.comm	_tempCount,1,1
+  37                             		.global	_r_it_interrupt
+  39                             	_r_it_interrupt:
+  40                             	.LFB0:
+  41                             		.file 1 "../src/r_cg_it_user.c"
    1:../src/r_cg_it_user.c **** /**************************************************************************************************
    2:../src/r_cg_it_user.c **** * DISCLAIMER
    3:../src/r_cg_it_user.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -59,7 +63,7 @@
   23:../src/r_cg_it_user.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_it_user.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_it_user.c **** * Description  : This file implements device driver for IT module.
-  26:../src/r_cg_it_user.c **** * Creation Date: 2017/04/12
+  26:../src/r_cg_it_user.c **** * Creation Date: 2017/04/19
   27:../src/r_cg_it_user.c **** ***************************************************************************************************
   28:../src/r_cg_it_user.c **** 
   29:../src/r_cg_it_user.c **** /**************************************************************************************************
@@ -75,88 +79,96 @@
   39:../src/r_cg_it_user.c **** Global variables and functions
   40:../src/r_cg_it_user.c **** ***************************************************************************************************
   41:../src/r_cg_it_user.c **** /* Start user code for global. Do not edit comment generated here */
-  42:../src/r_cg_it_user.c **** extern int interval_timer_count;
-  43:../src/r_cg_it_user.c **** /* End user code. Do not edit comment generated here */
-  44:../src/r_cg_it_user.c **** 
-  45:../src/r_cg_it_user.c **** /**************************************************************************************************
-  46:../src/r_cg_it_user.c **** * Function Name: r_it_interrupt
-  47:../src/r_cg_it_user.c **** * Description  : This function is INTIT interrupt service routine.
-  48:../src/r_cg_it_user.c **** * Arguments    : None
-  49:../src/r_cg_it_user.c **** * Return Value : None
-  50:../src/r_cg_it_user.c **** ***************************************************************************************************
-  51:../src/r_cg_it_user.c **** void r_it_interrupt(void)
-  52:../src/r_cg_it_user.c **** {
-  38                             		.loc 1 52 0
-  39                             		; start of function
-  40                             		; push 16: ax bc de hl r8 r10 r12 r14
-  41                             		; outgoing: 2 bytes
-  42 0000 61 CF                   		sel	rb0
-  43 0002 C1                      		push	ax
-  44                             	.LCFI0:
-  45 0003 C3                      		push	bc
-  46                             	.LCFI1:
-  47 0004 C5                      		push	de
-  48                             	.LCFI2:
-  49 0005 C7                      		push	hl
-  50                             	.LCFI3:
-  51 0006 61 DF                   		sel	rb1
-  52 0008 C1                      		push	ax ; r8
-  53                             	.LCFI4:
-  54 0009 C3                      		push	bc ; r10
-  55                             	.LCFI5:
-  56 000a C5                      		push	de ; r12
-  57                             	.LCFI6:
-  58 000b C7                      		push	hl ; r14
-  59                             	.LCFI7:
-  60 000c 61 CF                   		sel	rb0
-  61 000e 20 02                   		subw	sp, #2
-  62                             	.LCFI8:
-  53:../src/r_cg_it_user.c ****     /* Start user code. Do not edit comment generated here */
-  54:../src/r_cg_it_user.c **** 
-  55:../src/r_cg_it_user.c **** 	++interval_timer_count;
-  63                             		.loc 1 55 0
-  64 0010 AF 00 00                		movw	ax, !_interval_timer_count
-  65 0013 BD F2                   		movw	r10, ax
-  66 0015 A6 F2                   		incw	r10
-  67 0017 AD F2                   		movw	ax, r10
-  68 0019 BF 00 00                		movw	!_interval_timer_count, ax
-  56:../src/r_cg_it_user.c **** 
-  57:../src/r_cg_it_user.c **** 	if(interval_timer_count%4 == 0){
-  69                             		.loc 1 57 0
-  70 001c BD F2                   		movw	r10, ax
-  71 001e 8D F2                   		mov	a, r10
-  72 0020 5C 03                   		and	a, #3
-  73 0022 9D F0                   		mov	r8, a
-  74 0024 8D F3                   		mov	a, r11
-  75 0026 5C 00                   		and	a, #0
-  76 0028 9D F1                   		mov	r9, a
-  77 002a AD F0                   		movw	ax, r8
-  78 002c 44 00 00                		cmpw	ax, #0
-  79 002f 61 E8                   		 skz
-  80 0031 EC 3C 00 00             		 br	!!.L1
-  58:../src/r_cg_it_user.c **** 		displayLCD(0);
-  81                             		.loc 1 58 0
-  82 0035 F6                      		clrw	ax
-  83 0036 B8 00                   		movw	[sp], ax
-  84 0038 FC 00 00 00             		call	!!%code(_displayLCD)
-  85                             	.L1:
-  59:../src/r_cg_it_user.c **** 	}
-  60:../src/r_cg_it_user.c ****     /* End user code. Do not edit comment generated here */
-  61:../src/r_cg_it_user.c **** }
-  86                             		.loc 1 61 0
-  87 003c 10 02                   		addw	sp, #2
-  88 003e 61 DF                   		sel	rb1
-  89 0040 C6                      		pop	hl ; r14
-  90 0041 C4                      		pop	de ; r12
-  91 0042 C2                      		pop	bc ; r10
-  92 0043 C0                      		pop	ax ; r8
-  93 0044 61 CF                   		sel	rb0
-  94 0046 C6                      		pop	hl
-  95 0047 C4                      		pop	de
-  96 0048 C2                      		pop	bc
-  97 0049 C0                      		pop	ax
-  98 004a 61 FC                   		reti
-  99                             	.LFE0:
- 163                             	.Letext0:
- 164                             		.file 2 "../src/globals.h"
- 165                             		.file 3 "../src/r_cg_macrodriver.h"
+  42:../src/r_cg_it_user.c **** extern uint8_t scrollFlag;
+  43:../src/r_cg_it_user.c **** extern uint16_t scrollCount;
+  44:../src/r_cg_it_user.c **** extern uint8_t tempFlag;
+  45:../src/r_cg_it_user.c **** static uint8_t tempCount;
+  46:../src/r_cg_it_user.c **** /* End user code. Do not edit comment generated here */
+  47:../src/r_cg_it_user.c **** 
+  48:../src/r_cg_it_user.c **** /**************************************************************************************************
+  49:../src/r_cg_it_user.c **** * Function Name: r_it_interrupt
+  50:../src/r_cg_it_user.c **** * Description  : This function is INTIT interrupt service routine.
+  51:../src/r_cg_it_user.c **** * Arguments    : None
+  52:../src/r_cg_it_user.c **** * Return Value : None
+  53:../src/r_cg_it_user.c **** ***************************************************************************************************
+  54:../src/r_cg_it_user.c **** void r_it_interrupt(void)
+  55:../src/r_cg_it_user.c **** {
+  42                             		.loc 1 55 0
+  43                             		; start of function
+  44                             		; push 10: ax bc de hl r8
+  45 0000 61 CF                   		sel	rb0
+  46 0002 C1                      		push	ax
+  47                             	.LCFI0:
+  48 0003 C3                      		push	bc
+  49                             	.LCFI1:
+  50 0004 C5                      		push	de
+  51                             	.LCFI2:
+  52 0005 C7                      		push	hl
+  53                             	.LCFI3:
+  54 0006 61 DF                   		sel	rb1
+  55 0008 C1                      		push	ax ; r8
+  56                             	.LCFI4:
+  57 0009 61 CF                   		sel	rb0
+  56:../src/r_cg_it_user.c ****     /* Start user code. Do not edit comment generated here */
+  57:../src/r_cg_it_user.c **** 
+  58:../src/r_cg_it_user.c **** 	scrollCount++;
+  58                             		.loc 1 58 0
+  59 000b AF 00 00                		movw	ax, !_scrollCount
+  60 000e BD F0                   		movw	r8, ax
+  61 0010 A6 F0                   		incw	r8
+  62 0012 AD F0                   		movw	ax, r8
+  63 0014 BF 00 00                		movw	!_scrollCount, ax
+  59:../src/r_cg_it_user.c **** 	tempCount++;
+  64                             		.loc 1 59 0
+  65 0017 8F 00 00                		mov	a, !_tempCount
+  66 001a 9D F0                   		mov	r8, a
+  67 001c A4 F0                   		inc	r8
+  68 001e 8D F0                   		mov	a, r8
+  69 0020 9F 00 00                		mov	!_tempCount, a
+  60:../src/r_cg_it_user.c **** 
+  61:../src/r_cg_it_user.c **** 	if(scrollCount >= 500){
+  70                             		.loc 1 61 0
+  71 0023 AF 00 00                		movw	ax, !_scrollCount
+  72 0026 BD F0                   		movw	r8, ax
+  73 0028 44 F3 01                		cmpw	ax, #499
+  74 002b 61 E3                   		 skh
+  75 002d EC 38 00 00             		 br	!!.L2
+  62:../src/r_cg_it_user.c **** 		scrollFlag = 1;
+  76                             		.loc 1 62 0
+  77 0031 E5 00 00                		oneb	!_scrollFlag
+  63:../src/r_cg_it_user.c **** 		scrollCount = 0;
+  78                             		.loc 1 63 0
+  79 0034 F6                      		clrw	ax
+  80 0035 BF 00 00                		movw	!_scrollCount, ax
+  81                             	.L2:
+  64:../src/r_cg_it_user.c **** 	}
+  65:../src/r_cg_it_user.c **** 	if(tempCount >= 104){
+  82                             		.loc 1 65 0
+  83 0038 8F 00 00                		mov	a, !_tempCount
+  84 003b 9D F0                   		mov	r8, a
+  85 003d 4A F0 67                		cmp	r8, #103
+  86 0040 61 E3                   		 skh
+  87 0042 EC 4C 00 00             		 br	!!.L1
+  66:../src/r_cg_it_user.c **** 		tempFlag = 1;
+  88                             		.loc 1 66 0
+  89 0046 E5 00 00                		oneb	!_tempFlag
+  67:../src/r_cg_it_user.c **** 		tempCount = 0;
+  90                             		.loc 1 67 0
+  91 0049 F5 00 00                		clrb	!_tempCount
+  92                             	.L1:
+  68:../src/r_cg_it_user.c **** 	}
+  69:../src/r_cg_it_user.c ****     /* End user code. Do not edit comment generated here */
+  70:../src/r_cg_it_user.c **** }
+  93                             		.loc 1 70 0
+  94 004c 61 DF                   		sel	rb1
+  95 004e C0                      		pop	ax ; r8
+  96 004f 61 CF                   		sel	rb0
+  97 0051 C6                      		pop	hl
+  98 0052 C4                      		pop	de
+  99 0053 C2                      		pop	bc
+ 100 0054 C0                      		pop	ax
+ 101 0055 61 FC                   		reti
+ 102                             	.LFE0:
+ 150                             	.Letext0:
+ 151                             		.file 2 "../src/r_cg_macrodriver.h"
+ 152                             		.file 3 "../src/globals.h"

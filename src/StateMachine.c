@@ -93,7 +93,8 @@ void recieveInstruction(int instr){
 				P4_bit.no2 = 0;
 				P4_bit.no3 = 0;
 				break;
-		case 6: strcpy(display_string,"Switch state = 1\x0d\x0a"); displayLCD(1);
+		case 6: strcpy(display_string,"Switch state = 1\x0d\x0a");
+				displayLCD(1);
 		        P4_bit.no1 = 0;
 			    P4_bit.no2 = 0;
 				P4_bit.no3 = 1;

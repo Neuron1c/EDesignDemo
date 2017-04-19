@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2017/04/12
+* Creation Date: 2017/04/19
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -50,7 +50,7 @@ Global variables and functions
 void R_TAU0_Create(void)
 {
     TAU0EN = 1U;    /* supplies input clock */
-    TPS0 = _0002_TAU_CKM0_FCLK_2 | _0040_TAU_CKM1_FCLK_4 | _0000_TAU_CKM2_FCLK_1 | _0000_TAU_CKM3_FCLK_8;
+    TPS0 = _0004_TAU_CKM0_FCLK_4 | _0000_TAU_CKM1_FCLK_0 | _0000_TAU_CKM2_FCLK_1 | _0000_TAU_CKM3_FCLK_8;
     /* Stop all channels */
     TT0 = _0001_TAU_CH0_STOP_TRG_ON | _0002_TAU_CH1_STOP_TRG_ON | _0004_TAU_CH2_STOP_TRG_ON |
           _0008_TAU_CH3_STOP_TRG_ON | _0010_TAU_CH4_STOP_TRG_ON | _0020_TAU_CH5_STOP_TRG_ON |
@@ -93,19 +93,22 @@ void R_TAU0_Create(void)
     TMPR101 = 1U;
     TMPR001 = 1U;
     /* Channel 0 used as interval timer */
-    TMR00 = _8000_TAU_CLOCK_SELECT_CKM1 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_COMBINATION_SLAVE |
+    TMR00 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_COMBINATION_SLAVE |
             _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
     TDR00 = _F9FF_TAU_TDR00_VALUE;
     TO0 &= ~_0001_TAU_CH0_OUTPUT_VALUE_1;
     TOE0 &= ~_0001_TAU_CH0_OUTPUT_ENABLE;
-    /* Channel 1 used as interval timer */
-    TMR01 = _0000_TAU_CLOCK_SELECT_CKM0 | _0000_TAU_CLOCK_MODE_CKS | _0000_TAU_16BITS_MODE |
-            _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_MODE_INTERVAL_TIMER | _0000_TAU_START_INT_UNUSED;
-    TDR01 = _9C3F_TAU_TDR01_VALUE;
+    /* Channel 1 used as external event counter */
+    TMR01 = _8000_TAU_CLOCK_SELECT_CKM1 | _1000_TAU_CLOCK_MODE_TIMN | _0000_TAU_16BITS_MODE |
+            _0000_TAU_TRIGGER_SOFTWARE | _0000_TAU_TIMN_EDGE_FALLING | _0006_TAU_MODE_EVENT_COUNT;
+    TDR01 = _0FFF_TAU_TDR01_VALUE;
     TOM0 &= ~_0002_TAU_CH1_OUTPUT_COMBIN;
     TOL0 &= ~_0002_TAU_CH1_OUTPUT_LEVEL_L;
     TO0 &= ~_0002_TAU_CH1_OUTPUT_VALUE_1;
     TOE0 &= ~_0002_TAU_CH1_OUTPUT_ENABLE;
+    NFEN1 &= (uint8_t)~_02_TAU_CH1_NOISE_ON;    /* disable using noise filter of TI01 pin input signal */
+    /* Set TI01 pin */
+    PM1 |= 0x40U;
 }
 
 /***********************************************************************************************************************
