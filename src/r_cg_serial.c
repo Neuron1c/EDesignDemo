@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2017/04/19
+* Creation Date: 2017/05/07
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -43,6 +43,12 @@ volatile uint16_t  g_uart1_tx_count;           /* uart1 transmit data number */
 volatile uint8_t * gp_uart1_rx_address;        /* uart1 receive buffer address */
 volatile uint16_t  g_uart1_rx_count;           /* uart1 receive data number */
 volatile uint16_t  g_uart1_rx_length;          /* uart1 receive data length */
+volatile uint8_t * gp_csi00_rx_address;        /* csi00 receive buffer address */
+volatile uint16_t  g_csi00_rx_length;          /* csi00 receive data length */
+volatile uint16_t  g_csi00_rx_count;           /* csi00 receive data count */
+volatile uint8_t * gp_csi00_tx_address;        /* csi00 send buffer address */
+volatile uint16_t  g_csi00_send_length;        /* csi00 send data length */
+volatile uint16_t  g_csi00_tx_count;           /* csi00 send data count */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -59,8 +65,9 @@ void R_SAU0_Create(void)
     NOP();
     NOP();
     NOP();
-    SPS0 = _0001_SAU_CK00_FCLK_1 | _0010_SAU_CK01_FCLK_1;
+    SPS0 = _0000_SAU_CK00_FCLK_0 | _0010_SAU_CK01_FCLK_1;
     R_UART1_Create();
+    R_CSI00_Create();
 }
 
 /***********************************************************************************************************************
@@ -84,14 +91,14 @@ void R_UART1_Create(void)
     /* Set INTSR1 low priority */
     SRPR11 = 1U;
     SRPR01 = 1U;
-    SMR02 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_TRIGGER_SOFTWARE |
+    SMR02 = _0020_SAU_SMRMN_INITIALVALUE | _8000_SAU_CLOCK_SELECT_CK01 | _0000_SAU_TRIGGER_SOFTWARE |
             _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR02 = _8000_SAU_TRANSMISSION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
             _0007_SAU_LENGTH_8;
     SDR02 = _CE00_UART1_TRANSMIT_DIVISOR;
     NFEN0 |= _04_SAU_RXD1_FILTER_ON;
     SIR03 = _0004_SAU_SIRMN_FECTMN | _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
-    SMR03 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0100_SAU_TRIGGER_RXD | _0000_SAU_EDGE_FALL |
+    SMR03 = _0020_SAU_SMRMN_INITIALVALUE | _8000_SAU_CLOCK_SELECT_CK01 | _0100_SAU_TRIGGER_RXD | _0000_SAU_EDGE_FALL |
             _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
     SCR03 = _4000_SAU_RECEPTION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _0010_SAU_STOP_1 |
             _0007_SAU_LENGTH_8;
@@ -197,6 +204,114 @@ MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num)
         gp_uart1_tx_address++;
         g_uart1_tx_count--;
         STMK1 = 0U;    /* enable INTST1 interrupt */
+    }
+
+    return (status);
+}
+
+/***********************************************************************************************************************
+* Function Name: R_CSI00_Create
+* Description  : This function initializes the CSI00 module.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_CSI00_Create(void)
+{
+    ST0 |= _0001_SAU_CH0_STOP_TRG_ON;    /* disable CSI00 */
+    CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
+    /* Set INTCSI00 low priority */
+    CSIPR100 = 1U;
+    CSIPR000 = 1U;
+    SIR00 = _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
+    SMR00 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_CLOCK_MODE_CKS |
+            _0000_SAU_TRIGGER_SOFTWARE | _0000_SAU_MODE_CSI | _0001_SAU_BUFFER_EMPTY;
+    SCR00 = _C000_SAU_RECEPTION_TRANSMISSION | _1000_SAU_TIMING_2 | _0000_SAU_MSB | _0007_SAU_LENGTH_8;
+    SDR00 = _3E00_CSI00_DIVISOR;
+    SO0 &= ~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
+    SO0 &= ~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */
+    SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable CSI00 output */
+    /* Set SI00 pin */
+    PM1 |= 0x02U;
+    /* Set SO00 pin */
+    P1 |= 0x04U;
+    PM1 &= 0xFBU;
+    /* Set SCK00 pin */
+    P1 |= 0x01U;
+    PM1 &= 0xFEU;
+}
+
+/***********************************************************************************************************************
+* Function Name: R_CSI00_Start
+* Description  : This function starts the CSI00 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_CSI00_Start(void)
+{
+    SO0 &= ~_0100_SAU_CH0_CLOCK_OUTPUT_1;   /* CSI00 clock initial level */
+    SO0 &= ~_0001_SAU_CH0_DATA_OUTPUT_1;           /* CSI00 SO initial level */
+    SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;           /* enable CSI00 output */
+    SS0 |= _0001_SAU_CH0_START_TRG_ON;             /* enable CSI00 */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
+    CSIMK00 = 0U;    /* enable INTCSI00 */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_CSI00_Stop
+* Description  : This function stops the CSI00 module operation.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void R_CSI00_Stop(void)
+{
+    CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
+    ST0 |= _0001_SAU_CH0_STOP_TRG_ON;        /* disable CSI00 */
+    SOE0 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable CSI00 output */
+    CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
+}
+
+/***********************************************************************************************************************
+* Function Name: R_CSI00_Send_Receive
+* Description  : This function sends and receives CSI00 data.
+* Arguments    : tx_buf -
+*                    transfer buffer pointer
+*                tx_num -
+*                    buffer size
+*                rx_buf -
+*                    receive buffer pointer
+* Return Value : status -
+*                    MD_OK or MD_ARGERROR
+***********************************************************************************************************************/
+MD_STATUS R_CSI00_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf)
+{
+    MD_STATUS status = MD_OK;
+
+    if (tx_num < 1U)
+    {
+        status = MD_ARGERROR;
+    }
+    else
+    {
+        g_csi00_send_length = tx_num;     /* send data length */
+        g_csi00_tx_count = tx_num;        /* send data count */
+        gp_csi00_tx_address = tx_buf;     /* send buffer pointer */
+        gp_csi00_rx_address = rx_buf;     /* receive buffer pointer */
+        SMR00 |= _0001_SAU_BUFFER_EMPTY;
+        CSIMK00 = 1U;                     /* disable INTCSI00 interrupt */
+
+        if (0U != gp_csi00_tx_address)
+        {
+            SIO00 = *gp_csi00_tx_address;    /* started by writing data to SDR[7:0] */
+            gp_csi00_tx_address++;
+        }
+        else
+        {
+            SIO00 = 0xFFU;
+        }
+
+        g_csi00_tx_count--;
+        CSIMK00 = 0U;                     /* enable INTCSI00 interrupt */
     }
 
     return (status);

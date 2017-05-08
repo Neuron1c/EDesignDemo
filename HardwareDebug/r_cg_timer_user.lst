@@ -65,7 +65,7 @@
   23:../src/r_cg_timer_user.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_timer_user.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_timer_user.c **** * Description  : This file implements device driver for TAU module.
-  26:../src/r_cg_timer_user.c **** * Creation Date: 2017/04/19
+  26:../src/r_cg_timer_user.c **** * Creation Date: 2017/05/07
   27:../src/r_cg_timer_user.c **** ***************************************************************************************************
   28:../src/r_cg_timer_user.c **** 
   29:../src/r_cg_timer_user.c **** /**************************************************************************************************

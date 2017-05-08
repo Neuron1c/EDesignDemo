@@ -61,7 +61,7 @@
   23:../src/r_cg_rtc.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_rtc.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_rtc.c **** * Description  : This file implements device driver for RTC module.
-  26:../src/r_cg_rtc.c **** * Creation Date: 2017/04/19
+  26:../src/r_cg_rtc.c **** * Creation Date: 2017/05/07
   27:../src/r_cg_rtc.c **** ***************************************************************************************************
   28:../src/r_cg_rtc.c **** 
   29:../src/r_cg_rtc.c **** /**************************************************************************************************

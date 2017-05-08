@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2017/04/19
+* Creation Date: 2017/05/07
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -43,11 +43,18 @@ extern volatile uint16_t  g_uart1_tx_count;            /* uart1 send data number
 extern volatile uint8_t * gp_uart1_rx_address;         /* uart1 receive buffer address */
 extern volatile uint16_t  g_uart1_rx_count;            /* uart1 receive data number */
 extern volatile uint16_t  g_uart1_rx_length;           /* uart1 receive data length */
+extern volatile uint8_t * gp_csi00_rx_address;         /* csi00 receive buffer address */
+extern volatile uint16_t  g_csi00_rx_length;           /* csi00 receive data length */
+extern volatile uint16_t  g_csi00_rx_count;            /* csi00 receive data count */
+extern volatile uint8_t * gp_csi00_tx_address;         /* csi00 send buffer address */
+extern volatile uint16_t  g_csi00_send_length;         /* csi00 send data length */
+extern volatile uint16_t  g_csi00_tx_count;            /* csi00 send data count */
 /* Start user code for global. Do not edit comment generated here */
 
 extern uint8_t  uart1RxFlag;    // UART1 Receive Flag
 extern uint8_t  uart1TxFlag;    // UART1 Transmit end flag
-
+uint8_t recieveflag = 1;
+uint8_t sendflag = 1;
 
 /* End user code. Do not edit comment generated here */
 
@@ -158,6 +165,100 @@ static void r_uart1_callback_sendend(void)
 static void r_uart1_callback_error(uint8_t err_type)
 {
     /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_csi00_interrupt
+* Description  : This function is INTCSI00 interrupt service routine.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+void r_csi00_interrupt(void)
+{
+    uint8_t err_type;
+
+    err_type = (uint8_t)(SSR00 & _0001_SAU_OVERRUN_ERROR);
+    SIR00 = (uint16_t)err_type;
+
+    if (1U == err_type)
+    {
+        r_csi00_callback_error(err_type);    /* overrun error occurs */
+    }
+    else
+    {
+        if (g_csi00_tx_count > 0U) 
+        {
+            if (g_csi00_tx_count != (g_csi00_send_length - 1U)) 
+            {
+                *gp_csi00_rx_address = SIO00;
+                gp_csi00_rx_address++;
+            }
+            
+            SIO00 = *gp_csi00_tx_address;
+            gp_csi00_tx_address++;
+            g_csi00_tx_count--;
+        }
+        else 
+        {
+            if ((SMR00 & _0001_SAU_BUFFER_EMPTY) == 1U) 
+            {
+                r_csi00_callback_sendend();    /* complete send */
+                *gp_csi00_rx_address = SIO00;
+                gp_csi00_rx_address++;    
+                SMR00 &= ~_0001_SAU_BUFFER_EMPTY;
+                
+                if ((SSR00 & _0040_SAU_UNDER_EXECUTE) == 0U)
+                {
+                    *gp_csi00_rx_address = SIO00;
+                    r_csi00_callback_receiveend();    /* complete receive */
+                }
+            }
+            else 
+            {
+                *gp_csi00_rx_address = SIO00;
+                r_csi00_callback_receiveend();    /* complete receive */
+            }
+        }
+    }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_csi00_callback_receiveend
+* Description  : This function is a callback function when CSI00 finishes reception.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void r_csi00_callback_receiveend(void)
+{
+    /* Start user code. Do not edit comment generated here */
+	recieveflag = 0;
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_csi00_callback_error
+* Description  : This function is a callback function when CSI00 reception error occurs.
+* Arguments    : err_type -
+*                    error type value
+* Return Value : None
+***********************************************************************************************************************/
+static void r_csi00_callback_error(uint8_t err_type)
+{
+    /* Start user code. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
+}
+
+/***********************************************************************************************************************
+* Function Name: r_csi00_callback_sendend
+* Description  : This function is a callback function when CSI00 finishes transmission.
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+static void r_csi00_callback_sendend(void)
+{
+    /* Start user code. Do not edit comment generated here */
+	sendflag = 0;
     /* End user code. Do not edit comment generated here */
 }
 

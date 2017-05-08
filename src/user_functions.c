@@ -22,6 +22,8 @@ extern int count;
 extern uint16_t scrollCount;
 extern uint8_t scrollFlag;
 extern uint8_t tempFlag;
+extern uint8_t recieveflag;
+extern uint8_t sendflag;
 
 static uint16_t finalTemp;
 static uint8_t response[RX_BUF_LEN];
@@ -44,6 +46,8 @@ void collectADC();
 void checkFlags();
 void measureTemp();
 void setTemp();
+void read();
+void write();
 uint8_t testDate(uint8_t arr[]);
 
 
@@ -192,9 +196,13 @@ void processMSG(){
 					  break;
 		 case 'C':	  getRTC();
 		 	 	 	  break;
-		 case 'I':	  sprintf(response, "$I0%d\x0d\x0a", finalTemp);
+		 case 'I':	  sprintf(response, "$I0%03d\x0d\x0a", finalTemp);
 		 	 	 	  count = strlen(response);
 		 	 	 	  break;
+		 case 'X': 	  write();
+			 	 	  break;
+		 case 'Y': 	  read();
+			 	 	  break;
 
 
 		default:
@@ -399,10 +407,10 @@ uint8_t testDate(uint8_t arr[]){
 
 	int daysInMonth[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
 
-	if(arr[1] > 12){
+	if(arr[1] > 12 || arr[1] == 0){
 		return 0;
 	}
-	else if(arr[2] > daysInMonth[arr[1]]){
+	else if(arr[2] > daysInMonth[arr[1]] || arr[2] == 0){
 		return 0;
 	}
 	else if(arr[3] > 23){
@@ -443,4 +451,71 @@ void setTemp(){
 	R_TAU0_Channel1_Stop();
 	R_TAU0_Channel1_Start();
 
+}
+
+void write(){
+	uint8_t send[35];
+	uint8_t recieve[10];
+
+
+	 send[0] = 6;
+
+	 P1_bit.no5 = 0;
+	 R_CSI00_Send_Receive(send, 1, recieve);
+
+	 while(recieveflag){
+	 }
+	 sendflag = 1;
+	 recieveflag = 1;
+	 P1_bit.no5 = 1;
+	 delayNoInt(100);
+
+	 send[0] = 2;
+	 send[1] = 0;
+	 send[2] = 0;
+	 send[3] = 'I';
+
+	 P1_bit.no5 = 0;
+	 R_CSI00_Send_Receive(send, 4, recieve);
+
+	 while(recieveflag){
+	 }
+	 sendflag = 1;
+	 recieveflag = 1;
+	 P1_bit.no5 = 1;
+	 delayNoInt(100);
+
+	 send[0] = 4;
+
+	 P1_bit.no5 = 0;
+	 R_CSI00_Send_Receive(send, 1, recieve);
+
+	 while(recieveflag){
+	 }
+	 sendflag = 1;
+	 recieveflag = 1;
+	 P1_bit.no5 = 1;
+	 delayNoInt(100);
+
+	strcpy(response, "$X\x0d\x0a"); count = 4;
+}
+void read(){
+	uint8_t send[10];
+	uint8_t recieve[35];
+
+	send[0] = 3;
+	send[1] = 0;
+	send[2] = 0;
+	P1_bit.no5 = 0;
+	recieveflag = 1;
+	sendflag = 1;
+	R_CSI00_Send_Receive(send, 4, recieve);
+
+	while(recieveflag || sendflag){
+	}
+	recieveflag = 1;
+	sendflag = 1;
+	P1_bit.no5 = 1;
+	count = 1;
+	sprintf(response, "%c", recieve[3]);
 }

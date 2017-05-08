@@ -61,7 +61,7 @@
   23:../src/r_cg_port.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_port.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_port.c **** * Description  : This file implements device driver for PORT module.
-  26:../src/r_cg_port.c **** * Creation Date: 2017/04/19
+  26:../src/r_cg_port.c **** * Creation Date: 2017/05/07
   27:../src/r_cg_port.c **** ***************************************************************************************************
   28:../src/r_cg_port.c **** 
   29:../src/r_cg_port.c **** /**************************************************************************************************
@@ -88,7 +88,7 @@
   50:../src/r_cg_port.c **** void R_PORT_Create(void)
   51:../src/r_cg_port.c **** {
   40                             		.loc 1 51 0
-  52:../src/r_cg_port.c ****     P1 = _00_Pn7_OUTPUT_0;
+  52:../src/r_cg_port.c ****     P1 = _00_Pn5_OUTPUT_0 | _00_Pn7_OUTPUT_0;
   41                             		.loc 1 52 0
   42 0000 C9 F0 01 FF             		movw	r8, #-255
   43 0004 AD F0                   		movw	ax, r8
@@ -151,9 +151,9 @@
   92 0069 AD F0                   		movw	ax, r8
   93 006b BD F2                   		movw	r10, ax
   94 006d DA F2                   		movw	bc, r10
-  95 006f 51 7F                   		mov	a, #127
+  95 006f 51 5F                   		mov	a, #95
   96 0071 48 00 00                		mov	[bc], a
-  61:../src/r_cg_port.c ****           _20_PMn5_NOT_USE | _40_PMn6_NOT_USE | _00_PMn7_MODE_OUTPUT;
+  61:../src/r_cg_port.c ****           _00_PMn5_MODE_OUTPUT | _40_PMn6_NOT_USE | _00_PMn7_MODE_OUTPUT;
   62:../src/r_cg_port.c ****     PM4 = _01_PMn0_NOT_USE | _00_PMn1_MODE_OUTPUT | _00_PMn2_MODE_OUTPUT | _00_PMn3_MODE_OUTPUT | _
   97                             		.loc 1 62 0
   98 0074 C9 F0 24 FF             		movw	r8, #-220

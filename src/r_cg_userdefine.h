@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file includes user definition.
-* Creation Date: 2017/04/19
+* Creation Date: 2017/05/07
 ***********************************************************************************************************************/
 
 #ifndef _USER_DEF_H

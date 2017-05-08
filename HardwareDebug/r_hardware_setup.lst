@@ -61,7 +61,7 @@
   23:../src/r_hardware_setup.c **** * Device(s)    : R5F100LE
   24:../src/r_hardware_setup.c **** * Tool-Chain   : GCCRL78
   25:../src/r_hardware_setup.c **** * Description  : This file implements system initializing function.
-  26:../src/r_hardware_setup.c **** * Creation Date: 2017/04/19
+  26:../src/r_hardware_setup.c **** * Creation Date: 2017/05/07
   27:../src/r_hardware_setup.c **** ***************************************************************************************************
   28:../src/r_hardware_setup.c **** 
   29:../src/r_hardware_setup.c **** /**************************************************************************************************

@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2017/04/19
+* Creation Date: 2017/05/07
 ***********************************************************************************************************************/
 
 #ifndef SERIAL_H
@@ -375,6 +375,7 @@ Macro definitions
 ***********************************************************************************************************************/
 #define _CE00_UART1_RECEIVE_DIVISOR      (0xCE00U)
 #define _CE00_UART1_TRANSMIT_DIVISOR     (0xCE00U)
+#define _3E00_CSI00_DIVISOR              (0x3E00U)
 
 /***********************************************************************************************************************
 Typedef definitions
@@ -393,6 +394,13 @@ static void r_uart1_callback_error(uint8_t err_type);
 static void r_uart1_callback_receiveend(void);
 static void r_uart1_callback_sendend(void);
 static void r_uart1_callback_softwareoverrun(uint16_t rx_data);
+void R_CSI00_Create(void);
+void R_CSI00_Start(void);
+void R_CSI00_Stop(void);
+MD_STATUS R_CSI00_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf);
+static void r_csi00_callback_error(uint8_t err_type);
+static void r_csi00_callback_receiveend(void);
+static void r_csi00_callback_sendend(void);
 
 /* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */

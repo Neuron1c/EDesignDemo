@@ -67,7 +67,7 @@
   74 0014 00 00                   		.short	%code(_R_Dummy)
   75 0016 00 00                   		.short	%code(_R_Dummy)
   76 0018 00 00                   		.short	%code(_R_Dummy)
-  77 001a 00 00                   		.short	%code(_R_Dummy)
+  77 001a 00 00                   		.short	%code(_r_csi00_interrupt)
   78 001c 00 00                   		.short	%code(_R_Dummy)
   79 001e 00 00                   		.short	%code(_R_Dummy)
   80 0020 00 00                   		.short	%code(_r_uart1_interrupt_send)
@@ -146,7 +146,7 @@
   23:../src/r_cg_vector_table.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_vector_table.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_vector_table.c **** * Description  : This file implements interrupt vector.
-  26:../src/r_cg_vector_table.c **** * Creation Date: 2017/04/19
+  26:../src/r_cg_vector_table.c **** * Creation Date: 2017/05/07
   27:../src/r_cg_vector_table.c **** ***************************************************************************************************
   28:../src/r_cg_vector_table.c **** 
   29:../src/r_cg_vector_table.c **** /**************************************************************************************************
@@ -206,7 +206,7 @@
   83:../src/r_cg_vector_table.c **** 	// Address 0x1C
   84:../src/r_cg_vector_table.c **** 	R_Dummy,
   85:../src/r_cg_vector_table.c **** 	// Address 0x1E
-  86:../src/r_cg_vector_table.c **** 	R_Dummy,
+  86:../src/r_cg_vector_table.c **** 	r_csi00_interrupt,
   87:../src/r_cg_vector_table.c **** 	// Address 0x20
   88:../src/r_cg_vector_table.c **** 	R_Dummy,
   89:../src/r_cg_vector_table.c **** 	// Address 0x22

@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements main function.
-* Creation Date: 2017/04/19
+* Creation Date: 2017/05/07
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -83,6 +83,11 @@ void main(void)
     R_TAU0_Create();
     R_TAU0_Channel1_Start();
 
+    R_CSI00_Create();
+    R_CSI00_Start();
+
+    P1_bit.no5 = 1;
+
     initLcd();
 
     strcpy(display_string,"Potato OS 3.0\x0d\x0a");
@@ -108,7 +113,7 @@ void main(void)
 		 if(bounce_correction(&P5_bit, 3)){
 			 recieveInstruction(4);
 		 }
-		 if(bounce_correction(&P5_bit, 2)){
+		 if(bounce_correction(&P5_bit, 1)){
 			 recieveInstruction(1);
 		 }
 
