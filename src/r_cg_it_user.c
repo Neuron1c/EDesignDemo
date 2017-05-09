@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for IT module.
-* Creation Date: 2017/05/07
+* Creation Date: 2017/05/08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -43,6 +43,8 @@ extern uint8_t scrollFlag;
 extern uint16_t scrollCount;
 extern uint8_t tempFlag;
 static uint8_t tempCount;
+extern uint8_t secFlag;
+static uint16_t secCount;
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
@@ -57,6 +59,7 @@ void r_it_interrupt(void)
 
 	scrollCount++;
 	tempCount++;
+	secCount++;
 
 	if(scrollCount >= 500){
 		scrollFlag = 1;
@@ -66,6 +69,11 @@ void r_it_interrupt(void)
 		tempFlag = 1;
 		tempCount = 0;
 	}
+	if(secCount >= 1000){
+		secFlag = 1;
+		secCount = 0;
+	}
+
     /* End user code. Do not edit comment generated here */
 }
 

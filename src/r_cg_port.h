@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for PORT module.
-* Creation Date: 2017/05/07
+* Creation Date: 2017/05/08
 ***********************************************************************************************************************/
 
 #ifndef PORT_H

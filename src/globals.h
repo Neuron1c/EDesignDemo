@@ -17,10 +17,12 @@
 uint8_t record[RX_BUF_LEN];
 uint8_t mem[RX_BUF_LEN];
 uint8_t display_string[RX_BUF_LEN];
+uint8_t voltage, current1, current2;
+uint8_t date[6];
 uint8_t scrollFlag;
 uint8_t tempFlag;
+uint8_t secFlag;
 uint16_t scrollCount;
 int timerFlag;
-int count;
 
 #endif /* GLOBALS_H_ */

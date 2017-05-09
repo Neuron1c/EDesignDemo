@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements main function.
-* Creation Date: 2017/05/07
+* Creation Date: 2017/05/08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -113,7 +113,7 @@ void main(void)
 		 if(bounce_correction(&P5_bit, 3)){
 			 recieveInstruction(4);
 		 }
-		 if(bounce_correction(&P5_bit, 1)){
+		 if(bounce_correction(&P5_bit, 2)){
 			 recieveInstruction(1);
 		 }
 

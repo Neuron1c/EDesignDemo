@@ -27,100 +27,104 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_scrollFlag,1,1
-  31                             		.comm	_tempFlag,1,1
-  32                             		.comm	_scrollCount,2,2
-  33                             		.comm	_timerFlag,2,2
-  34                             		.comm	_count,2,2
-  35                             		.global	_Option_Bytes
-  36                             		.section	.option_bytes,"a",@progbits
-  39                             	_Option_Bytes:
-  40 0000 EF                      		.byte	-17
-  41 0001 FF                      		.byte	-1
-  42 0002 E9                      		.byte	-23
-  43 0003 84                      		.byte	-124
-  44                             		.global	_Security_Id
-  45                             		.section	.security_id,"a",@progbits
-  48                             	_Security_Id:
-  49 0000 00 00 00 00 00 00 00 00 		.zero	10
-  49      00 00 
-  50                             		.global	_HardwareVectors
-  51                             		.section	.vec,"aw",@progbits
-  52                             		.balign 2
-  55                             	_HardwareVectors:
-  56 0000 00 00                   		.short	%code(_PowerON_Reset)
-  57 0002 FF FF                   		.short	-1
-  58                             		.global	_Vectors
-  59                             		.section	.vects,"aw",@progbits
-  60                             		.balign 2
-  63                             	_Vectors:
-  64 0000 00 00                   		.short	%code(_R_Dummy)
-  65 0002 00 00                   		.short	%code(_R_Dummy)
-  66 0004 00 00                   		.short	%code(_R_Dummy)
-  67 0006 00 00                   		.short	%code(_R_Dummy)
-  68 0008 00 00                   		.short	%code(_R_Dummy)
-  69 000a 00 00                   		.short	%code(_R_Dummy)
-  70 000c 00 00                   		.short	%code(_R_Dummy)
-  71 000e 00 00                   		.short	%code(_R_Dummy)
-  72 0010 00 00                   		.short	%code(_R_Dummy)
-  73 0012 00 00                   		.short	%code(_R_Dummy)
-  74 0014 00 00                   		.short	%code(_R_Dummy)
-  75 0016 00 00                   		.short	%code(_R_Dummy)
-  76 0018 00 00                   		.short	%code(_R_Dummy)
-  77 001a 00 00                   		.short	%code(_r_csi00_interrupt)
-  78 001c 00 00                   		.short	%code(_R_Dummy)
-  79 001e 00 00                   		.short	%code(_R_Dummy)
-  80 0020 00 00                   		.short	%code(_r_uart1_interrupt_send)
-  81 0022 00 00                   		.short	%code(_r_uart1_interrupt_receive)
-  82 0024 00 00                   		.short	%code(_R_Dummy)
-  83 0026 00 00                   		.short	%code(_R_Dummy)
-  84 0028 00 00                   		.short	%code(_r_tau0_channel0_interrupt)
-  85 002a 00 00                   		.short	%code(_r_tau0_channel1_interrupt)
-  86 002c 00 00                   		.short	%code(_R_Dummy)
-  87 002e 00 00                   		.short	%code(_R_Dummy)
-  88 0030 00 00                   		.short	%code(_r_adc_interrupt)
-  89 0032 00 00                   		.short	%code(_R_Dummy)
-  90 0034 00 00                   		.short	%code(_r_it_interrupt)
-  91 0036 00 00                   		.short	%code(_R_Dummy)
-  92 0038 00 00                   		.short	%code(_R_Dummy)
-  93 003a 00 00                   		.short	%code(_R_Dummy)
-  94 003c 00 00                   		.short	%code(_R_Dummy)
-  95 003e 00 00                   		.short	%code(_R_Dummy)
-  96 0040 00 00                   		.short	%code(_R_Dummy)
-  97 0042 00 00                   		.short	%code(_R_Dummy)
-  98 0044 00 00                   		.short	%code(_R_Dummy)
-  99 0046 00 00                   		.short	%code(_R_Dummy)
- 100 0048 00 00                   		.short	%code(_R_Dummy)
- 101 004a 00 00                   		.short	%code(_R_Dummy)
- 102 004c 00 00                   		.short	%code(_R_Dummy)
- 103 004e 00 00                   		.short	%code(_R_Dummy)
- 104 0050 00 00                   		.short	%code(_R_Dummy)
- 105 0052 00 00                   		.short	%code(_R_Dummy)
- 106 0054 00 00                   		.short	%code(_R_Dummy)
- 107 0056 00 00                   		.short	%code(_R_Dummy)
- 108 0058 00 00                   		.short	%code(_R_Dummy)
- 109 005a 00 00                   		.short	%code(_R_Dummy)
- 110 005c 00 00                   		.short	%code(_R_Dummy)
- 111 005e 00 00                   		.short	%code(_R_Dummy)
- 112 0060 00 00                   		.short	%code(_R_Dummy)
- 113 0062 00 00                   		.short	%code(_R_Dummy)
- 114 0064 00 00                   		.short	%code(_R_Dummy)
- 115 0066 00 00                   		.short	%code(_R_Dummy)
- 116 0068 00 00                   		.short	%code(_R_Dummy)
- 117 006a 00 00                   		.short	%code(_R_Dummy)
- 118 006c 00 00                   		.short	%code(_R_Dummy)
- 119 006e 00 00                   		.short	%code(_R_Dummy)
- 120 0070 00 00                   		.short	%code(_R_Dummy)
- 121 0072 00 00                   		.short	%code(_R_Dummy)
- 122 0074 00 00                   		.short	%code(_R_Dummy)
- 123 0076 00 00                   		.short	%code(_R_Dummy)
- 124 0078 00 00                   		.short	%code(_R_Dummy)
- 125 007a 00 00                   		.short	%code(_R_Dummy)
- 126                             	.text
- 127                             		.global	_R_Dummy
- 129                             	_R_Dummy:
- 130                             	.LFB0:
- 131                             		.file 1 "../src/r_cg_vector_table.c"
+  30                             		.comm	_voltage,1,1
+  31                             		.comm	_current1,1,1
+  32                             		.comm	_current2,1,1
+  33                             		.comm	_date,6,1
+  34                             		.comm	_scrollFlag,1,1
+  35                             		.comm	_tempFlag,1,1
+  36                             		.comm	_secFlag,1,1
+  37                             		.comm	_scrollCount,2,2
+  38                             		.comm	_timerFlag,2,2
+  39                             		.global	_Option_Bytes
+  40                             		.section	.option_bytes,"a",@progbits
+  43                             	_Option_Bytes:
+  44 0000 EF                      		.byte	-17
+  45 0001 FF                      		.byte	-1
+  46 0002 E9                      		.byte	-23
+  47 0003 84                      		.byte	-124
+  48                             		.global	_Security_Id
+  49                             		.section	.security_id,"a",@progbits
+  52                             	_Security_Id:
+  53 0000 00 00 00 00 00 00 00 00 		.zero	10
+  53      00 00 
+  54                             		.global	_HardwareVectors
+  55                             		.section	.vec,"aw",@progbits
+  56                             		.balign 2
+  59                             	_HardwareVectors:
+  60 0000 00 00                   		.short	%code(_PowerON_Reset)
+  61 0002 FF FF                   		.short	-1
+  62                             		.global	_Vectors
+  63                             		.section	.vects,"aw",@progbits
+  64                             		.balign 2
+  67                             	_Vectors:
+  68 0000 00 00                   		.short	%code(_R_Dummy)
+  69 0002 00 00                   		.short	%code(_R_Dummy)
+  70 0004 00 00                   		.short	%code(_R_Dummy)
+  71 0006 00 00                   		.short	%code(_R_Dummy)
+  72 0008 00 00                   		.short	%code(_R_Dummy)
+  73 000a 00 00                   		.short	%code(_R_Dummy)
+  74 000c 00 00                   		.short	%code(_R_Dummy)
+  75 000e 00 00                   		.short	%code(_R_Dummy)
+  76 0010 00 00                   		.short	%code(_R_Dummy)
+  77 0012 00 00                   		.short	%code(_R_Dummy)
+  78 0014 00 00                   		.short	%code(_R_Dummy)
+  79 0016 00 00                   		.short	%code(_R_Dummy)
+  80 0018 00 00                   		.short	%code(_R_Dummy)
+  81 001a 00 00                   		.short	%code(_r_csi00_interrupt)
+  82 001c 00 00                   		.short	%code(_R_Dummy)
+  83 001e 00 00                   		.short	%code(_R_Dummy)
+  84 0020 00 00                   		.short	%code(_r_uart1_interrupt_send)
+  85 0022 00 00                   		.short	%code(_r_uart1_interrupt_receive)
+  86 0024 00 00                   		.short	%code(_R_Dummy)
+  87 0026 00 00                   		.short	%code(_R_Dummy)
+  88 0028 00 00                   		.short	%code(_r_tau0_channel0_interrupt)
+  89 002a 00 00                   		.short	%code(_r_tau0_channel1_interrupt)
+  90 002c 00 00                   		.short	%code(_R_Dummy)
+  91 002e 00 00                   		.short	%code(_R_Dummy)
+  92 0030 00 00                   		.short	%code(_r_adc_interrupt)
+  93 0032 00 00                   		.short	%code(_R_Dummy)
+  94 0034 00 00                   		.short	%code(_r_it_interrupt)
+  95 0036 00 00                   		.short	%code(_R_Dummy)
+  96 0038 00 00                   		.short	%code(_R_Dummy)
+  97 003a 00 00                   		.short	%code(_R_Dummy)
+  98 003c 00 00                   		.short	%code(_R_Dummy)
+  99 003e 00 00                   		.short	%code(_R_Dummy)
+ 100 0040 00 00                   		.short	%code(_R_Dummy)
+ 101 0042 00 00                   		.short	%code(_R_Dummy)
+ 102 0044 00 00                   		.short	%code(_R_Dummy)
+ 103 0046 00 00                   		.short	%code(_R_Dummy)
+ 104 0048 00 00                   		.short	%code(_R_Dummy)
+ 105 004a 00 00                   		.short	%code(_R_Dummy)
+ 106 004c 00 00                   		.short	%code(_R_Dummy)
+ 107 004e 00 00                   		.short	%code(_R_Dummy)
+ 108 0050 00 00                   		.short	%code(_R_Dummy)
+ 109 0052 00 00                   		.short	%code(_R_Dummy)
+ 110 0054 00 00                   		.short	%code(_R_Dummy)
+ 111 0056 00 00                   		.short	%code(_R_Dummy)
+ 112 0058 00 00                   		.short	%code(_R_Dummy)
+ 113 005a 00 00                   		.short	%code(_R_Dummy)
+ 114 005c 00 00                   		.short	%code(_R_Dummy)
+ 115 005e 00 00                   		.short	%code(_R_Dummy)
+ 116 0060 00 00                   		.short	%code(_R_Dummy)
+ 117 0062 00 00                   		.short	%code(_R_Dummy)
+ 118 0064 00 00                   		.short	%code(_R_Dummy)
+ 119 0066 00 00                   		.short	%code(_R_Dummy)
+ 120 0068 00 00                   		.short	%code(_R_Dummy)
+ 121 006a 00 00                   		.short	%code(_R_Dummy)
+ 122 006c 00 00                   		.short	%code(_R_Dummy)
+ 123 006e 00 00                   		.short	%code(_R_Dummy)
+ 124 0070 00 00                   		.short	%code(_R_Dummy)
+ 125 0072 00 00                   		.short	%code(_R_Dummy)
+ 126 0074 00 00                   		.short	%code(_R_Dummy)
+ 127 0076 00 00                   		.short	%code(_R_Dummy)
+ 128 0078 00 00                   		.short	%code(_R_Dummy)
+ 129 007a 00 00                   		.short	%code(_R_Dummy)
+ 130                             	.text
+ 131                             		.global	_R_Dummy
+ 133                             	_R_Dummy:
+ 134                             	.LFB0:
+ 135                             		.file 1 "../src/r_cg_vector_table.c"
    1:../src/r_cg_vector_table.c **** /**************************************************************************************************
    2:../src/r_cg_vector_table.c **** * DISCLAIMER
    3:../src/r_cg_vector_table.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -146,7 +150,7 @@
   23:../src/r_cg_vector_table.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_vector_table.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_vector_table.c **** * Description  : This file implements interrupt vector.
-  26:../src/r_cg_vector_table.c **** * Creation Date: 2017/05/07
+  26:../src/r_cg_vector_table.c **** * Creation Date: 2017/05/08
   27:../src/r_cg_vector_table.c **** ***************************************************************************************************
   28:../src/r_cg_vector_table.c **** 
   29:../src/r_cg_vector_table.c **** /**************************************************************************************************
@@ -312,28 +316,28 @@
  189:../src/r_cg_vector_table.c **** ***************************************************************************************************
  190:../src/r_cg_vector_table.c **** void R_Dummy(void)
  191:../src/r_cg_vector_table.c **** {
- 132                             		.loc 1 191 0
- 133                             		; start of function
- 134                             		; push 8: ax bc de hl
- 135 0000 61 CF                   		sel	rb0
- 136 0002 C1                      		push	ax
- 137                             	.LCFI0:
- 138 0003 C3                      		push	bc
- 139                             	.LCFI1:
- 140 0004 C5                      		push	de
- 141                             	.LCFI2:
- 142 0005 C7                      		push	hl
- 143                             	.LCFI3:
+ 136                             		.loc 1 191 0
+ 137                             		; start of function
+ 138                             		; push 8: ax bc de hl
+ 139 0000 61 CF                   		sel	rb0
+ 140 0002 C1                      		push	ax
+ 141                             	.LCFI0:
+ 142 0003 C3                      		push	bc
+ 143                             	.LCFI1:
+ 144 0004 C5                      		push	de
+ 145                             	.LCFI2:
+ 146 0005 C7                      		push	hl
+ 147                             	.LCFI3:
  192:../src/r_cg_vector_table.c ****     /* Start user code. Do not edit comment generated here */
  193:../src/r_cg_vector_table.c ****     /* End user code. Do not edit comment generated here */
  194:../src/r_cg_vector_table.c **** }
- 144                             		.loc 1 194 0
- 145 0006 C6                      		pop	hl
- 146 0007 C4                      		pop	de
- 147 0008 C2                      		pop	bc
- 148 0009 C0                      		pop	ax
- 149 000a 61 FC                   		reti
- 150                             	.LFE0:
- 194                             	.Letext0:
- 195                             		.file 2 "../src/r_cg_macrodriver.h"
- 196                             		.file 3 "../src/globals.h"
+ 148                             		.loc 1 194 0
+ 149 0006 C6                      		pop	hl
+ 150 0007 C4                      		pop	de
+ 151 0008 C2                      		pop	bc
+ 152 0009 C0                      		pop	ax
+ 153 000a 61 FC                   		reti
+ 154                             	.LFE0:
+ 198                             	.Letext0:
+ 199                             		.file 2 "../src/r_cg_macrodriver.h"
+ 200                             		.file 3 "../src/globals.h"

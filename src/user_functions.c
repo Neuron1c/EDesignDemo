@@ -18,12 +18,13 @@
 extern uint8_t record[RX_BUF_LEN];
 extern uint8_t mem[RX_BUF_LEN];
 extern uint8_t display_string[RX_BUF_LEN];
-extern int count;
+static uint16_t count = 0;
 extern uint16_t scrollCount;
 extern uint8_t scrollFlag;
 extern uint8_t tempFlag;
 extern uint8_t recieveflag;
 extern uint8_t sendflag;
+extern uint8_t secFlag;
 
 static uint16_t finalTemp;
 static uint8_t response[RX_BUF_LEN];
@@ -32,8 +33,11 @@ static int display = 0;
 static int offset = 0;
 int D = 0;
 int flag = 0;
-uint8_t voltage, current1, current2;
-
+extern uint8_t voltage, current1, current2;
+extern uint8_t date[6];
+static uint8_t switchState;
+static uint8_t tempState;
+static uint16_t logCount;
 
 void processMSG();
 int errorTest();
@@ -46,168 +50,224 @@ void collectADC();
 void checkFlags();
 void measureTemp();
 void setTemp();
-void read();
-void write();
+void read(uint16_t addr, uint8_t len);
+void writeLog();
+void writeMem(uint16_t addr);
+void readLog(uint16_t logNum);
 uint8_t testDate(uint8_t arr[]);
 
+char populate(char recieved) {
 
-char populate(char recieved){
-
-	if(recieved == '$'){
+	if (recieved == '$') {
 		record[count] = recieved;
 		count++;
-	}
-	else if(recieved == '\x0a'){
-		if(record[count - 1] == '\x0d'){
-			if(!flag){
+	} else if (recieved == '\x0a') {
+		if (record[count - 1] == '\x0d') {
+			if (!flag) {
 				record[count] = recieved;
 				record[count + 1] = '\0';
 				processMSG();
 			}
 		}
-		strcpy(record,"");
+		strcpy(record, "");
 		count = 0;
 		flag = 0;
-	}
-	else if(flag){
+	} else if (flag) {
 
-	}
-	else if(count == 0 && recieved != '$'){
+	} else if (count == 0 && recieved != '$') {
 
-		R_UART1_Send("error\x0d\x0a",7);
+		R_UART1_Send("error\x0d\x0a", 7);
 		flag = 1;
 	}
 
-	else{
+	else {
 		record[count] = recieved;
 		count++;
 	}
 
-
-
 	return recieved;
 }
 
-void processMSG(){
+void processMSG() {
 	char ack[3];
 	char str[30];
-	if(errorTest()){
+	if (errorTest()) {
 
-		switch(record[1]){
-		case '0': if(mode == 1){
-					 ack[0] = '0'; mode = 0;
-				  }
+		switch (record[1]) {
+		case '0':
+			if (mode == 1) {
+				ack[0] = '0';
+				mode = 0;
+			}
 
-				  else{
-					  ack[0] = '3';
-				  }
+			else {
+				ack[0] = '3';
+			}
 
-				  ack[1] = '\x0d';
-				  ack[2] = '\x0a';
-				  strcpy(response, "$0");
-				  strcat(response, ack);
-				  recieveInstruction(7);
-				  count = 5; break;
+			ack[1] = '\x0d';
+			ack[2] = '\x0a';
+			strcpy(response, "$0");
+			strcat(response, ack);
+			recieveInstruction(7);
+			count = 5;
+			break;
 
+		case '1':
+			if (mode == 0) {
+				ack[0] = '0';
+				mode = 1;
+			}
 
-		case '1': if(mode == 0){
-					  ack[0] = '0'; mode = 1;
-				  }
+			else {
+				ack[0] = '3';
+			}
 
-		  	  	  else{
-		  	  		  ack[0] = '3';
-		  	  	  }
+			ack[1] = '\x0d';
+			ack[2] = '\x0a';
+			strcpy(response, "$1");
+			strcat(response, ack);
+			recieveInstruction(6);
+			count = 5;
+			break;
 
-				  ack[1] = '\x0d';
-				  ack[2] = '\x0a';
-				  strcpy(response, "$1");
-				  strcat(response, ack);
-				  recieveInstruction(6);
-				  count = 5; break;
+		case '2':
+			strcpy(mem, &record[2]);
+			strcpy(response, "$20\x0d\x0a");
+			count = 5;
+			break;
 
-		case '2': strcpy(mem, &record[2]);
-				  strcpy(response, "$20\x0d\x0a"); count = 5; break;
+		case '3':
+			strcpy(response, "$3019119038\x0d\x0a");
+			count = 13;
+			break;
 
-		case '3': strcpy(response, "$3019119038\x0d\x0a"); count = 13; break;
+		case 'D':
+			if (strlen(mem) <= 32) {
 
-		case 'D': if(strlen(mem) <= 32){
+				strcpy(response, "$D0\x0d\x0a");
+				count = 5;
 
-					strcpy(response, "$D0\x0d\x0a"); count = 5;
+				strcpy(display_string, mem);
+				displayLCD(1);
+			} else {
+				writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
+				delayNoInt(1640);
 
-					strcpy(display_string,mem);
-					displayLCD(1);
-				  }
-				  else{
-				    writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
-					delayNoInt(1640);
+				writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
+				delayNoInt(1640);
+				strcpy(response, "$D3\x0d\x0a");
+				count = 5;
+			}
+			break;
 
-					writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
-					delayNoInt(1640);
-					strcpy(response, "$D3\x0d\x0a"); count = 5;
-				  }
-				  break;
-
-		case 'L': if(record[2] == '0'){
-					  P4_bit.no1 = 0;
-					  P4_bit.no2 = 0;
-					  P4_bit.no3 = 0;
-					  strcpy(response, "$L0\x0d\x0a"); count = 5;
-				  }
-				  else if(record[2] == '1'){
-					  P4_bit.no1 = 0;
-					  P4_bit.no2 = 0;
-					  P4_bit.no3 = 1;
-					  strcpy(response, "$L0\x0d\x0a"); count = 5;
-				  }
-				  else if(record[2] == '2'){
-					  P4_bit.no1 = 1;
-					  P4_bit.no2 = 0;
-					  P4_bit.no3 = 0;
-					  strcpy(response, "$L0\x0d\x0a"); count = 5;
-				  }
-				  else if(record[2] == '3'){
-					  P4_bit.no1 = 0;
-					  P4_bit.no2 = 1;
-					  P4_bit.no3 = 0;
-					  strcpy(response, "$L0\x0d\x0a"); count = 5;
-				  }
-				  else if(record[2] == '4'){
-					  P4_bit.no1 = 1;
-					  P4_bit.no2 = 1;
-					  P4_bit.no3 = 0;
-					  strcpy(response, "$L0\x0d\x0a"); count = 5;
-				  }
-				  else{
-					  strcpy(response, "$L2\x0d\x0a"); count = 5;
-				  }
-				  break;
+		case 'L':
+			if (record[2] == '0') {
+				P4_bit.no1 = 0;
+				P4_bit.no2 = 0;
+				P4_bit.no3 = 0;
+				switchState = 0;
+				strcpy(response, "$L0\x0d\x0a");
+				count = 5;
+			} else if (record[2] == '1') {
+				P4_bit.no1 = 0;
+				P4_bit.no2 = 0;
+				P4_bit.no3 = 1;
+				switchState = 1;
+				strcpy(response, "$L0\x0d\x0a");
+				count = 5;
+			} else if (record[2] == '2') {
+				P4_bit.no1 = 1;
+				P4_bit.no2 = 0;
+				P4_bit.no3 = 0;
+				switchState = 2;
+				strcpy(response, "$L0\x0d\x0a");
+				count = 5;
+			} else if (record[2] == '3') {
+				P4_bit.no1 = 0;
+				P4_bit.no2 = 1;
+				P4_bit.no3 = 0;
+				switchState = 3;
+				strcpy(response, "$L0\x0d\x0a");
+				count = 5;
+			} else if (record[2] == '4') {
+				P4_bit.no1 = 1;
+				P4_bit.no2 = 1;
+				P4_bit.no3 = 0;
+				switchState = 4;
+				strcpy(response, "$L0\x0d\x0a");
+				count = 5;
+			} else {
+				strcpy(response, "$L2\x0d\x0a");
+				count = 5;
+			}
+			break;
 		case 'E':
+			sprintf(str, "$E0%02d,%02d,%0d\x0d\x0a", voltage, current2,
+					current1);
 
-					 collectADC();
-					 sprintf(str, "$E0%02d,%02d,%0d\x0d\x0a", voltage, current2, current1);
+			//				  sprintf(str, "%d", voltage);
 
-	//				  sprintf(str, "%d", voltage);
+			strcpy(response, str);
+			count = strlen(str);
 
-					  strcpy(response, str); count = strlen(str);
+			break;
 
-					  break;
+		case 'B':
+			setRTC();
+			break;
+		case 'C':
+			getRTC();
+			sprintf(response, "$C020%d,%d,%d,%d,%d,%d\x0d\x0a", date[0], date[1], date[2],
+					date[3], date[4], date[5]);
+			count = strlen(response);
+			break;
+		case 'I':
+			sprintf(response, "$I0%03d\x0d\x0a", finalTemp);
+			count = strlen(response);
+			break;
+		case 'K':
+			if (1) {
+			}
+			uint16_t addr = (record[2] - '0') * 1000 + (record[3] - '0') * 100
+					+ (record[4] - '0') * 10 + (record[5] - '0');
+			uint8_t len = record[7] - '0';
+			len = len + (record[6] - '0') * 10;
+			if (len > 32) {
+				sprintf(response, "$K%d", len);
+			} else {
+				read(addr, len);
+			}
+			break;
+		case 'J':
+			if (1) {
+			}
+			uint16_t address = (record[2] - '0') * 1000
+					+ (record[3] - '0') * 100 + (record[4] - '0') * 10
+					+ (record[5] - '0');
+			writeMem(address);
+			break;
+		case 'M':
+			if (1) {
 
-	     case 'B':    setRTC();
-					  break;
-		 case 'C':	  getRTC();
-		 	 	 	  break;
-		 case 'I':	  sprintf(response, "$I0%03d\x0d\x0a", finalTemp);
-		 	 	 	  count = strlen(response);
-		 	 	 	  break;
-		 case 'X': 	  write();
-			 	 	  break;
-		 case 'Y': 	  read();
-			 	 	  break;
+			}
+			int i = 2;
+			uint16_t log = 0;
+			while (record[i] != '\x0d') {
+				log = log * 10;
+				log += record[i] - '0';
+				i++;
+			}
+			readLog(log);
+			break;
 
+		case 'N':
 
+			sprintf(response, "$N02427\x0d\x0a");
+			count = 9;
+			break;
 		default:
-				 sprintf(response, "$%c1\x0d\x0a", record[1]);
-				 count = 5;
+			sprintf(response, "$%c1\x0d\x0a", record[1]);
+			count = 5;
 //				 strcpy(response, "$");
 //				 strcat(response, &record[1]);
 //				 strcat(response, "1\x0d\x0a"); count = 5;
@@ -215,10 +275,11 @@ void processMSG(){
 		}
 	}
 
-	R_UART1_Send(response, count);
+	R_UART1_Send(response, strlen(response));
+	count = 0;
 }
 
-int errorTest(){
+int errorTest() {
 
 //	if(record[1] == '0' || record[1] == '1' ||record[1] == '3'||record[1] == '2' || record[1] == 'D'){	//INVALID COMMAND
 //	}
@@ -229,8 +290,8 @@ int errorTest(){
 //		return 0;
 //	}
 
-	if(record[strlen(record) - 1] != '\x0a'){	//INVALID PARAMETERS
-		char validChar[] = {'$',record[1],'2','\x0d','\x0a'};
+	if (record[strlen(record) - 1] != '\x0a') {	//INVALID PARAMETERS
+		char validChar[] = { '$', record[1], '2', '\x0d', '\x0a' };
 		strcpy(record, validChar);
 		count = 5;
 		return 0;
@@ -241,117 +302,126 @@ int errorTest(){
 //reset >= 1 clears screen and starts over
 //reset = 0 just keep going
 
-void displayLCD(int reset){
+void displayLCD(int reset) {
 
-if(reset){
-	offset = 0;
-	display = 1;
-	scrollCount = 0;
-}
+	if (reset) {
+		offset = 0;
+		display = 1;
+		scrollCount = 0;
+	}
 
-if(display){
+	if (display) {
 
-	int i;
+		int i;
 
-	writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
-	delayNoInt(1640);
+		writeByteLcd(LCD_CTRL_WR, LCD_CLEAR);
+		delayNoInt(1640);
 
-	writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
-	delayNoInt(1640);
+		writeByteLcd(LCD_CTRL_WR, LCD_HOME_L1);
+		delayNoInt(1640);
 
-	for(i = offset; i < strlen(display_string) - 2; i++){
+		for (i = offset; i < strlen(display_string) - 2; i++) {
 
-		if(i == (8 + offset)){
-			writeByteLcd(LCD_CTRL_WR, LCD_HOME_L2);
-			delayNoInt(1640);
+			if (i == (8 + offset)) {
+				writeByteLcd(LCD_CTRL_WR, LCD_HOME_L2);
+				delayNoInt(1640);
+			}
+
+			writeByteLcd(LCD_DATA_WR, display_string[i]);
+			delayNoInt(40);
+
 		}
-
-		writeByteLcd(LCD_DATA_WR, display_string[i]);
-		delayNoInt(40);
+		offset++;
 
 	}
-	offset++;
+
+	if (offset >= (strlen(display_string) - 17)
+			|| strlen(display_string) <= 18) {
+		display = 0;
+	}
 
 }
 
-if(offset >= (strlen(display_string) - 17) || strlen(display_string) <= 18 ){
-	display = 0;
-}
+void collectADC() {
+
+	ADS = _00_AD_INPUT_CHANNEL_0;
+	R_ADC_Start();
+	while (ADCS)
+		;
+	R_ADC_Start();
+	while (ADCS)
+		;
+
+	R_ADC_Get_Result_8bit(&voltage);
+	voltage = voltage >> 1;
+
+	ADS = _01_AD_INPUT_CHANNEL_1;
+	R_ADC_Start();
+	while (ADCS)
+		;
+	R_ADC_Start();
+	while (ADCS)
+		;
+
+	R_ADC_Get_Result_8bit(&current1);
+	current1 = current1 >> 2;
+
+	ADS = _02_AD_INPUT_CHANNEL_2;
+	R_ADC_Start();
+	while (ADCS)
+		;
+	R_ADC_Start();
+	while (ADCS)
+		;
+
+	R_ADC_Get_Result_8bit(&current2);
+	current2 = current2 >> 2;
 
 }
 
-void collectADC(){
-
-	 ADS = _00_AD_INPUT_CHANNEL_0;
-	 R_ADC_Start();
-	 while(ADCS);
-	 R_ADC_Start();
-	 while(ADCS);
-
-	 R_ADC_Get_Result_8bit(&voltage);
-	 voltage = voltage >> 1;
-
-	 ADS = _01_AD_INPUT_CHANNEL_1;
-	 R_ADC_Start();
-	 while(ADCS);
-	 R_ADC_Start();
-	 while(ADCS);
-
-	 R_ADC_Get_Result_8bit(&current1);
-	 current1 = current1 >> 2;
-
-	 ADS = _02_AD_INPUT_CHANNEL_2;
-	 R_ADC_Start();
-	 while(ADCS);
-	 R_ADC_Start();
-	 while(ADCS);
-
-	 R_ADC_Get_Result_8bit(&current2);
-	 current2 = current2 >> 2;
-
-}
-
-void setRTC(){
-	uint8_t date[6] = {0,0,0,0,0,0};
-	uint8_t actualDate[6] = {0,0,0,0,0,0};
-	count = 4;
+void setRTC() {
+	uint8_t BCDdate[6] = { 0, 0, 0, 0, 0, 0 };
+	date[0] = 0;
+	date[1] = 0;
+	date[2] = 0;
+	date[3] = 0;
+	date[4] = 0;
+	date[5] = 0;
+	uint8_t count = 4;
 	int dateCount = 0;
 	rtc_counter_value_t theDate;
 
-	while(record[count] != '\r'){
+	while (record[count] != '\r') {
 
+		BCDdate[dateCount] += record[count] - '0';
 		date[dateCount] += record[count] - '0';
-		actualDate[dateCount] += record[count] - '0';
 		count++;
-		if(record[count] == ','){
+		if (record[count] == ',') {
 			dateCount++;
 			count++;
-		}
-		else if(record[count] == '\r'){
+		} else if (record[count] == '\r') {
 
-		}
-		else{
-			date[dateCount] = date[dateCount]<<4;
-			actualDate[dateCount] = actualDate[dateCount]*10;
+		} else {
+			BCDdate[dateCount] = BCDdate[dateCount] << 4;
+			date[dateCount] = date[dateCount] * 10;
 		}
 
 	}
 
-	if(testDate(actualDate)){
+	if (testDate(date)) {
 
-		theDate.year = date[0];
-		theDate.month = date[1];
-		theDate.day = date[2];
-		theDate.hour = date[3];
-		theDate.min = date[4];
-		theDate.sec = date[5];
+		theDate.year = BCDdate[0];
+		theDate.month = BCDdate[1];
+		theDate.day = BCDdate[2];
+		theDate.hour = BCDdate[3];
+		theDate.min = BCDdate[4];
+		theDate.sec = BCDdate[5];
 
 		count = 5;
 		strcpy(response, "$B0\x0d\x0a");
 
 		R_RTC_Set_CounterValue(theDate);
-	}
-	else{
+	} else {
 		char str[4];
 		uint8_t ack = 0;
 		sprintf(str, "$B2\x0d\x0a");
@@ -362,11 +432,8 @@ void setRTC(){
 
 }
 
-void getRTC(){
+void getRTC() {
 	rtc_counter_value_t theDate;
-	uint8_t date[] = {0,0,0,0,0,0};
-
-
 
 	R_RTC_Get_CounterValue(&theDate);
 
@@ -379,143 +446,253 @@ void getRTC(){
 
 	BCDtoDEC(date);
 
-	char *str;
-	str = (char *)malloc(32);
-	sprintf(str, "$C020%d,%d,%d,%d,%d,%d\x0d\x0a", date[0], date[1], date[2], date[3], date[4], date[5]);
-//	free(date);
-	count = strlen(str);
-	strcpy(response, str);
-	free(str);
 
 }
 
-void BCDtoDEC(uint8_t arr[]){
+void BCDtoDEC(uint8_t arr[]) {
 
-	uint8_t len =  6;
 	uint8_t upper, lower;
 	int i;
-	for(i = 0; i < len; i++){
+	for (i = 0; i < 6; i++) {
 		lower = arr[i] & 0x0f;
-		upper = (arr[i] & 0xf0)>>4;
+		upper = (arr[i] & 0xf0) >> 4;
 
-		arr[i] = upper*10 + lower;
+		arr[i] = upper * 10 + lower;
 	}
 }
 
 // arr format [year,month,day,hour,minute,second]
-uint8_t testDate(uint8_t arr[]){
+uint8_t testDate(uint8_t arr[]) {
 
-	int daysInMonth[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+	int daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
-	if(arr[1] > 12 || arr[1] == 0){
+	if (arr[1] > 12 || arr[1] == 0) {
 		return 0;
-	}
-	else if(arr[2] > daysInMonth[arr[1]] || arr[2] == 0){
+	} else if (arr[2] > daysInMonth[arr[1]] || arr[2] == 0) {
 		return 0;
-	}
-	else if(arr[3] > 23){
+	} else if (arr[3] > 23) {
 		return 0;
-	}
-	else if(arr[4] > 59){
+	} else if (arr[4] > 59) {
 		return 0;
-	}
-	else if(arr[5] > 59){
+	} else if (arr[5] > 59) {
 		return 0;
-	}
-	else{
+	} else {
 		return 1;
 
 	}
 
 }
 
-void checkFlags(){
-	 if(scrollFlag){
-		 scrollFlag = 0;
-		 displayLCD(0);
-	 }
-	 if(tempFlag){
-		 tempFlag = 0;
-		 P1_bit.no7 = !P1_bit.no7;
+void checkFlags() {
+	if (scrollFlag) {
+		scrollFlag = 0;
+		displayLCD(0);
+	}
+	if (tempFlag) {
+		tempFlag = 0;
+		P1_bit.no7 = !P1_bit.no7;
 
-		 if(!P1_bit.no7){
-			 setTemp();
-		 }
-	 }
+		if (!P1_bit.no7) {
+			setTemp();
+		}
+	}
+
+	if (secFlag) {
+		secFlag = 0;
+		collectADC();
+		writeLog();
+	}
+
+	if (mode == 0) {
+		if (tempState == 0) {
+			P4_bit.no1 = 1;
+			P4_bit.no2 = 0;
+			P4_bit.no3 = 0;
+			switchState = 2;
+			if (finalTemp > 27) {
+				tempState = 1;
+			}
+		} else if (tempState == 1) {
+			P4_bit.no1 = 0;
+			P4_bit.no2 = 1;
+			P4_bit.no3 = 0;
+			switchState = 3;
+			if (finalTemp < 24) {
+				tempState = 1;
+			}
+		}
+	}
+
 }
 
-void setTemp(){
+void setTemp() {
 	uint16_t temp = 4096 - TCR01;
-	finalTemp = temp/16;
+	finalTemp = temp / 16;
 	finalTemp -= 50;
 	R_TAU0_Channel1_Stop();
 	R_TAU0_Channel1_Start();
 
 }
 
-void write(){
+void writeMem(uint16_t addr) {
 	uint8_t send[35];
-	uint8_t recieve[10];
+	uint8_t recieve[3];
 
+	send[0] = 6;
 
-	 send[0] = 6;
+	P1_bit.no5 = 0;
+	R_CSI00_Send_Receive(send, 1, recieve);
 
-	 P1_bit.no5 = 0;
-	 R_CSI00_Send_Receive(send, 1, recieve);
+	while (recieveflag) {
+	}
+	recieveflag = 1;
+	P1_bit.no5 = 1;
+	delayNoInt(10);
 
-	 while(recieveflag){
-	 }
-	 sendflag = 1;
-	 recieveflag = 1;
-	 P1_bit.no5 = 1;
-	 delayNoInt(100);
+	P1_bit.no5 = 0;
+	send[0] = 2;
+	send[1] = addr >> 4;
+	send[2] = addr & 0x0F;
+	sprintf(&send[3], "%s", mem);
 
-	 send[0] = 2;
-	 send[1] = 0;
-	 send[2] = 0;
-	 send[3] = 'I';
+	R_CSI00_Send_Receive(send, strlen(mem) + 3, recieve);
 
-	 P1_bit.no5 = 0;
-	 R_CSI00_Send_Receive(send, 4, recieve);
+	while (recieveflag) {
+	}
+	recieveflag = 1;
+	P1_bit.no5 = 1;
+	delayNoInt(10);
 
-	 while(recieveflag){
-	 }
-	 sendflag = 1;
-	 recieveflag = 1;
-	 P1_bit.no5 = 1;
-	 delayNoInt(100);
+	send[0] = 4;
 
-	 send[0] = 4;
+	P1_bit.no5 = 0;
+	R_CSI00_Send_Receive(send, 1, recieve);
 
-	 P1_bit.no5 = 0;
-	 R_CSI00_Send_Receive(send, 1, recieve);
+	while (recieveflag) {
+	}
+	recieveflag = 1;
+	P1_bit.no5 = 1;
+	delayNoInt(10);
 
-	 while(recieveflag){
-	 }
-	 sendflag = 1;
-	 recieveflag = 1;
-	 P1_bit.no5 = 1;
-	 delayNoInt(100);
-
-	strcpy(response, "$X\x0d\x0a"); count = 4;
+	sprintf(response, "$J0\x0d\x0a");
+	count = 5;
 }
-void read(){
+
+void writeLog() {
+	uint8_t send[35];
+	uint8_t recieve[3];
+
+	send[0] = 6;
+
+	P1_bit.no5 = 0;
+	R_CSI00_Send_Receive(send, 1, recieve);
+
+	while (recieveflag) {
+	}
+	recieveflag = 1;
+	P1_bit.no5 = 1;
+	delayNoInt(10);
+
+	getRTC();
+	count = 0;
+
+	send[0] = 2;
+	send[1] = logCount >> 4;
+	send[2] = logCount & 0x0F;
+	send[3] = date[0];
+	send[4] = date[1];
+	send[5] = date[2];
+	send[6] = date[3];
+	send[7] = date[4];
+	send[8] = date[5];
+	send[9] = switchState;
+	send[10] = finalTemp;
+	send[11] = voltage;
+	send[12] = current1;
+	send[13] = 24;
+	send[14] = 27;
+	send[15] = '\n';
+	send[16] = 0;
+	send[17] = 0;
+	send[18] = 0;
+	send[19] = 0;
+
+	P1_bit.no5 = 0;
+	R_CSI00_Send_Receive(send, 19, recieve);
+
+	while (recieveflag) {
+	}
+	recieveflag = 1;
+	P1_bit.no5 = 1;
+	delayNoInt(10);
+
+	send[0] = 4;
+
+	P1_bit.no5 = 0;
+	R_CSI00_Send_Receive(send, 1, recieve);
+
+	while (recieveflag) {
+	}
+	sendflag = 1;
+	recieveflag = 1;
+	P1_bit.no5 = 1;
+	delayNoInt(10);
+
+	if (logCount <= 8192) {
+		logCount += 16;
+	}
+}
+
+void read(uint16_t addr, uint8_t len) {
 	uint8_t send[10];
 	uint8_t recieve[35];
 
 	send[0] = 3;
-	send[1] = 0;
-	send[2] = 0;
+	send[1] = addr >> 4;
+	send[2] = addr & 0x0F;
 	P1_bit.no5 = 0;
 	recieveflag = 1;
 	sendflag = 1;
-	R_CSI00_Send_Receive(send, 4, recieve);
+	R_CSI00_Send_Receive(send, len + 3, recieve);
 
-	while(recieveflag || sendflag){
+	while (recieveflag || sendflag) {
+	}
+
+	recieveflag = 1;
+	sendflag = 1;
+	P1_bit.no5 = 1;
+	count = len + 3;
+	sprintf(response, "$K0%s\x0d\x0a", &recieve[3]);
+}
+
+void readLog(uint16_t logNum) {
+	uint8_t send[10];
+	uint8_t recieve[35];
+
+	logNum = (logNum - 1) * 16;
+	send[0] = 3;
+	send[1] = logNum >> 4;
+	send[2] = logNum & 0x0F;
+	P1_bit.no5 = 0;
+	recieveflag = 1;
+	sendflag = 1;
+	R_CSI00_Send_Receive(send, 17, recieve);
+
+	while (recieveflag || sendflag) {
 	}
 	recieveflag = 1;
 	sendflag = 1;
 	P1_bit.no5 = 1;
-	count = 1;
-	sprintf(response, "%c", recieve[3]);
+
+	if (logNum > logCount) {
+		sprintf(response, "$M2\x0d\x0a");
+		count = strlen(response);
+	} else {
+		sprintf(response, "$M020%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\x0d\x0a",
+				recieve[3], recieve[4], recieve[5], recieve[6], recieve[7],
+				recieve[8], recieve[9], recieve[10], recieve[11], recieve[12],
+				recieve[13], recieve[14]);
+		count = strlen(response);
+	}
+
 }

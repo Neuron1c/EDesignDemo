@@ -27,26 +27,30 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_scrollFlag,1,1
-  31                             		.comm	_tempFlag,1,1
-  32                             		.comm	_scrollCount,2,2
-  33                             		.comm	_timerFlag,2,2
-  34                             		.comm	_count,2,2
-  35                             		.comm	_gp_uart1_tx_address,2,2
-  36                             		.comm	_g_uart1_tx_count,2,2
-  37                             		.comm	_gp_uart1_rx_address,2,2
-  38                             		.comm	_g_uart1_rx_count,2,2
-  39                             		.comm	_g_uart1_rx_length,2,2
-  40                             		.comm	_gp_csi00_rx_address,2,2
-  41                             		.comm	_g_csi00_rx_length,2,2
-  42                             		.comm	_g_csi00_rx_count,2,2
-  43                             		.comm	_gp_csi00_tx_address,2,2
-  44                             		.comm	_g_csi00_send_length,2,2
-  45                             		.comm	_g_csi00_tx_count,2,2
-  46                             		.global	_R_SAU0_Create
-  48                             	_R_SAU0_Create:
-  49                             	.LFB0:
-  50                             		.file 1 "../src/r_cg_serial.c"
+  30                             		.comm	_voltage,1,1
+  31                             		.comm	_current1,1,1
+  32                             		.comm	_current2,1,1
+  33                             		.comm	_date,6,1
+  34                             		.comm	_scrollFlag,1,1
+  35                             		.comm	_tempFlag,1,1
+  36                             		.comm	_secFlag,1,1
+  37                             		.comm	_scrollCount,2,2
+  38                             		.comm	_timerFlag,2,2
+  39                             		.comm	_gp_uart1_tx_address,2,2
+  40                             		.comm	_g_uart1_tx_count,2,2
+  41                             		.comm	_gp_uart1_rx_address,2,2
+  42                             		.comm	_g_uart1_rx_count,2,2
+  43                             		.comm	_g_uart1_rx_length,2,2
+  44                             		.comm	_gp_csi00_rx_address,2,2
+  45                             		.comm	_g_csi00_rx_length,2,2
+  46                             		.comm	_g_csi00_rx_count,2,2
+  47                             		.comm	_gp_csi00_tx_address,2,2
+  48                             		.comm	_g_csi00_send_length,2,2
+  49                             		.comm	_g_csi00_tx_count,2,2
+  50                             		.global	_R_SAU0_Create
+  52                             	_R_SAU0_Create:
+  53                             	.LFB0:
+  54                             		.file 1 "../src/r_cg_serial.c"
    1:../src/r_cg_serial.c **** /**************************************************************************************************
    2:../src/r_cg_serial.c **** * DISCLAIMER
    3:../src/r_cg_serial.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -72,7 +76,7 @@
   23:../src/r_cg_serial.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_serial.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_serial.c **** * Description  : This file implements device driver for Serial module.
-  26:../src/r_cg_serial.c **** * Creation Date: 2017/05/07
+  26:../src/r_cg_serial.c **** * Creation Date: 2017/05/08
   27:../src/r_cg_serial.c **** ***************************************************************************************************
   28:../src/r_cg_serial.c **** 
   29:../src/r_cg_serial.c **** /**************************************************************************************************
@@ -109,61 +113,61 @@
   60:../src/r_cg_serial.c **** ***************************************************************************************************
   61:../src/r_cg_serial.c **** void R_SAU0_Create(void)
   62:../src/r_cg_serial.c **** {
-  51                             		.loc 1 62 0
+  55                             		.loc 1 62 0
   63:../src/r_cg_serial.c ****     SAU0EN = 1U;    /* supply SAU0 clock */
-  52                             		.loc 1 63 0
-  53 0000 C9 F0 F0 00             		movw	r8, #240
-  54 0004 AD F0                   		movw	ax, r8
-  55 0006 BD F4                   		movw	r12, ax
-  56 0008 FA F4                   		movw	hl, r12
-  57 000a 8B                      		mov	a, [hl]
-  58 000b 9D F2                   		mov	r10, a
-  59 000d 6A F2 04                		or	r10, #4
-  60 0010 AD F0                   		movw	ax, r8
-  61 0012 DA F4                   		movw	bc, r12
-  62 0014 8D F2                   		mov	a, r10
-  63 0016 48 00 00                		mov	[bc], a
+  56                             		.loc 1 63 0
+  57 0000 C9 F0 F0 00             		movw	r8, #240
+  58 0004 AD F0                   		movw	ax, r8
+  59 0006 BD F4                   		movw	r12, ax
+  60 0008 FA F4                   		movw	hl, r12
+  61 000a 8B                      		mov	a, [hl]
+  62 000b 9D F2                   		mov	r10, a
+  63 000d 6A F2 04                		or	r10, #4
+  64 0010 AD F0                   		movw	ax, r8
+  65 0012 DA F4                   		movw	bc, r12
+  66 0014 8D F2                   		mov	a, r10
+  67 0016 48 00 00                		mov	[bc], a
   64:../src/r_cg_serial.c ****     NOP();
-  64                             		.loc 1 64 0
-  65                             	 ; 64 "../src/r_cg_serial.c" 1
-  66 0019 00                      		nop
-  67                             	 ; 0 "" 2
-  65:../src/r_cg_serial.c ****     NOP();
-  68                             		.loc 1 65 0
-  69                             	 ; 65 "../src/r_cg_serial.c" 1
-  70 001a 00                      		nop
+  68                             		.loc 1 64 0
+  69                             	 ; 64 "../src/r_cg_serial.c" 1
+  70 0019 00                      		nop
   71                             	 ; 0 "" 2
-  66:../src/r_cg_serial.c ****     NOP();
-  72                             		.loc 1 66 0
-  73                             	 ; 66 "../src/r_cg_serial.c" 1
-  74 001b 00                      		nop
+  65:../src/r_cg_serial.c ****     NOP();
+  72                             		.loc 1 65 0
+  73                             	 ; 65 "../src/r_cg_serial.c" 1
+  74 001a 00                      		nop
   75                             	 ; 0 "" 2
-  67:../src/r_cg_serial.c ****     NOP();
-  76                             		.loc 1 67 0
-  77                             	 ; 67 "../src/r_cg_serial.c" 1
-  78 001c 00                      		nop
+  66:../src/r_cg_serial.c ****     NOP();
+  76                             		.loc 1 66 0
+  77                             	 ; 66 "../src/r_cg_serial.c" 1
+  78 001b 00                      		nop
   79                             	 ; 0 "" 2
+  67:../src/r_cg_serial.c ****     NOP();
+  80                             		.loc 1 67 0
+  81                             	 ; 67 "../src/r_cg_serial.c" 1
+  82 001c 00                      		nop
+  83                             	 ; 0 "" 2
   68:../src/r_cg_serial.c ****     SPS0 = _0000_SAU_CK00_FCLK_0 | _0010_SAU_CK01_FCLK_1;
-  80                             		.loc 1 68 0
-  81 001d C9 F0 26 01             		movw	r8, #294
-  82 0021 AD F0                   		movw	ax, r8
-  83 0023 BD F2                   		movw	r10, ax
-  84 0025 DA F2                   		movw	bc, r10
-  85 0027 30 10 00                		movw	ax, #16
-  86 002a 78 00 00                		movw	[bc], ax
+  84                             		.loc 1 68 0
+  85 001d C9 F0 26 01             		movw	r8, #294
+  86 0021 AD F0                   		movw	ax, r8
+  87 0023 BD F2                   		movw	r10, ax
+  88 0025 DA F2                   		movw	bc, r10
+  89 0027 30 10 00                		movw	ax, #16
+  90 002a 78 00 00                		movw	[bc], ax
   69:../src/r_cg_serial.c ****     R_UART1_Create();
-  87                             		.loc 1 69 0
-  88 002d FC 00 00 00             		call	!!%code(_R_UART1_Create)
+  91                             		.loc 1 69 0
+  92 002d FC 00 00 00             		call	!!%code(_R_UART1_Create)
   70:../src/r_cg_serial.c ****     R_CSI00_Create();
-  89                             		.loc 1 70 0
-  90 0031 FC 00 00 00             		call	!!%code(_R_CSI00_Create)
+  93                             		.loc 1 70 0
+  94 0031 FC 00 00 00             		call	!!%code(_R_CSI00_Create)
   71:../src/r_cg_serial.c **** }
-  91                             		.loc 1 71 0
-  92 0035 D7                      		ret
-  93                             	.LFE0:
-  95                             		.global	_R_UART1_Create
-  97                             	_R_UART1_Create:
-  98                             	.LFB1:
+  95                             		.loc 1 71 0
+  96 0035 D7                      		ret
+  97                             	.LFE0:
+  99                             		.global	_R_UART1_Create
+ 101                             	_R_UART1_Create:
+ 102                             	.LFB1:
   72:../src/r_cg_serial.c **** 
   73:../src/r_cg_serial.c **** /**************************************************************************************************
   74:../src/r_cg_serial.c **** * Function Name: R_UART1_Create
@@ -173,389 +177,389 @@
   78:../src/r_cg_serial.c **** ***************************************************************************************************
   79:../src/r_cg_serial.c **** void R_UART1_Create(void)
   80:../src/r_cg_serial.c **** {
-  99                             		.loc 1 80 0
- 100                             		; start of function
- 101                             		; push 2: r16
- 102 0036 61 EF                   		sel	rb2
- 103 0038 C1                      		push	ax ; r16
- 104                             	.LCFI0:
- 105 0039 61 CF                   		sel	rb0
+ 103                             		.loc 1 80 0
+ 104                             		; start of function
+ 105                             		; push 2: r16
+ 106 0036 61 EF                   		sel	rb2
+ 107 0038 C1                      		push	ax ; r16
+ 108                             	.LCFI0:
+ 109 0039 61 CF                   		sel	rb0
   81:../src/r_cg_serial.c ****     ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and t
- 106                             		.loc 1 81 0
- 107 003b C9 E8 24 01             		movw	r16, #292
- 108 003f C9 F6 24 01             		movw	r14, #292
- 109 0043 AD F6                   		movw	ax, r14
- 110 0045 BD F0                   		movw	r8, ax
- 111 0047 FA F0                   		movw	hl, r8
- 112 0049 AB                      		movw	ax, [hl]
- 113 004a BD F6                   		movw	r14, ax
- 114 004c 8D F6                   		mov	a, r14
- 115 004e 6C 0C                   		or	a, #12
- 116 0050 9D F4                   		mov	r12, a
- 117 0052 8D F7                   		mov	a, r15
- 118 0054 6C 00                   		or	a, #0
- 119 0056 9D F5                   		mov	r13, a
- 120 0058 DA E8                   		movw	bc, r16
- 121 005a AD F4                   		movw	ax, r12
- 122 005c 78 00 00                		movw	[bc], ax
+ 110                             		.loc 1 81 0
+ 111 003b C9 E8 24 01             		movw	r16, #292
+ 112 003f C9 F6 24 01             		movw	r14, #292
+ 113 0043 AD F6                   		movw	ax, r14
+ 114 0045 BD F0                   		movw	r8, ax
+ 115 0047 FA F0                   		movw	hl, r8
+ 116 0049 AB                      		movw	ax, [hl]
+ 117 004a BD F6                   		movw	r14, ax
+ 118 004c 8D F6                   		mov	a, r14
+ 119 004e 6C 0C                   		or	a, #12
+ 120 0050 9D F4                   		mov	r12, a
+ 121 0052 8D F7                   		mov	a, r15
+ 122 0054 6C 00                   		or	a, #0
+ 123 0056 9D F5                   		mov	r13, a
+ 124 0058 DA E8                   		movw	bc, r16
+ 125 005a AD F4                   		movw	ax, r12
+ 126 005c 78 00 00                		movw	[bc], ax
   82:../src/r_cg_serial.c ****     STMK1 = 1U;    /* disable INTST1 interrupt */
- 123                             		.loc 1 82 0
- 124 005f C9 F4 E6 FF             		movw	r12, #-26
- 125 0063 AD F4                   		movw	ax, r12
- 126 0065 BD F2                   		movw	r10, ax
- 127 0067 FA F2                   		movw	hl, r10
- 128 0069 8B                      		mov	a, [hl]
- 129 006a 9D F6                   		mov	r14, a
- 130 006c 6A F6 01                		or	r14, #1
- 131 006f AD F4                   		movw	ax, r12
- 132 0071 BD F0                   		movw	r8, ax
- 133 0073 DA F0                   		movw	bc, r8
- 134 0075 8D F6                   		mov	a, r14
- 135 0077 48 00 00                		mov	[bc], a
+ 127                             		.loc 1 82 0
+ 128 005f C9 F4 E6 FF             		movw	r12, #-26
+ 129 0063 AD F4                   		movw	ax, r12
+ 130 0065 BD F2                   		movw	r10, ax
+ 131 0067 FA F2                   		movw	hl, r10
+ 132 0069 8B                      		mov	a, [hl]
+ 133 006a 9D F6                   		mov	r14, a
+ 134 006c 6A F6 01                		or	r14, #1
+ 135 006f AD F4                   		movw	ax, r12
+ 136 0071 BD F0                   		movw	r8, ax
+ 137 0073 DA F0                   		movw	bc, r8
+ 138 0075 8D F6                   		mov	a, r14
+ 139 0077 48 00 00                		mov	[bc], a
   83:../src/r_cg_serial.c ****     STIF1 = 0U;    /* clear INTST1 interrupt flag */
- 136                             		.loc 1 83 0
- 137 007a C9 F4 E2 FF             		movw	r12, #-30
- 138 007e AD F4                   		movw	ax, r12
- 139 0080 BD F2                   		movw	r10, ax
- 140 0082 FA F2                   		movw	hl, r10
- 141 0084 8B                      		mov	a, [hl]
- 142 0085 9D F6                   		mov	r14, a
- 143 0087 5A F6 FE                		and	r14, #-2
- 144 008a AD F4                   		movw	ax, r12
- 145 008c BD F0                   		movw	r8, ax
- 146 008e DA F0                   		movw	bc, r8
- 147 0090 8D F6                   		mov	a, r14
- 148 0092 48 00 00                		mov	[bc], a
+ 140                             		.loc 1 83 0
+ 141 007a C9 F4 E2 FF             		movw	r12, #-30
+ 142 007e AD F4                   		movw	ax, r12
+ 143 0080 BD F2                   		movw	r10, ax
+ 144 0082 FA F2                   		movw	hl, r10
+ 145 0084 8B                      		mov	a, [hl]
+ 146 0085 9D F6                   		mov	r14, a
+ 147 0087 5A F6 FE                		and	r14, #-2
+ 148 008a AD F4                   		movw	ax, r12
+ 149 008c BD F0                   		movw	r8, ax
+ 150 008e DA F0                   		movw	bc, r8
+ 151 0090 8D F6                   		mov	a, r14
+ 152 0092 48 00 00                		mov	[bc], a
   84:../src/r_cg_serial.c ****     SRMK1 = 1U;    /* disable INTSR1 interrupt */
- 149                             		.loc 1 84 0
- 150 0095 C9 F4 E6 FF             		movw	r12, #-26
- 151 0099 AD F4                   		movw	ax, r12
- 152 009b BD F2                   		movw	r10, ax
- 153 009d FA F2                   		movw	hl, r10
- 154 009f 8B                      		mov	a, [hl]
- 155 00a0 9D F6                   		mov	r14, a
- 156 00a2 6A F6 02                		or	r14, #2
- 157 00a5 AD F4                   		movw	ax, r12
- 158 00a7 BD F0                   		movw	r8, ax
- 159 00a9 DA F0                   		movw	bc, r8
- 160 00ab 8D F6                   		mov	a, r14
- 161 00ad 48 00 00                		mov	[bc], a
+ 153                             		.loc 1 84 0
+ 154 0095 C9 F4 E6 FF             		movw	r12, #-26
+ 155 0099 AD F4                   		movw	ax, r12
+ 156 009b BD F2                   		movw	r10, ax
+ 157 009d FA F2                   		movw	hl, r10
+ 158 009f 8B                      		mov	a, [hl]
+ 159 00a0 9D F6                   		mov	r14, a
+ 160 00a2 6A F6 02                		or	r14, #2
+ 161 00a5 AD F4                   		movw	ax, r12
+ 162 00a7 BD F0                   		movw	r8, ax
+ 163 00a9 DA F0                   		movw	bc, r8
+ 164 00ab 8D F6                   		mov	a, r14
+ 165 00ad 48 00 00                		mov	[bc], a
   85:../src/r_cg_serial.c ****     SRIF1 = 0U;    /* clear INTSR1 interrupt flag */
- 162                             		.loc 1 85 0
- 163 00b0 C9 F4 E2 FF             		movw	r12, #-30
- 164 00b4 AD F4                   		movw	ax, r12
- 165 00b6 BD F2                   		movw	r10, ax
- 166 00b8 FA F2                   		movw	hl, r10
- 167 00ba 8B                      		mov	a, [hl]
- 168 00bb 9D F6                   		mov	r14, a
- 169 00bd 5A F6 FD                		and	r14, #-3
- 170 00c0 AD F4                   		movw	ax, r12
- 171 00c2 BD F0                   		movw	r8, ax
- 172 00c4 DA F0                   		movw	bc, r8
- 173 00c6 8D F6                   		mov	a, r14
- 174 00c8 48 00 00                		mov	[bc], a
+ 166                             		.loc 1 85 0
+ 167 00b0 C9 F4 E2 FF             		movw	r12, #-30
+ 168 00b4 AD F4                   		movw	ax, r12
+ 169 00b6 BD F2                   		movw	r10, ax
+ 170 00b8 FA F2                   		movw	hl, r10
+ 171 00ba 8B                      		mov	a, [hl]
+ 172 00bb 9D F6                   		mov	r14, a
+ 173 00bd 5A F6 FD                		and	r14, #-3
+ 174 00c0 AD F4                   		movw	ax, r12
+ 175 00c2 BD F0                   		movw	r8, ax
+ 176 00c4 DA F0                   		movw	bc, r8
+ 177 00c6 8D F6                   		mov	a, r14
+ 178 00c8 48 00 00                		mov	[bc], a
   86:../src/r_cg_serial.c ****     SREMK1 = 1U;   /* disable INTSRE1 interrupt */
- 175                             		.loc 1 86 0
- 176 00cb C9 F4 E6 FF             		movw	r12, #-26
- 177 00cf AD F4                   		movw	ax, r12
- 178 00d1 BD F2                   		movw	r10, ax
- 179 00d3 FA F2                   		movw	hl, r10
- 180 00d5 8B                      		mov	a, [hl]
- 181 00d6 9D F6                   		mov	r14, a
- 182 00d8 6A F6 04                		or	r14, #4
- 183 00db AD F4                   		movw	ax, r12
- 184 00dd BD F0                   		movw	r8, ax
- 185 00df DA F0                   		movw	bc, r8
- 186 00e1 8D F6                   		mov	a, r14
- 187 00e3 48 00 00                		mov	[bc], a
+ 179                             		.loc 1 86 0
+ 180 00cb C9 F4 E6 FF             		movw	r12, #-26
+ 181 00cf AD F4                   		movw	ax, r12
+ 182 00d1 BD F2                   		movw	r10, ax
+ 183 00d3 FA F2                   		movw	hl, r10
+ 184 00d5 8B                      		mov	a, [hl]
+ 185 00d6 9D F6                   		mov	r14, a
+ 186 00d8 6A F6 04                		or	r14, #4
+ 187 00db AD F4                   		movw	ax, r12
+ 188 00dd BD F0                   		movw	r8, ax
+ 189 00df DA F0                   		movw	bc, r8
+ 190 00e1 8D F6                   		mov	a, r14
+ 191 00e3 48 00 00                		mov	[bc], a
   87:../src/r_cg_serial.c ****     SREIF1 = 0U;   /* clear INTSRE1 interrupt flag */
- 188                             		.loc 1 87 0
- 189 00e6 C9 F4 E2 FF             		movw	r12, #-30
- 190 00ea AD F4                   		movw	ax, r12
- 191 00ec BD F2                   		movw	r10, ax
- 192 00ee FA F2                   		movw	hl, r10
- 193 00f0 8B                      		mov	a, [hl]
- 194 00f1 9D F6                   		mov	r14, a
- 195 00f3 5A F6 FB                		and	r14, #-5
- 196 00f6 AD F4                   		movw	ax, r12
- 197 00f8 BD F0                   		movw	r8, ax
- 198 00fa DA F0                   		movw	bc, r8
- 199 00fc 8D F6                   		mov	a, r14
- 200 00fe 48 00 00                		mov	[bc], a
+ 192                             		.loc 1 87 0
+ 193 00e6 C9 F4 E2 FF             		movw	r12, #-30
+ 194 00ea AD F4                   		movw	ax, r12
+ 195 00ec BD F2                   		movw	r10, ax
+ 196 00ee FA F2                   		movw	hl, r10
+ 197 00f0 8B                      		mov	a, [hl]
+ 198 00f1 9D F6                   		mov	r14, a
+ 199 00f3 5A F6 FB                		and	r14, #-5
+ 200 00f6 AD F4                   		movw	ax, r12
+ 201 00f8 BD F0                   		movw	r8, ax
+ 202 00fa DA F0                   		movw	bc, r8
+ 203 00fc 8D F6                   		mov	a, r14
+ 204 00fe 48 00 00                		mov	[bc], a
   88:../src/r_cg_serial.c ****     /* Set INTST1 low priority */
   89:../src/r_cg_serial.c ****     STPR11 = 1U;
- 201                             		.loc 1 89 0
- 202 0101 C9 F4 EE FF             		movw	r12, #-18
- 203 0105 AD F4                   		movw	ax, r12
- 204 0107 BD F2                   		movw	r10, ax
- 205 0109 FA F2                   		movw	hl, r10
- 206 010b 8B                      		mov	a, [hl]
- 207 010c 9D F6                   		mov	r14, a
- 208 010e 6A F6 01                		or	r14, #1
- 209 0111 AD F4                   		movw	ax, r12
- 210 0113 BD F0                   		movw	r8, ax
- 211 0115 DA F0                   		movw	bc, r8
- 212 0117 8D F6                   		mov	a, r14
- 213 0119 48 00 00                		mov	[bc], a
+ 205                             		.loc 1 89 0
+ 206 0101 C9 F4 EE FF             		movw	r12, #-18
+ 207 0105 AD F4                   		movw	ax, r12
+ 208 0107 BD F2                   		movw	r10, ax
+ 209 0109 FA F2                   		movw	hl, r10
+ 210 010b 8B                      		mov	a, [hl]
+ 211 010c 9D F6                   		mov	r14, a
+ 212 010e 6A F6 01                		or	r14, #1
+ 213 0111 AD F4                   		movw	ax, r12
+ 214 0113 BD F0                   		movw	r8, ax
+ 215 0115 DA F0                   		movw	bc, r8
+ 216 0117 8D F6                   		mov	a, r14
+ 217 0119 48 00 00                		mov	[bc], a
   90:../src/r_cg_serial.c ****     STPR01 = 1U;
- 214                             		.loc 1 90 0
- 215 011c C9 F4 EA FF             		movw	r12, #-22
- 216 0120 AD F4                   		movw	ax, r12
- 217 0122 BD F2                   		movw	r10, ax
- 218 0124 FA F2                   		movw	hl, r10
- 219 0126 8B                      		mov	a, [hl]
- 220 0127 9D F6                   		mov	r14, a
- 221 0129 6A F6 01                		or	r14, #1
- 222 012c AD F4                   		movw	ax, r12
- 223 012e BD F0                   		movw	r8, ax
- 224 0130 DA F0                   		movw	bc, r8
- 225 0132 8D F6                   		mov	a, r14
- 226 0134 48 00 00                		mov	[bc], a
+ 218                             		.loc 1 90 0
+ 219 011c C9 F4 EA FF             		movw	r12, #-22
+ 220 0120 AD F4                   		movw	ax, r12
+ 221 0122 BD F2                   		movw	r10, ax
+ 222 0124 FA F2                   		movw	hl, r10
+ 223 0126 8B                      		mov	a, [hl]
+ 224 0127 9D F6                   		mov	r14, a
+ 225 0129 6A F6 01                		or	r14, #1
+ 226 012c AD F4                   		movw	ax, r12
+ 227 012e BD F0                   		movw	r8, ax
+ 228 0130 DA F0                   		movw	bc, r8
+ 229 0132 8D F6                   		mov	a, r14
+ 230 0134 48 00 00                		mov	[bc], a
   91:../src/r_cg_serial.c ****     /* Set INTSR1 low priority */
   92:../src/r_cg_serial.c ****     SRPR11 = 1U;
- 227                             		.loc 1 92 0
- 228 0137 C9 F4 EE FF             		movw	r12, #-18
- 229 013b AD F4                   		movw	ax, r12
- 230 013d BD F2                   		movw	r10, ax
- 231 013f FA F2                   		movw	hl, r10
- 232 0141 8B                      		mov	a, [hl]
- 233 0142 9D F6                   		mov	r14, a
- 234 0144 6A F6 02                		or	r14, #2
- 235 0147 AD F4                   		movw	ax, r12
- 236 0149 BD F0                   		movw	r8, ax
- 237 014b DA F0                   		movw	bc, r8
- 238 014d 8D F6                   		mov	a, r14
- 239 014f 48 00 00                		mov	[bc], a
+ 231                             		.loc 1 92 0
+ 232 0137 C9 F4 EE FF             		movw	r12, #-18
+ 233 013b AD F4                   		movw	ax, r12
+ 234 013d BD F2                   		movw	r10, ax
+ 235 013f FA F2                   		movw	hl, r10
+ 236 0141 8B                      		mov	a, [hl]
+ 237 0142 9D F6                   		mov	r14, a
+ 238 0144 6A F6 02                		or	r14, #2
+ 239 0147 AD F4                   		movw	ax, r12
+ 240 0149 BD F0                   		movw	r8, ax
+ 241 014b DA F0                   		movw	bc, r8
+ 242 014d 8D F6                   		mov	a, r14
+ 243 014f 48 00 00                		mov	[bc], a
   93:../src/r_cg_serial.c ****     SRPR01 = 1U;
- 240                             		.loc 1 93 0
- 241 0152 C9 F4 EA FF             		movw	r12, #-22
- 242 0156 AD F4                   		movw	ax, r12
- 243 0158 BD F2                   		movw	r10, ax
- 244 015a FA F2                   		movw	hl, r10
- 245 015c 8B                      		mov	a, [hl]
- 246 015d 9D F6                   		mov	r14, a
- 247 015f 6A F6 02                		or	r14, #2
- 248 0162 AD F4                   		movw	ax, r12
- 249 0164 BD F0                   		movw	r8, ax
- 250 0166 DA F0                   		movw	bc, r8
- 251 0168 8D F6                   		mov	a, r14
- 252 016a 48 00 00                		mov	[bc], a
+ 244                             		.loc 1 93 0
+ 245 0152 C9 F4 EA FF             		movw	r12, #-22
+ 246 0156 AD F4                   		movw	ax, r12
+ 247 0158 BD F2                   		movw	r10, ax
+ 248 015a FA F2                   		movw	hl, r10
+ 249 015c 8B                      		mov	a, [hl]
+ 250 015d 9D F6                   		mov	r14, a
+ 251 015f 6A F6 02                		or	r14, #2
+ 252 0162 AD F4                   		movw	ax, r12
+ 253 0164 BD F0                   		movw	r8, ax
+ 254 0166 DA F0                   		movw	bc, r8
+ 255 0168 8D F6                   		mov	a, r14
+ 256 016a 48 00 00                		mov	[bc], a
   94:../src/r_cg_serial.c ****     SMR02 = _0020_SAU_SMRMN_INITIALVALUE | _8000_SAU_CLOCK_SELECT_CK01 | _0000_SAU_TRIGGER_SOFTWARE
- 253                             		.loc 1 94 0
- 254 016d C9 F4 14 01             		movw	r12, #276
- 255 0171 AD F4                   		movw	ax, r12
- 256 0173 BD F2                   		movw	r10, ax
- 257 0175 DA F2                   		movw	bc, r10
- 258 0177 30 22 80                		movw	ax, #-32734
- 259 017a 78 00 00                		movw	[bc], ax
+ 257                             		.loc 1 94 0
+ 258 016d C9 F4 14 01             		movw	r12, #276
+ 259 0171 AD F4                   		movw	ax, r12
+ 260 0173 BD F2                   		movw	r10, ax
+ 261 0175 DA F2                   		movw	bc, r10
+ 262 0177 30 22 80                		movw	ax, #-32734
+ 263 017a 78 00 00                		movw	[bc], ax
   95:../src/r_cg_serial.c ****             _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
   96:../src/r_cg_serial.c ****     SCR02 = _8000_SAU_TRANSMISSION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB 
- 260                             		.loc 1 96 0
- 261 017d C9 F4 1C 01             		movw	r12, #284
- 262 0181 AD F4                   		movw	ax, r12
- 263 0183 BD F0                   		movw	r8, ax
- 264 0185 DA F0                   		movw	bc, r8
- 265 0187 30 97 80                		movw	ax, #-32617
- 266 018a 78 00 00                		movw	[bc], ax
+ 264                             		.loc 1 96 0
+ 265 017d C9 F4 1C 01             		movw	r12, #284
+ 266 0181 AD F4                   		movw	ax, r12
+ 267 0183 BD F0                   		movw	r8, ax
+ 268 0185 DA F0                   		movw	bc, r8
+ 269 0187 30 97 80                		movw	ax, #-32617
+ 270 018a 78 00 00                		movw	[bc], ax
   97:../src/r_cg_serial.c ****             _0007_SAU_LENGTH_8;
   98:../src/r_cg_serial.c ****     SDR02 = _CE00_UART1_TRANSMIT_DIVISOR;
- 267                             		.loc 1 98 0
- 268 018d C9 F4 44 FF             		movw	r12, #-188
- 269 0191 AD F4                   		movw	ax, r12
- 270 0193 BD F2                   		movw	r10, ax
- 271 0195 DA F2                   		movw	bc, r10
- 272 0197 30 00 CE                		movw	ax, #-12800
- 273 019a 78 00 00                		movw	[bc], ax
+ 271                             		.loc 1 98 0
+ 272 018d C9 F4 44 FF             		movw	r12, #-188
+ 273 0191 AD F4                   		movw	ax, r12
+ 274 0193 BD F2                   		movw	r10, ax
+ 275 0195 DA F2                   		movw	bc, r10
+ 276 0197 30 00 CE                		movw	ax, #-12800
+ 277 019a 78 00 00                		movw	[bc], ax
   99:../src/r_cg_serial.c ****     NFEN0 |= _04_SAU_RXD1_FILTER_ON;
- 274                             		.loc 1 99 0
- 275 019d C9 F6 70 00             		movw	r14, #112
- 276 01a1 C9 F4 70 00             		movw	r12, #112
- 277 01a5 AD F4                   		movw	ax, r12
- 278 01a7 BD F0                   		movw	r8, ax
- 279 01a9 FA F0                   		movw	hl, r8
- 280 01ab 8B                      		mov	a, [hl]
- 281 01ac 9D F4                   		mov	r12, a
- 282 01ae 6A F4 04                		or	r12, #4
- 283 01b1 AD F6                   		movw	ax, r14
- 284 01b3 BD F2                   		movw	r10, ax
- 285 01b5 DA F2                   		movw	bc, r10
- 286 01b7 8D F4                   		mov	a, r12
- 287 01b9 48 00 00                		mov	[bc], a
+ 278                             		.loc 1 99 0
+ 279 019d C9 F6 70 00             		movw	r14, #112
+ 280 01a1 C9 F4 70 00             		movw	r12, #112
+ 281 01a5 AD F4                   		movw	ax, r12
+ 282 01a7 BD F0                   		movw	r8, ax
+ 283 01a9 FA F0                   		movw	hl, r8
+ 284 01ab 8B                      		mov	a, [hl]
+ 285 01ac 9D F4                   		mov	r12, a
+ 286 01ae 6A F4 04                		or	r12, #4
+ 287 01b1 AD F6                   		movw	ax, r14
+ 288 01b3 BD F2                   		movw	r10, ax
+ 289 01b5 DA F2                   		movw	bc, r10
+ 290 01b7 8D F4                   		mov	a, r12
+ 291 01b9 48 00 00                		mov	[bc], a
  100:../src/r_cg_serial.c ****     SIR03 = _0004_SAU_SIRMN_FECTMN | _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear e
- 288                             		.loc 1 100 0
- 289 01bc C9 F4 0E 01             		movw	r12, #270
- 290 01c0 AD F4                   		movw	ax, r12
- 291 01c2 BD F0                   		movw	r8, ax
- 292 01c4 DA F0                   		movw	bc, r8
- 293 01c6 30 07 00                		movw	ax, #7
- 294 01c9 78 00 00                		movw	[bc], ax
+ 292                             		.loc 1 100 0
+ 293 01bc C9 F4 0E 01             		movw	r12, #270
+ 294 01c0 AD F4                   		movw	ax, r12
+ 295 01c2 BD F0                   		movw	r8, ax
+ 296 01c4 DA F0                   		movw	bc, r8
+ 297 01c6 30 07 00                		movw	ax, #7
+ 298 01c9 78 00 00                		movw	[bc], ax
  101:../src/r_cg_serial.c ****     SMR03 = _0020_SAU_SMRMN_INITIALVALUE | _8000_SAU_CLOCK_SELECT_CK01 | _0100_SAU_TRIGGER_RXD | _0
- 295                             		.loc 1 101 0
- 296 01cc C9 F4 16 01             		movw	r12, #278
- 297 01d0 AD F4                   		movw	ax, r12
- 298 01d2 BD F2                   		movw	r10, ax
- 299 01d4 DA F2                   		movw	bc, r10
- 300 01d6 30 22 81                		movw	ax, #-32478
- 301 01d9 78 00 00                		movw	[bc], ax
+ 299                             		.loc 1 101 0
+ 300 01cc C9 F4 16 01             		movw	r12, #278
+ 301 01d0 AD F4                   		movw	ax, r12
+ 302 01d2 BD F2                   		movw	r10, ax
+ 303 01d4 DA F2                   		movw	bc, r10
+ 304 01d6 30 22 81                		movw	ax, #-32478
+ 305 01d9 78 00 00                		movw	[bc], ax
  102:../src/r_cg_serial.c ****             _0002_SAU_MODE_UART | _0000_SAU_TRANSFER_END;
  103:../src/r_cg_serial.c ****     SCR03 = _4000_SAU_RECEPTION | _0000_SAU_INTSRE_MASK | _0000_SAU_PARITY_NONE | _0080_SAU_LSB | _
- 302                             		.loc 1 103 0
- 303 01dc C9 F4 1E 01             		movw	r12, #286
- 304 01e0 AD F4                   		movw	ax, r12
- 305 01e2 BD F0                   		movw	r8, ax
- 306 01e4 DA F0                   		movw	bc, r8
- 307 01e6 30 97 40                		movw	ax, #16535
- 308 01e9 78 00 00                		movw	[bc], ax
+ 306                             		.loc 1 103 0
+ 307 01dc C9 F4 1E 01             		movw	r12, #286
+ 308 01e0 AD F4                   		movw	ax, r12
+ 309 01e2 BD F0                   		movw	r8, ax
+ 310 01e4 DA F0                   		movw	bc, r8
+ 311 01e6 30 97 40                		movw	ax, #16535
+ 312 01e9 78 00 00                		movw	[bc], ax
  104:../src/r_cg_serial.c ****             _0007_SAU_LENGTH_8;
  105:../src/r_cg_serial.c ****     SDR03 = _CE00_UART1_RECEIVE_DIVISOR;
- 309                             		.loc 1 105 0
- 310 01ec C9 F4 46 FF             		movw	r12, #-186
- 311 01f0 AD F4                   		movw	ax, r12
- 312 01f2 BD F2                   		movw	r10, ax
- 313 01f4 DA F2                   		movw	bc, r10
- 314 01f6 30 00 CE                		movw	ax, #-12800
- 315 01f9 78 00 00                		movw	[bc], ax
+ 313                             		.loc 1 105 0
+ 314 01ec C9 F4 46 FF             		movw	r12, #-186
+ 315 01f0 AD F4                   		movw	ax, r12
+ 316 01f2 BD F2                   		movw	r10, ax
+ 317 01f4 DA F2                   		movw	bc, r10
+ 318 01f6 30 00 CE                		movw	ax, #-12800
+ 319 01f9 78 00 00                		movw	[bc], ax
  106:../src/r_cg_serial.c ****     SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;
- 316                             		.loc 1 106 0
- 317 01fc C9 F6 28 01             		movw	r14, #296
- 318 0200 C9 F4 28 01             		movw	r12, #296
- 319 0204 AD F4                   		movw	ax, r12
- 320 0206 BD F0                   		movw	r8, ax
- 321 0208 FA F0                   		movw	hl, r8
- 322 020a AB                      		movw	ax, [hl]
- 323 020b BD F4                   		movw	r12, ax
- 324 020d 8D F4                   		mov	a, r12
- 325 020f 6C 04                   		or	a, #4
- 326 0211 9D F2                   		mov	r10, a
- 327 0213 8D F5                   		mov	a, r13
- 328 0215 6C 00                   		or	a, #0
- 329 0217 9D F3                   		mov	r11, a
- 330 0219 AD F6                   		movw	ax, r14
- 331 021b BD F4                   		movw	r12, ax
- 332 021d DA F4                   		movw	bc, r12
- 333 021f AD F2                   		movw	ax, r10
- 334 0221 78 00 00                		movw	[bc], ax
+ 320                             		.loc 1 106 0
+ 321 01fc C9 F6 28 01             		movw	r14, #296
+ 322 0200 C9 F4 28 01             		movw	r12, #296
+ 323 0204 AD F4                   		movw	ax, r12
+ 324 0206 BD F0                   		movw	r8, ax
+ 325 0208 FA F0                   		movw	hl, r8
+ 326 020a AB                      		movw	ax, [hl]
+ 327 020b BD F4                   		movw	r12, ax
+ 328 020d 8D F4                   		mov	a, r12
+ 329 020f 6C 04                   		or	a, #4
+ 330 0211 9D F2                   		mov	r10, a
+ 331 0213 8D F5                   		mov	a, r13
+ 332 0215 6C 00                   		or	a, #0
+ 333 0217 9D F3                   		mov	r11, a
+ 334 0219 AD F6                   		movw	ax, r14
+ 335 021b BD F4                   		movw	r12, ax
+ 336 021d DA F4                   		movw	bc, r12
+ 337 021f AD F2                   		movw	ax, r10
+ 338 0221 78 00 00                		movw	[bc], ax
  107:../src/r_cg_serial.c ****     SOL0 |= _0000_SAU_CHANNEL2_NORMAL;    /* output level normal */
- 335                             		.loc 1 107 0
- 336 0224 C9 F4 34 01             		movw	r12, #308
- 337 0228 C9 F2 34 01             		movw	r10, #308
- 338 022c AD F2                   		movw	ax, r10
- 339 022e BD F0                   		movw	r8, ax
- 340 0230 FA F0                   		movw	hl, r8
- 341 0232 AB                      		movw	ax, [hl]
- 342 0233 BD F2                   		movw	r10, ax
- 343 0235 AD F4                   		movw	ax, r12
- 344 0237 BD F0                   		movw	r8, ax
- 345 0239 DA F0                   		movw	bc, r8
- 346 023b AD F2                   		movw	ax, r10
- 347 023d 78 00 00                		movw	[bc], ax
+ 339                             		.loc 1 107 0
+ 340 0224 C9 F4 34 01             		movw	r12, #308
+ 341 0228 C9 F2 34 01             		movw	r10, #308
+ 342 022c AD F2                   		movw	ax, r10
+ 343 022e BD F0                   		movw	r8, ax
+ 344 0230 FA F0                   		movw	hl, r8
+ 345 0232 AB                      		movw	ax, [hl]
+ 346 0233 BD F2                   		movw	r10, ax
+ 347 0235 AD F4                   		movw	ax, r12
+ 348 0237 BD F0                   		movw	r8, ax
+ 349 0239 DA F0                   		movw	bc, r8
+ 350 023b AD F2                   		movw	ax, r10
+ 351 023d 78 00 00                		movw	[bc], ax
  108:../src/r_cg_serial.c ****     SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
- 348                             		.loc 1 108 0
- 349 0240 C9 F4 2A 01             		movw	r12, #298
- 350 0244 C9 F2 2A 01             		movw	r10, #298
- 351 0248 AD F2                   		movw	ax, r10
- 352 024a BD F0                   		movw	r8, ax
- 353 024c FA F0                   		movw	hl, r8
- 354 024e AB                      		movw	ax, [hl]
- 355 024f BD F2                   		movw	r10, ax
- 356 0251 8D F2                   		mov	a, r10
- 357 0253 6C 04                   		or	a, #4
- 358 0255 9D F0                   		mov	r8, a
- 359 0257 8D F3                   		mov	a, r11
- 360 0259 6C 00                   		or	a, #0
- 361 025b 9D F1                   		mov	r9, a
- 362 025d AD F4                   		movw	ax, r12
- 363 025f BD F2                   		movw	r10, ax
- 364 0261 DA F2                   		movw	bc, r10
- 365 0263 AD F0                   		movw	ax, r8
- 366 0265 78 00 00                		movw	[bc], ax
+ 352                             		.loc 1 108 0
+ 353 0240 C9 F4 2A 01             		movw	r12, #298
+ 354 0244 C9 F2 2A 01             		movw	r10, #298
+ 355 0248 AD F2                   		movw	ax, r10
+ 356 024a BD F0                   		movw	r8, ax
+ 357 024c FA F0                   		movw	hl, r8
+ 358 024e AB                      		movw	ax, [hl]
+ 359 024f BD F2                   		movw	r10, ax
+ 360 0251 8D F2                   		mov	a, r10
+ 361 0253 6C 04                   		or	a, #4
+ 362 0255 9D F0                   		mov	r8, a
+ 363 0257 8D F3                   		mov	a, r11
+ 364 0259 6C 00                   		or	a, #0
+ 365 025b 9D F1                   		mov	r9, a
+ 366 025d AD F4                   		movw	ax, r12
+ 367 025f BD F2                   		movw	r10, ax
+ 368 0261 DA F2                   		movw	bc, r10
+ 369 0263 AD F0                   		movw	ax, r8
+ 370 0265 78 00 00                		movw	[bc], ax
  109:../src/r_cg_serial.c ****     /* Set RxD1 pin */
  110:../src/r_cg_serial.c ****     PMC0 &= 0xF7U;
- 367                             		.loc 1 110 0
- 368 0268 C9 F2 60 00             		movw	r10, #96
- 369 026c C9 F0 60 00             		movw	r8, #96
- 370 0270 AD F0                   		movw	ax, r8
- 371 0272 BD F4                   		movw	r12, ax
- 372 0274 FA F4                   		movw	hl, r12
- 373 0276 8B                      		mov	a, [hl]
- 374 0277 9D F0                   		mov	r8, a
- 375 0279 5A F0 F7                		and	r8, #-9
- 376 027c AD F2                   		movw	ax, r10
- 377 027e BD F4                   		movw	r12, ax
- 378 0280 DA F4                   		movw	bc, r12
- 379 0282 8D F0                   		mov	a, r8
- 380 0284 48 00 00                		mov	[bc], a
+ 371                             		.loc 1 110 0
+ 372 0268 C9 F2 60 00             		movw	r10, #96
+ 373 026c C9 F0 60 00             		movw	r8, #96
+ 374 0270 AD F0                   		movw	ax, r8
+ 375 0272 BD F4                   		movw	r12, ax
+ 376 0274 FA F4                   		movw	hl, r12
+ 377 0276 8B                      		mov	a, [hl]
+ 378 0277 9D F0                   		mov	r8, a
+ 379 0279 5A F0 F7                		and	r8, #-9
+ 380 027c AD F2                   		movw	ax, r10
+ 381 027e BD F4                   		movw	r12, ax
+ 382 0280 DA F4                   		movw	bc, r12
+ 383 0282 8D F0                   		mov	a, r8
+ 384 0284 48 00 00                		mov	[bc], a
  111:../src/r_cg_serial.c ****     PM0 |= 0x08U;
- 381                             		.loc 1 111 0
- 382 0287 C9 F2 20 FF             		movw	r10, #-224
- 383 028b C9 F0 20 FF             		movw	r8, #-224
- 384 028f AD F0                   		movw	ax, r8
- 385 0291 BD F4                   		movw	r12, ax
- 386 0293 FA F4                   		movw	hl, r12
- 387 0295 8B                      		mov	a, [hl]
- 388 0296 9D F0                   		mov	r8, a
- 389 0298 6A F0 08                		or	r8, #8
- 390 029b AD F2                   		movw	ax, r10
- 391 029d BD F4                   		movw	r12, ax
- 392 029f DA F4                   		movw	bc, r12
- 393 02a1 8D F0                   		mov	a, r8
- 394 02a3 48 00 00                		mov	[bc], a
+ 385                             		.loc 1 111 0
+ 386 0287 C9 F2 20 FF             		movw	r10, #-224
+ 387 028b C9 F0 20 FF             		movw	r8, #-224
+ 388 028f AD F0                   		movw	ax, r8
+ 389 0291 BD F4                   		movw	r12, ax
+ 390 0293 FA F4                   		movw	hl, r12
+ 391 0295 8B                      		mov	a, [hl]
+ 392 0296 9D F0                   		mov	r8, a
+ 393 0298 6A F0 08                		or	r8, #8
+ 394 029b AD F2                   		movw	ax, r10
+ 395 029d BD F4                   		movw	r12, ax
+ 396 029f DA F4                   		movw	bc, r12
+ 397 02a1 8D F0                   		mov	a, r8
+ 398 02a3 48 00 00                		mov	[bc], a
  112:../src/r_cg_serial.c ****     /* Set TxD1 pin */
  113:../src/r_cg_serial.c ****     PMC0 &= 0xFBU;
- 395                             		.loc 1 113 0
- 396 02a6 C9 F2 60 00             		movw	r10, #96
- 397 02aa C9 F0 60 00             		movw	r8, #96
- 398 02ae AD F0                   		movw	ax, r8
- 399 02b0 BD F4                   		movw	r12, ax
- 400 02b2 FA F4                   		movw	hl, r12
- 401 02b4 8B                      		mov	a, [hl]
- 402 02b5 9D F0                   		mov	r8, a
- 403 02b7 5A F0 FB                		and	r8, #-5
- 404 02ba AD F2                   		movw	ax, r10
- 405 02bc BD F4                   		movw	r12, ax
- 406 02be DA F4                   		movw	bc, r12
- 407 02c0 8D F0                   		mov	a, r8
- 408 02c2 48 00 00                		mov	[bc], a
+ 399                             		.loc 1 113 0
+ 400 02a6 C9 F2 60 00             		movw	r10, #96
+ 401 02aa C9 F0 60 00             		movw	r8, #96
+ 402 02ae AD F0                   		movw	ax, r8
+ 403 02b0 BD F4                   		movw	r12, ax
+ 404 02b2 FA F4                   		movw	hl, r12
+ 405 02b4 8B                      		mov	a, [hl]
+ 406 02b5 9D F0                   		mov	r8, a
+ 407 02b7 5A F0 FB                		and	r8, #-5
+ 408 02ba AD F2                   		movw	ax, r10
+ 409 02bc BD F4                   		movw	r12, ax
+ 410 02be DA F4                   		movw	bc, r12
+ 411 02c0 8D F0                   		mov	a, r8
+ 412 02c2 48 00 00                		mov	[bc], a
  114:../src/r_cg_serial.c ****     P0 |= 0x04U;
- 409                             		.loc 1 114 0
- 410 02c5 C9 F2 00 FF             		movw	r10, #-256
- 411 02c9 C9 F0 00 FF             		movw	r8, #-256
- 412 02cd AD F0                   		movw	ax, r8
- 413 02cf BD F4                   		movw	r12, ax
- 414 02d1 FA F4                   		movw	hl, r12
- 415 02d3 8B                      		mov	a, [hl]
- 416 02d4 9D F0                   		mov	r8, a
- 417 02d6 6A F0 04                		or	r8, #4
- 418 02d9 AD F2                   		movw	ax, r10
- 419 02db BD F4                   		movw	r12, ax
- 420 02dd DA F4                   		movw	bc, r12
- 421 02df 8D F0                   		mov	a, r8
- 422 02e1 48 00 00                		mov	[bc], a
+ 413                             		.loc 1 114 0
+ 414 02c5 C9 F2 00 FF             		movw	r10, #-256
+ 415 02c9 C9 F0 00 FF             		movw	r8, #-256
+ 416 02cd AD F0                   		movw	ax, r8
+ 417 02cf BD F4                   		movw	r12, ax
+ 418 02d1 FA F4                   		movw	hl, r12
+ 419 02d3 8B                      		mov	a, [hl]
+ 420 02d4 9D F0                   		mov	r8, a
+ 421 02d6 6A F0 04                		or	r8, #4
+ 422 02d9 AD F2                   		movw	ax, r10
+ 423 02db BD F4                   		movw	r12, ax
+ 424 02dd DA F4                   		movw	bc, r12
+ 425 02df 8D F0                   		mov	a, r8
+ 426 02e1 48 00 00                		mov	[bc], a
  115:../src/r_cg_serial.c ****     PM0 &= 0xFBU;
- 423                             		.loc 1 115 0
- 424 02e4 C9 F2 20 FF             		movw	r10, #-224
- 425 02e8 C9 F0 20 FF             		movw	r8, #-224
- 426 02ec AD F0                   		movw	ax, r8
- 427 02ee BD F4                   		movw	r12, ax
- 428 02f0 FA F4                   		movw	hl, r12
- 429 02f2 8B                      		mov	a, [hl]
- 430 02f3 9D F0                   		mov	r8, a
- 431 02f5 5A F0 FB                		and	r8, #-5
- 432 02f8 AD F2                   		movw	ax, r10
- 433 02fa BD F4                   		movw	r12, ax
- 434 02fc DA F4                   		movw	bc, r12
- 435 02fe 8D F0                   		mov	a, r8
- 436 0300 48 00 00                		mov	[bc], a
+ 427                             		.loc 1 115 0
+ 428 02e4 C9 F2 20 FF             		movw	r10, #-224
+ 429 02e8 C9 F0 20 FF             		movw	r8, #-224
+ 430 02ec AD F0                   		movw	ax, r8
+ 431 02ee BD F4                   		movw	r12, ax
+ 432 02f0 FA F4                   		movw	hl, r12
+ 433 02f2 8B                      		mov	a, [hl]
+ 434 02f3 9D F0                   		mov	r8, a
+ 435 02f5 5A F0 FB                		and	r8, #-5
+ 436 02f8 AD F2                   		movw	ax, r10
+ 437 02fa BD F4                   		movw	r12, ax
+ 438 02fc DA F4                   		movw	bc, r12
+ 439 02fe 8D F0                   		mov	a, r8
+ 440 0300 48 00 00                		mov	[bc], a
  116:../src/r_cg_serial.c **** }
- 437                             		.loc 1 116 0
- 438 0303 61 EF                   		sel	rb2
- 439 0305 C0                      		pop	ax ; r16
- 440 0306 61 CF                   		sel	rb0
- 441 0308 D7                      		ret
- 442                             	.LFE1:
- 444                             		.global	_R_UART1_Start
- 446                             	_R_UART1_Start:
- 447                             	.LFB2:
+ 441                             		.loc 1 116 0
+ 442 0303 61 EF                   		sel	rb2
+ 443 0305 C0                      		pop	ax ; r16
+ 444 0306 61 CF                   		sel	rb0
+ 445 0308 D7                      		ret
+ 446                             	.LFE1:
+ 448                             		.global	_R_UART1_Start
+ 450                             	_R_UART1_Start:
+ 451                             	.LFB2:
  117:../src/r_cg_serial.c **** 
  118:../src/r_cg_serial.c **** /**************************************************************************************************
  119:../src/r_cg_serial.c **** * Function Name: R_UART1_Start
@@ -565,133 +569,133 @@
  123:../src/r_cg_serial.c **** ***************************************************************************************************
  124:../src/r_cg_serial.c **** void R_UART1_Start(void)
  125:../src/r_cg_serial.c **** {
- 448                             		.loc 1 125 0
- 449                             		; start of function
- 450                             		; push 2: r16
- 451 0309 61 EF                   		sel	rb2
- 452 030b C1                      		push	ax ; r16
- 453                             	.LCFI1:
- 454 030c 61 CF                   		sel	rb0
+ 452                             		.loc 1 125 0
+ 453                             		; start of function
+ 454                             		; push 2: r16
+ 455 0309 61 EF                   		sel	rb2
+ 456 030b C1                      		push	ax ; r16
+ 457                             	.LCFI1:
+ 458 030c 61 CF                   		sel	rb0
  126:../src/r_cg_serial.c ****     SO0 |= _0004_SAU_CH2_DATA_OUTPUT_1;    /* output level normal */
- 455                             		.loc 1 126 0
- 456 030e C9 E8 28 01             		movw	r16, #296
- 457 0312 C9 F6 28 01             		movw	r14, #296
- 458 0316 AD F6                   		movw	ax, r14
- 459 0318 BD F0                   		movw	r8, ax
- 460 031a FA F0                   		movw	hl, r8
- 461 031c AB                      		movw	ax, [hl]
- 462 031d BD F6                   		movw	r14, ax
- 463 031f 8D F6                   		mov	a, r14
- 464 0321 6C 04                   		or	a, #4
- 465 0323 9D F4                   		mov	r12, a
- 466 0325 8D F7                   		mov	a, r15
- 467 0327 6C 00                   		or	a, #0
- 468 0329 9D F5                   		mov	r13, a
- 469 032b DA E8                   		movw	bc, r16
- 470 032d AD F4                   		movw	ax, r12
- 471 032f 78 00 00                		movw	[bc], ax
+ 459                             		.loc 1 126 0
+ 460 030e C9 E8 28 01             		movw	r16, #296
+ 461 0312 C9 F6 28 01             		movw	r14, #296
+ 462 0316 AD F6                   		movw	ax, r14
+ 463 0318 BD F0                   		movw	r8, ax
+ 464 031a FA F0                   		movw	hl, r8
+ 465 031c AB                      		movw	ax, [hl]
+ 466 031d BD F6                   		movw	r14, ax
+ 467 031f 8D F6                   		mov	a, r14
+ 468 0321 6C 04                   		or	a, #4
+ 469 0323 9D F4                   		mov	r12, a
+ 470 0325 8D F7                   		mov	a, r15
+ 471 0327 6C 00                   		or	a, #0
+ 472 0329 9D F5                   		mov	r13, a
+ 473 032b DA E8                   		movw	bc, r16
+ 474 032d AD F4                   		movw	ax, r12
+ 475 032f 78 00 00                		movw	[bc], ax
  127:../src/r_cg_serial.c ****     SOE0 |= _0004_SAU_CH2_OUTPUT_ENABLE;    /* enable UART1 output */
- 472                             		.loc 1 127 0
- 473 0332 C9 F6 2A 01             		movw	r14, #298
- 474 0336 C9 F4 2A 01             		movw	r12, #298
- 475 033a AD F4                   		movw	ax, r12
- 476 033c BD F2                   		movw	r10, ax
- 477 033e FA F2                   		movw	hl, r10
- 478 0340 AB                      		movw	ax, [hl]
- 479 0341 BD F4                   		movw	r12, ax
- 480 0343 8D F4                   		mov	a, r12
- 481 0345 6C 04                   		or	a, #4
- 482 0347 9D F2                   		mov	r10, a
- 483 0349 8D F5                   		mov	a, r13
- 484 034b 6C 00                   		or	a, #0
- 485 034d 9D F3                   		mov	r11, a
- 486 034f AD F6                   		movw	ax, r14
- 487 0351 BD F4                   		movw	r12, ax
- 488 0353 DA F4                   		movw	bc, r12
- 489 0355 AD F2                   		movw	ax, r10
- 490 0357 78 00 00                		movw	[bc], ax
+ 476                             		.loc 1 127 0
+ 477 0332 C9 F6 2A 01             		movw	r14, #298
+ 478 0336 C9 F4 2A 01             		movw	r12, #298
+ 479 033a AD F4                   		movw	ax, r12
+ 480 033c BD F2                   		movw	r10, ax
+ 481 033e FA F2                   		movw	hl, r10
+ 482 0340 AB                      		movw	ax, [hl]
+ 483 0341 BD F4                   		movw	r12, ax
+ 484 0343 8D F4                   		mov	a, r12
+ 485 0345 6C 04                   		or	a, #4
+ 486 0347 9D F2                   		mov	r10, a
+ 487 0349 8D F5                   		mov	a, r13
+ 488 034b 6C 00                   		or	a, #0
+ 489 034d 9D F3                   		mov	r11, a
+ 490 034f AD F6                   		movw	ax, r14
+ 491 0351 BD F4                   		movw	r12, ax
+ 492 0353 DA F4                   		movw	bc, r12
+ 493 0355 AD F2                   		movw	ax, r10
+ 494 0357 78 00 00                		movw	[bc], ax
  128:../src/r_cg_serial.c ****     SS0 |= _0008_SAU_CH3_START_TRG_ON | _0004_SAU_CH2_START_TRG_ON;    /* enable UART1 receive and 
- 491                             		.loc 1 128 0
- 492 035a C9 F4 22 01             		movw	r12, #290
- 493 035e C9 F2 22 01             		movw	r10, #290
- 494 0362 AD F2                   		movw	ax, r10
- 495 0364 BD F0                   		movw	r8, ax
- 496 0366 FA F0                   		movw	hl, r8
- 497 0368 AB                      		movw	ax, [hl]
- 498 0369 BD F2                   		movw	r10, ax
- 499 036b 8D F2                   		mov	a, r10
- 500 036d 6C 0C                   		or	a, #12
- 501 036f 9D F0                   		mov	r8, a
- 502 0371 8D F3                   		mov	a, r11
- 503 0373 6C 00                   		or	a, #0
- 504 0375 9D F1                   		mov	r9, a
- 505 0377 AD F4                   		movw	ax, r12
- 506 0379 BD F2                   		movw	r10, ax
- 507 037b DA F2                   		movw	bc, r10
- 508 037d AD F0                   		movw	ax, r8
- 509 037f 78 00 00                		movw	[bc], ax
+ 495                             		.loc 1 128 0
+ 496 035a C9 F4 22 01             		movw	r12, #290
+ 497 035e C9 F2 22 01             		movw	r10, #290
+ 498 0362 AD F2                   		movw	ax, r10
+ 499 0364 BD F0                   		movw	r8, ax
+ 500 0366 FA F0                   		movw	hl, r8
+ 501 0368 AB                      		movw	ax, [hl]
+ 502 0369 BD F2                   		movw	r10, ax
+ 503 036b 8D F2                   		mov	a, r10
+ 504 036d 6C 0C                   		or	a, #12
+ 505 036f 9D F0                   		mov	r8, a
+ 506 0371 8D F3                   		mov	a, r11
+ 507 0373 6C 00                   		or	a, #0
+ 508 0375 9D F1                   		mov	r9, a
+ 509 0377 AD F4                   		movw	ax, r12
+ 510 0379 BD F2                   		movw	r10, ax
+ 511 037b DA F2                   		movw	bc, r10
+ 512 037d AD F0                   		movw	ax, r8
+ 513 037f 78 00 00                		movw	[bc], ax
  129:../src/r_cg_serial.c ****     STIF1 = 0U;    /* clear INTST1 interrupt flag */
- 510                             		.loc 1 129 0
- 511 0382 C9 F0 E2 FF             		movw	r8, #-30
- 512 0386 AD F0                   		movw	ax, r8
- 513 0388 BD F4                   		movw	r12, ax
- 514 038a FA F4                   		movw	hl, r12
- 515 038c 8B                      		mov	a, [hl]
- 516 038d 9D F2                   		mov	r10, a
- 517 038f 5A F2 FE                		and	r10, #-2
- 518 0392 AD F0                   		movw	ax, r8
- 519 0394 DA F4                   		movw	bc, r12
- 520 0396 8D F2                   		mov	a, r10
- 521 0398 48 00 00                		mov	[bc], a
+ 514                             		.loc 1 129 0
+ 515 0382 C9 F0 E2 FF             		movw	r8, #-30
+ 516 0386 AD F0                   		movw	ax, r8
+ 517 0388 BD F4                   		movw	r12, ax
+ 518 038a FA F4                   		movw	hl, r12
+ 519 038c 8B                      		mov	a, [hl]
+ 520 038d 9D F2                   		mov	r10, a
+ 521 038f 5A F2 FE                		and	r10, #-2
+ 522 0392 AD F0                   		movw	ax, r8
+ 523 0394 DA F4                   		movw	bc, r12
+ 524 0396 8D F2                   		mov	a, r10
+ 525 0398 48 00 00                		mov	[bc], a
  130:../src/r_cg_serial.c ****     SRIF1 = 0U;    /* clear INTSR1 interrupt flag */
- 522                             		.loc 1 130 0
- 523 039b C9 F0 E2 FF             		movw	r8, #-30
- 524 039f AD F0                   		movw	ax, r8
- 525 03a1 BD F4                   		movw	r12, ax
- 526 03a3 FA F4                   		movw	hl, r12
- 527 03a5 8B                      		mov	a, [hl]
- 528 03a6 9D F2                   		mov	r10, a
- 529 03a8 5A F2 FD                		and	r10, #-3
- 530 03ab AD F0                   		movw	ax, r8
- 531 03ad DA F4                   		movw	bc, r12
- 532 03af 8D F2                   		mov	a, r10
- 533 03b1 48 00 00                		mov	[bc], a
+ 526                             		.loc 1 130 0
+ 527 039b C9 F0 E2 FF             		movw	r8, #-30
+ 528 039f AD F0                   		movw	ax, r8
+ 529 03a1 BD F4                   		movw	r12, ax
+ 530 03a3 FA F4                   		movw	hl, r12
+ 531 03a5 8B                      		mov	a, [hl]
+ 532 03a6 9D F2                   		mov	r10, a
+ 533 03a8 5A F2 FD                		and	r10, #-3
+ 534 03ab AD F0                   		movw	ax, r8
+ 535 03ad DA F4                   		movw	bc, r12
+ 536 03af 8D F2                   		mov	a, r10
+ 537 03b1 48 00 00                		mov	[bc], a
  131:../src/r_cg_serial.c ****     STMK1 = 0U;    /* enable INTST1 interrupt */
- 534                             		.loc 1 131 0
- 535 03b4 C9 F0 E6 FF             		movw	r8, #-26
- 536 03b8 AD F0                   		movw	ax, r8
- 537 03ba BD F4                   		movw	r12, ax
- 538 03bc FA F4                   		movw	hl, r12
- 539 03be 8B                      		mov	a, [hl]
- 540 03bf 9D F2                   		mov	r10, a
- 541 03c1 5A F2 FE                		and	r10, #-2
- 542 03c4 AD F0                   		movw	ax, r8
- 543 03c6 DA F4                   		movw	bc, r12
- 544 03c8 8D F2                   		mov	a, r10
- 545 03ca 48 00 00                		mov	[bc], a
+ 538                             		.loc 1 131 0
+ 539 03b4 C9 F0 E6 FF             		movw	r8, #-26
+ 540 03b8 AD F0                   		movw	ax, r8
+ 541 03ba BD F4                   		movw	r12, ax
+ 542 03bc FA F4                   		movw	hl, r12
+ 543 03be 8B                      		mov	a, [hl]
+ 544 03bf 9D F2                   		mov	r10, a
+ 545 03c1 5A F2 FE                		and	r10, #-2
+ 546 03c4 AD F0                   		movw	ax, r8
+ 547 03c6 DA F4                   		movw	bc, r12
+ 548 03c8 8D F2                   		mov	a, r10
+ 549 03ca 48 00 00                		mov	[bc], a
  132:../src/r_cg_serial.c ****     SRMK1 = 0U;    /* enable INTSR1 interrupt */
- 546                             		.loc 1 132 0
- 547 03cd C9 F0 E6 FF             		movw	r8, #-26
- 548 03d1 AD F0                   		movw	ax, r8
- 549 03d3 BD F4                   		movw	r12, ax
- 550 03d5 FA F4                   		movw	hl, r12
- 551 03d7 8B                      		mov	a, [hl]
- 552 03d8 9D F2                   		mov	r10, a
- 553 03da 5A F2 FD                		and	r10, #-3
- 554 03dd AD F0                   		movw	ax, r8
- 555 03df DA F4                   		movw	bc, r12
- 556 03e1 8D F2                   		mov	a, r10
- 557 03e3 48 00 00                		mov	[bc], a
+ 550                             		.loc 1 132 0
+ 551 03cd C9 F0 E6 FF             		movw	r8, #-26
+ 552 03d1 AD F0                   		movw	ax, r8
+ 553 03d3 BD F4                   		movw	r12, ax
+ 554 03d5 FA F4                   		movw	hl, r12
+ 555 03d7 8B                      		mov	a, [hl]
+ 556 03d8 9D F2                   		mov	r10, a
+ 557 03da 5A F2 FD                		and	r10, #-3
+ 558 03dd AD F0                   		movw	ax, r8
+ 559 03df DA F4                   		movw	bc, r12
+ 560 03e1 8D F2                   		mov	a, r10
+ 561 03e3 48 00 00                		mov	[bc], a
  133:../src/r_cg_serial.c **** }
- 558                             		.loc 1 133 0
- 559 03e6 61 EF                   		sel	rb2
- 560 03e8 C0                      		pop	ax ; r16
- 561 03e9 61 CF                   		sel	rb0
- 562 03eb D7                      		ret
- 563                             	.LFE2:
- 565                             		.global	_R_UART1_Stop
- 567                             	_R_UART1_Stop:
- 568                             	.LFB3:
+ 562                             		.loc 1 133 0
+ 563 03e6 61 EF                   		sel	rb2
+ 564 03e8 C0                      		pop	ax ; r16
+ 565 03e9 61 CF                   		sel	rb0
+ 566 03eb D7                      		ret
+ 567                             	.LFE2:
+ 569                             		.global	_R_UART1_Stop
+ 571                             	_R_UART1_Stop:
+ 572                             	.LFB3:
  134:../src/r_cg_serial.c **** 
  135:../src/r_cg_serial.c **** /**************************************************************************************************
  136:../src/r_cg_serial.c **** * Function Name: R_UART1_Stop
@@ -701,109 +705,109 @@
  140:../src/r_cg_serial.c **** ***************************************************************************************************
  141:../src/r_cg_serial.c **** void R_UART1_Stop(void)
  142:../src/r_cg_serial.c **** {
- 569                             		.loc 1 142 0
+ 573                             		.loc 1 142 0
  143:../src/r_cg_serial.c ****     STMK1 = 1U;    /* disable INTST1 interrupt */
- 570                             		.loc 1 143 0
- 571 03ec C9 F4 E6 FF             		movw	r12, #-26
- 572 03f0 AD F4                   		movw	ax, r12
- 573 03f2 BD F0                   		movw	r8, ax
- 574 03f4 FA F0                   		movw	hl, r8
- 575 03f6 8B                      		mov	a, [hl]
- 576 03f7 9D F6                   		mov	r14, a
- 577 03f9 6A F6 01                		or	r14, #1
- 578 03fc AD F4                   		movw	ax, r12
- 579 03fe BD F2                   		movw	r10, ax
- 580 0400 DA F2                   		movw	bc, r10
- 581 0402 8D F6                   		mov	a, r14
- 582 0404 48 00 00                		mov	[bc], a
+ 574                             		.loc 1 143 0
+ 575 03ec C9 F4 E6 FF             		movw	r12, #-26
+ 576 03f0 AD F4                   		movw	ax, r12
+ 577 03f2 BD F0                   		movw	r8, ax
+ 578 03f4 FA F0                   		movw	hl, r8
+ 579 03f6 8B                      		mov	a, [hl]
+ 580 03f7 9D F6                   		mov	r14, a
+ 581 03f9 6A F6 01                		or	r14, #1
+ 582 03fc AD F4                   		movw	ax, r12
+ 583 03fe BD F2                   		movw	r10, ax
+ 584 0400 DA F2                   		movw	bc, r10
+ 585 0402 8D F6                   		mov	a, r14
+ 586 0404 48 00 00                		mov	[bc], a
  144:../src/r_cg_serial.c ****     SRMK1 = 1U;    /* disable INTSR1 interrupt */
- 583                             		.loc 1 144 0
- 584 0407 C9 F4 E6 FF             		movw	r12, #-26
- 585 040b AD F4                   		movw	ax, r12
- 586 040d BD F0                   		movw	r8, ax
- 587 040f FA F0                   		movw	hl, r8
- 588 0411 8B                      		mov	a, [hl]
- 589 0412 9D F6                   		mov	r14, a
- 590 0414 6A F6 02                		or	r14, #2
- 591 0417 AD F4                   		movw	ax, r12
- 592 0419 BD F2                   		movw	r10, ax
- 593 041b DA F2                   		movw	bc, r10
- 594 041d 8D F6                   		mov	a, r14
- 595 041f 48 00 00                		mov	[bc], a
+ 587                             		.loc 1 144 0
+ 588 0407 C9 F4 E6 FF             		movw	r12, #-26
+ 589 040b AD F4                   		movw	ax, r12
+ 590 040d BD F0                   		movw	r8, ax
+ 591 040f FA F0                   		movw	hl, r8
+ 592 0411 8B                      		mov	a, [hl]
+ 593 0412 9D F6                   		mov	r14, a
+ 594 0414 6A F6 02                		or	r14, #2
+ 595 0417 AD F4                   		movw	ax, r12
+ 596 0419 BD F2                   		movw	r10, ax
+ 597 041b DA F2                   		movw	bc, r10
+ 598 041d 8D F6                   		mov	a, r14
+ 599 041f 48 00 00                		mov	[bc], a
  145:../src/r_cg_serial.c ****     ST0 |= _0008_SAU_CH3_STOP_TRG_ON | _0004_SAU_CH2_STOP_TRG_ON;    /* disable UART1 receive and t
- 596                             		.loc 1 145 0
- 597 0422 C9 F6 24 01             		movw	r14, #292
- 598 0426 C9 F4 24 01             		movw	r12, #292
- 599 042a AD F4                   		movw	ax, r12
- 600 042c BD F0                   		movw	r8, ax
- 601 042e FA F0                   		movw	hl, r8
- 602 0430 AB                      		movw	ax, [hl]
- 603 0431 BD F4                   		movw	r12, ax
- 604 0433 8D F4                   		mov	a, r12
- 605 0435 6C 0C                   		or	a, #12
- 606 0437 9D F2                   		mov	r10, a
- 607 0439 8D F5                   		mov	a, r13
- 608 043b 6C 00                   		or	a, #0
- 609 043d 9D F3                   		mov	r11, a
- 610 043f AD F6                   		movw	ax, r14
- 611 0441 BD F4                   		movw	r12, ax
- 612 0443 DA F4                   		movw	bc, r12
- 613 0445 AD F2                   		movw	ax, r10
- 614 0447 78 00 00                		movw	[bc], ax
+ 600                             		.loc 1 145 0
+ 601 0422 C9 F6 24 01             		movw	r14, #292
+ 602 0426 C9 F4 24 01             		movw	r12, #292
+ 603 042a AD F4                   		movw	ax, r12
+ 604 042c BD F0                   		movw	r8, ax
+ 605 042e FA F0                   		movw	hl, r8
+ 606 0430 AB                      		movw	ax, [hl]
+ 607 0431 BD F4                   		movw	r12, ax
+ 608 0433 8D F4                   		mov	a, r12
+ 609 0435 6C 0C                   		or	a, #12
+ 610 0437 9D F2                   		mov	r10, a
+ 611 0439 8D F5                   		mov	a, r13
+ 612 043b 6C 00                   		or	a, #0
+ 613 043d 9D F3                   		mov	r11, a
+ 614 043f AD F6                   		movw	ax, r14
+ 615 0441 BD F4                   		movw	r12, ax
+ 616 0443 DA F4                   		movw	bc, r12
+ 617 0445 AD F2                   		movw	ax, r10
+ 618 0447 78 00 00                		movw	[bc], ax
  146:../src/r_cg_serial.c ****     SOE0 &= ~_0004_SAU_CH2_OUTPUT_ENABLE;    /* disable UART1 output */
- 615                             		.loc 1 146 0
- 616 044a C9 F4 2A 01             		movw	r12, #298
- 617 044e C9 F2 2A 01             		movw	r10, #298
- 618 0452 AD F2                   		movw	ax, r10
- 619 0454 BD F0                   		movw	r8, ax
- 620 0456 FA F0                   		movw	hl, r8
- 621 0458 AB                      		movw	ax, [hl]
- 622 0459 BD F2                   		movw	r10, ax
- 623 045b 8D F2                   		mov	a, r10
- 624 045d 5C FB                   		and	a, #-5
- 625 045f 9D F0                   		mov	r8, a
- 626 0461 8D F3                   		mov	a, r11
- 627 0463 5C FF                   		and	a, #-1
- 628 0465 9D F1                   		mov	r9, a
- 629 0467 AD F4                   		movw	ax, r12
- 630 0469 BD F2                   		movw	r10, ax
- 631 046b DA F2                   		movw	bc, r10
- 632 046d AD F0                   		movw	ax, r8
- 633 046f 78 00 00                		movw	[bc], ax
+ 619                             		.loc 1 146 0
+ 620 044a C9 F4 2A 01             		movw	r12, #298
+ 621 044e C9 F2 2A 01             		movw	r10, #298
+ 622 0452 AD F2                   		movw	ax, r10
+ 623 0454 BD F0                   		movw	r8, ax
+ 624 0456 FA F0                   		movw	hl, r8
+ 625 0458 AB                      		movw	ax, [hl]
+ 626 0459 BD F2                   		movw	r10, ax
+ 627 045b 8D F2                   		mov	a, r10
+ 628 045d 5C FB                   		and	a, #-5
+ 629 045f 9D F0                   		mov	r8, a
+ 630 0461 8D F3                   		mov	a, r11
+ 631 0463 5C FF                   		and	a, #-1
+ 632 0465 9D F1                   		mov	r9, a
+ 633 0467 AD F4                   		movw	ax, r12
+ 634 0469 BD F2                   		movw	r10, ax
+ 635 046b DA F2                   		movw	bc, r10
+ 636 046d AD F0                   		movw	ax, r8
+ 637 046f 78 00 00                		movw	[bc], ax
  147:../src/r_cg_serial.c ****     STIF1 = 0U;    /* clear INTST1 interrupt flag */
- 634                             		.loc 1 147 0
- 635 0472 C9 F0 E2 FF             		movw	r8, #-30
- 636 0476 AD F0                   		movw	ax, r8
- 637 0478 BD F4                   		movw	r12, ax
- 638 047a FA F4                   		movw	hl, r12
- 639 047c 8B                      		mov	a, [hl]
- 640 047d 9D F2                   		mov	r10, a
- 641 047f 5A F2 FE                		and	r10, #-2
- 642 0482 AD F0                   		movw	ax, r8
- 643 0484 DA F4                   		movw	bc, r12
- 644 0486 8D F2                   		mov	a, r10
- 645 0488 48 00 00                		mov	[bc], a
+ 638                             		.loc 1 147 0
+ 639 0472 C9 F0 E2 FF             		movw	r8, #-30
+ 640 0476 AD F0                   		movw	ax, r8
+ 641 0478 BD F4                   		movw	r12, ax
+ 642 047a FA F4                   		movw	hl, r12
+ 643 047c 8B                      		mov	a, [hl]
+ 644 047d 9D F2                   		mov	r10, a
+ 645 047f 5A F2 FE                		and	r10, #-2
+ 646 0482 AD F0                   		movw	ax, r8
+ 647 0484 DA F4                   		movw	bc, r12
+ 648 0486 8D F2                   		mov	a, r10
+ 649 0488 48 00 00                		mov	[bc], a
  148:../src/r_cg_serial.c ****     SRIF1 = 0U;    /* clear INTSR1 interrupt flag */
- 646                             		.loc 1 148 0
- 647 048b C9 F0 E2 FF             		movw	r8, #-30
- 648 048f AD F0                   		movw	ax, r8
- 649 0491 BD F4                   		movw	r12, ax
- 650 0493 FA F4                   		movw	hl, r12
- 651 0495 8B                      		mov	a, [hl]
- 652 0496 9D F2                   		mov	r10, a
- 653 0498 5A F2 FD                		and	r10, #-3
- 654 049b AD F0                   		movw	ax, r8
- 655 049d DA F4                   		movw	bc, r12
- 656 049f 8D F2                   		mov	a, r10
- 657 04a1 48 00 00                		mov	[bc], a
+ 650                             		.loc 1 148 0
+ 651 048b C9 F0 E2 FF             		movw	r8, #-30
+ 652 048f AD F0                   		movw	ax, r8
+ 653 0491 BD F4                   		movw	r12, ax
+ 654 0493 FA F4                   		movw	hl, r12
+ 655 0495 8B                      		mov	a, [hl]
+ 656 0496 9D F2                   		mov	r10, a
+ 657 0498 5A F2 FD                		and	r10, #-3
+ 658 049b AD F0                   		movw	ax, r8
+ 659 049d DA F4                   		movw	bc, r12
+ 660 049f 8D F2                   		mov	a, r10
+ 661 04a1 48 00 00                		mov	[bc], a
  149:../src/r_cg_serial.c ****    
  150:../src/r_cg_serial.c **** }
- 658                             		.loc 1 150 0
- 659 04a4 D7                      		ret
- 660                             	.LFE3:
- 662                             		.global	_R_UART1_Receive
- 664                             	_R_UART1_Receive:
- 665                             	.LFB4:
+ 662                             		.loc 1 150 0
+ 663 04a4 D7                      		ret
+ 664                             	.LFE3:
+ 666                             		.global	_R_UART1_Receive
+ 668                             	_R_UART1_Receive:
+ 669                             	.LFB4:
  151:../src/r_cg_serial.c **** 
  152:../src/r_cg_serial.c **** /**************************************************************************************************
  153:../src/r_cg_serial.c **** * Function Name: R_UART1_Receive
@@ -817,61 +821,61 @@
  161:../src/r_cg_serial.c **** ***************************************************************************************************
  162:../src/r_cg_serial.c **** MD_STATUS R_UART1_Receive(uint8_t * const rx_buf, uint16_t rx_num)
  163:../src/r_cg_serial.c **** {
- 666                             		.loc 1 163 0
- 667                             		; start of function
- 668                             		; locals: 2 bytes
- 669 04a5 20 02                   		subw	sp, #2
- 670                             	.LCFI2:
+ 670                             		.loc 1 163 0
+ 671                             		; start of function
+ 672                             		; locals: 2 bytes
+ 673 04a5 20 02                   		subw	sp, #2
+ 674                             	.LCFI2:
  164:../src/r_cg_serial.c ****     MD_STATUS status = MD_OK;
- 671                             		.loc 1 164 0
- 672 04a7 F6                      		clrw	ax
- 673 04a8 B8 00                   		movw	[sp], ax
+ 675                             		.loc 1 164 0
+ 676 04a7 F6                      		clrw	ax
+ 677 04a8 B8 00                   		movw	[sp], ax
  165:../src/r_cg_serial.c **** 
  166:../src/r_cg_serial.c ****     if (rx_num < 1U)
- 674                             		.loc 1 166 0
- 675 04aa A8 08                   		movw	ax, [sp+8]
- 676 04ac 44 00 00                		cmpw	ax, #0
- 677 04af 61 E8                   		 skz
- 678 04b1 EC BE 04 00             		 br	!!.L6
+ 678                             		.loc 1 166 0
+ 679 04aa A8 08                   		movw	ax, [sp+8]
+ 680 04ac 44 00 00                		cmpw	ax, #0
+ 681 04af 61 E8                   		 skz
+ 682 04b1 EC BE 04 00             		 br	!!.L6
  167:../src/r_cg_serial.c ****     {
  168:../src/r_cg_serial.c ****         status = MD_ARGERROR;
- 679                             		.loc 1 168 0
- 680 04b5 30 81 00                		movw	ax, #129
- 681 04b8 B8 00                   		movw	[sp], ax
- 682 04ba EC D0 04 00             		br	!!.L7
- 683                             	.L6:
+ 683                             		.loc 1 168 0
+ 684 04b5 30 81 00                		movw	ax, #129
+ 685 04b8 B8 00                   		movw	[sp], ax
+ 686 04ba EC D0 04 00             		br	!!.L7
+ 687                             	.L6:
  169:../src/r_cg_serial.c ****     }
  170:../src/r_cg_serial.c ****     else
  171:../src/r_cg_serial.c ****     {
  172:../src/r_cg_serial.c ****         g_uart1_rx_count = 0U;
- 684                             		.loc 1 172 0
- 685 04be F6                      		clrw	ax
- 686 04bf BF 00 00                		movw	!_g_uart1_rx_count, ax
+ 688                             		.loc 1 172 0
+ 689 04be F6                      		clrw	ax
+ 690 04bf BF 00 00                		movw	!_g_uart1_rx_count, ax
  173:../src/r_cg_serial.c ****         g_uart1_rx_length = rx_num;
- 687                             		.loc 1 173 0
- 688 04c2 A8 08                   		movw	ax, [sp+8]
- 689 04c4 BD F0                   		movw	r8, ax
- 690 04c6 BF 00 00                		movw	!_g_uart1_rx_length, ax
+ 691                             		.loc 1 173 0
+ 692 04c2 A8 08                   		movw	ax, [sp+8]
+ 693 04c4 BD F0                   		movw	r8, ax
+ 694 04c6 BF 00 00                		movw	!_g_uart1_rx_length, ax
  174:../src/r_cg_serial.c ****         gp_uart1_rx_address = rx_buf;
- 691                             		.loc 1 174 0
- 692 04c9 A8 06                   		movw	ax, [sp+6]
- 693 04cb BD F0                   		movw	r8, ax
- 694 04cd BF 00 00                		movw	!_gp_uart1_rx_address, ax
- 695                             	.L7:
+ 695                             		.loc 1 174 0
+ 696 04c9 A8 06                   		movw	ax, [sp+6]
+ 697 04cb BD F0                   		movw	r8, ax
+ 698 04cd BF 00 00                		movw	!_gp_uart1_rx_address, ax
+ 699                             	.L7:
  175:../src/r_cg_serial.c ****     }
  176:../src/r_cg_serial.c **** 
  177:../src/r_cg_serial.c ****     return (status);
- 696                             		.loc 1 177 0
- 697 04d0 A8 00                   		movw	ax, [sp]
- 698 04d2 BD F0                   		movw	r8, ax
+ 700                             		.loc 1 177 0
+ 701 04d0 A8 00                   		movw	ax, [sp]
+ 702 04d2 BD F0                   		movw	r8, ax
  178:../src/r_cg_serial.c **** }
- 699                             		.loc 1 178 0
- 700 04d4 10 02                   		addw	sp, #2
- 701 04d6 D7                      		ret
- 702                             	.LFE4:
- 704                             		.global	_R_UART1_Send
- 706                             	_R_UART1_Send:
- 707                             	.LFB5:
+ 703                             		.loc 1 178 0
+ 704 04d4 10 02                   		addw	sp, #2
+ 705 04d6 D7                      		ret
+ 706                             	.LFE4:
+ 708                             		.global	_R_UART1_Send
+ 710                             	_R_UART1_Send:
+ 711                             	.LFB5:
  179:../src/r_cg_serial.c **** 
  180:../src/r_cg_serial.c **** /**************************************************************************************************
  181:../src/r_cg_serial.c **** * Function Name: R_UART1_Send
@@ -885,111 +889,111 @@
  189:../src/r_cg_serial.c **** ***************************************************************************************************
  190:../src/r_cg_serial.c **** MD_STATUS R_UART1_Send(uint8_t * const tx_buf, uint16_t tx_num)
  191:../src/r_cg_serial.c **** {
- 708                             		.loc 1 191 0
- 709                             		; start of function
- 710                             		; locals: 2 bytes
- 711 04d7 20 02                   		subw	sp, #2
- 712                             	.LCFI3:
+ 712                             		.loc 1 191 0
+ 713                             		; start of function
+ 714                             		; locals: 2 bytes
+ 715 04d7 20 02                   		subw	sp, #2
+ 716                             	.LCFI3:
  192:../src/r_cg_serial.c ****     MD_STATUS status = MD_OK;
- 713                             		.loc 1 192 0
- 714 04d9 F6                      		clrw	ax
- 715 04da B8 00                   		movw	[sp], ax
+ 717                             		.loc 1 192 0
+ 718 04d9 F6                      		clrw	ax
+ 719 04da B8 00                   		movw	[sp], ax
  193:../src/r_cg_serial.c **** 
  194:../src/r_cg_serial.c ****     if (tx_num < 1U)
- 716                             		.loc 1 194 0
- 717 04dc A8 08                   		movw	ax, [sp+8]
- 718 04de 44 00 00                		cmpw	ax, #0
- 719 04e1 61 E8                   		 skz
- 720 04e3 EC F0 04 00             		 br	!!.L10
+ 720                             		.loc 1 194 0
+ 721 04dc A8 08                   		movw	ax, [sp+8]
+ 722 04de 44 00 00                		cmpw	ax, #0
+ 723 04e1 61 E8                   		 skz
+ 724 04e3 EC F0 04 00             		 br	!!.L10
  195:../src/r_cg_serial.c ****     {
  196:../src/r_cg_serial.c ****         status = MD_ARGERROR;
- 721                             		.loc 1 196 0
- 722 04e7 30 81 00                		movw	ax, #129
- 723 04ea B8 00                   		movw	[sp], ax
- 724 04ec EC 63 05 00             		br	!!.L11
- 725                             	.L10:
+ 725                             		.loc 1 196 0
+ 726 04e7 30 81 00                		movw	ax, #129
+ 727 04ea B8 00                   		movw	[sp], ax
+ 728 04ec EC 63 05 00             		br	!!.L11
+ 729                             	.L10:
  197:../src/r_cg_serial.c ****     }
  198:../src/r_cg_serial.c ****     else
  199:../src/r_cg_serial.c ****     {
  200:../src/r_cg_serial.c ****         gp_uart1_tx_address = tx_buf;
- 726                             		.loc 1 200 0
- 727 04f0 A8 06                   		movw	ax, [sp+6]
- 728 04f2 BD F0                   		movw	r8, ax
- 729 04f4 BF 00 00                		movw	!_gp_uart1_tx_address, ax
+ 730                             		.loc 1 200 0
+ 731 04f0 A8 06                   		movw	ax, [sp+6]
+ 732 04f2 BD F0                   		movw	r8, ax
+ 733 04f4 BF 00 00                		movw	!_gp_uart1_tx_address, ax
  201:../src/r_cg_serial.c ****         g_uart1_tx_count = tx_num;
- 730                             		.loc 1 201 0
- 731 04f7 A8 08                   		movw	ax, [sp+8]
- 732 04f9 BD F0                   		movw	r8, ax
- 733 04fb BF 00 00                		movw	!_g_uart1_tx_count, ax
+ 734                             		.loc 1 201 0
+ 735 04f7 A8 08                   		movw	ax, [sp+8]
+ 736 04f9 BD F0                   		movw	r8, ax
+ 737 04fb BF 00 00                		movw	!_g_uart1_tx_count, ax
  202:../src/r_cg_serial.c ****         STMK1 = 1U;    /* disable INTST1 interrupt */
- 734                             		.loc 1 202 0
- 735 04fe C9 F0 E6 FF             		movw	r8, #-26
- 736 0502 AD F0                   		movw	ax, r8
- 737 0504 BD F4                   		movw	r12, ax
- 738 0506 FA F4                   		movw	hl, r12
- 739 0508 8B                      		mov	a, [hl]
- 740 0509 9D F2                   		mov	r10, a
- 741 050b 6A F2 01                		or	r10, #1
- 742 050e AD F0                   		movw	ax, r8
- 743 0510 DA F4                   		movw	bc, r12
- 744 0512 8D F2                   		mov	a, r10
- 745 0514 48 00 00                		mov	[bc], a
+ 738                             		.loc 1 202 0
+ 739 04fe C9 F0 E6 FF             		movw	r8, #-26
+ 740 0502 AD F0                   		movw	ax, r8
+ 741 0504 BD F4                   		movw	r12, ax
+ 742 0506 FA F4                   		movw	hl, r12
+ 743 0508 8B                      		mov	a, [hl]
+ 744 0509 9D F2                   		mov	r10, a
+ 745 050b 6A F2 01                		or	r10, #1
+ 746 050e AD F0                   		movw	ax, r8
+ 747 0510 DA F4                   		movw	bc, r12
+ 748 0512 8D F2                   		mov	a, r10
+ 749 0514 48 00 00                		mov	[bc], a
  203:../src/r_cg_serial.c ****         TXD1 = *gp_uart1_tx_address;
- 746                             		.loc 1 203 0
- 747 0517 C9 F2 44 FF             		movw	r10, #-188
- 748 051b AF 00 00                		movw	ax, !_gp_uart1_tx_address
- 749 051e BD F0                   		movw	r8, ax
- 750 0520 BD F4                   		movw	r12, ax
- 751 0522 FA F4                   		movw	hl, r12
- 752 0524 8B                      		mov	a, [hl]
- 753 0525 9D F0                   		mov	r8, a
- 754 0527 AD F2                   		movw	ax, r10
- 755 0529 BD F4                   		movw	r12, ax
- 756 052b DA F4                   		movw	bc, r12
- 757 052d 8D F0                   		mov	a, r8
- 758 052f 48 00 00                		mov	[bc], a
+ 750                             		.loc 1 203 0
+ 751 0517 C9 F2 44 FF             		movw	r10, #-188
+ 752 051b AF 00 00                		movw	ax, !_gp_uart1_tx_address
+ 753 051e BD F0                   		movw	r8, ax
+ 754 0520 BD F4                   		movw	r12, ax
+ 755 0522 FA F4                   		movw	hl, r12
+ 756 0524 8B                      		mov	a, [hl]
+ 757 0525 9D F0                   		mov	r8, a
+ 758 0527 AD F2                   		movw	ax, r10
+ 759 0529 BD F4                   		movw	r12, ax
+ 760 052b DA F4                   		movw	bc, r12
+ 761 052d 8D F0                   		mov	a, r8
+ 762 052f 48 00 00                		mov	[bc], a
  204:../src/r_cg_serial.c ****         gp_uart1_tx_address++;
- 759                             		.loc 1 204 0
- 760 0532 AF 00 00                		movw	ax, !_gp_uart1_tx_address
- 761 0535 BD F0                   		movw	r8, ax
- 762 0537 A6 F0                   		incw	r8
- 763 0539 AD F0                   		movw	ax, r8
- 764 053b BF 00 00                		movw	!_gp_uart1_tx_address, ax
+ 763                             		.loc 1 204 0
+ 764 0532 AF 00 00                		movw	ax, !_gp_uart1_tx_address
+ 765 0535 BD F0                   		movw	r8, ax
+ 766 0537 A6 F0                   		incw	r8
+ 767 0539 AD F0                   		movw	ax, r8
+ 768 053b BF 00 00                		movw	!_gp_uart1_tx_address, ax
  205:../src/r_cg_serial.c ****         g_uart1_tx_count--;
- 765                             		.loc 1 205 0
- 766 053e AF 00 00                		movw	ax, !_g_uart1_tx_count
- 767 0541 BD F0                   		movw	r8, ax
- 768 0543 B6 F0                   		decw	r8
- 769 0545 AD F0                   		movw	ax, r8
- 770 0547 BF 00 00                		movw	!_g_uart1_tx_count, ax
+ 769                             		.loc 1 205 0
+ 770 053e AF 00 00                		movw	ax, !_g_uart1_tx_count
+ 771 0541 BD F0                   		movw	r8, ax
+ 772 0543 B6 F0                   		decw	r8
+ 773 0545 AD F0                   		movw	ax, r8
+ 774 0547 BF 00 00                		movw	!_g_uart1_tx_count, ax
  206:../src/r_cg_serial.c ****         STMK1 = 0U;    /* enable INTST1 interrupt */
- 771                             		.loc 1 206 0
- 772 054a C9 F0 E6 FF             		movw	r8, #-26
- 773 054e AD F0                   		movw	ax, r8
- 774 0550 BD F4                   		movw	r12, ax
- 775 0552 FA F4                   		movw	hl, r12
- 776 0554 8B                      		mov	a, [hl]
- 777 0555 9D F2                   		mov	r10, a
- 778 0557 5A F2 FE                		and	r10, #-2
- 779 055a AD F0                   		movw	ax, r8
- 780 055c DA F4                   		movw	bc, r12
- 781 055e 8D F2                   		mov	a, r10
- 782 0560 48 00 00                		mov	[bc], a
- 783                             	.L11:
+ 775                             		.loc 1 206 0
+ 776 054a C9 F0 E6 FF             		movw	r8, #-26
+ 777 054e AD F0                   		movw	ax, r8
+ 778 0550 BD F4                   		movw	r12, ax
+ 779 0552 FA F4                   		movw	hl, r12
+ 780 0554 8B                      		mov	a, [hl]
+ 781 0555 9D F2                   		mov	r10, a
+ 782 0557 5A F2 FE                		and	r10, #-2
+ 783 055a AD F0                   		movw	ax, r8
+ 784 055c DA F4                   		movw	bc, r12
+ 785 055e 8D F2                   		mov	a, r10
+ 786 0560 48 00 00                		mov	[bc], a
+ 787                             	.L11:
  207:../src/r_cg_serial.c ****     }
  208:../src/r_cg_serial.c **** 
  209:../src/r_cg_serial.c ****     return (status);
- 784                             		.loc 1 209 0
- 785 0563 A8 00                   		movw	ax, [sp]
- 786 0565 BD F0                   		movw	r8, ax
+ 788                             		.loc 1 209 0
+ 789 0563 A8 00                   		movw	ax, [sp]
+ 790 0565 BD F0                   		movw	r8, ax
  210:../src/r_cg_serial.c **** }
- 787                             		.loc 1 210 0
- 788 0567 10 02                   		addw	sp, #2
- 789 0569 D7                      		ret
- 790                             	.LFE5:
- 792                             		.global	_R_CSI00_Create
- 794                             	_R_CSI00_Create:
- 795                             	.LFB6:
+ 791                             		.loc 1 210 0
+ 792 0567 10 02                   		addw	sp, #2
+ 793 0569 D7                      		ret
+ 794                             	.LFE5:
+ 796                             		.global	_R_CSI00_Create
+ 798                             	_R_CSI00_Create:
+ 799                             	.LFB6:
  211:../src/r_cg_serial.c **** 
  212:../src/r_cg_serial.c **** /**************************************************************************************************
  213:../src/r_cg_serial.c **** * Function Name: R_CSI00_Create
@@ -999,268 +1003,268 @@
  217:../src/r_cg_serial.c **** ***************************************************************************************************
  218:../src/r_cg_serial.c **** void R_CSI00_Create(void)
  219:../src/r_cg_serial.c **** {
- 796                             		.loc 1 219 0
- 797                             		; start of function
- 798                             		; push 4: r16 r18
- 799 056a 61 EF                   		sel	rb2
- 800 056c C1                      		push	ax ; r16
- 801                             	.LCFI4:
- 802 056d C3                      		push	bc ; r18
- 803                             	.LCFI5:
- 804 056e 61 CF                   		sel	rb0
+ 800                             		.loc 1 219 0
+ 801                             		; start of function
+ 802                             		; push 4: r16 r18
+ 803 056a 61 EF                   		sel	rb2
+ 804 056c C1                      		push	ax ; r16
+ 805                             	.LCFI4:
+ 806 056d C3                      		push	bc ; r18
+ 807                             	.LCFI5:
+ 808 056e 61 CF                   		sel	rb0
  220:../src/r_cg_serial.c ****     ST0 |= _0001_SAU_CH0_STOP_TRG_ON;    /* disable CSI00 */
- 805                             		.loc 1 220 0
- 806 0570 C9 EA 24 01             		movw	r18, #292
- 807 0574 C9 E8 24 01             		movw	r16, #292
- 808 0578 FA E8                   		movw	hl, r16
- 809 057a AB                      		movw	ax, [hl]
- 810 057b BD E8                   		movw	r16, ax
- 811 057d 8D E8                   		mov	a, r16
- 812 057f 6C 01                   		or	a, #1
- 813 0581 9D F6                   		mov	r14, a
- 814 0583 8D E9                   		mov	a, r17
- 815 0585 6C 00                   		or	a, #0
- 816 0587 9D F7                   		mov	r15, a
- 817 0589 DA EA                   		movw	bc, r18
- 818 058b AD F6                   		movw	ax, r14
- 819 058d 78 00 00                		movw	[bc], ax
+ 809                             		.loc 1 220 0
+ 810 0570 C9 EA 24 01             		movw	r18, #292
+ 811 0574 C9 E8 24 01             		movw	r16, #292
+ 812 0578 FA E8                   		movw	hl, r16
+ 813 057a AB                      		movw	ax, [hl]
+ 814 057b BD E8                   		movw	r16, ax
+ 815 057d 8D E8                   		mov	a, r16
+ 816 057f 6C 01                   		or	a, #1
+ 817 0581 9D F6                   		mov	r14, a
+ 818 0583 8D E9                   		mov	a, r17
+ 819 0585 6C 00                   		or	a, #0
+ 820 0587 9D F7                   		mov	r15, a
+ 821 0589 DA EA                   		movw	bc, r18
+ 822 058b AD F6                   		movw	ax, r14
+ 823 058d 78 00 00                		movw	[bc], ax
  221:../src/r_cg_serial.c ****     CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
- 820                             		.loc 1 221 0
- 821 0590 C9 F6 E5 FF             		movw	r14, #-27
- 822 0594 AD F6                   		movw	ax, r14
- 823 0596 BD F0                   		movw	r8, ax
- 824 0598 FA F0                   		movw	hl, r8
- 825 059a 8B                      		mov	a, [hl]
- 826 059b 9D E8                   		mov	r16, a
- 827 059d 6A E8 20                		or	r16, #32
- 828 05a0 AD F6                   		movw	ax, r14
- 829 05a2 BD F2                   		movw	r10, ax
- 830 05a4 DA F2                   		movw	bc, r10
- 831 05a6 8D E8                   		mov	a, r16
- 832 05a8 48 00 00                		mov	[bc], a
+ 824                             		.loc 1 221 0
+ 825 0590 C9 F6 E5 FF             		movw	r14, #-27
+ 826 0594 AD F6                   		movw	ax, r14
+ 827 0596 BD F0                   		movw	r8, ax
+ 828 0598 FA F0                   		movw	hl, r8
+ 829 059a 8B                      		mov	a, [hl]
+ 830 059b 9D E8                   		mov	r16, a
+ 831 059d 6A E8 20                		or	r16, #32
+ 832 05a0 AD F6                   		movw	ax, r14
+ 833 05a2 BD F2                   		movw	r10, ax
+ 834 05a4 DA F2                   		movw	bc, r10
+ 835 05a6 8D E8                   		mov	a, r16
+ 836 05a8 48 00 00                		mov	[bc], a
  222:../src/r_cg_serial.c ****     CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
- 833                             		.loc 1 222 0
- 834 05ab C9 F6 E1 FF             		movw	r14, #-31
- 835 05af AD F6                   		movw	ax, r14
- 836 05b1 BD F4                   		movw	r12, ax
- 837 05b3 FA F4                   		movw	hl, r12
- 838 05b5 8B                      		mov	a, [hl]
- 839 05b6 9D E8                   		mov	r16, a
- 840 05b8 5A E8 DF                		and	r16, #-33
- 841 05bb AD F6                   		movw	ax, r14
- 842 05bd BD F0                   		movw	r8, ax
- 843 05bf DA F0                   		movw	bc, r8
- 844 05c1 8D E8                   		mov	a, r16
- 845 05c3 48 00 00                		mov	[bc], a
+ 837                             		.loc 1 222 0
+ 838 05ab C9 F6 E1 FF             		movw	r14, #-31
+ 839 05af AD F6                   		movw	ax, r14
+ 840 05b1 BD F4                   		movw	r12, ax
+ 841 05b3 FA F4                   		movw	hl, r12
+ 842 05b5 8B                      		mov	a, [hl]
+ 843 05b6 9D E8                   		mov	r16, a
+ 844 05b8 5A E8 DF                		and	r16, #-33
+ 845 05bb AD F6                   		movw	ax, r14
+ 846 05bd BD F0                   		movw	r8, ax
+ 847 05bf DA F0                   		movw	bc, r8
+ 848 05c1 8D E8                   		mov	a, r16
+ 849 05c3 48 00 00                		mov	[bc], a
  223:../src/r_cg_serial.c ****     /* Set INTCSI00 low priority */
  224:../src/r_cg_serial.c ****     CSIPR100 = 1U;
- 846                             		.loc 1 224 0
- 847 05c6 C9 F6 ED FF             		movw	r14, #-19
- 848 05ca AD F6                   		movw	ax, r14
- 849 05cc BD F2                   		movw	r10, ax
- 850 05ce FA F2                   		movw	hl, r10
- 851 05d0 8B                      		mov	a, [hl]
- 852 05d1 9D E8                   		mov	r16, a
- 853 05d3 6A E8 20                		or	r16, #32
- 854 05d6 AD F6                   		movw	ax, r14
- 855 05d8 BD F4                   		movw	r12, ax
- 856 05da DA F4                   		movw	bc, r12
- 857 05dc 8D E8                   		mov	a, r16
- 858 05de 48 00 00                		mov	[bc], a
+ 850                             		.loc 1 224 0
+ 851 05c6 C9 F6 ED FF             		movw	r14, #-19
+ 852 05ca AD F6                   		movw	ax, r14
+ 853 05cc BD F2                   		movw	r10, ax
+ 854 05ce FA F2                   		movw	hl, r10
+ 855 05d0 8B                      		mov	a, [hl]
+ 856 05d1 9D E8                   		mov	r16, a
+ 857 05d3 6A E8 20                		or	r16, #32
+ 858 05d6 AD F6                   		movw	ax, r14
+ 859 05d8 BD F4                   		movw	r12, ax
+ 860 05da DA F4                   		movw	bc, r12
+ 861 05dc 8D E8                   		mov	a, r16
+ 862 05de 48 00 00                		mov	[bc], a
  225:../src/r_cg_serial.c ****     CSIPR000 = 1U;
- 859                             		.loc 1 225 0
- 860 05e1 C9 F6 E9 FF             		movw	r14, #-23
- 861 05e5 AD F6                   		movw	ax, r14
- 862 05e7 BD F0                   		movw	r8, ax
- 863 05e9 FA F0                   		movw	hl, r8
- 864 05eb 8B                      		mov	a, [hl]
- 865 05ec 9D E8                   		mov	r16, a
- 866 05ee 6A E8 20                		or	r16, #32
- 867 05f1 AD F6                   		movw	ax, r14
- 868 05f3 BD F2                   		movw	r10, ax
- 869 05f5 DA F2                   		movw	bc, r10
- 870 05f7 8D E8                   		mov	a, r16
- 871 05f9 48 00 00                		mov	[bc], a
+ 863                             		.loc 1 225 0
+ 864 05e1 C9 F6 E9 FF             		movw	r14, #-23
+ 865 05e5 AD F6                   		movw	ax, r14
+ 866 05e7 BD F0                   		movw	r8, ax
+ 867 05e9 FA F0                   		movw	hl, r8
+ 868 05eb 8B                      		mov	a, [hl]
+ 869 05ec 9D E8                   		mov	r16, a
+ 870 05ee 6A E8 20                		or	r16, #32
+ 871 05f1 AD F6                   		movw	ax, r14
+ 872 05f3 BD F2                   		movw	r10, ax
+ 873 05f5 DA F2                   		movw	bc, r10
+ 874 05f7 8D E8                   		mov	a, r16
+ 875 05f9 48 00 00                		mov	[bc], a
  226:../src/r_cg_serial.c ****     SIR00 = _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
- 872                             		.loc 1 226 0
- 873 05fc C9 F6 08 01             		movw	r14, #264
- 874 0600 AD F6                   		movw	ax, r14
- 875 0602 BD F4                   		movw	r12, ax
- 876 0604 DA F4                   		movw	bc, r12
- 877 0606 30 03 00                		movw	ax, #3
- 878 0609 78 00 00                		movw	[bc], ax
+ 876                             		.loc 1 226 0
+ 877 05fc C9 F6 08 01             		movw	r14, #264
+ 878 0600 AD F6                   		movw	ax, r14
+ 879 0602 BD F4                   		movw	r12, ax
+ 880 0604 DA F4                   		movw	bc, r12
+ 881 0606 30 03 00                		movw	ax, #3
+ 882 0609 78 00 00                		movw	[bc], ax
  227:../src/r_cg_serial.c ****     SMR00 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_CLOCK_MODE_CKS |
- 879                             		.loc 1 227 0
- 880 060c C9 F6 10 01             		movw	r14, #272
- 881 0610 AD F6                   		movw	ax, r14
- 882 0612 BD F0                   		movw	r8, ax
- 883 0614 DA F0                   		movw	bc, r8
- 884 0616 30 21 00                		movw	ax, #33
- 885 0619 78 00 00                		movw	[bc], ax
+ 883                             		.loc 1 227 0
+ 884 060c C9 F6 10 01             		movw	r14, #272
+ 885 0610 AD F6                   		movw	ax, r14
+ 886 0612 BD F0                   		movw	r8, ax
+ 887 0614 DA F0                   		movw	bc, r8
+ 888 0616 30 21 00                		movw	ax, #33
+ 889 0619 78 00 00                		movw	[bc], ax
  228:../src/r_cg_serial.c ****             _0000_SAU_TRIGGER_SOFTWARE | _0000_SAU_MODE_CSI | _0001_SAU_BUFFER_EMPTY;
- 229:../src/r_cg_serial.c ****     SCR00 = _C000_SAU_RECEPTION_TRANSMISSION | _1000_SAU_TIMING_2 | _0000_SAU_MSB | _0007_SAU_LENGT
- 886                             		.loc 1 229 0
- 887 061c C9 F6 18 01             		movw	r14, #280
- 888 0620 AD F6                   		movw	ax, r14
- 889 0622 BD F2                   		movw	r10, ax
- 890 0624 DA F2                   		movw	bc, r10
- 891 0626 30 07 D0                		movw	ax, #-12281
- 892 0629 78 00 00                		movw	[bc], ax
+ 229:../src/r_cg_serial.c ****     SCR00 = _C000_SAU_RECEPTION_TRANSMISSION | _3000_SAU_TIMING_4 | _0000_SAU_MSB | _0007_SAU_LENGT
+ 890                             		.loc 1 229 0
+ 891 061c C9 F6 18 01             		movw	r14, #280
+ 892 0620 AD F6                   		movw	ax, r14
+ 893 0622 BD F2                   		movw	r10, ax
+ 894 0624 DA F2                   		movw	bc, r10
+ 895 0626 30 07 F0                		movw	ax, #-4089
+ 896 0629 78 00 00                		movw	[bc], ax
  230:../src/r_cg_serial.c ****     SDR00 = _3E00_CSI00_DIVISOR;
- 893                             		.loc 1 230 0
- 894 062c C9 F6 10 FF             		movw	r14, #-240
- 895 0630 AD F6                   		movw	ax, r14
- 896 0632 BD F4                   		movw	r12, ax
- 897 0634 DA F4                   		movw	bc, r12
- 898 0636 30 00 3E                		movw	ax, #15872
- 899 0639 78 00 00                		movw	[bc], ax
+ 897                             		.loc 1 230 0
+ 898 062c C9 F6 10 FF             		movw	r14, #-240
+ 899 0630 AD F6                   		movw	ax, r14
+ 900 0632 BD F4                   		movw	r12, ax
+ 901 0634 DA F4                   		movw	bc, r12
+ 902 0636 30 00 3E                		movw	ax, #15872
+ 903 0639 78 00 00                		movw	[bc], ax
  231:../src/r_cg_serial.c ****     SO0 &= ~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
- 900                             		.loc 1 231 0
- 901 063c C9 E8 28 01             		movw	r16, #296
- 902 0640 C9 F6 28 01             		movw	r14, #296
- 903 0644 AD F6                   		movw	ax, r14
- 904 0646 BD F0                   		movw	r8, ax
- 905 0648 FA F0                   		movw	hl, r8
- 906 064a AB                      		movw	ax, [hl]
- 907 064b BD F6                   		movw	r14, ax
- 908 064d 8D F6                   		mov	a, r14
- 909 064f 5C FF                   		and	a, #-1
- 910 0651 9D F4                   		mov	r12, a
- 911 0653 8D F7                   		mov	a, r15
- 912 0655 5C FE                   		and	a, #-2
- 913 0657 9D F5                   		mov	r13, a
- 914 0659 DA E8                   		movw	bc, r16
- 915 065b AD F4                   		movw	ax, r12
- 916 065d 78 00 00                		movw	[bc], ax
+ 904                             		.loc 1 231 0
+ 905 063c C9 E8 28 01             		movw	r16, #296
+ 906 0640 C9 F6 28 01             		movw	r14, #296
+ 907 0644 AD F6                   		movw	ax, r14
+ 908 0646 BD F0                   		movw	r8, ax
+ 909 0648 FA F0                   		movw	hl, r8
+ 910 064a AB                      		movw	ax, [hl]
+ 911 064b BD F6                   		movw	r14, ax
+ 912 064d 8D F6                   		mov	a, r14
+ 913 064f 5C FF                   		and	a, #-1
+ 914 0651 9D F4                   		mov	r12, a
+ 915 0653 8D F7                   		mov	a, r15
+ 916 0655 5C FE                   		and	a, #-2
+ 917 0657 9D F5                   		mov	r13, a
+ 918 0659 DA E8                   		movw	bc, r16
+ 919 065b AD F4                   		movw	ax, r12
+ 920 065d 78 00 00                		movw	[bc], ax
  232:../src/r_cg_serial.c ****     SO0 &= ~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */
- 917                             		.loc 1 232 0
- 918 0660 C9 F6 28 01             		movw	r14, #296
- 919 0664 C9 F4 28 01             		movw	r12, #296
- 920 0668 AD F4                   		movw	ax, r12
- 921 066a BD F2                   		movw	r10, ax
- 922 066c FA F2                   		movw	hl, r10
- 923 066e AB                      		movw	ax, [hl]
- 924 066f BD F4                   		movw	r12, ax
- 925 0671 8D F4                   		mov	a, r12
- 926 0673 5C FE                   		and	a, #-2
- 927 0675 9D F2                   		mov	r10, a
- 928 0677 8D F5                   		mov	a, r13
- 929 0679 5C FF                   		and	a, #-1
- 930 067b 9D F3                   		mov	r11, a
- 931 067d AD F6                   		movw	ax, r14
- 932 067f BD F4                   		movw	r12, ax
- 933 0681 DA F4                   		movw	bc, r12
- 934 0683 AD F2                   		movw	ax, r10
- 935 0685 78 00 00                		movw	[bc], ax
+ 921                             		.loc 1 232 0
+ 922 0660 C9 F6 28 01             		movw	r14, #296
+ 923 0664 C9 F4 28 01             		movw	r12, #296
+ 924 0668 AD F4                   		movw	ax, r12
+ 925 066a BD F2                   		movw	r10, ax
+ 926 066c FA F2                   		movw	hl, r10
+ 927 066e AB                      		movw	ax, [hl]
+ 928 066f BD F4                   		movw	r12, ax
+ 929 0671 8D F4                   		mov	a, r12
+ 930 0673 5C FE                   		and	a, #-2
+ 931 0675 9D F2                   		mov	r10, a
+ 932 0677 8D F5                   		mov	a, r13
+ 933 0679 5C FF                   		and	a, #-1
+ 934 067b 9D F3                   		mov	r11, a
+ 935 067d AD F6                   		movw	ax, r14
+ 936 067f BD F4                   		movw	r12, ax
+ 937 0681 DA F4                   		movw	bc, r12
+ 938 0683 AD F2                   		movw	ax, r10
+ 939 0685 78 00 00                		movw	[bc], ax
  233:../src/r_cg_serial.c ****     SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;    /* enable CSI00 output */
- 936                             		.loc 1 233 0
- 937 0688 C9 F4 2A 01             		movw	r12, #298
- 938 068c C9 F2 2A 01             		movw	r10, #298
- 939 0690 AD F2                   		movw	ax, r10
- 940 0692 BD F0                   		movw	r8, ax
- 941 0694 FA F0                   		movw	hl, r8
- 942 0696 AB                      		movw	ax, [hl]
- 943 0697 BD F2                   		movw	r10, ax
- 944 0699 8D F2                   		mov	a, r10
- 945 069b 6C 01                   		or	a, #1
- 946 069d 9D F0                   		mov	r8, a
- 947 069f 8D F3                   		mov	a, r11
- 948 06a1 6C 00                   		or	a, #0
- 949 06a3 9D F1                   		mov	r9, a
- 950 06a5 AD F4                   		movw	ax, r12
- 951 06a7 BD F2                   		movw	r10, ax
- 952 06a9 DA F2                   		movw	bc, r10
- 953 06ab AD F0                   		movw	ax, r8
- 954 06ad 78 00 00                		movw	[bc], ax
+ 940                             		.loc 1 233 0
+ 941 0688 C9 F4 2A 01             		movw	r12, #298
+ 942 068c C9 F2 2A 01             		movw	r10, #298
+ 943 0690 AD F2                   		movw	ax, r10
+ 944 0692 BD F0                   		movw	r8, ax
+ 945 0694 FA F0                   		movw	hl, r8
+ 946 0696 AB                      		movw	ax, [hl]
+ 947 0697 BD F2                   		movw	r10, ax
+ 948 0699 8D F2                   		mov	a, r10
+ 949 069b 6C 01                   		or	a, #1
+ 950 069d 9D F0                   		mov	r8, a
+ 951 069f 8D F3                   		mov	a, r11
+ 952 06a1 6C 00                   		or	a, #0
+ 953 06a3 9D F1                   		mov	r9, a
+ 954 06a5 AD F4                   		movw	ax, r12
+ 955 06a7 BD F2                   		movw	r10, ax
+ 956 06a9 DA F2                   		movw	bc, r10
+ 957 06ab AD F0                   		movw	ax, r8
+ 958 06ad 78 00 00                		movw	[bc], ax
  234:../src/r_cg_serial.c ****     /* Set SI00 pin */
  235:../src/r_cg_serial.c ****     PM1 |= 0x02U;
- 955                             		.loc 1 235 0
- 956 06b0 C9 F2 21 FF             		movw	r10, #-223
- 957 06b4 C9 F0 21 FF             		movw	r8, #-223
- 958 06b8 AD F0                   		movw	ax, r8
- 959 06ba BD F4                   		movw	r12, ax
- 960 06bc FA F4                   		movw	hl, r12
- 961 06be 8B                      		mov	a, [hl]
- 962 06bf 9D F0                   		mov	r8, a
- 963 06c1 6A F0 02                		or	r8, #2
- 964 06c4 AD F2                   		movw	ax, r10
- 965 06c6 BD F4                   		movw	r12, ax
- 966 06c8 DA F4                   		movw	bc, r12
- 967 06ca 8D F0                   		mov	a, r8
- 968 06cc 48 00 00                		mov	[bc], a
+ 959                             		.loc 1 235 0
+ 960 06b0 C9 F2 21 FF             		movw	r10, #-223
+ 961 06b4 C9 F0 21 FF             		movw	r8, #-223
+ 962 06b8 AD F0                   		movw	ax, r8
+ 963 06ba BD F4                   		movw	r12, ax
+ 964 06bc FA F4                   		movw	hl, r12
+ 965 06be 8B                      		mov	a, [hl]
+ 966 06bf 9D F0                   		mov	r8, a
+ 967 06c1 6A F0 02                		or	r8, #2
+ 968 06c4 AD F2                   		movw	ax, r10
+ 969 06c6 BD F4                   		movw	r12, ax
+ 970 06c8 DA F4                   		movw	bc, r12
+ 971 06ca 8D F0                   		mov	a, r8
+ 972 06cc 48 00 00                		mov	[bc], a
  236:../src/r_cg_serial.c ****     /* Set SO00 pin */
  237:../src/r_cg_serial.c ****     P1 |= 0x04U;
- 969                             		.loc 1 237 0
- 970 06cf C9 F2 01 FF             		movw	r10, #-255
- 971 06d3 C9 F0 01 FF             		movw	r8, #-255
- 972 06d7 AD F0                   		movw	ax, r8
- 973 06d9 BD F4                   		movw	r12, ax
- 974 06db FA F4                   		movw	hl, r12
- 975 06dd 8B                      		mov	a, [hl]
- 976 06de 9D F0                   		mov	r8, a
- 977 06e0 6A F0 04                		or	r8, #4
- 978 06e3 AD F2                   		movw	ax, r10
- 979 06e5 BD F4                   		movw	r12, ax
- 980 06e7 DA F4                   		movw	bc, r12
- 981 06e9 8D F0                   		mov	a, r8
- 982 06eb 48 00 00                		mov	[bc], a
+ 973                             		.loc 1 237 0
+ 974 06cf C9 F2 01 FF             		movw	r10, #-255
+ 975 06d3 C9 F0 01 FF             		movw	r8, #-255
+ 976 06d7 AD F0                   		movw	ax, r8
+ 977 06d9 BD F4                   		movw	r12, ax
+ 978 06db FA F4                   		movw	hl, r12
+ 979 06dd 8B                      		mov	a, [hl]
+ 980 06de 9D F0                   		mov	r8, a
+ 981 06e0 6A F0 04                		or	r8, #4
+ 982 06e3 AD F2                   		movw	ax, r10
+ 983 06e5 BD F4                   		movw	r12, ax
+ 984 06e7 DA F4                   		movw	bc, r12
+ 985 06e9 8D F0                   		mov	a, r8
+ 986 06eb 48 00 00                		mov	[bc], a
  238:../src/r_cg_serial.c ****     PM1 &= 0xFBU;
- 983                             		.loc 1 238 0
- 984 06ee C9 F2 21 FF             		movw	r10, #-223
- 985 06f2 C9 F0 21 FF             		movw	r8, #-223
- 986 06f6 AD F0                   		movw	ax, r8
- 987 06f8 BD F4                   		movw	r12, ax
- 988 06fa FA F4                   		movw	hl, r12
- 989 06fc 8B                      		mov	a, [hl]
- 990 06fd 9D F0                   		mov	r8, a
- 991 06ff 5A F0 FB                		and	r8, #-5
- 992 0702 AD F2                   		movw	ax, r10
- 993 0704 BD F4                   		movw	r12, ax
- 994 0706 DA F4                   		movw	bc, r12
- 995 0708 8D F0                   		mov	a, r8
- 996 070a 48 00 00                		mov	[bc], a
+ 987                             		.loc 1 238 0
+ 988 06ee C9 F2 21 FF             		movw	r10, #-223
+ 989 06f2 C9 F0 21 FF             		movw	r8, #-223
+ 990 06f6 AD F0                   		movw	ax, r8
+ 991 06f8 BD F4                   		movw	r12, ax
+ 992 06fa FA F4                   		movw	hl, r12
+ 993 06fc 8B                      		mov	a, [hl]
+ 994 06fd 9D F0                   		mov	r8, a
+ 995 06ff 5A F0 FB                		and	r8, #-5
+ 996 0702 AD F2                   		movw	ax, r10
+ 997 0704 BD F4                   		movw	r12, ax
+ 998 0706 DA F4                   		movw	bc, r12
+ 999 0708 8D F0                   		mov	a, r8
+ 1000 070a 48 00 00                		mov	[bc], a
  239:../src/r_cg_serial.c ****     /* Set SCK00 pin */
  240:../src/r_cg_serial.c ****     P1 |= 0x01U;
- 997                             		.loc 1 240 0
- 998 070d C9 F2 01 FF             		movw	r10, #-255
- 999 0711 C9 F0 01 FF             		movw	r8, #-255
- 1000 0715 AD F0                   		movw	ax, r8
- 1001 0717 BD F4                   		movw	r12, ax
- 1002 0719 FA F4                   		movw	hl, r12
- 1003 071b 8B                      		mov	a, [hl]
- 1004 071c 9D F0                   		mov	r8, a
- 1005 071e 6A F0 01                		or	r8, #1
- 1006 0721 AD F2                   		movw	ax, r10
- 1007 0723 BD F4                   		movw	r12, ax
- 1008 0725 DA F4                   		movw	bc, r12
- 1009 0727 8D F0                   		mov	a, r8
- 1010 0729 48 00 00                		mov	[bc], a
+ 1001                             		.loc 1 240 0
+ 1002 070d C9 F2 01 FF             		movw	r10, #-255
+ 1003 0711 C9 F0 01 FF             		movw	r8, #-255
+ 1004 0715 AD F0                   		movw	ax, r8
+ 1005 0717 BD F4                   		movw	r12, ax
+ 1006 0719 FA F4                   		movw	hl, r12
+ 1007 071b 8B                      		mov	a, [hl]
+ 1008 071c 9D F0                   		mov	r8, a
+ 1009 071e 6A F0 01                		or	r8, #1
+ 1010 0721 AD F2                   		movw	ax, r10
+ 1011 0723 BD F4                   		movw	r12, ax
+ 1012 0725 DA F4                   		movw	bc, r12
+ 1013 0727 8D F0                   		mov	a, r8
+ 1014 0729 48 00 00                		mov	[bc], a
  241:../src/r_cg_serial.c ****     PM1 &= 0xFEU;
- 1011                             		.loc 1 241 0
- 1012 072c C9 F2 21 FF             		movw	r10, #-223
- 1013 0730 C9 F0 21 FF             		movw	r8, #-223
- 1014 0734 AD F0                   		movw	ax, r8
- 1015 0736 BD F4                   		movw	r12, ax
- 1016 0738 FA F4                   		movw	hl, r12
- 1017 073a 8B                      		mov	a, [hl]
- 1018 073b 9D F0                   		mov	r8, a
- 1019 073d 5A F0 FE                		and	r8, #-2
- 1020 0740 AD F2                   		movw	ax, r10
- 1021 0742 BD F4                   		movw	r12, ax
- 1022 0744 DA F4                   		movw	bc, r12
- 1023 0746 8D F0                   		mov	a, r8
- 1024 0748 48 00 00                		mov	[bc], a
+ 1015                             		.loc 1 241 0
+ 1016 072c C9 F2 21 FF             		movw	r10, #-223
+ 1017 0730 C9 F0 21 FF             		movw	r8, #-223
+ 1018 0734 AD F0                   		movw	ax, r8
+ 1019 0736 BD F4                   		movw	r12, ax
+ 1020 0738 FA F4                   		movw	hl, r12
+ 1021 073a 8B                      		mov	a, [hl]
+ 1022 073b 9D F0                   		mov	r8, a
+ 1023 073d 5A F0 FE                		and	r8, #-2
+ 1024 0740 AD F2                   		movw	ax, r10
+ 1025 0742 BD F4                   		movw	r12, ax
+ 1026 0744 DA F4                   		movw	bc, r12
+ 1027 0746 8D F0                   		mov	a, r8
+ 1028 0748 48 00 00                		mov	[bc], a
  242:../src/r_cg_serial.c **** }
- 1025                             		.loc 1 242 0
- 1026 074b 61 EF                   		sel	rb2
- 1027 074d C2                      		pop	bc ; r18
- 1028 074e C0                      		pop	ax ; r16
- 1029 074f 61 CF                   		sel	rb0
- 1030 0751 D7                      		ret
- 1031                             	.LFE6:
- 1033                             		.global	_R_CSI00_Start
- 1035                             	_R_CSI00_Start:
- 1036                             	.LFB7:
+ 1029                             		.loc 1 242 0
+ 1030 074b 61 EF                   		sel	rb2
+ 1031 074d C2                      		pop	bc ; r18
+ 1032 074e C0                      		pop	ax ; r16
+ 1033 074f 61 CF                   		sel	rb0
+ 1034 0751 D7                      		ret
+ 1035                             	.LFE6:
+ 1037                             		.global	_R_CSI00_Start
+ 1039                             	_R_CSI00_Start:
+ 1040                             	.LFB7:
  243:../src/r_cg_serial.c **** 
  244:../src/r_cg_serial.c **** /**************************************************************************************************
  245:../src/r_cg_serial.c **** * Function Name: R_CSI00_Start
@@ -1270,126 +1274,126 @@
  249:../src/r_cg_serial.c **** ***************************************************************************************************
  250:../src/r_cg_serial.c **** void R_CSI00_Start(void)
  251:../src/r_cg_serial.c **** {
- 1037                             		.loc 1 251 0
- 1038                             		; start of function
- 1039                             		; push 4: r16 r18
- 1040 0752 61 EF                   		sel	rb2
- 1041 0754 C1                      		push	ax ; r16
- 1042                             	.LCFI6:
- 1043 0755 C3                      		push	bc ; r18
- 1044                             	.LCFI7:
- 1045 0756 61 CF                   		sel	rb0
+ 1041                             		.loc 1 251 0
+ 1042                             		; start of function
+ 1043                             		; push 4: r16 r18
+ 1044 0752 61 EF                   		sel	rb2
+ 1045 0754 C1                      		push	ax ; r16
+ 1046                             	.LCFI6:
+ 1047 0755 C3                      		push	bc ; r18
+ 1048                             	.LCFI7:
+ 1049 0756 61 CF                   		sel	rb0
  252:../src/r_cg_serial.c ****     SO0 &= ~_0100_SAU_CH0_CLOCK_OUTPUT_1;   /* CSI00 clock initial level */
- 1046                             		.loc 1 252 0
- 1047 0758 C9 EA 28 01             		movw	r18, #296
- 1048 075c C9 E8 28 01             		movw	r16, #296
- 1049 0760 FA E8                   		movw	hl, r16
- 1050 0762 AB                      		movw	ax, [hl]
- 1051 0763 BD E8                   		movw	r16, ax
- 1052 0765 8D E8                   		mov	a, r16
- 1053 0767 5C FF                   		and	a, #-1
- 1054 0769 9D F6                   		mov	r14, a
- 1055 076b 8D E9                   		mov	a, r17
- 1056 076d 5C FE                   		and	a, #-2
- 1057 076f 9D F7                   		mov	r15, a
- 1058 0771 DA EA                   		movw	bc, r18
- 1059 0773 AD F6                   		movw	ax, r14
- 1060 0775 78 00 00                		movw	[bc], ax
+ 1050                             		.loc 1 252 0
+ 1051 0758 C9 EA 28 01             		movw	r18, #296
+ 1052 075c C9 E8 28 01             		movw	r16, #296
+ 1053 0760 FA E8                   		movw	hl, r16
+ 1054 0762 AB                      		movw	ax, [hl]
+ 1055 0763 BD E8                   		movw	r16, ax
+ 1056 0765 8D E8                   		mov	a, r16
+ 1057 0767 5C FF                   		and	a, #-1
+ 1058 0769 9D F6                   		mov	r14, a
+ 1059 076b 8D E9                   		mov	a, r17
+ 1060 076d 5C FE                   		and	a, #-2
+ 1061 076f 9D F7                   		mov	r15, a
+ 1062 0771 DA EA                   		movw	bc, r18
+ 1063 0773 AD F6                   		movw	ax, r14
+ 1064 0775 78 00 00                		movw	[bc], ax
  253:../src/r_cg_serial.c ****     SO0 &= ~_0001_SAU_CH0_DATA_OUTPUT_1;           /* CSI00 SO initial level */
- 1061                             		.loc 1 253 0
- 1062 0778 C9 E8 28 01             		movw	r16, #296
- 1063 077c C9 F6 28 01             		movw	r14, #296
- 1064 0780 AD F6                   		movw	ax, r14
- 1065 0782 BD F0                   		movw	r8, ax
- 1066 0784 FA F0                   		movw	hl, r8
- 1067 0786 AB                      		movw	ax, [hl]
- 1068 0787 BD F6                   		movw	r14, ax
- 1069 0789 8D F6                   		mov	a, r14
- 1070 078b 5C FE                   		and	a, #-2
- 1071 078d 9D F4                   		mov	r12, a
- 1072 078f 8D F7                   		mov	a, r15
- 1073 0791 5C FF                   		and	a, #-1
- 1074 0793 9D F5                   		mov	r13, a
- 1075 0795 DA E8                   		movw	bc, r16
- 1076 0797 AD F4                   		movw	ax, r12
- 1077 0799 78 00 00                		movw	[bc], ax
+ 1065                             		.loc 1 253 0
+ 1066 0778 C9 E8 28 01             		movw	r16, #296
+ 1067 077c C9 F6 28 01             		movw	r14, #296
+ 1068 0780 AD F6                   		movw	ax, r14
+ 1069 0782 BD F0                   		movw	r8, ax
+ 1070 0784 FA F0                   		movw	hl, r8
+ 1071 0786 AB                      		movw	ax, [hl]
+ 1072 0787 BD F6                   		movw	r14, ax
+ 1073 0789 8D F6                   		mov	a, r14
+ 1074 078b 5C FE                   		and	a, #-2
+ 1075 078d 9D F4                   		mov	r12, a
+ 1076 078f 8D F7                   		mov	a, r15
+ 1077 0791 5C FF                   		and	a, #-1
+ 1078 0793 9D F5                   		mov	r13, a
+ 1079 0795 DA E8                   		movw	bc, r16
+ 1080 0797 AD F4                   		movw	ax, r12
+ 1081 0799 78 00 00                		movw	[bc], ax
  254:../src/r_cg_serial.c ****     SOE0 |= _0001_SAU_CH0_OUTPUT_ENABLE;           /* enable CSI00 output */
- 1078                             		.loc 1 254 0
- 1079 079c C9 F6 2A 01             		movw	r14, #298
- 1080 07a0 C9 F4 2A 01             		movw	r12, #298
- 1081 07a4 AD F4                   		movw	ax, r12
- 1082 07a6 BD F2                   		movw	r10, ax
- 1083 07a8 FA F2                   		movw	hl, r10
- 1084 07aa AB                      		movw	ax, [hl]
- 1085 07ab BD F4                   		movw	r12, ax
- 1086 07ad 8D F4                   		mov	a, r12
- 1087 07af 6C 01                   		or	a, #1
- 1088 07b1 9D F2                   		mov	r10, a
- 1089 07b3 8D F5                   		mov	a, r13
- 1090 07b5 6C 00                   		or	a, #0
- 1091 07b7 9D F3                   		mov	r11, a
- 1092 07b9 AD F6                   		movw	ax, r14
- 1093 07bb BD F4                   		movw	r12, ax
- 1094 07bd DA F4                   		movw	bc, r12
- 1095 07bf AD F2                   		movw	ax, r10
- 1096 07c1 78 00 00                		movw	[bc], ax
+ 1082                             		.loc 1 254 0
+ 1083 079c C9 F6 2A 01             		movw	r14, #298
+ 1084 07a0 C9 F4 2A 01             		movw	r12, #298
+ 1085 07a4 AD F4                   		movw	ax, r12
+ 1086 07a6 BD F2                   		movw	r10, ax
+ 1087 07a8 FA F2                   		movw	hl, r10
+ 1088 07aa AB                      		movw	ax, [hl]
+ 1089 07ab BD F4                   		movw	r12, ax
+ 1090 07ad 8D F4                   		mov	a, r12
+ 1091 07af 6C 01                   		or	a, #1
+ 1092 07b1 9D F2                   		mov	r10, a
+ 1093 07b3 8D F5                   		mov	a, r13
+ 1094 07b5 6C 00                   		or	a, #0
+ 1095 07b7 9D F3                   		mov	r11, a
+ 1096 07b9 AD F6                   		movw	ax, r14
+ 1097 07bb BD F4                   		movw	r12, ax
+ 1098 07bd DA F4                   		movw	bc, r12
+ 1099 07bf AD F2                   		movw	ax, r10
+ 1100 07c1 78 00 00                		movw	[bc], ax
  255:../src/r_cg_serial.c ****     SS0 |= _0001_SAU_CH0_START_TRG_ON;             /* enable CSI00 */
- 1097                             		.loc 1 255 0
- 1098 07c4 C9 F4 22 01             		movw	r12, #290
- 1099 07c8 C9 F2 22 01             		movw	r10, #290
- 1100 07cc AD F2                   		movw	ax, r10
- 1101 07ce BD F0                   		movw	r8, ax
- 1102 07d0 FA F0                   		movw	hl, r8
- 1103 07d2 AB                      		movw	ax, [hl]
- 1104 07d3 BD F2                   		movw	r10, ax
- 1105 07d5 8D F2                   		mov	a, r10
- 1106 07d7 6C 01                   		or	a, #1
- 1107 07d9 9D F0                   		mov	r8, a
- 1108 07db 8D F3                   		mov	a, r11
- 1109 07dd 6C 00                   		or	a, #0
- 1110 07df 9D F1                   		mov	r9, a
- 1111 07e1 AD F4                   		movw	ax, r12
- 1112 07e3 BD F2                   		movw	r10, ax
- 1113 07e5 DA F2                   		movw	bc, r10
- 1114 07e7 AD F0                   		movw	ax, r8
- 1115 07e9 78 00 00                		movw	[bc], ax
+ 1101                             		.loc 1 255 0
+ 1102 07c4 C9 F4 22 01             		movw	r12, #290
+ 1103 07c8 C9 F2 22 01             		movw	r10, #290
+ 1104 07cc AD F2                   		movw	ax, r10
+ 1105 07ce BD F0                   		movw	r8, ax
+ 1106 07d0 FA F0                   		movw	hl, r8
+ 1107 07d2 AB                      		movw	ax, [hl]
+ 1108 07d3 BD F2                   		movw	r10, ax
+ 1109 07d5 8D F2                   		mov	a, r10
+ 1110 07d7 6C 01                   		or	a, #1
+ 1111 07d9 9D F0                   		mov	r8, a
+ 1112 07db 8D F3                   		mov	a, r11
+ 1113 07dd 6C 00                   		or	a, #0
+ 1114 07df 9D F1                   		mov	r9, a
+ 1115 07e1 AD F4                   		movw	ax, r12
+ 1116 07e3 BD F2                   		movw	r10, ax
+ 1117 07e5 DA F2                   		movw	bc, r10
+ 1118 07e7 AD F0                   		movw	ax, r8
+ 1119 07e9 78 00 00                		movw	[bc], ax
  256:../src/r_cg_serial.c ****     CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
- 1116                             		.loc 1 256 0
- 1117 07ec C9 F0 E1 FF             		movw	r8, #-31
- 1118 07f0 AD F0                   		movw	ax, r8
- 1119 07f2 BD F4                   		movw	r12, ax
- 1120 07f4 FA F4                   		movw	hl, r12
- 1121 07f6 8B                      		mov	a, [hl]
- 1122 07f7 9D F2                   		mov	r10, a
- 1123 07f9 5A F2 DF                		and	r10, #-33
- 1124 07fc AD F0                   		movw	ax, r8
- 1125 07fe DA F4                   		movw	bc, r12
- 1126 0800 8D F2                   		mov	a, r10
- 1127 0802 48 00 00                		mov	[bc], a
+ 1120                             		.loc 1 256 0
+ 1121 07ec C9 F0 E1 FF             		movw	r8, #-31
+ 1122 07f0 AD F0                   		movw	ax, r8
+ 1123 07f2 BD F4                   		movw	r12, ax
+ 1124 07f4 FA F4                   		movw	hl, r12
+ 1125 07f6 8B                      		mov	a, [hl]
+ 1126 07f7 9D F2                   		mov	r10, a
+ 1127 07f9 5A F2 DF                		and	r10, #-33
+ 1128 07fc AD F0                   		movw	ax, r8
+ 1129 07fe DA F4                   		movw	bc, r12
+ 1130 0800 8D F2                   		mov	a, r10
+ 1131 0802 48 00 00                		mov	[bc], a
  257:../src/r_cg_serial.c ****     CSIMK00 = 0U;    /* enable INTCSI00 */
- 1128                             		.loc 1 257 0
- 1129 0805 C9 F0 E5 FF             		movw	r8, #-27
- 1130 0809 AD F0                   		movw	ax, r8
- 1131 080b BD F4                   		movw	r12, ax
- 1132 080d FA F4                   		movw	hl, r12
- 1133 080f 8B                      		mov	a, [hl]
- 1134 0810 9D F2                   		mov	r10, a
- 1135 0812 5A F2 DF                		and	r10, #-33
- 1136 0815 AD F0                   		movw	ax, r8
- 1137 0817 DA F4                   		movw	bc, r12
- 1138 0819 8D F2                   		mov	a, r10
- 1139 081b 48 00 00                		mov	[bc], a
+ 1132                             		.loc 1 257 0
+ 1133 0805 C9 F0 E5 FF             		movw	r8, #-27
+ 1134 0809 AD F0                   		movw	ax, r8
+ 1135 080b BD F4                   		movw	r12, ax
+ 1136 080d FA F4                   		movw	hl, r12
+ 1137 080f 8B                      		mov	a, [hl]
+ 1138 0810 9D F2                   		mov	r10, a
+ 1139 0812 5A F2 DF                		and	r10, #-33
+ 1140 0815 AD F0                   		movw	ax, r8
+ 1141 0817 DA F4                   		movw	bc, r12
+ 1142 0819 8D F2                   		mov	a, r10
+ 1143 081b 48 00 00                		mov	[bc], a
  258:../src/r_cg_serial.c **** }
- 1140                             		.loc 1 258 0
- 1141 081e 61 EF                   		sel	rb2
- 1142 0820 C2                      		pop	bc ; r18
- 1143 0821 C0                      		pop	ax ; r16
- 1144 0822 61 CF                   		sel	rb0
- 1145 0824 D7                      		ret
- 1146                             	.LFE7:
- 1148                             		.global	_R_CSI00_Stop
- 1150                             	_R_CSI00_Stop:
- 1151                             	.LFB8:
+ 1144                             		.loc 1 258 0
+ 1145 081e 61 EF                   		sel	rb2
+ 1146 0820 C2                      		pop	bc ; r18
+ 1147 0821 C0                      		pop	ax ; r16
+ 1148 0822 61 CF                   		sel	rb0
+ 1149 0824 D7                      		ret
+ 1150                             	.LFE7:
+ 1152                             		.global	_R_CSI00_Stop
+ 1154                             	_R_CSI00_Stop:
+ 1155                             	.LFB8:
  259:../src/r_cg_serial.c **** 
  260:../src/r_cg_serial.c **** /**************************************************************************************************
  261:../src/r_cg_serial.c **** * Function Name: R_CSI00_Stop
@@ -1399,81 +1403,81 @@
  265:../src/r_cg_serial.c **** ***************************************************************************************************
  266:../src/r_cg_serial.c **** void R_CSI00_Stop(void)
  267:../src/r_cg_serial.c **** {
- 1152                             		.loc 1 267 0
+ 1156                             		.loc 1 267 0
  268:../src/r_cg_serial.c ****     CSIMK00 = 1U;    /* disable INTCSI00 interrupt */
- 1153                             		.loc 1 268 0
- 1154 0825 C9 F4 E5 FF             		movw	r12, #-27
- 1155 0829 AD F4                   		movw	ax, r12
- 1156 082b BD F0                   		movw	r8, ax
- 1157 082d FA F0                   		movw	hl, r8
- 1158 082f 8B                      		mov	a, [hl]
- 1159 0830 9D F6                   		mov	r14, a
- 1160 0832 6A F6 20                		or	r14, #32
- 1161 0835 AD F4                   		movw	ax, r12
- 1162 0837 BD F2                   		movw	r10, ax
- 1163 0839 DA F2                   		movw	bc, r10
- 1164 083b 8D F6                   		mov	a, r14
- 1165 083d 48 00 00                		mov	[bc], a
+ 1157                             		.loc 1 268 0
+ 1158 0825 C9 F4 E5 FF             		movw	r12, #-27
+ 1159 0829 AD F4                   		movw	ax, r12
+ 1160 082b BD F0                   		movw	r8, ax
+ 1161 082d FA F0                   		movw	hl, r8
+ 1162 082f 8B                      		mov	a, [hl]
+ 1163 0830 9D F6                   		mov	r14, a
+ 1164 0832 6A F6 20                		or	r14, #32
+ 1165 0835 AD F4                   		movw	ax, r12
+ 1166 0837 BD F2                   		movw	r10, ax
+ 1167 0839 DA F2                   		movw	bc, r10
+ 1168 083b 8D F6                   		mov	a, r14
+ 1169 083d 48 00 00                		mov	[bc], a
  269:../src/r_cg_serial.c ****     ST0 |= _0001_SAU_CH0_STOP_TRG_ON;        /* disable CSI00 */
- 1166                             		.loc 1 269 0
- 1167 0840 C9 F6 24 01             		movw	r14, #292
- 1168 0844 C9 F4 24 01             		movw	r12, #292
- 1169 0848 AD F4                   		movw	ax, r12
- 1170 084a BD F0                   		movw	r8, ax
- 1171 084c FA F0                   		movw	hl, r8
- 1172 084e AB                      		movw	ax, [hl]
- 1173 084f BD F4                   		movw	r12, ax
- 1174 0851 8D F4                   		mov	a, r12
- 1175 0853 6C 01                   		or	a, #1
- 1176 0855 9D F2                   		mov	r10, a
- 1177 0857 8D F5                   		mov	a, r13
- 1178 0859 6C 00                   		or	a, #0
- 1179 085b 9D F3                   		mov	r11, a
- 1180 085d AD F6                   		movw	ax, r14
- 1181 085f BD F4                   		movw	r12, ax
- 1182 0861 DA F4                   		movw	bc, r12
- 1183 0863 AD F2                   		movw	ax, r10
- 1184 0865 78 00 00                		movw	[bc], ax
+ 1170                             		.loc 1 269 0
+ 1171 0840 C9 F6 24 01             		movw	r14, #292
+ 1172 0844 C9 F4 24 01             		movw	r12, #292
+ 1173 0848 AD F4                   		movw	ax, r12
+ 1174 084a BD F0                   		movw	r8, ax
+ 1175 084c FA F0                   		movw	hl, r8
+ 1176 084e AB                      		movw	ax, [hl]
+ 1177 084f BD F4                   		movw	r12, ax
+ 1178 0851 8D F4                   		mov	a, r12
+ 1179 0853 6C 01                   		or	a, #1
+ 1180 0855 9D F2                   		mov	r10, a
+ 1181 0857 8D F5                   		mov	a, r13
+ 1182 0859 6C 00                   		or	a, #0
+ 1183 085b 9D F3                   		mov	r11, a
+ 1184 085d AD F6                   		movw	ax, r14
+ 1185 085f BD F4                   		movw	r12, ax
+ 1186 0861 DA F4                   		movw	bc, r12
+ 1187 0863 AD F2                   		movw	ax, r10
+ 1188 0865 78 00 00                		movw	[bc], ax
  270:../src/r_cg_serial.c ****     SOE0 &= ~_0001_SAU_CH0_OUTPUT_ENABLE;    /* disable CSI00 output */
- 1185                             		.loc 1 270 0
- 1186 0868 C9 F4 2A 01             		movw	r12, #298
- 1187 086c C9 F2 2A 01             		movw	r10, #298
- 1188 0870 AD F2                   		movw	ax, r10
- 1189 0872 BD F0                   		movw	r8, ax
- 1190 0874 FA F0                   		movw	hl, r8
- 1191 0876 AB                      		movw	ax, [hl]
- 1192 0877 BD F2                   		movw	r10, ax
- 1193 0879 8D F2                   		mov	a, r10
- 1194 087b 5C FE                   		and	a, #-2
- 1195 087d 9D F0                   		mov	r8, a
- 1196 087f 8D F3                   		mov	a, r11
- 1197 0881 5C FF                   		and	a, #-1
- 1198 0883 9D F1                   		mov	r9, a
- 1199 0885 AD F4                   		movw	ax, r12
- 1200 0887 BD F2                   		movw	r10, ax
- 1201 0889 DA F2                   		movw	bc, r10
- 1202 088b AD F0                   		movw	ax, r8
- 1203 088d 78 00 00                		movw	[bc], ax
+ 1189                             		.loc 1 270 0
+ 1190 0868 C9 F4 2A 01             		movw	r12, #298
+ 1191 086c C9 F2 2A 01             		movw	r10, #298
+ 1192 0870 AD F2                   		movw	ax, r10
+ 1193 0872 BD F0                   		movw	r8, ax
+ 1194 0874 FA F0                   		movw	hl, r8
+ 1195 0876 AB                      		movw	ax, [hl]
+ 1196 0877 BD F2                   		movw	r10, ax
+ 1197 0879 8D F2                   		mov	a, r10
+ 1198 087b 5C FE                   		and	a, #-2
+ 1199 087d 9D F0                   		mov	r8, a
+ 1200 087f 8D F3                   		mov	a, r11
+ 1201 0881 5C FF                   		and	a, #-1
+ 1202 0883 9D F1                   		mov	r9, a
+ 1203 0885 AD F4                   		movw	ax, r12
+ 1204 0887 BD F2                   		movw	r10, ax
+ 1205 0889 DA F2                   		movw	bc, r10
+ 1206 088b AD F0                   		movw	ax, r8
+ 1207 088d 78 00 00                		movw	[bc], ax
  271:../src/r_cg_serial.c ****     CSIIF00 = 0U;    /* clear INTCSI00 interrupt flag */
- 1204                             		.loc 1 271 0
- 1205 0890 C9 F0 E1 FF             		movw	r8, #-31
- 1206 0894 AD F0                   		movw	ax, r8
- 1207 0896 BD F4                   		movw	r12, ax
- 1208 0898 FA F4                   		movw	hl, r12
- 1209 089a 8B                      		mov	a, [hl]
- 1210 089b 9D F2                   		mov	r10, a
- 1211 089d 5A F2 DF                		and	r10, #-33
- 1212 08a0 AD F0                   		movw	ax, r8
- 1213 08a2 DA F4                   		movw	bc, r12
- 1214 08a4 8D F2                   		mov	a, r10
- 1215 08a6 48 00 00                		mov	[bc], a
+ 1208                             		.loc 1 271 0
+ 1209 0890 C9 F0 E1 FF             		movw	r8, #-31
+ 1210 0894 AD F0                   		movw	ax, r8
+ 1211 0896 BD F4                   		movw	r12, ax
+ 1212 0898 FA F4                   		movw	hl, r12
+ 1213 089a 8B                      		mov	a, [hl]
+ 1214 089b 9D F2                   		mov	r10, a
+ 1215 089d 5A F2 DF                		and	r10, #-33
+ 1216 08a0 AD F0                   		movw	ax, r8
+ 1217 08a2 DA F4                   		movw	bc, r12
+ 1218 08a4 8D F2                   		mov	a, r10
+ 1219 08a6 48 00 00                		mov	[bc], a
  272:../src/r_cg_serial.c **** }
- 1216                             		.loc 1 272 0
- 1217 08a9 D7                      		ret
- 1218                             	.LFE8:
- 1220                             		.global	_R_CSI00_Send_Receive
- 1222                             	_R_CSI00_Send_Receive:
- 1223                             	.LFB9:
+ 1220                             		.loc 1 272 0
+ 1221 08a9 D7                      		ret
+ 1222                             	.LFE8:
+ 1224                             		.global	_R_CSI00_Send_Receive
+ 1226                             	_R_CSI00_Send_Receive:
+ 1227                             	.LFB9:
  273:../src/r_cg_serial.c **** 
  274:../src/r_cg_serial.c **** /**************************************************************************************************
  275:../src/r_cg_serial.c **** * Function Name: R_CSI00_Send_Receive
@@ -1489,165 +1493,165 @@
  285:../src/r_cg_serial.c **** ***************************************************************************************************
  286:../src/r_cg_serial.c **** MD_STATUS R_CSI00_Send_Receive(uint8_t * const tx_buf, uint16_t tx_num, uint8_t * const rx_buf)
  287:../src/r_cg_serial.c **** {
- 1224                             		.loc 1 287 0
- 1225                             		; start of function
- 1226                             		; locals: 2 bytes
- 1227 08aa 20 02                   		subw	sp, #2
- 1228                             	.LCFI8:
+ 1228                             		.loc 1 287 0
+ 1229                             		; start of function
+ 1230                             		; locals: 2 bytes
+ 1231 08aa 20 02                   		subw	sp, #2
+ 1232                             	.LCFI8:
  288:../src/r_cg_serial.c ****     MD_STATUS status = MD_OK;
- 1229                             		.loc 1 288 0
- 1230 08ac F6                      		clrw	ax
- 1231 08ad B8 00                   		movw	[sp], ax
+ 1233                             		.loc 1 288 0
+ 1234 08ac F6                      		clrw	ax
+ 1235 08ad B8 00                   		movw	[sp], ax
  289:../src/r_cg_serial.c **** 
  290:../src/r_cg_serial.c ****     if (tx_num < 1U)
- 1232                             		.loc 1 290 0
- 1233 08af A8 08                   		movw	ax, [sp+8]
- 1234 08b1 44 00 00                		cmpw	ax, #0
- 1235 08b4 61 E8                   		 skz
- 1236 08b6 EC C3 08 00             		 br	!!.L17
+ 1236                             		.loc 1 290 0
+ 1237 08af A8 08                   		movw	ax, [sp+8]
+ 1238 08b1 44 00 00                		cmpw	ax, #0
+ 1239 08b4 61 E8                   		 skz
+ 1240 08b6 EC C3 08 00             		 br	!!.L17
  291:../src/r_cg_serial.c ****     {
  292:../src/r_cg_serial.c ****         status = MD_ARGERROR;
- 1237                             		.loc 1 292 0
- 1238 08ba 30 81 00                		movw	ax, #129
- 1239 08bd B8 00                   		movw	[sp], ax
- 1240 08bf EC 8D 09 00             		br	!!.L18
- 1241                             	.L17:
+ 1241                             		.loc 1 292 0
+ 1242 08ba 30 81 00                		movw	ax, #129
+ 1243 08bd B8 00                   		movw	[sp], ax
+ 1244 08bf EC 8D 09 00             		br	!!.L18
+ 1245                             	.L17:
  293:../src/r_cg_serial.c ****     }
  294:../src/r_cg_serial.c ****     else
  295:../src/r_cg_serial.c ****     {
  296:../src/r_cg_serial.c ****         g_csi00_send_length = tx_num;     /* send data length */
- 1242                             		.loc 1 296 0
- 1243 08c3 A8 08                   		movw	ax, [sp+8]
- 1244 08c5 BD F2                   		movw	r10, ax
- 1245 08c7 BF 00 00                		movw	!_g_csi00_send_length, ax
+ 1246                             		.loc 1 296 0
+ 1247 08c3 A8 08                   		movw	ax, [sp+8]
+ 1248 08c5 BD F2                   		movw	r10, ax
+ 1249 08c7 BF 00 00                		movw	!_g_csi00_send_length, ax
  297:../src/r_cg_serial.c ****         g_csi00_tx_count = tx_num;        /* send data count */
- 1246                             		.loc 1 297 0
- 1247 08ca A8 08                   		movw	ax, [sp+8]
- 1248 08cc BD F2                   		movw	r10, ax
- 1249 08ce BF 00 00                		movw	!_g_csi00_tx_count, ax
+ 1250                             		.loc 1 297 0
+ 1251 08ca A8 08                   		movw	ax, [sp+8]
+ 1252 08cc BD F2                   		movw	r10, ax
+ 1253 08ce BF 00 00                		movw	!_g_csi00_tx_count, ax
  298:../src/r_cg_serial.c ****         gp_csi00_tx_address = tx_buf;     /* send buffer pointer */
- 1250                             		.loc 1 298 0
- 1251 08d1 A8 06                   		movw	ax, [sp+6]
- 1252 08d3 BD F2                   		movw	r10, ax
- 1253 08d5 BF 00 00                		movw	!_gp_csi00_tx_address, ax
+ 1254                             		.loc 1 298 0
+ 1255 08d1 A8 06                   		movw	ax, [sp+6]
+ 1256 08d3 BD F2                   		movw	r10, ax
+ 1257 08d5 BF 00 00                		movw	!_gp_csi00_tx_address, ax
  299:../src/r_cg_serial.c ****         gp_csi00_rx_address = rx_buf;     /* receive buffer pointer */
- 1254                             		.loc 1 299 0
- 1255 08d8 A8 0A                   		movw	ax, [sp+10]
- 1256 08da BD F2                   		movw	r10, ax
- 1257 08dc BF 00 00                		movw	!_gp_csi00_rx_address, ax
+ 1258                             		.loc 1 299 0
+ 1259 08d8 A8 0A                   		movw	ax, [sp+10]
+ 1260 08da BD F2                   		movw	r10, ax
+ 1261 08dc BF 00 00                		movw	!_gp_csi00_rx_address, ax
  300:../src/r_cg_serial.c ****         SMR00 |= _0001_SAU_BUFFER_EMPTY;
- 1258                             		.loc 1 300 0
- 1259 08df C9 F4 10 01             		movw	r12, #272
- 1260 08e3 C9 F2 10 01             		movw	r10, #272
- 1261 08e7 AD F2                   		movw	ax, r10
- 1262 08e9 BD F0                   		movw	r8, ax
- 1263 08eb FA F0                   		movw	hl, r8
- 1264 08ed AB                      		movw	ax, [hl]
- 1265 08ee BD F2                   		movw	r10, ax
- 1266 08f0 8D F2                   		mov	a, r10
- 1267 08f2 6C 01                   		or	a, #1
- 1268 08f4 9D F0                   		mov	r8, a
- 1269 08f6 8D F3                   		mov	a, r11
- 1270 08f8 6C 00                   		or	a, #0
- 1271 08fa 9D F1                   		mov	r9, a
- 1272 08fc AD F4                   		movw	ax, r12
- 1273 08fe BD F2                   		movw	r10, ax
- 1274 0900 DA F2                   		movw	bc, r10
- 1275 0902 AD F0                   		movw	ax, r8
- 1276 0904 78 00 00                		movw	[bc], ax
+ 1262                             		.loc 1 300 0
+ 1263 08df C9 F4 10 01             		movw	r12, #272
+ 1264 08e3 C9 F2 10 01             		movw	r10, #272
+ 1265 08e7 AD F2                   		movw	ax, r10
+ 1266 08e9 BD F0                   		movw	r8, ax
+ 1267 08eb FA F0                   		movw	hl, r8
+ 1268 08ed AB                      		movw	ax, [hl]
+ 1269 08ee BD F2                   		movw	r10, ax
+ 1270 08f0 8D F2                   		mov	a, r10
+ 1271 08f2 6C 01                   		or	a, #1
+ 1272 08f4 9D F0                   		mov	r8, a
+ 1273 08f6 8D F3                   		mov	a, r11
+ 1274 08f8 6C 00                   		or	a, #0
+ 1275 08fa 9D F1                   		mov	r9, a
+ 1276 08fc AD F4                   		movw	ax, r12
+ 1277 08fe BD F2                   		movw	r10, ax
+ 1278 0900 DA F2                   		movw	bc, r10
+ 1279 0902 AD F0                   		movw	ax, r8
+ 1280 0904 78 00 00                		movw	[bc], ax
  301:../src/r_cg_serial.c ****         CSIMK00 = 1U;                     /* disable INTCSI00 interrupt */
- 1277                             		.loc 1 301 0
- 1278 0907 C9 F0 E5 FF             		movw	r8, #-27
- 1279 090b AD F0                   		movw	ax, r8
- 1280 090d BD F4                   		movw	r12, ax
- 1281 090f FA F4                   		movw	hl, r12
- 1282 0911 8B                      		mov	a, [hl]
- 1283 0912 9D F2                   		mov	r10, a
- 1284 0914 6A F2 20                		or	r10, #32
- 1285 0917 AD F0                   		movw	ax, r8
- 1286 0919 DA F4                   		movw	bc, r12
- 1287 091b 8D F2                   		mov	a, r10
- 1288 091d 48 00 00                		mov	[bc], a
+ 1281                             		.loc 1 301 0
+ 1282 0907 C9 F0 E5 FF             		movw	r8, #-27
+ 1283 090b AD F0                   		movw	ax, r8
+ 1284 090d BD F4                   		movw	r12, ax
+ 1285 090f FA F4                   		movw	hl, r12
+ 1286 0911 8B                      		mov	a, [hl]
+ 1287 0912 9D F2                   		mov	r10, a
+ 1288 0914 6A F2 20                		or	r10, #32
+ 1289 0917 AD F0                   		movw	ax, r8
+ 1290 0919 DA F4                   		movw	bc, r12
+ 1291 091b 8D F2                   		mov	a, r10
+ 1292 091d 48 00 00                		mov	[bc], a
  302:../src/r_cg_serial.c **** 
  303:../src/r_cg_serial.c ****         if (0U != gp_csi00_tx_address)
- 1289                             		.loc 1 303 0
- 1290 0920 AF 00 00                		movw	ax, !_gp_csi00_tx_address
- 1291 0923 BD F0                   		movw	r8, ax
- 1292 0925 44 00 00                		cmpw	ax, #0
- 1293 0928 61 F8                   		 sknz
- 1294 092a EC 59 09 00             		 br	!!.L19
+ 1293                             		.loc 1 303 0
+ 1294 0920 AF 00 00                		movw	ax, !_gp_csi00_tx_address
+ 1295 0923 BD F0                   		movw	r8, ax
+ 1296 0925 44 00 00                		cmpw	ax, #0
+ 1297 0928 61 F8                   		 sknz
+ 1298 092a EC 59 09 00             		 br	!!.L19
  304:../src/r_cg_serial.c ****         {
  305:../src/r_cg_serial.c ****             SIO00 = *gp_csi00_tx_address;    /* started by writing data to SDR[7:0] */
- 1295                             		.loc 1 305 0
- 1296 092e C9 F2 10 FF             		movw	r10, #-240
- 1297 0932 AF 00 00                		movw	ax, !_gp_csi00_tx_address
- 1298 0935 BD F0                   		movw	r8, ax
- 1299 0937 BD F4                   		movw	r12, ax
- 1300 0939 FA F4                   		movw	hl, r12
- 1301 093b 8B                      		mov	a, [hl]
- 1302 093c 9D F0                   		mov	r8, a
- 1303 093e AD F2                   		movw	ax, r10
- 1304 0940 BD F4                   		movw	r12, ax
- 1305 0942 DA F4                   		movw	bc, r12
- 1306 0944 8D F0                   		mov	a, r8
- 1307 0946 48 00 00                		mov	[bc], a
+ 1299                             		.loc 1 305 0
+ 1300 092e C9 F2 10 FF             		movw	r10, #-240
+ 1301 0932 AF 00 00                		movw	ax, !_gp_csi00_tx_address
+ 1302 0935 BD F0                   		movw	r8, ax
+ 1303 0937 BD F4                   		movw	r12, ax
+ 1304 0939 FA F4                   		movw	hl, r12
+ 1305 093b 8B                      		mov	a, [hl]
+ 1306 093c 9D F0                   		mov	r8, a
+ 1307 093e AD F2                   		movw	ax, r10
+ 1308 0940 BD F4                   		movw	r12, ax
+ 1309 0942 DA F4                   		movw	bc, r12
+ 1310 0944 8D F0                   		mov	a, r8
+ 1311 0946 48 00 00                		mov	[bc], a
  306:../src/r_cg_serial.c ****             gp_csi00_tx_address++;
- 1308                             		.loc 1 306 0
- 1309 0949 AF 00 00                		movw	ax, !_gp_csi00_tx_address
- 1310 094c BD F0                   		movw	r8, ax
- 1311 094e A6 F0                   		incw	r8
- 1312 0950 AD F0                   		movw	ax, r8
- 1313 0952 BF 00 00                		movw	!_gp_csi00_tx_address, ax
- 1314 0955 EC 68 09 00             		br	!!.L20
- 1315                             	.L19:
+ 1312                             		.loc 1 306 0
+ 1313 0949 AF 00 00                		movw	ax, !_gp_csi00_tx_address
+ 1314 094c BD F0                   		movw	r8, ax
+ 1315 094e A6 F0                   		incw	r8
+ 1316 0950 AD F0                   		movw	ax, r8
+ 1317 0952 BF 00 00                		movw	!_gp_csi00_tx_address, ax
+ 1318 0955 EC 68 09 00             		br	!!.L20
+ 1319                             	.L19:
  307:../src/r_cg_serial.c ****         }
  308:../src/r_cg_serial.c ****         else
  309:../src/r_cg_serial.c ****         {
  310:../src/r_cg_serial.c ****             SIO00 = 0xFFU;
- 1316                             		.loc 1 310 0
- 1317 0959 C9 F0 10 FF             		movw	r8, #-240
- 1318 095d AD F0                   		movw	ax, r8
- 1319 095f BD F2                   		movw	r10, ax
- 1320 0961 DA F2                   		movw	bc, r10
- 1321 0963 51 FF                   		mov	a, #-1
- 1322 0965 48 00 00                		mov	[bc], a
- 1323                             	.L20:
+ 1320                             		.loc 1 310 0
+ 1321 0959 C9 F0 10 FF             		movw	r8, #-240
+ 1322 095d AD F0                   		movw	ax, r8
+ 1323 095f BD F2                   		movw	r10, ax
+ 1324 0961 DA F2                   		movw	bc, r10
+ 1325 0963 51 FF                   		mov	a, #-1
+ 1326 0965 48 00 00                		mov	[bc], a
+ 1327                             	.L20:
  311:../src/r_cg_serial.c ****         }
  312:../src/r_cg_serial.c **** 
  313:../src/r_cg_serial.c ****         g_csi00_tx_count--;
- 1324                             		.loc 1 313 0
- 1325 0968 AF 00 00                		movw	ax, !_g_csi00_tx_count
- 1326 096b BD F0                   		movw	r8, ax
- 1327 096d B6 F0                   		decw	r8
- 1328 096f AD F0                   		movw	ax, r8
- 1329 0971 BF 00 00                		movw	!_g_csi00_tx_count, ax
+ 1328                             		.loc 1 313 0
+ 1329 0968 AF 00 00                		movw	ax, !_g_csi00_tx_count
+ 1330 096b BD F0                   		movw	r8, ax
+ 1331 096d B6 F0                   		decw	r8
+ 1332 096f AD F0                   		movw	ax, r8
+ 1333 0971 BF 00 00                		movw	!_g_csi00_tx_count, ax
  314:../src/r_cg_serial.c ****         CSIMK00 = 0U;                     /* enable INTCSI00 interrupt */
- 1330                             		.loc 1 314 0
- 1331 0974 C9 F0 E5 FF             		movw	r8, #-27
- 1332 0978 AD F0                   		movw	ax, r8
- 1333 097a BD F4                   		movw	r12, ax
- 1334 097c FA F4                   		movw	hl, r12
- 1335 097e 8B                      		mov	a, [hl]
- 1336 097f 9D F2                   		mov	r10, a
- 1337 0981 5A F2 DF                		and	r10, #-33
- 1338 0984 AD F0                   		movw	ax, r8
- 1339 0986 DA F4                   		movw	bc, r12
- 1340 0988 8D F2                   		mov	a, r10
- 1341 098a 48 00 00                		mov	[bc], a
- 1342                             	.L18:
+ 1334                             		.loc 1 314 0
+ 1335 0974 C9 F0 E5 FF             		movw	r8, #-27
+ 1336 0978 AD F0                   		movw	ax, r8
+ 1337 097a BD F4                   		movw	r12, ax
+ 1338 097c FA F4                   		movw	hl, r12
+ 1339 097e 8B                      		mov	a, [hl]
+ 1340 097f 9D F2                   		mov	r10, a
+ 1341 0981 5A F2 DF                		and	r10, #-33
+ 1342 0984 AD F0                   		movw	ax, r8
+ 1343 0986 DA F4                   		movw	bc, r12
+ 1344 0988 8D F2                   		mov	a, r10
+ 1345 098a 48 00 00                		mov	[bc], a
+ 1346                             	.L18:
  315:../src/r_cg_serial.c ****     }
  316:../src/r_cg_serial.c **** 
  317:../src/r_cg_serial.c ****     return (status);
- 1343                             		.loc 1 317 0
- 1344 098d A8 00                   		movw	ax, [sp]
- 1345 098f BD F0                   		movw	r8, ax
+ 1347                             		.loc 1 317 0
+ 1348 098d A8 00                   		movw	ax, [sp]
+ 1349 098f BD F0                   		movw	r8, ax
  318:../src/r_cg_serial.c **** }
- 1346                             		.loc 1 318 0
- 1347 0991 10 02                   		addw	sp, #2
- 1348 0993 D7                      		ret
- 1349                             	.LFE9:
- 1485                             	.Letext0:
- 1486                             		.file 2 "../src/iodefine.h"
- 1487                             		.file 3 "../src/iodefine_ext.h"
- 1488                             		.file 4 "../src/r_cg_macrodriver.h"
- 1489                             		.file 5 "../src/globals.h"
+ 1350                             		.loc 1 318 0
+ 1351 0991 10 02                   		addw	sp, #2
+ 1352 0993 D7                      		ret
+ 1353                             	.LFE9:
+ 1489                             	.Letext0:
+ 1490                             		.file 2 "../src/iodefine.h"
+ 1491                             		.file 3 "../src/iodefine_ext.h"
+ 1492                             		.file 4 "../src/r_cg_macrodriver.h"
+ 1493                             		.file 5 "../src/globals.h"

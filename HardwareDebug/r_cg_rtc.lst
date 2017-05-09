@@ -27,15 +27,19 @@
   27                             		.comm	_record,50,1
   28                             		.comm	_mem,50,1
   29                             		.comm	_display_string,50,1
-  30                             		.comm	_scrollFlag,1,1
-  31                             		.comm	_tempFlag,1,1
-  32                             		.comm	_scrollCount,2,2
-  33                             		.comm	_timerFlag,2,2
-  34                             		.comm	_count,2,2
-  35                             		.global	_R_RTC_Create
-  37                             	_R_RTC_Create:
-  38                             	.LFB0:
-  39                             		.file 1 "../src/r_cg_rtc.c"
+  30                             		.comm	_voltage,1,1
+  31                             		.comm	_current1,1,1
+  32                             		.comm	_current2,1,1
+  33                             		.comm	_date,6,1
+  34                             		.comm	_scrollFlag,1,1
+  35                             		.comm	_tempFlag,1,1
+  36                             		.comm	_secFlag,1,1
+  37                             		.comm	_scrollCount,2,2
+  38                             		.comm	_timerFlag,2,2
+  39                             		.global	_R_RTC_Create
+  41                             	_R_RTC_Create:
+  42                             	.LFB0:
+  43                             		.file 1 "../src/r_cg_rtc.c"
    1:../src/r_cg_rtc.c **** /**************************************************************************************************
    2:../src/r_cg_rtc.c **** * DISCLAIMER
    3:../src/r_cg_rtc.c **** * This software is supplied by Renesas Electronics Corporation and is only intended for use with Re
@@ -61,7 +65,7 @@
   23:../src/r_cg_rtc.c **** * Device(s)    : R5F100LE
   24:../src/r_cg_rtc.c **** * Tool-Chain   : GCCRL78
   25:../src/r_cg_rtc.c **** * Description  : This file implements device driver for RTC module.
-  26:../src/r_cg_rtc.c **** * Creation Date: 2017/05/07
+  26:../src/r_cg_rtc.c **** * Creation Date: 2017/05/08
   27:../src/r_cg_rtc.c **** ***************************************************************************************************
   28:../src/r_cg_rtc.c **** 
   29:../src/r_cg_rtc.c **** /**************************************************************************************************
@@ -87,158 +91,158 @@
   49:../src/r_cg_rtc.c **** ***************************************************************************************************
   50:../src/r_cg_rtc.c **** void R_RTC_Create(void)
   51:../src/r_cg_rtc.c **** {
-  40                             		.loc 1 51 0
+  44                             		.loc 1 51 0
   52:../src/r_cg_rtc.c ****     RTCEN = 1U;    /* supply RTC clock */
-  41                             		.loc 1 52 0
-  42 0000 C9 F0 F0 00             		movw	r8, #240
-  43 0004 AD F0                   		movw	ax, r8
-  44 0006 BD F4                   		movw	r12, ax
-  45 0008 FA F4                   		movw	hl, r12
-  46 000a 8B                      		mov	a, [hl]
-  47 000b 9D F2                   		mov	r10, a
-  48 000d 6A F2 80                		or	r10, #-128
-  49 0010 AD F0                   		movw	ax, r8
-  50 0012 DA F4                   		movw	bc, r12
-  51 0014 8D F2                   		mov	a, r10
-  52 0016 48 00 00                		mov	[bc], a
+  45                             		.loc 1 52 0
+  46 0000 C9 F0 F0 00             		movw	r8, #240
+  47 0004 AD F0                   		movw	ax, r8
+  48 0006 BD F4                   		movw	r12, ax
+  49 0008 FA F4                   		movw	hl, r12
+  50 000a 8B                      		mov	a, [hl]
+  51 000b 9D F2                   		mov	r10, a
+  52 000d 6A F2 80                		or	r10, #-128
+  53 0010 AD F0                   		movw	ax, r8
+  54 0012 DA F4                   		movw	bc, r12
+  55 0014 8D F2                   		mov	a, r10
+  56 0016 48 00 00                		mov	[bc], a
   53:../src/r_cg_rtc.c ****     RTCE = 0U;     /* disable RTC clock operation */
-  53                             		.loc 1 53 0
-  54 0019 C9 F0 9D FF             		movw	r8, #-99
-  55 001d AD F0                   		movw	ax, r8
-  56 001f BD F4                   		movw	r12, ax
-  57 0021 FA F4                   		movw	hl, r12
-  58 0023 8B                      		mov	a, [hl]
-  59 0024 9D F2                   		mov	r10, a
-  60 0026 5A F2 7F                		and	r10, #127
-  61 0029 AD F0                   		movw	ax, r8
-  62 002b DA F4                   		movw	bc, r12
-  63 002d 8D F2                   		mov	a, r10
-  64 002f 48 00 00                		mov	[bc], a
+  57                             		.loc 1 53 0
+  58 0019 C9 F0 9D FF             		movw	r8, #-99
+  59 001d AD F0                   		movw	ax, r8
+  60 001f BD F4                   		movw	r12, ax
+  61 0021 FA F4                   		movw	hl, r12
+  62 0023 8B                      		mov	a, [hl]
+  63 0024 9D F2                   		mov	r10, a
+  64 0026 5A F2 7F                		and	r10, #127
+  65 0029 AD F0                   		movw	ax, r8
+  66 002b DA F4                   		movw	bc, r12
+  67 002d 8D F2                   		mov	a, r10
+  68 002f 48 00 00                		mov	[bc], a
   54:../src/r_cg_rtc.c ****     RTCMK = 1U;    /* disable INTRTC interrupt */
-  65                             		.loc 1 54 0
-  66 0032 C9 F0 E7 FF             		movw	r8, #-25
-  67 0036 AD F0                   		movw	ax, r8
-  68 0038 BD F4                   		movw	r12, ax
-  69 003a FA F4                   		movw	hl, r12
-  70 003c 8B                      		mov	a, [hl]
-  71 003d 9D F2                   		mov	r10, a
-  72 003f 6A F2 02                		or	r10, #2
-  73 0042 AD F0                   		movw	ax, r8
-  74 0044 DA F4                   		movw	bc, r12
-  75 0046 8D F2                   		mov	a, r10
-  76 0048 48 00 00                		mov	[bc], a
+  69                             		.loc 1 54 0
+  70 0032 C9 F0 E7 FF             		movw	r8, #-25
+  71 0036 AD F0                   		movw	ax, r8
+  72 0038 BD F4                   		movw	r12, ax
+  73 003a FA F4                   		movw	hl, r12
+  74 003c 8B                      		mov	a, [hl]
+  75 003d 9D F2                   		mov	r10, a
+  76 003f 6A F2 02                		or	r10, #2
+  77 0042 AD F0                   		movw	ax, r8
+  78 0044 DA F4                   		movw	bc, r12
+  79 0046 8D F2                   		mov	a, r10
+  80 0048 48 00 00                		mov	[bc], a
   55:../src/r_cg_rtc.c ****     RTCIF = 0U;    /* clear INTRTC interrupt flag */
-  77                             		.loc 1 55 0
-  78 004b C9 F0 E3 FF             		movw	r8, #-29
-  79 004f AD F0                   		movw	ax, r8
-  80 0051 BD F4                   		movw	r12, ax
-  81 0053 FA F4                   		movw	hl, r12
-  82 0055 8B                      		mov	a, [hl]
-  83 0056 9D F2                   		mov	r10, a
-  84 0058 5A F2 FD                		and	r10, #-3
-  85 005b AD F0                   		movw	ax, r8
-  86 005d DA F4                   		movw	bc, r12
-  87 005f 8D F2                   		mov	a, r10
-  88 0061 48 00 00                		mov	[bc], a
+  81                             		.loc 1 55 0
+  82 004b C9 F0 E3 FF             		movw	r8, #-29
+  83 004f AD F0                   		movw	ax, r8
+  84 0051 BD F4                   		movw	r12, ax
+  85 0053 FA F4                   		movw	hl, r12
+  86 0055 8B                      		mov	a, [hl]
+  87 0056 9D F2                   		mov	r10, a
+  88 0058 5A F2 FD                		and	r10, #-3
+  89 005b AD F0                   		movw	ax, r8
+  90 005d DA F4                   		movw	bc, r12
+  91 005f 8D F2                   		mov	a, r10
+  92 0061 48 00 00                		mov	[bc], a
   56:../src/r_cg_rtc.c ****     /* Set INTRTC low priority */
   57:../src/r_cg_rtc.c ****     RTCPR1 = 1U;
-  89                             		.loc 1 57 0
-  90 0064 C9 F0 EF FF             		movw	r8, #-17
-  91 0068 AD F0                   		movw	ax, r8
-  92 006a BD F4                   		movw	r12, ax
-  93 006c FA F4                   		movw	hl, r12
-  94 006e 8B                      		mov	a, [hl]
-  95 006f 9D F2                   		mov	r10, a
-  96 0071 6A F2 02                		or	r10, #2
-  97 0074 AD F0                   		movw	ax, r8
-  98 0076 DA F4                   		movw	bc, r12
-  99 0078 8D F2                   		mov	a, r10
- 100 007a 48 00 00                		mov	[bc], a
+  93                             		.loc 1 57 0
+  94 0064 C9 F0 EF FF             		movw	r8, #-17
+  95 0068 AD F0                   		movw	ax, r8
+  96 006a BD F4                   		movw	r12, ax
+  97 006c FA F4                   		movw	hl, r12
+  98 006e 8B                      		mov	a, [hl]
+  99 006f 9D F2                   		mov	r10, a
+ 100 0071 6A F2 02                		or	r10, #2
+ 101 0074 AD F0                   		movw	ax, r8
+ 102 0076 DA F4                   		movw	bc, r12
+ 103 0078 8D F2                   		mov	a, r10
+ 104 007a 48 00 00                		mov	[bc], a
   58:../src/r_cg_rtc.c ****     RTCPR0 = 1U;
- 101                             		.loc 1 58 0
- 102 007d C9 F0 EB FF             		movw	r8, #-21
- 103 0081 AD F0                   		movw	ax, r8
- 104 0083 BD F4                   		movw	r12, ax
- 105 0085 FA F4                   		movw	hl, r12
- 106 0087 8B                      		mov	a, [hl]
- 107 0088 9D F2                   		mov	r10, a
- 108 008a 6A F2 02                		or	r10, #2
- 109 008d AD F0                   		movw	ax, r8
- 110 008f DA F4                   		movw	bc, r12
- 111 0091 8D F2                   		mov	a, r10
- 112 0093 48 00 00                		mov	[bc], a
+ 105                             		.loc 1 58 0
+ 106 007d C9 F0 EB FF             		movw	r8, #-21
+ 107 0081 AD F0                   		movw	ax, r8
+ 108 0083 BD F4                   		movw	r12, ax
+ 109 0085 FA F4                   		movw	hl, r12
+ 110 0087 8B                      		mov	a, [hl]
+ 111 0088 9D F2                   		mov	r10, a
+ 112 008a 6A F2 02                		or	r10, #2
+ 113 008d AD F0                   		movw	ax, r8
+ 114 008f DA F4                   		movw	bc, r12
+ 115 0091 8D F2                   		mov	a, r10
+ 116 0093 48 00 00                		mov	[bc], a
   59:../src/r_cg_rtc.c ****     RTCC0 = _00_RTC_RTC1HZ_DISABLE | _08_RTC_24HOUR_SYSTEM | _00_RTC_INTRTC_NOT_GENERATE;
- 113                             		.loc 1 59 0
- 114 0096 C9 F0 9D FF             		movw	r8, #-99
- 115 009a AD F0                   		movw	ax, r8
- 116 009c BD F2                   		movw	r10, ax
- 117 009e DA F2                   		movw	bc, r10
- 118 00a0 51 08                   		mov	a, #8
- 119 00a2 48 00 00                		mov	[bc], a
+ 117                             		.loc 1 59 0
+ 118 0096 C9 F0 9D FF             		movw	r8, #-99
+ 119 009a AD F0                   		movw	ax, r8
+ 120 009c BD F2                   		movw	r10, ax
+ 121 009e DA F2                   		movw	bc, r10
+ 122 00a0 51 08                   		mov	a, #8
+ 123 00a2 48 00 00                		mov	[bc], a
   60:../src/r_cg_rtc.c ****     /* Set real-time clock */
   61:../src/r_cg_rtc.c ****     SEC = _00_RTC_COUNTER_SEC;
- 120                             		.loc 1 61 0
- 121 00a5 C9 F0 92 FF             		movw	r8, #-110
- 122 00a9 AD F0                   		movw	ax, r8
- 123 00ab BD F4                   		movw	r12, ax
- 124 00ad DA F4                   		movw	bc, r12
- 125 00af F1                      		clrb	a
- 126 00b0 48 00 00                		mov	[bc], a
+ 124                             		.loc 1 61 0
+ 125 00a5 C9 F0 92 FF             		movw	r8, #-110
+ 126 00a9 AD F0                   		movw	ax, r8
+ 127 00ab BD F4                   		movw	r12, ax
+ 128 00ad DA F4                   		movw	bc, r12
+ 129 00af F1                      		clrb	a
+ 130 00b0 48 00 00                		mov	[bc], a
   62:../src/r_cg_rtc.c ****     MIN = _00_RTC_COUNTER_MIN;
- 127                             		.loc 1 62 0
- 128 00b3 C9 F0 93 FF             		movw	r8, #-109
- 129 00b7 AD F0                   		movw	ax, r8
- 130 00b9 BD F2                   		movw	r10, ax
- 131 00bb DA F2                   		movw	bc, r10
- 132 00bd F1                      		clrb	a
- 133 00be 48 00 00                		mov	[bc], a
+ 131                             		.loc 1 62 0
+ 132 00b3 C9 F0 93 FF             		movw	r8, #-109
+ 133 00b7 AD F0                   		movw	ax, r8
+ 134 00b9 BD F2                   		movw	r10, ax
+ 135 00bb DA F2                   		movw	bc, r10
+ 136 00bd F1                      		clrb	a
+ 137 00be 48 00 00                		mov	[bc], a
   63:../src/r_cg_rtc.c ****     HOUR = _00_RTC_COUNTER_HOUR;
- 134                             		.loc 1 63 0
- 135 00c1 C9 F0 94 FF             		movw	r8, #-108
- 136 00c5 AD F0                   		movw	ax, r8
- 137 00c7 BD F4                   		movw	r12, ax
- 138 00c9 DA F4                   		movw	bc, r12
- 139 00cb F1                      		clrb	a
- 140 00cc 48 00 00                		mov	[bc], a
+ 138                             		.loc 1 63 0
+ 139 00c1 C9 F0 94 FF             		movw	r8, #-108
+ 140 00c5 AD F0                   		movw	ax, r8
+ 141 00c7 BD F4                   		movw	r12, ax
+ 142 00c9 DA F4                   		movw	bc, r12
+ 143 00cb F1                      		clrb	a
+ 144 00cc 48 00 00                		mov	[bc], a
   64:../src/r_cg_rtc.c ****     WEEK = _02_RTC_COUNTER_WEEK;
- 141                             		.loc 1 64 0
- 142 00cf C9 F0 95 FF             		movw	r8, #-107
- 143 00d3 AD F0                   		movw	ax, r8
- 144 00d5 BD F2                   		movw	r10, ax
- 145 00d7 DA F2                   		movw	bc, r10
- 146 00d9 51 02                   		mov	a, #2
- 147 00db 48 00 00                		mov	[bc], a
+ 145                             		.loc 1 64 0
+ 146 00cf C9 F0 95 FF             		movw	r8, #-107
+ 147 00d3 AD F0                   		movw	ax, r8
+ 148 00d5 BD F2                   		movw	r10, ax
+ 149 00d7 DA F2                   		movw	bc, r10
+ 150 00d9 51 02                   		mov	a, #2
+ 151 00db 48 00 00                		mov	[bc], a
   65:../src/r_cg_rtc.c ****     DAY = _11_RTC_COUNTER_DAY;
- 148                             		.loc 1 65 0
- 149 00de C9 F0 96 FF             		movw	r8, #-106
- 150 00e2 AD F0                   		movw	ax, r8
- 151 00e4 BD F4                   		movw	r12, ax
- 152 00e6 DA F4                   		movw	bc, r12
- 153 00e8 51 11                   		mov	a, #17
- 154 00ea 48 00 00                		mov	[bc], a
+ 152                             		.loc 1 65 0
+ 153 00de C9 F0 96 FF             		movw	r8, #-106
+ 154 00e2 AD F0                   		movw	ax, r8
+ 155 00e4 BD F4                   		movw	r12, ax
+ 156 00e6 DA F4                   		movw	bc, r12
+ 157 00e8 51 11                   		mov	a, #17
+ 158 00ea 48 00 00                		mov	[bc], a
   66:../src/r_cg_rtc.c ****     MONTH = _04_RTC_COUNTER_MONTH;
- 155                             		.loc 1 66 0
- 156 00ed C9 F0 97 FF             		movw	r8, #-105
- 157 00f1 AD F0                   		movw	ax, r8
- 158 00f3 BD F2                   		movw	r10, ax
- 159 00f5 DA F2                   		movw	bc, r10
- 160 00f7 51 04                   		mov	a, #4
- 161 00f9 48 00 00                		mov	[bc], a
+ 159                             		.loc 1 66 0
+ 160 00ed C9 F0 97 FF             		movw	r8, #-105
+ 161 00f1 AD F0                   		movw	ax, r8
+ 162 00f3 BD F2                   		movw	r10, ax
+ 163 00f5 DA F2                   		movw	bc, r10
+ 164 00f7 51 04                   		mov	a, #4
+ 165 00f9 48 00 00                		mov	[bc], a
   67:../src/r_cg_rtc.c ****     YEAR = _17_RTC_COUNTER_YEAR;
- 162                             		.loc 1 67 0
- 163 00fc C9 F0 98 FF             		movw	r8, #-104
- 164 0100 AD F0                   		movw	ax, r8
- 165 0102 BD F4                   		movw	r12, ax
- 166 0104 DA F4                   		movw	bc, r12
- 167 0106 51 17                   		mov	a, #23
- 168 0108 48 00 00                		mov	[bc], a
+ 166                             		.loc 1 67 0
+ 167 00fc C9 F0 98 FF             		movw	r8, #-104
+ 168 0100 AD F0                   		movw	ax, r8
+ 169 0102 BD F4                   		movw	r12, ax
+ 170 0104 DA F4                   		movw	bc, r12
+ 171 0106 51 17                   		mov	a, #23
+ 172 0108 48 00 00                		mov	[bc], a
   68:../src/r_cg_rtc.c **** }
- 169                             		.loc 1 68 0
- 170 010b D7                      		ret
- 171                             	.LFE0:
- 173                             		.global	_R_RTC_Start
- 175                             	_R_RTC_Start:
- 176                             	.LFB1:
+ 173                             		.loc 1 68 0
+ 174 010b D7                      		ret
+ 175                             	.LFE0:
+ 177                             		.global	_R_RTC_Start
+ 179                             	_R_RTC_Start:
+ 180                             	.LFB1:
   69:../src/r_cg_rtc.c **** 
   70:../src/r_cg_rtc.c **** /**************************************************************************************************
   71:../src/r_cg_rtc.c **** * Function Name: R_RTC_Start
@@ -248,27 +252,27 @@
   75:../src/r_cg_rtc.c **** ***************************************************************************************************
   76:../src/r_cg_rtc.c **** void R_RTC_Start(void)
   77:../src/r_cg_rtc.c **** {
- 177                             		.loc 1 77 0
+ 181                             		.loc 1 77 0
   78:../src/r_cg_rtc.c ****     RTCE = 1U;     /* enable RTC clock operation */
- 178                             		.loc 1 78 0
- 179 010c C9 F0 9D FF             		movw	r8, #-99
- 180 0110 AD F0                   		movw	ax, r8
- 181 0112 BD F4                   		movw	r12, ax
- 182 0114 FA F4                   		movw	hl, r12
- 183 0116 8B                      		mov	a, [hl]
- 184 0117 9D F2                   		mov	r10, a
- 185 0119 6A F2 80                		or	r10, #-128
- 186 011c AD F0                   		movw	ax, r8
- 187 011e DA F4                   		movw	bc, r12
- 188 0120 8D F2                   		mov	a, r10
- 189 0122 48 00 00                		mov	[bc], a
+ 182                             		.loc 1 78 0
+ 183 010c C9 F0 9D FF             		movw	r8, #-99
+ 184 0110 AD F0                   		movw	ax, r8
+ 185 0112 BD F4                   		movw	r12, ax
+ 186 0114 FA F4                   		movw	hl, r12
+ 187 0116 8B                      		mov	a, [hl]
+ 188 0117 9D F2                   		mov	r10, a
+ 189 0119 6A F2 80                		or	r10, #-128
+ 190 011c AD F0                   		movw	ax, r8
+ 191 011e DA F4                   		movw	bc, r12
+ 192 0120 8D F2                   		mov	a, r10
+ 193 0122 48 00 00                		mov	[bc], a
   79:../src/r_cg_rtc.c **** }
- 190                             		.loc 1 79 0
- 191 0125 D7                      		ret
- 192                             	.LFE1:
- 194                             		.global	_R_RTC_Stop
- 196                             	_R_RTC_Stop:
- 197                             	.LFB2:
+ 194                             		.loc 1 79 0
+ 195 0125 D7                      		ret
+ 196                             	.LFE1:
+ 198                             		.global	_R_RTC_Stop
+ 200                             	_R_RTC_Stop:
+ 201                             	.LFB2:
   80:../src/r_cg_rtc.c **** 
   81:../src/r_cg_rtc.c **** /**************************************************************************************************
   82:../src/r_cg_rtc.c **** * Function Name: R_RTC_Stop
@@ -278,27 +282,27 @@
   86:../src/r_cg_rtc.c **** ***************************************************************************************************
   87:../src/r_cg_rtc.c **** void R_RTC_Stop(void)
   88:../src/r_cg_rtc.c **** {
- 198                             		.loc 1 88 0
+ 202                             		.loc 1 88 0
   89:../src/r_cg_rtc.c ****     RTCE = 0U;    /* disable RTC clock operation */
- 199                             		.loc 1 89 0
- 200 0126 C9 F0 9D FF             		movw	r8, #-99
- 201 012a AD F0                   		movw	ax, r8
- 202 012c BD F4                   		movw	r12, ax
- 203 012e FA F4                   		movw	hl, r12
- 204 0130 8B                      		mov	a, [hl]
- 205 0131 9D F2                   		mov	r10, a
- 206 0133 5A F2 7F                		and	r10, #127
- 207 0136 AD F0                   		movw	ax, r8
- 208 0138 DA F4                   		movw	bc, r12
- 209 013a 8D F2                   		mov	a, r10
- 210 013c 48 00 00                		mov	[bc], a
+ 203                             		.loc 1 89 0
+ 204 0126 C9 F0 9D FF             		movw	r8, #-99
+ 205 012a AD F0                   		movw	ax, r8
+ 206 012c BD F4                   		movw	r12, ax
+ 207 012e FA F4                   		movw	hl, r12
+ 208 0130 8B                      		mov	a, [hl]
+ 209 0131 9D F2                   		mov	r10, a
+ 210 0133 5A F2 7F                		and	r10, #127
+ 211 0136 AD F0                   		movw	ax, r8
+ 212 0138 DA F4                   		movw	bc, r12
+ 213 013a 8D F2                   		mov	a, r10
+ 214 013c 48 00 00                		mov	[bc], a
   90:../src/r_cg_rtc.c **** }
- 211                             		.loc 1 90 0
- 212 013f D7                      		ret
- 213                             	.LFE2:
- 215                             		.global	_R_RTC_Get_CounterValue
- 217                             	_R_RTC_Get_CounterValue:
- 218                             	.LFB3:
+ 215                             		.loc 1 90 0
+ 216 013f D7                      		ret
+ 217                             	.LFE2:
+ 219                             		.global	_R_RTC_Get_CounterValue
+ 221                             	_R_RTC_Get_CounterValue:
+ 222                             	.LFB3:
   91:../src/r_cg_rtc.c **** 
   92:../src/r_cg_rtc.c **** /**************************************************************************************************
   93:../src/r_cg_rtc.c **** * Function Name: R_RTC_Get_CounterValue
@@ -310,273 +314,273 @@
   99:../src/r_cg_rtc.c **** ***************************************************************************************************
  100:../src/r_cg_rtc.c **** MD_STATUS R_RTC_Get_CounterValue(rtc_counter_value_t * const counter_read_val)
  101:../src/r_cg_rtc.c **** {
- 219                             		.loc 1 101 0
- 220                             		; start of function
- 221                             		; locals: 6 bytes
- 222 0140 20 06                   		subw	sp, #6
- 223                             	.LCFI0:
+ 223                             		.loc 1 101 0
+ 224                             		; start of function
+ 225                             		; locals: 6 bytes
+ 226 0140 20 06                   		subw	sp, #6
+ 227                             	.LCFI0:
  102:../src/r_cg_rtc.c ****     MD_STATUS status = MD_OK;
- 224                             		.loc 1 102 0
- 225 0142 F6                      		clrw	ax
- 226 0143 B8 04                   		movw	[sp+4], ax
+ 228                             		.loc 1 102 0
+ 229 0142 F6                      		clrw	ax
+ 230 0143 B8 04                   		movw	[sp+4], ax
  103:../src/r_cg_rtc.c ****     uint32_t  w_count;
  104:../src/r_cg_rtc.c ****     
  105:../src/r_cg_rtc.c ****     RTCC1 |= _01_RTC_COUNTER_PAUSE;
- 227                             		.loc 1 105 0
- 228 0145 C9 F2 9E FF             		movw	r10, #-98
- 229 0149 C9 F0 9E FF             		movw	r8, #-98
- 230 014d AD F0                   		movw	ax, r8
- 231 014f BD F4                   		movw	r12, ax
- 232 0151 FA F4                   		movw	hl, r12
- 233 0153 8B                      		mov	a, [hl]
- 234 0154 9D F0                   		mov	r8, a
- 235 0156 6A F0 01                		or	r8, #1
- 236 0159 AD F2                   		movw	ax, r10
- 237 015b BD F4                   		movw	r12, ax
- 238 015d DA F4                   		movw	bc, r12
- 239 015f 8D F0                   		mov	a, r8
- 240 0161 48 00 00                		mov	[bc], a
+ 231                             		.loc 1 105 0
+ 232 0145 C9 F2 9E FF             		movw	r10, #-98
+ 233 0149 C9 F0 9E FF             		movw	r8, #-98
+ 234 014d AD F0                   		movw	ax, r8
+ 235 014f BD F4                   		movw	r12, ax
+ 236 0151 FA F4                   		movw	hl, r12
+ 237 0153 8B                      		mov	a, [hl]
+ 238 0154 9D F0                   		mov	r8, a
+ 239 0156 6A F0 01                		or	r8, #1
+ 240 0159 AD F2                   		movw	ax, r10
+ 241 015b BD F4                   		movw	r12, ax
+ 242 015d DA F4                   		movw	bc, r12
+ 243 015f 8D F0                   		mov	a, r8
+ 244 0161 48 00 00                		mov	[bc], a
  106:../src/r_cg_rtc.c **** 
  107:../src/r_cg_rtc.c ****     /* Change the waiting time according to the system */
  108:../src/r_cg_rtc.c ****     for (w_count = 0U; w_count < RTC_WAITTIME; w_count++)
- 241                             		.loc 1 108 0
- 242 0164 F6                      		clrw	ax
- 243 0165 B8 00                   		movw	[sp], ax
- 244 0167 F6                      		clrw	ax
- 245 0168 B8 02                   		movw	[sp+2], ax
- 246 016a EC 7D 01 00             		br	!!.L5
- 247                             	.L6:
+ 245                             		.loc 1 108 0
+ 246 0164 F6                      		clrw	ax
+ 247 0165 B8 00                   		movw	[sp], ax
+ 248 0167 F6                      		clrw	ax
+ 249 0168 B8 02                   		movw	[sp+2], ax
+ 250 016a EC 7D 01 00             		br	!!.L5
+ 251                             	.L6:
  109:../src/r_cg_rtc.c ****     {
  110:../src/r_cg_rtc.c ****         NOP();
- 248                             		.loc 1 110 0 discriminator 3
- 249                             	 ; 110 "../src/r_cg_rtc.c" 1
- 250 016e 00                      		nop
- 251                             	 ; 0 "" 2
+ 252                             		.loc 1 110 0 discriminator 3
+ 253                             	 ; 110 "../src/r_cg_rtc.c" 1
+ 254 016e 00                      		nop
+ 255                             	 ; 0 "" 2
  108:../src/r_cg_rtc.c ****     {
- 252                             		.loc 1 108 0 discriminator 3
- 253 016f A8 00                   		movw ax, [sp]
- 254 0171 04 01 00                		addw ax, #1
- 255 0174 B8 00                   		movw [sp], ax
- 256 0176 A8 02                   		movw ax, [sp+2]
- 257 0178 61 D8                   		sknc
- 258 017a A1                      		incw ax
- 259 017b B8 02                   		movw [sp+2],ax
- 260                             	.L5:
+ 256                             		.loc 1 108 0 discriminator 3
+ 257 016f A8 00                   		movw ax, [sp]
+ 258 0171 04 01 00                		addw ax, #1
+ 259 0174 B8 00                   		movw [sp], ax
+ 260 0176 A8 02                   		movw ax, [sp+2]
+ 261 0178 61 D8                   		sknc
+ 262 017a A1                      		incw ax
+ 263 017b B8 02                   		movw [sp+2],ax
+ 264                             	.L5:
  108:../src/r_cg_rtc.c ****     {
- 261                             		.loc 1 108 0 is_stmt 0 discriminator 1
- 262 017d A8 02                   		movw	ax, [sp+2]
- 263 017f 44 00 00                		 cmpw	ax, #0
- 264 0182 A8 00                   		 movw	ax, [sp]
- 265 0184 61 F8                   		 sknz
- 266 0186 44 3F 01                		 cmpw	ax, #319
- 267 0189 61 E3                   		 skh
- 268 018b EC 6E 01 00             		 br	!!.L6
+ 265                             		.loc 1 108 0 is_stmt 0 discriminator 1
+ 266 017d A8 02                   		movw	ax, [sp+2]
+ 267 017f 44 00 00                		 cmpw	ax, #0
+ 268 0182 A8 00                   		 movw	ax, [sp]
+ 269 0184 61 F8                   		 sknz
+ 270 0186 44 3F 01                		 cmpw	ax, #319
+ 271 0189 61 E3                   		 skh
+ 272 018b EC 6E 01 00             		 br	!!.L6
  111:../src/r_cg_rtc.c ****     }
  112:../src/r_cg_rtc.c **** 
  113:../src/r_cg_rtc.c ****     if (0U == RWST)
- 269                             		.loc 1 113 0 is_stmt 1
- 270 018f C9 F0 9E FF             		movw	r8, #-98
- 271 0193 AD F0                   		movw	ax, r8
- 272 0195 BD F2                   		movw	r10, ax
- 273 0197 FA F2                   		movw	hl, r10
- 274 0199 8B                      		mov	a, [hl]
- 275 019a 9D F0                   		mov	r8, a
- 276 019c 31 1A                   		shr	a, 1
- 277 019e 9D F0                   		mov	r8, a
- 278 01a0 5A F0 01                		and	r8, #1
- 279 01a3 61 E8                   		skz
- 280 01a5 EC B2 01 00             		 br	!!.L7
- 281                             		 # zero-comparison eliminated
+ 273                             		.loc 1 113 0 is_stmt 1
+ 274 018f C9 F0 9E FF             		movw	r8, #-98
+ 275 0193 AD F0                   		movw	ax, r8
+ 276 0195 BD F2                   		movw	r10, ax
+ 277 0197 FA F2                   		movw	hl, r10
+ 278 0199 8B                      		mov	a, [hl]
+ 279 019a 9D F0                   		mov	r8, a
+ 280 019c 31 1A                   		shr	a, 1
+ 281 019e 9D F0                   		mov	r8, a
+ 282 01a0 5A F0 01                		and	r8, #1
+ 283 01a3 61 E8                   		skz
+ 284 01a5 EC B2 01 00             		 br	!!.L7
+ 285                             		 # zero-comparison eliminated
  114:../src/r_cg_rtc.c ****     {
  115:../src/r_cg_rtc.c ****         status = MD_BUSY1;
- 282                             		.loc 1 115 0
- 283 01a9 30 03 00                		movw	ax, #3
- 284 01ac B8 04                   		movw	[sp+4], ax
- 285 01ae EC C8 02 00             		br	!!.L8
- 286                             	.L7:
+ 286                             		.loc 1 115 0
+ 287 01a9 30 03 00                		movw	ax, #3
+ 288 01ac B8 04                   		movw	[sp+4], ax
+ 289 01ae EC C8 02 00             		br	!!.L8
+ 290                             	.L7:
  116:../src/r_cg_rtc.c ****     }
  117:../src/r_cg_rtc.c ****     else
  118:../src/r_cg_rtc.c ****     {
  119:../src/r_cg_rtc.c ****         counter_read_val->sec = SEC;
- 287                             		.loc 1 119 0
- 288 01b2 C9 F0 92 FF             		movw	r8, #-110
- 289 01b6 AD F0                   		movw	ax, r8
- 290 01b8 BD F4                   		movw	r12, ax
- 291 01ba FA F4                   		movw	hl, r12
- 292 01bc 8B                      		mov	a, [hl]
- 293 01bd 9D F2                   		mov	r10, a
- 294 01bf A8 0A                   		movw	ax, [sp+10]
- 295 01c1 BD F0                   		movw	r8, ax
- 296 01c3 BD F4                   		movw	r12, ax
- 297 01c5 DA F4                   		movw	bc, r12
- 298 01c7 8D F2                   		mov	a, r10
- 299 01c9 48 00 00                		mov	[bc], a
+ 291                             		.loc 1 119 0
+ 292 01b2 C9 F0 92 FF             		movw	r8, #-110
+ 293 01b6 AD F0                   		movw	ax, r8
+ 294 01b8 BD F4                   		movw	r12, ax
+ 295 01ba FA F4                   		movw	hl, r12
+ 296 01bc 8B                      		mov	a, [hl]
+ 297 01bd 9D F2                   		mov	r10, a
+ 298 01bf A8 0A                   		movw	ax, [sp+10]
+ 299 01c1 BD F0                   		movw	r8, ax
+ 300 01c3 BD F4                   		movw	r12, ax
+ 301 01c5 DA F4                   		movw	bc, r12
+ 302 01c7 8D F2                   		mov	a, r10
+ 303 01c9 48 00 00                		mov	[bc], a
  120:../src/r_cg_rtc.c ****         counter_read_val->min = MIN;
- 300                             		.loc 1 120 0
- 301 01cc C9 F0 93 FF             		movw	r8, #-109
- 302 01d0 AD F0                   		movw	ax, r8
- 303 01d2 BD F4                   		movw	r12, ax
- 304 01d4 FA F4                   		movw	hl, r12
- 305 01d6 8B                      		mov	a, [hl]
- 306 01d7 9D F2                   		mov	r10, a
- 307 01d9 A8 0A                   		movw	ax, [sp+10]
- 308 01db BD F0                   		movw	r8, ax
- 309 01dd DA F0                   		movw	bc, r8
- 310 01df 8D F2                   		mov	a, r10
- 311 01e1 48 01 00                		mov	1[bc], a
+ 304                             		.loc 1 120 0
+ 305 01cc C9 F0 93 FF             		movw	r8, #-109
+ 306 01d0 AD F0                   		movw	ax, r8
+ 307 01d2 BD F4                   		movw	r12, ax
+ 308 01d4 FA F4                   		movw	hl, r12
+ 309 01d6 8B                      		mov	a, [hl]
+ 310 01d7 9D F2                   		mov	r10, a
+ 311 01d9 A8 0A                   		movw	ax, [sp+10]
+ 312 01db BD F0                   		movw	r8, ax
+ 313 01dd DA F0                   		movw	bc, r8
+ 314 01df 8D F2                   		mov	a, r10
+ 315 01e1 48 01 00                		mov	1[bc], a
  121:../src/r_cg_rtc.c ****         counter_read_val->hour = HOUR;
- 312                             		.loc 1 121 0
- 313 01e4 C9 F0 94 FF             		movw	r8, #-108
- 314 01e8 AD F0                   		movw	ax, r8
- 315 01ea BD F4                   		movw	r12, ax
- 316 01ec FA F4                   		movw	hl, r12
- 317 01ee 8B                      		mov	a, [hl]
- 318 01ef 9D F2                   		mov	r10, a
- 319 01f1 A8 0A                   		movw	ax, [sp+10]
- 320 01f3 BD F0                   		movw	r8, ax
- 321 01f5 DA F0                   		movw	bc, r8
- 322 01f7 8D F2                   		mov	a, r10
- 323 01f9 48 02 00                		mov	2[bc], a
+ 316                             		.loc 1 121 0
+ 317 01e4 C9 F0 94 FF             		movw	r8, #-108
+ 318 01e8 AD F0                   		movw	ax, r8
+ 319 01ea BD F4                   		movw	r12, ax
+ 320 01ec FA F4                   		movw	hl, r12
+ 321 01ee 8B                      		mov	a, [hl]
+ 322 01ef 9D F2                   		mov	r10, a
+ 323 01f1 A8 0A                   		movw	ax, [sp+10]
+ 324 01f3 BD F0                   		movw	r8, ax
+ 325 01f5 DA F0                   		movw	bc, r8
+ 326 01f7 8D F2                   		mov	a, r10
+ 327 01f9 48 02 00                		mov	2[bc], a
  122:../src/r_cg_rtc.c ****         counter_read_val->week = WEEK;
- 324                             		.loc 1 122 0
- 325 01fc C9 F0 95 FF             		movw	r8, #-107
- 326 0200 AD F0                   		movw	ax, r8
- 327 0202 BD F4                   		movw	r12, ax
- 328 0204 FA F4                   		movw	hl, r12
- 329 0206 8B                      		mov	a, [hl]
- 330 0207 9D F2                   		mov	r10, a
- 331 0209 A8 0A                   		movw	ax, [sp+10]
- 332 020b BD F0                   		movw	r8, ax
- 333 020d DA F0                   		movw	bc, r8
- 334 020f 8D F2                   		mov	a, r10
- 335 0211 48 04 00                		mov	4[bc], a
+ 328                             		.loc 1 122 0
+ 329 01fc C9 F0 95 FF             		movw	r8, #-107
+ 330 0200 AD F0                   		movw	ax, r8
+ 331 0202 BD F4                   		movw	r12, ax
+ 332 0204 FA F4                   		movw	hl, r12
+ 333 0206 8B                      		mov	a, [hl]
+ 334 0207 9D F2                   		mov	r10, a
+ 335 0209 A8 0A                   		movw	ax, [sp+10]
+ 336 020b BD F0                   		movw	r8, ax
+ 337 020d DA F0                   		movw	bc, r8
+ 338 020f 8D F2                   		mov	a, r10
+ 339 0211 48 04 00                		mov	4[bc], a
  123:../src/r_cg_rtc.c ****         counter_read_val->day = DAY;
- 336                             		.loc 1 123 0
- 337 0214 C9 F0 96 FF             		movw	r8, #-106
- 338 0218 AD F0                   		movw	ax, r8
- 339 021a BD F4                   		movw	r12, ax
- 340 021c FA F4                   		movw	hl, r12
- 341 021e 8B                      		mov	a, [hl]
- 342 021f 9D F2                   		mov	r10, a
- 343 0221 A8 0A                   		movw	ax, [sp+10]
- 344 0223 BD F0                   		movw	r8, ax
- 345 0225 DA F0                   		movw	bc, r8
- 346 0227 8D F2                   		mov	a, r10
- 347 0229 48 03 00                		mov	3[bc], a
+ 340                             		.loc 1 123 0
+ 341 0214 C9 F0 96 FF             		movw	r8, #-106
+ 342 0218 AD F0                   		movw	ax, r8
+ 343 021a BD F4                   		movw	r12, ax
+ 344 021c FA F4                   		movw	hl, r12
+ 345 021e 8B                      		mov	a, [hl]
+ 346 021f 9D F2                   		mov	r10, a
+ 347 0221 A8 0A                   		movw	ax, [sp+10]
+ 348 0223 BD F0                   		movw	r8, ax
+ 349 0225 DA F0                   		movw	bc, r8
+ 350 0227 8D F2                   		mov	a, r10
+ 351 0229 48 03 00                		mov	3[bc], a
  124:../src/r_cg_rtc.c ****         counter_read_val->month = MONTH;
- 348                             		.loc 1 124 0
- 349 022c C9 F0 97 FF             		movw	r8, #-105
- 350 0230 AD F0                   		movw	ax, r8
- 351 0232 BD F4                   		movw	r12, ax
- 352 0234 FA F4                   		movw	hl, r12
- 353 0236 8B                      		mov	a, [hl]
- 354 0237 9D F2                   		mov	r10, a
- 355 0239 A8 0A                   		movw	ax, [sp+10]
- 356 023b BD F0                   		movw	r8, ax
- 357 023d DA F0                   		movw	bc, r8
- 358 023f 8D F2                   		mov	a, r10
- 359 0241 48 05 00                		mov	5[bc], a
+ 352                             		.loc 1 124 0
+ 353 022c C9 F0 97 FF             		movw	r8, #-105
+ 354 0230 AD F0                   		movw	ax, r8
+ 355 0232 BD F4                   		movw	r12, ax
+ 356 0234 FA F4                   		movw	hl, r12
+ 357 0236 8B                      		mov	a, [hl]
+ 358 0237 9D F2                   		mov	r10, a
+ 359 0239 A8 0A                   		movw	ax, [sp+10]
+ 360 023b BD F0                   		movw	r8, ax
+ 361 023d DA F0                   		movw	bc, r8
+ 362 023f 8D F2                   		mov	a, r10
+ 363 0241 48 05 00                		mov	5[bc], a
  125:../src/r_cg_rtc.c ****         counter_read_val->year = YEAR;
- 360                             		.loc 1 125 0
- 361 0244 C9 F0 98 FF             		movw	r8, #-104
- 362 0248 AD F0                   		movw	ax, r8
- 363 024a BD F4                   		movw	r12, ax
- 364 024c FA F4                   		movw	hl, r12
- 365 024e 8B                      		mov	a, [hl]
- 366 024f 9D F2                   		mov	r10, a
- 367 0251 A8 0A                   		movw	ax, [sp+10]
- 368 0253 BD F0                   		movw	r8, ax
- 369 0255 DA F0                   		movw	bc, r8
- 370 0257 8D F2                   		mov	a, r10
- 371 0259 48 06 00                		mov	6[bc], a
+ 364                             		.loc 1 125 0
+ 365 0244 C9 F0 98 FF             		movw	r8, #-104
+ 366 0248 AD F0                   		movw	ax, r8
+ 367 024a BD F4                   		movw	r12, ax
+ 368 024c FA F4                   		movw	hl, r12
+ 369 024e 8B                      		mov	a, [hl]
+ 370 024f 9D F2                   		mov	r10, a
+ 371 0251 A8 0A                   		movw	ax, [sp+10]
+ 372 0253 BD F0                   		movw	r8, ax
+ 373 0255 DA F0                   		movw	bc, r8
+ 374 0257 8D F2                   		mov	a, r10
+ 375 0259 48 06 00                		mov	6[bc], a
  126:../src/r_cg_rtc.c **** 
  127:../src/r_cg_rtc.c ****         RTCC1 &= (uint8_t)~_01_RTC_COUNTER_PAUSE;
- 372                             		.loc 1 127 0
- 373 025c C9 F2 9E FF             		movw	r10, #-98
- 374 0260 C9 F0 9E FF             		movw	r8, #-98
- 375 0264 AD F0                   		movw	ax, r8
- 376 0266 BD F4                   		movw	r12, ax
- 377 0268 FA F4                   		movw	hl, r12
- 378 026a 8B                      		mov	a, [hl]
- 379 026b 9D F0                   		mov	r8, a
- 380 026d 5A F0 FE                		and	r8, #-2
- 381 0270 AD F2                   		movw	ax, r10
- 382 0272 BD F4                   		movw	r12, ax
- 383 0274 DA F4                   		movw	bc, r12
- 384 0276 8D F0                   		mov	a, r8
- 385 0278 48 00 00                		mov	[bc], a
+ 376                             		.loc 1 127 0
+ 377 025c C9 F2 9E FF             		movw	r10, #-98
+ 378 0260 C9 F0 9E FF             		movw	r8, #-98
+ 379 0264 AD F0                   		movw	ax, r8
+ 380 0266 BD F4                   		movw	r12, ax
+ 381 0268 FA F4                   		movw	hl, r12
+ 382 026a 8B                      		mov	a, [hl]
+ 383 026b 9D F0                   		mov	r8, a
+ 384 026d 5A F0 FE                		and	r8, #-2
+ 385 0270 AD F2                   		movw	ax, r10
+ 386 0272 BD F4                   		movw	r12, ax
+ 387 0274 DA F4                   		movw	bc, r12
+ 388 0276 8D F0                   		mov	a, r8
+ 389 0278 48 00 00                		mov	[bc], a
  128:../src/r_cg_rtc.c **** 
  129:../src/r_cg_rtc.c ****         /* Change the waiting time according to the system */
  130:../src/r_cg_rtc.c ****         for (w_count = 0U; w_count < RTC_WAITTIME; w_count++)
- 386                             		.loc 1 130 0
- 387 027b F6                      		clrw	ax
- 388 027c B8 00                   		movw	[sp], ax
- 389 027e F6                      		clrw	ax
- 390 027f B8 02                   		movw	[sp+2], ax
- 391 0281 EC 94 02 00             		br	!!.L9
- 392                             	.L10:
+ 390                             		.loc 1 130 0
+ 391 027b F6                      		clrw	ax
+ 392 027c B8 00                   		movw	[sp], ax
+ 393 027e F6                      		clrw	ax
+ 394 027f B8 02                   		movw	[sp+2], ax
+ 395 0281 EC 94 02 00             		br	!!.L9
+ 396                             	.L10:
  131:../src/r_cg_rtc.c ****         {
  132:../src/r_cg_rtc.c ****             NOP();
- 393                             		.loc 1 132 0 discriminator 3
- 394                             	 ; 132 "../src/r_cg_rtc.c" 1
- 395 0285 00                      		nop
- 396                             	 ; 0 "" 2
+ 397                             		.loc 1 132 0 discriminator 3
+ 398                             	 ; 132 "../src/r_cg_rtc.c" 1
+ 399 0285 00                      		nop
+ 400                             	 ; 0 "" 2
  130:../src/r_cg_rtc.c ****         {
- 397                             		.loc 1 130 0 discriminator 3
- 398 0286 A8 00                   		movw ax, [sp]
- 399 0288 04 01 00                		addw ax, #1
- 400 028b B8 00                   		movw [sp], ax
- 401 028d A8 02                   		movw ax, [sp+2]
- 402 028f 61 D8                   		sknc
- 403 0291 A1                      		incw ax
- 404 0292 B8 02                   		movw [sp+2],ax
- 405                             	.L9:
+ 401                             		.loc 1 130 0 discriminator 3
+ 402 0286 A8 00                   		movw ax, [sp]
+ 403 0288 04 01 00                		addw ax, #1
+ 404 028b B8 00                   		movw [sp], ax
+ 405 028d A8 02                   		movw ax, [sp+2]
+ 406 028f 61 D8                   		sknc
+ 407 0291 A1                      		incw ax
+ 408 0292 B8 02                   		movw [sp+2],ax
+ 409                             	.L9:
  130:../src/r_cg_rtc.c ****         {
- 406                             		.loc 1 130 0 is_stmt 0 discriminator 1
- 407 0294 A8 02                   		movw	ax, [sp+2]
- 408 0296 44 00 00                		 cmpw	ax, #0
- 409 0299 A8 00                   		 movw	ax, [sp]
- 410 029b 61 F8                   		 sknz
- 411 029d 44 3F 01                		 cmpw	ax, #319
- 412 02a0 61 E3                   		 skh
- 413 02a2 EC 85 02 00             		 br	!!.L10
+ 410                             		.loc 1 130 0 is_stmt 0 discriminator 1
+ 411 0294 A8 02                   		movw	ax, [sp+2]
+ 412 0296 44 00 00                		 cmpw	ax, #0
+ 413 0299 A8 00                   		 movw	ax, [sp]
+ 414 029b 61 F8                   		 sknz
+ 415 029d 44 3F 01                		 cmpw	ax, #319
+ 416 02a0 61 E3                   		 skh
+ 417 02a2 EC 85 02 00             		 br	!!.L10
  133:../src/r_cg_rtc.c ****         }
  134:../src/r_cg_rtc.c **** 
  135:../src/r_cg_rtc.c ****         if (1U == RWST)
- 414                             		.loc 1 135 0 is_stmt 1
- 415 02a6 C9 F0 9E FF             		movw	r8, #-98
- 416 02aa AD F0                   		movw	ax, r8
- 417 02ac BD F2                   		movw	r10, ax
- 418 02ae FA F2                   		movw	hl, r10
- 419 02b0 8B                      		mov	a, [hl]
- 420 02b1 9D F0                   		mov	r8, a
- 421 02b3 31 1A                   		shr	a, 1
- 422 02b5 9D F0                   		mov	r8, a
- 423 02b7 5A F0 01                		and	r8, #1
- 424 02ba 4A F0 01                		cmp	r8, #1
- 425 02bd 61 E8                   		 skz
- 426 02bf EC C8 02 00             		 br	!!.L8
+ 418                             		.loc 1 135 0 is_stmt 1
+ 419 02a6 C9 F0 9E FF             		movw	r8, #-98
+ 420 02aa AD F0                   		movw	ax, r8
+ 421 02ac BD F2                   		movw	r10, ax
+ 422 02ae FA F2                   		movw	hl, r10
+ 423 02b0 8B                      		mov	a, [hl]
+ 424 02b1 9D F0                   		mov	r8, a
+ 425 02b3 31 1A                   		shr	a, 1
+ 426 02b5 9D F0                   		mov	r8, a
+ 427 02b7 5A F0 01                		and	r8, #1
+ 428 02ba 4A F0 01                		cmp	r8, #1
+ 429 02bd 61 E8                   		 skz
+ 430 02bf EC C8 02 00             		 br	!!.L8
  136:../src/r_cg_rtc.c ****         {
  137:../src/r_cg_rtc.c ****             status = MD_BUSY2;
- 427                             		.loc 1 137 0
- 428 02c3 30 04 00                		movw	ax, #4
- 429 02c6 B8 04                   		movw	[sp+4], ax
- 430                             	.L8:
+ 431                             		.loc 1 137 0
+ 432 02c3 30 04 00                		movw	ax, #4
+ 433 02c6 B8 04                   		movw	[sp+4], ax
+ 434                             	.L8:
  138:../src/r_cg_rtc.c ****         }
  139:../src/r_cg_rtc.c ****     }
  140:../src/r_cg_rtc.c **** 
  141:../src/r_cg_rtc.c ****     return (status);
- 431                             		.loc 1 141 0
- 432 02c8 A8 04                   		movw	ax, [sp+4]
- 433 02ca BD F0                   		movw	r8, ax
+ 435                             		.loc 1 141 0
+ 436 02c8 A8 04                   		movw	ax, [sp+4]
+ 437 02ca BD F0                   		movw	r8, ax
  142:../src/r_cg_rtc.c **** }
- 434                             		.loc 1 142 0
- 435 02cc 10 06                   		addw	sp, #6
- 436 02ce D7                      		ret
- 437                             	.LFE3:
- 439                             		.global	_R_RTC_Set_CounterValue
- 441                             	_R_RTC_Set_CounterValue:
- 442                             	.LFB4:
+ 438                             		.loc 1 142 0
+ 439 02cc 10 06                   		addw	sp, #6
+ 440 02ce D7                      		ret
+ 441                             	.LFE3:
+ 443                             		.global	_R_RTC_Set_CounterValue
+ 445                             	_R_RTC_Set_CounterValue:
+ 446                             	.LFB4:
  143:../src/r_cg_rtc.c **** 
  144:../src/r_cg_rtc.c **** /**************************************************************************************************
  145:../src/r_cg_rtc.c **** * Function Name: R_RTC_Set_CounterValue
@@ -588,250 +592,250 @@
  151:../src/r_cg_rtc.c **** ***************************************************************************************************
  152:../src/r_cg_rtc.c **** MD_STATUS R_RTC_Set_CounterValue(rtc_counter_value_t counter_write_val)
  153:../src/r_cg_rtc.c **** {
- 443                             		.loc 1 153 0
- 444                             		; start of function
- 445                             		; locals: 6 bytes
- 446 02cf 20 06                   		subw	sp, #6
- 447                             	.LCFI1:
+ 447                             		.loc 1 153 0
+ 448                             		; start of function
+ 449                             		; locals: 6 bytes
+ 450 02cf 20 06                   		subw	sp, #6
+ 451                             	.LCFI1:
  154:../src/r_cg_rtc.c ****     MD_STATUS status = MD_OK;
- 448                             		.loc 1 154 0
- 449 02d1 F6                      		clrw	ax
- 450 02d2 B8 04                   		movw	[sp+4], ax
+ 452                             		.loc 1 154 0
+ 453 02d1 F6                      		clrw	ax
+ 454 02d2 B8 04                   		movw	[sp+4], ax
  155:../src/r_cg_rtc.c ****     uint32_t  w_count;
  156:../src/r_cg_rtc.c ****     
  157:../src/r_cg_rtc.c ****     RTCC1 |= _01_RTC_COUNTER_PAUSE;
- 451                             		.loc 1 157 0
- 452 02d4 C9 F2 9E FF             		movw	r10, #-98
- 453 02d8 C9 F0 9E FF             		movw	r8, #-98
- 454 02dc AD F0                   		movw	ax, r8
- 455 02de BD F4                   		movw	r12, ax
- 456 02e0 FA F4                   		movw	hl, r12
- 457 02e2 8B                      		mov	a, [hl]
- 458 02e3 9D F0                   		mov	r8, a
- 459 02e5 6A F0 01                		or	r8, #1
- 460 02e8 AD F2                   		movw	ax, r10
- 461 02ea BD F4                   		movw	r12, ax
- 462 02ec DA F4                   		movw	bc, r12
- 463 02ee 8D F0                   		mov	a, r8
- 464 02f0 48 00 00                		mov	[bc], a
+ 455                             		.loc 1 157 0
+ 456 02d4 C9 F2 9E FF             		movw	r10, #-98
+ 457 02d8 C9 F0 9E FF             		movw	r8, #-98
+ 458 02dc AD F0                   		movw	ax, r8
+ 459 02de BD F4                   		movw	r12, ax
+ 460 02e0 FA F4                   		movw	hl, r12
+ 461 02e2 8B                      		mov	a, [hl]
+ 462 02e3 9D F0                   		mov	r8, a
+ 463 02e5 6A F0 01                		or	r8, #1
+ 464 02e8 AD F2                   		movw	ax, r10
+ 465 02ea BD F4                   		movw	r12, ax
+ 466 02ec DA F4                   		movw	bc, r12
+ 467 02ee 8D F0                   		mov	a, r8
+ 468 02f0 48 00 00                		mov	[bc], a
  158:../src/r_cg_rtc.c **** 
  159:../src/r_cg_rtc.c ****     /* Change the waiting time according to the system */
  160:../src/r_cg_rtc.c ****     for (w_count = 0U; w_count < RTC_WAITTIME; w_count++)
- 465                             		.loc 1 160 0
- 466 02f3 F6                      		clrw	ax
- 467 02f4 B8 00                   		movw	[sp], ax
- 468 02f6 F6                      		clrw	ax
- 469 02f7 B8 02                   		movw	[sp+2], ax
- 470 02f9 EC 0C 03 00             		br	!!.L13
- 471                             	.L14:
+ 469                             		.loc 1 160 0
+ 470 02f3 F6                      		clrw	ax
+ 471 02f4 B8 00                   		movw	[sp], ax
+ 472 02f6 F6                      		clrw	ax
+ 473 02f7 B8 02                   		movw	[sp+2], ax
+ 474 02f9 EC 0C 03 00             		br	!!.L13
+ 475                             	.L14:
  161:../src/r_cg_rtc.c ****     {
  162:../src/r_cg_rtc.c ****         NOP();
- 472                             		.loc 1 162 0 discriminator 3
- 473                             	 ; 162 "../src/r_cg_rtc.c" 1
- 474 02fd 00                      		nop
- 475                             	 ; 0 "" 2
+ 476                             		.loc 1 162 0 discriminator 3
+ 477                             	 ; 162 "../src/r_cg_rtc.c" 1
+ 478 02fd 00                      		nop
+ 479                             	 ; 0 "" 2
  160:../src/r_cg_rtc.c ****     {
- 476                             		.loc 1 160 0 discriminator 3
- 477 02fe A8 00                   		movw ax, [sp]
- 478 0300 04 01 00                		addw ax, #1
- 479 0303 B8 00                   		movw [sp], ax
- 480 0305 A8 02                   		movw ax, [sp+2]
- 481 0307 61 D8                   		sknc
- 482 0309 A1                      		incw ax
- 483 030a B8 02                   		movw [sp+2],ax
- 484                             	.L13:
+ 480                             		.loc 1 160 0 discriminator 3
+ 481 02fe A8 00                   		movw ax, [sp]
+ 482 0300 04 01 00                		addw ax, #1
+ 483 0303 B8 00                   		movw [sp], ax
+ 484 0305 A8 02                   		movw ax, [sp+2]
+ 485 0307 61 D8                   		sknc
+ 486 0309 A1                      		incw ax
+ 487 030a B8 02                   		movw [sp+2],ax
+ 488                             	.L13:
  160:../src/r_cg_rtc.c ****     {
- 485                             		.loc 1 160 0 is_stmt 0 discriminator 1
- 486 030c A8 02                   		movw	ax, [sp+2]
- 487 030e 44 00 00                		 cmpw	ax, #0
- 488 0311 A8 00                   		 movw	ax, [sp]
- 489 0313 61 F8                   		 sknz
- 490 0315 44 3F 01                		 cmpw	ax, #319
- 491 0318 61 E3                   		 skh
- 492 031a EC FD 02 00             		 br	!!.L14
+ 489                             		.loc 1 160 0 is_stmt 0 discriminator 1
+ 490 030c A8 02                   		movw	ax, [sp+2]
+ 491 030e 44 00 00                		 cmpw	ax, #0
+ 492 0311 A8 00                   		 movw	ax, [sp]
+ 493 0313 61 F8                   		 sknz
+ 494 0315 44 3F 01                		 cmpw	ax, #319
+ 495 0318 61 E3                   		 skh
+ 496 031a EC FD 02 00             		 br	!!.L14
  163:../src/r_cg_rtc.c ****     }
  164:../src/r_cg_rtc.c **** 
  165:../src/r_cg_rtc.c ****     if (0U == RWST)
- 493                             		.loc 1 165 0 is_stmt 1
- 494 031e C9 F0 9E FF             		movw	r8, #-98
- 495 0322 AD F0                   		movw	ax, r8
- 496 0324 BD F2                   		movw	r10, ax
- 497 0326 FA F2                   		movw	hl, r10
- 498 0328 8B                      		mov	a, [hl]
- 499 0329 9D F0                   		mov	r8, a
- 500 032b 31 1A                   		shr	a, 1
- 501 032d 9D F0                   		mov	r8, a
- 502 032f 5A F0 01                		and	r8, #1
- 503 0332 61 E8                   		skz
- 504 0334 EC 41 03 00             		 br	!!.L15
- 505                             		 # zero-comparison eliminated
+ 497                             		.loc 1 165 0 is_stmt 1
+ 498 031e C9 F0 9E FF             		movw	r8, #-98
+ 499 0322 AD F0                   		movw	ax, r8
+ 500 0324 BD F2                   		movw	r10, ax
+ 501 0326 FA F2                   		movw	hl, r10
+ 502 0328 8B                      		mov	a, [hl]
+ 503 0329 9D F0                   		mov	r8, a
+ 504 032b 31 1A                   		shr	a, 1
+ 505 032d 9D F0                   		mov	r8, a
+ 506 032f 5A F0 01                		and	r8, #1
+ 507 0332 61 E8                   		skz
+ 508 0334 EC 41 03 00             		 br	!!.L15
+ 509                             		 # zero-comparison eliminated
  166:../src/r_cg_rtc.c ****     {
  167:../src/r_cg_rtc.c ****         status = MD_BUSY1;
- 506                             		.loc 1 167 0
- 507 0338 30 03 00                		movw	ax, #3
- 508 033b B8 04                   		movw	[sp+4], ax
- 509 033d EC 32 04 00             		br	!!.L16
- 510                             	.L15:
+ 510                             		.loc 1 167 0
+ 511 0338 30 03 00                		movw	ax, #3
+ 512 033b B8 04                   		movw	[sp+4], ax
+ 513 033d EC 32 04 00             		br	!!.L16
+ 514                             	.L15:
  168:../src/r_cg_rtc.c ****     }
  169:../src/r_cg_rtc.c ****     else
  170:../src/r_cg_rtc.c ****     {
  171:../src/r_cg_rtc.c ****         SEC = counter_write_val.sec;
- 511                             		.loc 1 171 0
- 512 0341 C9 F0 92 FF             		movw	r8, #-110
- 513 0345 88 0A                   		mov	a, [sp+10]
- 514 0347 9D F2                   		mov	r10, a
- 515 0349 AD F0                   		movw	ax, r8
- 516 034b BD F4                   		movw	r12, ax
- 517 034d DA F4                   		movw	bc, r12
- 518 034f 8D F2                   		mov	a, r10
- 519 0351 48 00 00                		mov	[bc], a
+ 515                             		.loc 1 171 0
+ 516 0341 C9 F0 92 FF             		movw	r8, #-110
+ 517 0345 88 0A                   		mov	a, [sp+10]
+ 518 0347 9D F2                   		mov	r10, a
+ 519 0349 AD F0                   		movw	ax, r8
+ 520 034b BD F4                   		movw	r12, ax
+ 521 034d DA F4                   		movw	bc, r12
+ 522 034f 8D F2                   		mov	a, r10
+ 523 0351 48 00 00                		mov	[bc], a
  172:../src/r_cg_rtc.c ****         MIN = counter_write_val.min;
- 520                             		.loc 1 172 0
- 521 0354 C9 F0 93 FF             		movw	r8, #-109
- 522 0358 88 0B                   		mov	a, [sp+11]
- 523 035a 9D F2                   		mov	r10, a
- 524 035c AD F0                   		movw	ax, r8
- 525 035e BD F4                   		movw	r12, ax
- 526 0360 DA F4                   		movw	bc, r12
- 527 0362 8D F2                   		mov	a, r10
- 528 0364 48 00 00                		mov	[bc], a
+ 524                             		.loc 1 172 0
+ 525 0354 C9 F0 93 FF             		movw	r8, #-109
+ 526 0358 88 0B                   		mov	a, [sp+11]
+ 527 035a 9D F2                   		mov	r10, a
+ 528 035c AD F0                   		movw	ax, r8
+ 529 035e BD F4                   		movw	r12, ax
+ 530 0360 DA F4                   		movw	bc, r12
+ 531 0362 8D F2                   		mov	a, r10
+ 532 0364 48 00 00                		mov	[bc], a
  173:../src/r_cg_rtc.c ****         HOUR = counter_write_val.hour;
- 529                             		.loc 1 173 0
- 530 0367 C9 F0 94 FF             		movw	r8, #-108
- 531 036b 88 0C                   		mov	a, [sp+12]
- 532 036d 9D F2                   		mov	r10, a
- 533 036f AD F0                   		movw	ax, r8
- 534 0371 BD F4                   		movw	r12, ax
- 535 0373 DA F4                   		movw	bc, r12
- 536 0375 8D F2                   		mov	a, r10
- 537 0377 48 00 00                		mov	[bc], a
+ 533                             		.loc 1 173 0
+ 534 0367 C9 F0 94 FF             		movw	r8, #-108
+ 535 036b 88 0C                   		mov	a, [sp+12]
+ 536 036d 9D F2                   		mov	r10, a
+ 537 036f AD F0                   		movw	ax, r8
+ 538 0371 BD F4                   		movw	r12, ax
+ 539 0373 DA F4                   		movw	bc, r12
+ 540 0375 8D F2                   		mov	a, r10
+ 541 0377 48 00 00                		mov	[bc], a
  174:../src/r_cg_rtc.c ****         WEEK = counter_write_val.week;
- 538                             		.loc 1 174 0
- 539 037a C9 F0 95 FF             		movw	r8, #-107
- 540 037e 88 0E                   		mov	a, [sp+14]
- 541 0380 9D F2                   		mov	r10, a
- 542 0382 AD F0                   		movw	ax, r8
- 543 0384 BD F4                   		movw	r12, ax
- 544 0386 DA F4                   		movw	bc, r12
- 545 0388 8D F2                   		mov	a, r10
- 546 038a 48 00 00                		mov	[bc], a
+ 542                             		.loc 1 174 0
+ 543 037a C9 F0 95 FF             		movw	r8, #-107
+ 544 037e 88 0E                   		mov	a, [sp+14]
+ 545 0380 9D F2                   		mov	r10, a
+ 546 0382 AD F0                   		movw	ax, r8
+ 547 0384 BD F4                   		movw	r12, ax
+ 548 0386 DA F4                   		movw	bc, r12
+ 549 0388 8D F2                   		mov	a, r10
+ 550 038a 48 00 00                		mov	[bc], a
  175:../src/r_cg_rtc.c ****         DAY = counter_write_val.day;
- 547                             		.loc 1 175 0
- 548 038d C9 F0 96 FF             		movw	r8, #-106
- 549 0391 88 0D                   		mov	a, [sp+13]
- 550 0393 9D F2                   		mov	r10, a
- 551 0395 AD F0                   		movw	ax, r8
- 552 0397 BD F4                   		movw	r12, ax
- 553 0399 DA F4                   		movw	bc, r12
- 554 039b 8D F2                   		mov	a, r10
- 555 039d 48 00 00                		mov	[bc], a
+ 551                             		.loc 1 175 0
+ 552 038d C9 F0 96 FF             		movw	r8, #-106
+ 553 0391 88 0D                   		mov	a, [sp+13]
+ 554 0393 9D F2                   		mov	r10, a
+ 555 0395 AD F0                   		movw	ax, r8
+ 556 0397 BD F4                   		movw	r12, ax
+ 557 0399 DA F4                   		movw	bc, r12
+ 558 039b 8D F2                   		mov	a, r10
+ 559 039d 48 00 00                		mov	[bc], a
  176:../src/r_cg_rtc.c ****         MONTH = counter_write_val.month;
- 556                             		.loc 1 176 0
- 557 03a0 C9 F0 97 FF             		movw	r8, #-105
- 558 03a4 88 0F                   		mov	a, [sp+15]
- 559 03a6 9D F2                   		mov	r10, a
- 560 03a8 AD F0                   		movw	ax, r8
- 561 03aa BD F4                   		movw	r12, ax
- 562 03ac DA F4                   		movw	bc, r12
- 563 03ae 8D F2                   		mov	a, r10
- 564 03b0 48 00 00                		mov	[bc], a
+ 560                             		.loc 1 176 0
+ 561 03a0 C9 F0 97 FF             		movw	r8, #-105
+ 562 03a4 88 0F                   		mov	a, [sp+15]
+ 563 03a6 9D F2                   		mov	r10, a
+ 564 03a8 AD F0                   		movw	ax, r8
+ 565 03aa BD F4                   		movw	r12, ax
+ 566 03ac DA F4                   		movw	bc, r12
+ 567 03ae 8D F2                   		mov	a, r10
+ 568 03b0 48 00 00                		mov	[bc], a
  177:../src/r_cg_rtc.c ****         YEAR = counter_write_val.year;
- 565                             		.loc 1 177 0
- 566 03b3 C9 F0 98 FF             		movw	r8, #-104
- 567 03b7 88 10                   		mov	a, [sp+16]
- 568 03b9 9D F2                   		mov	r10, a
- 569 03bb AD F0                   		movw	ax, r8
- 570 03bd BD F4                   		movw	r12, ax
- 571 03bf DA F4                   		movw	bc, r12
- 572 03c1 8D F2                   		mov	a, r10
- 573 03c3 48 00 00                		mov	[bc], a
+ 569                             		.loc 1 177 0
+ 570 03b3 C9 F0 98 FF             		movw	r8, #-104
+ 571 03b7 88 10                   		mov	a, [sp+16]
+ 572 03b9 9D F2                   		mov	r10, a
+ 573 03bb AD F0                   		movw	ax, r8
+ 574 03bd BD F4                   		movw	r12, ax
+ 575 03bf DA F4                   		movw	bc, r12
+ 576 03c1 8D F2                   		mov	a, r10
+ 577 03c3 48 00 00                		mov	[bc], a
  178:../src/r_cg_rtc.c ****         RTCC1 &= (uint8_t)~_01_RTC_COUNTER_PAUSE;
- 574                             		.loc 1 178 0
- 575 03c6 C9 F2 9E FF             		movw	r10, #-98
- 576 03ca C9 F0 9E FF             		movw	r8, #-98
- 577 03ce AD F0                   		movw	ax, r8
- 578 03d0 BD F4                   		movw	r12, ax
- 579 03d2 FA F4                   		movw	hl, r12
- 580 03d4 8B                      		mov	a, [hl]
- 581 03d5 9D F0                   		mov	r8, a
- 582 03d7 5A F0 FE                		and	r8, #-2
- 583 03da AD F2                   		movw	ax, r10
- 584 03dc BD F4                   		movw	r12, ax
- 585 03de DA F4                   		movw	bc, r12
- 586 03e0 8D F0                   		mov	a, r8
- 587 03e2 48 00 00                		mov	[bc], a
+ 578                             		.loc 1 178 0
+ 579 03c6 C9 F2 9E FF             		movw	r10, #-98
+ 580 03ca C9 F0 9E FF             		movw	r8, #-98
+ 581 03ce AD F0                   		movw	ax, r8
+ 582 03d0 BD F4                   		movw	r12, ax
+ 583 03d2 FA F4                   		movw	hl, r12
+ 584 03d4 8B                      		mov	a, [hl]
+ 585 03d5 9D F0                   		mov	r8, a
+ 586 03d7 5A F0 FE                		and	r8, #-2
+ 587 03da AD F2                   		movw	ax, r10
+ 588 03dc BD F4                   		movw	r12, ax
+ 589 03de DA F4                   		movw	bc, r12
+ 590 03e0 8D F0                   		mov	a, r8
+ 591 03e2 48 00 00                		mov	[bc], a
  179:../src/r_cg_rtc.c **** 
  180:../src/r_cg_rtc.c ****         /* Change the waiting time according to the system */
  181:../src/r_cg_rtc.c ****         for (w_count = 0U; w_count < RTC_WAITTIME; w_count++)
- 588                             		.loc 1 181 0
- 589 03e5 F6                      		clrw	ax
- 590 03e6 B8 00                   		movw	[sp], ax
- 591 03e8 F6                      		clrw	ax
- 592 03e9 B8 02                   		movw	[sp+2], ax
- 593 03eb EC FE 03 00             		br	!!.L17
- 594                             	.L18:
+ 592                             		.loc 1 181 0
+ 593 03e5 F6                      		clrw	ax
+ 594 03e6 B8 00                   		movw	[sp], ax
+ 595 03e8 F6                      		clrw	ax
+ 596 03e9 B8 02                   		movw	[sp+2], ax
+ 597 03eb EC FE 03 00             		br	!!.L17
+ 598                             	.L18:
  182:../src/r_cg_rtc.c ****         {
  183:../src/r_cg_rtc.c ****             NOP();
- 595                             		.loc 1 183 0 discriminator 3
- 596                             	 ; 183 "../src/r_cg_rtc.c" 1
- 597 03ef 00                      		nop
- 598                             	 ; 0 "" 2
+ 599                             		.loc 1 183 0 discriminator 3
+ 600                             	 ; 183 "../src/r_cg_rtc.c" 1
+ 601 03ef 00                      		nop
+ 602                             	 ; 0 "" 2
  181:../src/r_cg_rtc.c ****         {
- 599                             		.loc 1 181 0 discriminator 3
- 600 03f0 A8 00                   		movw ax, [sp]
- 601 03f2 04 01 00                		addw ax, #1
- 602 03f5 B8 00                   		movw [sp], ax
- 603 03f7 A8 02                   		movw ax, [sp+2]
- 604 03f9 61 D8                   		sknc
- 605 03fb A1                      		incw ax
- 606 03fc B8 02                   		movw [sp+2],ax
- 607                             	.L17:
+ 603                             		.loc 1 181 0 discriminator 3
+ 604 03f0 A8 00                   		movw ax, [sp]
+ 605 03f2 04 01 00                		addw ax, #1
+ 606 03f5 B8 00                   		movw [sp], ax
+ 607 03f7 A8 02                   		movw ax, [sp+2]
+ 608 03f9 61 D8                   		sknc
+ 609 03fb A1                      		incw ax
+ 610 03fc B8 02                   		movw [sp+2],ax
+ 611                             	.L17:
  181:../src/r_cg_rtc.c ****         {
- 608                             		.loc 1 181 0 is_stmt 0 discriminator 1
- 609 03fe A8 02                   		movw	ax, [sp+2]
- 610 0400 44 00 00                		 cmpw	ax, #0
- 611 0403 A8 00                   		 movw	ax, [sp]
- 612 0405 61 F8                   		 sknz
- 613 0407 44 3F 01                		 cmpw	ax, #319
- 614 040a 61 E3                   		 skh
- 615 040c EC EF 03 00             		 br	!!.L18
+ 612                             		.loc 1 181 0 is_stmt 0 discriminator 1
+ 613 03fe A8 02                   		movw	ax, [sp+2]
+ 614 0400 44 00 00                		 cmpw	ax, #0
+ 615 0403 A8 00                   		 movw	ax, [sp]
+ 616 0405 61 F8                   		 sknz
+ 617 0407 44 3F 01                		 cmpw	ax, #319
+ 618 040a 61 E3                   		 skh
+ 619 040c EC EF 03 00             		 br	!!.L18
  184:../src/r_cg_rtc.c ****         }
  185:../src/r_cg_rtc.c **** 
  186:../src/r_cg_rtc.c ****         if (1U == RWST)
- 616                             		.loc 1 186 0 is_stmt 1
- 617 0410 C9 F0 9E FF             		movw	r8, #-98
- 618 0414 AD F0                   		movw	ax, r8
- 619 0416 BD F2                   		movw	r10, ax
- 620 0418 FA F2                   		movw	hl, r10
- 621 041a 8B                      		mov	a, [hl]
- 622 041b 9D F0                   		mov	r8, a
- 623 041d 31 1A                   		shr	a, 1
- 624 041f 9D F0                   		mov	r8, a
- 625 0421 5A F0 01                		and	r8, #1
- 626 0424 4A F0 01                		cmp	r8, #1
- 627 0427 61 E8                   		 skz
- 628 0429 EC 32 04 00             		 br	!!.L16
+ 620                             		.loc 1 186 0 is_stmt 1
+ 621 0410 C9 F0 9E FF             		movw	r8, #-98
+ 622 0414 AD F0                   		movw	ax, r8
+ 623 0416 BD F2                   		movw	r10, ax
+ 624 0418 FA F2                   		movw	hl, r10
+ 625 041a 8B                      		mov	a, [hl]
+ 626 041b 9D F0                   		mov	r8, a
+ 627 041d 31 1A                   		shr	a, 1
+ 628 041f 9D F0                   		mov	r8, a
+ 629 0421 5A F0 01                		and	r8, #1
+ 630 0424 4A F0 01                		cmp	r8, #1
+ 631 0427 61 E8                   		 skz
+ 632 0429 EC 32 04 00             		 br	!!.L16
  187:../src/r_cg_rtc.c ****         {
  188:../src/r_cg_rtc.c ****             status = MD_BUSY2;
- 629                             		.loc 1 188 0
- 630 042d 30 04 00                		movw	ax, #4
- 631 0430 B8 04                   		movw	[sp+4], ax
- 632                             	.L16:
+ 633                             		.loc 1 188 0
+ 634 042d 30 04 00                		movw	ax, #4
+ 635 0430 B8 04                   		movw	[sp+4], ax
+ 636                             	.L16:
  189:../src/r_cg_rtc.c ****         }
  190:../src/r_cg_rtc.c ****     }
  191:../src/r_cg_rtc.c **** 
  192:../src/r_cg_rtc.c ****     return (status);
- 633                             		.loc 1 192 0
- 634 0432 A8 04                   		movw	ax, [sp+4]
- 635 0434 BD F0                   		movw	r8, ax
+ 637                             		.loc 1 192 0
+ 638 0432 A8 04                   		movw	ax, [sp+4]
+ 639 0434 BD F0                   		movw	r8, ax
  193:../src/r_cg_rtc.c **** }
- 636                             		.loc 1 193 0
- 637 0436 10 06                   		addw	sp, #6
- 638 0438 D7                      		ret
- 639                             	.LFE4:
- 707                             	.Letext0:
- 708                             		.file 2 "../src/iodefine.h"
- 709                             		.file 3 "../src/iodefine_ext.h"
- 710                             		.file 4 "../src/r_cg_macrodriver.h"
- 711                             		.file 5 "../src/r_cg_rtc.h"
- 712                             		.file 6 "../src/globals.h"
+ 640                             		.loc 1 193 0
+ 641 0436 10 06                   		addw	sp, #6
+ 642 0438 D7                      		ret
+ 643                             	.LFE4:
+ 711                             	.Letext0:
+ 712                             		.file 2 "../src/iodefine.h"
+ 713                             		.file 3 "../src/iodefine_ext.h"
+ 714                             		.file 4 "../src/r_cg_macrodriver.h"
+ 715                             		.file 5 "../src/r_cg_rtc.h"
+ 716                             		.file 6 "../src/globals.h"

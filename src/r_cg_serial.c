@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for Serial module.
-* Creation Date: 2017/05/07
+* Creation Date: 2017/05/08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -226,7 +226,7 @@ void R_CSI00_Create(void)
     SIR00 = _0002_SAU_SIRMN_PECTMN | _0001_SAU_SIRMN_OVCTMN;    /* clear error flag */
     SMR00 = _0020_SAU_SMRMN_INITIALVALUE | _0000_SAU_CLOCK_SELECT_CK00 | _0000_SAU_CLOCK_MODE_CKS |
             _0000_SAU_TRIGGER_SOFTWARE | _0000_SAU_MODE_CSI | _0001_SAU_BUFFER_EMPTY;
-    SCR00 = _C000_SAU_RECEPTION_TRANSMISSION | _1000_SAU_TIMING_2 | _0000_SAU_MSB | _0007_SAU_LENGTH_8;
+    SCR00 = _C000_SAU_RECEPTION_TRANSMISSION | _3000_SAU_TIMING_4 | _0000_SAU_MSB | _0007_SAU_LENGTH_8;
     SDR00 = _3E00_CSI00_DIVISOR;
     SO0 &= ~_0100_SAU_CH0_CLOCK_OUTPUT_1;    /* CSI00 clock initial level */
     SO0 &= ~_0001_SAU_CH0_DATA_OUTPUT_1;    /* CSI00 SO initial level */

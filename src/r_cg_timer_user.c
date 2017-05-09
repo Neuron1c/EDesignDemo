@@ -23,7 +23,7 @@
 * Device(s)    : R5F100LE
 * Tool-Chain   : GCCRL78
 * Description  : This file implements device driver for TAU module.
-* Creation Date: 2017/05/07
+* Creation Date: 2017/05/08
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -52,7 +52,6 @@ void r_tau0_channel0_interrupt(void)
 {
     /* Start user code. Do not edit comment generated here */
 	timerFlag = 1U;
-	R_UART1_Send("I LIVE", 6);
     /* End user code. Do not edit comment generated here */
 }
 
