@@ -88,7 +88,7 @@
   12:../src/StateMachine.c **** static int state = 0;
   13:../src/StateMachine.c **** extern uint8_t display_string[RX_BUF_LEN];
   14:../src/StateMachine.c **** extern uint8_t record[RX_BUF_LEN];
-  15:../src/StateMachine.c **** extern uint8_t voltage, current1;
+  15:../src/StateMachine.c **** extern uint8_t voltage, current2;
   16:../src/StateMachine.c **** extern uint8_t date[6];
   17:../src/StateMachine.c **** static uint8_t newDate[6];
   18:../src/StateMachine.c **** 
@@ -105,7 +105,7 @@
   66                             		.loc 1 28 0
   67                             		; start of function
   68                             		; push 4: r16 r18
-  69                             		; locals: 12 bytes
+  69                             		; locals: 14 bytes
   70                             		; outgoing: 16 bytes
   71 0000 61 EF                   		sel	rb2
   72 0002 C1                      		push	ax ; r16
@@ -113,7 +113,7 @@
   74 0003 C3                      		push	bc ; r18
   75                             	.LCFI1:
   76 0004 61 CF                   		sel	rb0
-  77 0006 20 1C                   		subw	sp, #28
+  77 0006 20 1E                   		subw	sp, #30
   78                             	.LCFI2:
   29:../src/StateMachine.c **** 	switch (state) {
   79                             		.loc 1 29 0
@@ -233,7 +233,7 @@
   33:../src/StateMachine.c **** 	case 0:
   34:../src/StateMachine.c **** 		if (instr == 3)
  190                             		.loc 1 34 0
- 191 012a A8 24                   		movw	ax, [sp+36]
+ 191 012a A8 26                   		movw	ax, [sp+38]
  192 012c 44 03 00                		cmpw	ax, #3
  193 012f 61 E8                   		 skz
  194 0131 EC 3D 01 00             		 br	!!.L26
@@ -245,7 +245,7 @@
  199                             	.L26:
   36:../src/StateMachine.c **** 		else if (instr == 4)
  200                             		.loc 1 36 0
- 201 013d A8 24                   		movw	ax, [sp+36]
+ 201 013d A8 26                   		movw	ax, [sp+38]
  202 013f 44 04 00                		cmpw	ax, #4
  203 0142 61 E8                   		 skz
  204 0144 EC 50 01 00             		 br	!!.L28
@@ -257,7 +257,7 @@
  209                             	.L28:
   38:../src/StateMachine.c **** 		else if (instr == 6)
  210                             		.loc 1 38 0
- 211 0150 A8 24                   		movw	ax, [sp+36]
+ 211 0150 A8 26                   		movw	ax, [sp+38]
  212 0152 44 06 00                		cmpw	ax, #6
  213 0155 61 E8                   		 skz
  214 0157 EC 65 01 00             		 br	!!.L27
@@ -274,7 +274,7 @@
   41:../src/StateMachine.c **** 	case 1:
   42:../src/StateMachine.c **** 		if (instr == 3)
  223                             		.loc 1 42 0
- 224 0169 A8 24                   		movw	ax, [sp+36]
+ 224 0169 A8 26                   		movw	ax, [sp+38]
  225 016b 44 03 00                		cmpw	ax, #3
  226 016e 61 E8                   		 skz
  227 0170 EC 7C 01 00             		 br	!!.L29
@@ -286,7 +286,7 @@
  232                             	.L29:
   44:../src/StateMachine.c **** 		else if (instr == 4)
  233                             		.loc 1 44 0
- 234 017c A8 24                   		movw	ax, [sp+36]
+ 234 017c A8 26                   		movw	ax, [sp+38]
  235 017e 44 04 00                		cmpw	ax, #4
  236 0181 61 E8                   		 skz
  237 0183 EC 8F 01 00             		 br	!!.L31
@@ -298,7 +298,7 @@
  242                             	.L31:
   46:../src/StateMachine.c **** 		else if (instr == 1) {
  243                             		.loc 1 46 0
- 244 018f A8 24                   		movw	ax, [sp+36]
+ 244 018f A8 26                   		movw	ax, [sp+38]
  245 0191 44 01 00                		cmpw	ax, #1
  246 0194 61 E8                   		 skz
  247 0196 EC A4 01 00             		 br	!!.L32
@@ -312,7 +312,7 @@
   49:../src/StateMachine.c **** 
   50:../src/StateMachine.c **** 		else if (instr == 6)
  253                             		.loc 1 50 0
- 254 01a4 A8 24                   		movw	ax, [sp+36]
+ 254 01a4 A8 26                   		movw	ax, [sp+38]
  255 01a6 44 06 00                		cmpw	ax, #6
  256 01a9 61 E8                   		 skz
  257 01ab EC B9 01 00             		 br	!!.L30
@@ -329,7 +329,7 @@
   53:../src/StateMachine.c **** 	case 2:
   54:../src/StateMachine.c **** 		if (instr == 1) {
  266                             		.loc 1 54 0
- 267 01bd A8 24                   		movw	ax, [sp+36]
+ 267 01bd A8 26                   		movw	ax, [sp+38]
  268 01bf 44 01 00                		cmpw	ax, #1
  269 01c2 61 E8                   		 skz
  270 01c4 EC E0 01 00             		 br	!!.L33
@@ -348,7 +348,7 @@
  281                             	.L33:
   57:../src/StateMachine.c **** 		} else if (instr == 4) {
  282                             		.loc 1 57 0
- 283 01e0 A8 24                   		movw	ax, [sp+36]
+ 283 01e0 A8 26                   		movw	ax, [sp+38]
  284 01e2 44 04 00                		cmpw	ax, #4
  285 01e5 61 E8                   		 skz
  286 01e7 EC F5 01 00             		 br	!!.L35
@@ -360,7 +360,7 @@
  291                             	.L35:
   59:../src/StateMachine.c **** 		} else if (instr == 3) {
  292                             		.loc 1 59 0
- 293 01f5 A8 24                   		movw	ax, [sp+36]
+ 293 01f5 A8 26                   		movw	ax, [sp+38]
  294 01f7 44 03 00                		cmpw	ax, #3
  295 01fa 61 E8                   		 skz
  296 01fc EC 0A 02 00             		 br	!!.L36
@@ -372,7 +372,7 @@
  301                             	.L36:
   61:../src/StateMachine.c **** 		} else if (instr == 5) {
  302                             		.loc 1 61 0
- 303 020a A8 24                   		movw	ax, [sp+36]
+ 303 020a A8 26                   		movw	ax, [sp+38]
  304 020c 44 05 00                		cmpw	ax, #5
  305 020f 61 E8                   		 skz
  306 0211 EC 1D 02 00             		 br	!!.L37
@@ -384,7 +384,7 @@
  311                             	.L37:
   63:../src/StateMachine.c **** 		} else if (instr == 6) {
  312                             		.loc 1 63 0
- 313 021d A8 24                   		movw	ax, [sp+36]
+ 313 021d A8 26                   		movw	ax, [sp+38]
  314 021f 44 06 00                		cmpw	ax, #6
  315 0222 61 E8                   		 skz
  316 0224 EC 32 02 00             		 br	!!.L34
@@ -402,7 +402,7 @@
   67:../src/StateMachine.c **** 	case 3:
   68:../src/StateMachine.c **** 		if (instr == 1) {
  325                             		.loc 1 68 0
- 326 0236 A8 24                   		movw	ax, [sp+36]
+ 326 0236 A8 26                   		movw	ax, [sp+38]
  327 0238 44 01 00                		cmpw	ax, #1
  328 023b 61 E8                   		 skz
  329 023d EC 59 02 00             		 br	!!.L38
@@ -421,7 +421,7 @@
  340                             	.L38:
   71:../src/StateMachine.c **** 		} else if (instr == 4) {
  341                             		.loc 1 71 0
- 342 0259 A8 24                   		movw	ax, [sp+36]
+ 342 0259 A8 26                   		movw	ax, [sp+38]
  343 025b 44 04 00                		cmpw	ax, #4
  344 025e 61 E8                   		 skz
  345 0260 EC 6E 02 00             		 br	!!.L40
@@ -433,7 +433,7 @@
  350                             	.L40:
   73:../src/StateMachine.c **** 		} else if (instr == 3) {
  351                             		.loc 1 73 0
- 352 026e A8 24                   		movw	ax, [sp+36]
+ 352 026e A8 26                   		movw	ax, [sp+38]
  353 0270 44 03 00                		cmpw	ax, #3
  354 0273 61 E8                   		 skz
  355 0275 EC 83 02 00             		 br	!!.L41
@@ -445,7 +445,7 @@
  360                             	.L41:
   75:../src/StateMachine.c **** 		} else if (instr == 5) {
  361                             		.loc 1 75 0
- 362 0283 A8 24                   		movw	ax, [sp+36]
+ 362 0283 A8 26                   		movw	ax, [sp+38]
  363 0285 44 05 00                		cmpw	ax, #5
  364 0288 61 E8                   		 skz
  365 028a EC 96 02 00             		 br	!!.L42
@@ -457,7 +457,7 @@
  370                             	.L42:
   77:../src/StateMachine.c **** 		} else if (instr == 6) {
  371                             		.loc 1 77 0
- 372 0296 A8 24                   		movw	ax, [sp+36]
+ 372 0296 A8 26                   		movw	ax, [sp+38]
  373 0298 44 06 00                		cmpw	ax, #6
  374 029b 61 E8                   		 skz
  375 029d EC AB 02 00             		 br	!!.L39
@@ -475,7 +475,7 @@
   81:../src/StateMachine.c **** 	case 4:
   82:../src/StateMachine.c **** 		if (instr == 1) {
  384                             		.loc 1 82 0
- 385 02af A8 24                   		movw	ax, [sp+36]
+ 385 02af A8 26                   		movw	ax, [sp+38]
  386 02b1 44 01 00                		cmpw	ax, #1
  387 02b4 61 E8                   		 skz
  388 02b6 EC D2 02 00             		 br	!!.L43
@@ -494,7 +494,7 @@
  399                             	.L43:
   85:../src/StateMachine.c **** 		} else if (instr == 4) {
  400                             		.loc 1 85 0
- 401 02d2 A8 24                   		movw	ax, [sp+36]
+ 401 02d2 A8 26                   		movw	ax, [sp+38]
  402 02d4 44 04 00                		cmpw	ax, #4
  403 02d7 61 E8                   		 skz
  404 02d9 EC E7 02 00             		 br	!!.L45
@@ -506,7 +506,7 @@
  409                             	.L45:
   87:../src/StateMachine.c **** 		} else if (instr == 3) {
  410                             		.loc 1 87 0
- 411 02e7 A8 24                   		movw	ax, [sp+36]
+ 411 02e7 A8 26                   		movw	ax, [sp+38]
  412 02e9 44 03 00                		cmpw	ax, #3
  413 02ec 61 E8                   		 skz
  414 02ee EC FC 02 00             		 br	!!.L46
@@ -518,7 +518,7 @@
  419                             	.L46:
   89:../src/StateMachine.c **** 		} else if (instr == 5) {
  420                             		.loc 1 89 0
- 421 02fc A8 24                   		movw	ax, [sp+36]
+ 421 02fc A8 26                   		movw	ax, [sp+38]
  422 02fe 44 05 00                		cmpw	ax, #5
  423 0301 61 E8                   		 skz
  424 0303 EC 0F 03 00             		 br	!!.L47
@@ -530,7 +530,7 @@
  429                             	.L47:
   91:../src/StateMachine.c **** 		} else if (instr == 6) {
  430                             		.loc 1 91 0
- 431 030f A8 24                   		movw	ax, [sp+36]
+ 431 030f A8 26                   		movw	ax, [sp+38]
  432 0311 44 06 00                		cmpw	ax, #6
  433 0314 61 E8                   		 skz
  434 0316 EC 24 03 00             		 br	!!.L44
@@ -548,7 +548,7 @@
   95:../src/StateMachine.c **** 	case 10:
   96:../src/StateMachine.c **** 		if (instr == 1) {
  443                             		.loc 1 96 0
- 444 0328 A8 24                   		movw	ax, [sp+36]
+ 444 0328 A8 26                   		movw	ax, [sp+38]
  445 032a 44 01 00                		cmpw	ax, #1
  446 032d 61 E8                   		 skz
  447 032f EC 4B 03 00             		 br	!!.L48
@@ -567,7 +567,7 @@
  458                             	.L48:
   99:../src/StateMachine.c **** 		} else if (instr == 4) {
  459                             		.loc 1 99 0
- 460 034b A8 24                   		movw	ax, [sp+36]
+ 460 034b A8 26                   		movw	ax, [sp+38]
  461 034d 44 04 00                		cmpw	ax, #4
  462 0350 61 E8                   		 skz
  463 0352 EC 60 03 00             		 br	!!.L50
@@ -579,7 +579,7 @@
  468                             	.L50:
  101:../src/StateMachine.c **** 		} else if (instr == 3) {
  469                             		.loc 1 101 0
- 470 0360 A8 24                   		movw	ax, [sp+36]
+ 470 0360 A8 26                   		movw	ax, [sp+38]
  471 0362 44 03 00                		cmpw	ax, #3
  472 0365 61 E8                   		 skz
  473 0367 EC 75 03 00             		 br	!!.L51
@@ -591,7 +591,7 @@
  478                             	.L51:
  103:../src/StateMachine.c **** 		} else if (instr == 5) {
  479                             		.loc 1 103 0
- 480 0375 A8 24                   		movw	ax, [sp+36]
+ 480 0375 A8 26                   		movw	ax, [sp+38]
  481 0377 44 05 00                		cmpw	ax, #5
  482 037a 61 E8                   		 skz
  483 037c EC 88 03 00             		 br	!!.L52
@@ -603,7 +603,7 @@
  488                             	.L52:
  105:../src/StateMachine.c **** 		} else if (instr == 6) {
  489                             		.loc 1 105 0
- 490 0388 A8 24                   		movw	ax, [sp+36]
+ 490 0388 A8 26                   		movw	ax, [sp+38]
  491 038a 44 06 00                		cmpw	ax, #6
  492 038d 61 E8                   		 skz
  493 038f EC 9D 03 00             		 br	!!.L49
@@ -621,7 +621,7 @@
  109:../src/StateMachine.c **** 	case 11:
  110:../src/StateMachine.c **** 		if (instr == 1) {
  502                             		.loc 1 110 0
- 503 03a1 A8 24                   		movw	ax, [sp+36]
+ 503 03a1 A8 26                   		movw	ax, [sp+38]
  504 03a3 44 01 00                		cmpw	ax, #1
  505 03a6 61 E8                   		 skz
  506 03a8 EC C4 03 00             		 br	!!.L53
@@ -640,7 +640,7 @@
  517                             	.L53:
  113:../src/StateMachine.c **** 		} else if (instr == 4) {
  518                             		.loc 1 113 0
- 519 03c4 A8 24                   		movw	ax, [sp+36]
+ 519 03c4 A8 26                   		movw	ax, [sp+38]
  520 03c6 44 04 00                		cmpw	ax, #4
  521 03c9 61 E8                   		 skz
  522 03cb EC D9 03 00             		 br	!!.L55
@@ -652,7 +652,7 @@
  527                             	.L55:
  115:../src/StateMachine.c **** 		} else if (instr == 3) {
  528                             		.loc 1 115 0
- 529 03d9 A8 24                   		movw	ax, [sp+36]
+ 529 03d9 A8 26                   		movw	ax, [sp+38]
  530 03db 44 03 00                		cmpw	ax, #3
  531 03de 61 E8                   		 skz
  532 03e0 EC EE 03 00             		 br	!!.L56
@@ -664,7 +664,7 @@
  537                             	.L56:
  117:../src/StateMachine.c **** 		} else if (instr == 5) {
  538                             		.loc 1 117 0
- 539 03ee A8 24                   		movw	ax, [sp+36]
+ 539 03ee A8 26                   		movw	ax, [sp+38]
  540 03f0 44 05 00                		cmpw	ax, #5
  541 03f3 61 E8                   		 skz
  542 03f5 EC 01 04 00             		 br	!!.L57
@@ -676,7 +676,7 @@
  547                             	.L57:
  119:../src/StateMachine.c **** 		} else if (instr == 6) {
  548                             		.loc 1 119 0
- 549 0401 A8 24                   		movw	ax, [sp+36]
+ 549 0401 A8 26                   		movw	ax, [sp+38]
  550 0403 44 06 00                		cmpw	ax, #6
  551 0406 61 E8                   		 skz
  552 0408 EC 16 04 00             		 br	!!.L54
@@ -694,7 +694,7 @@
  123:../src/StateMachine.c **** 	case 12:
  124:../src/StateMachine.c **** 		if (instr == 1) {
  561                             		.loc 1 124 0
- 562 041a A8 24                   		movw	ax, [sp+36]
+ 562 041a A8 26                   		movw	ax, [sp+38]
  563 041c 44 01 00                		cmpw	ax, #1
  564 041f 61 E8                   		 skz
  565 0421 EC 3D 04 00             		 br	!!.L58
@@ -713,7 +713,7 @@
  576                             	.L58:
  127:../src/StateMachine.c **** 		} else if (instr == 4) {
  577                             		.loc 1 127 0
- 578 043d A8 24                   		movw	ax, [sp+36]
+ 578 043d A8 26                   		movw	ax, [sp+38]
  579 043f 44 04 00                		cmpw	ax, #4
  580 0442 61 E8                   		 skz
  581 0444 EC 52 04 00             		 br	!!.L60
@@ -725,7 +725,7 @@
  586                             	.L60:
  129:../src/StateMachine.c **** 		} else if (instr == 3) {
  587                             		.loc 1 129 0
- 588 0452 A8 24                   		movw	ax, [sp+36]
+ 588 0452 A8 26                   		movw	ax, [sp+38]
  589 0454 44 03 00                		cmpw	ax, #3
  590 0457 61 E8                   		 skz
  591 0459 EC 67 04 00             		 br	!!.L61
@@ -737,7 +737,7 @@
  596                             	.L61:
  131:../src/StateMachine.c **** 		} else if (instr == 5) {
  597                             		.loc 1 131 0
- 598 0467 A8 24                   		movw	ax, [sp+36]
+ 598 0467 A8 26                   		movw	ax, [sp+38]
  599 0469 44 05 00                		cmpw	ax, #5
  600 046c 61 E8                   		 skz
  601 046e EC 7A 04 00             		 br	!!.L62
@@ -749,7 +749,7 @@
  606                             	.L62:
  133:../src/StateMachine.c **** 		} else if (instr == 6) {
  607                             		.loc 1 133 0
- 608 047a A8 24                   		movw	ax, [sp+36]
+ 608 047a A8 26                   		movw	ax, [sp+38]
  609 047c 44 06 00                		cmpw	ax, #6
  610 047f 61 E8                   		 skz
  611 0481 EC 8F 04 00             		 br	!!.L59
@@ -767,7 +767,7 @@
  137:../src/StateMachine.c **** 	case 13:
  138:../src/StateMachine.c **** 		if (instr == 1) { //accept command
  620                             		.loc 1 138 0
- 621 0493 A8 24                   		movw	ax, [sp+36]
+ 621 0493 A8 26                   		movw	ax, [sp+38]
  622 0495 44 01 00                		cmpw	ax, #1
  623 0498 61 E8                   		 skz
  624 049a EC 0C 05 00             		 br	!!.L63
@@ -847,7 +847,7 @@
  689                             	.L63:
  143:../src/StateMachine.c **** 		} else if (instr == 5) {
  690                             		.loc 1 143 0
- 691 050c A8 24                   		movw	ax, [sp+36]
+ 691 050c A8 26                   		movw	ax, [sp+38]
  692 050e 44 05 00                		cmpw	ax, #5
  693 0511 61 E8                   		 skz
  694 0513 EC 21 05 00             		 br	!!.L64
@@ -865,7 +865,7 @@
  147:../src/StateMachine.c **** 	case 14:
  148:../src/StateMachine.c **** 		if (instr == 1) { //accept command
  703                             		.loc 1 148 0
- 704 0525 A8 24                   		movw	ax, [sp+36]
+ 704 0525 A8 26                   		movw	ax, [sp+38]
  705 0527 44 01 00                		cmpw	ax, #1
  706 052a 61 E8                   		 skz
  707 052c EC 9E 05 00             		 br	!!.L65
@@ -945,7 +945,7 @@
  772                             	.L65:
  153:../src/StateMachine.c **** 		} else if (instr == 5) {
  773                             		.loc 1 153 0
- 774 059e A8 24                   		movw	ax, [sp+36]
+ 774 059e A8 26                   		movw	ax, [sp+38]
  775 05a0 44 05 00                		cmpw	ax, #5
  776 05a3 61 E8                   		 skz
  777 05a5 EC B3 05 00             		 br	!!.L66
@@ -963,7 +963,7 @@
  157:../src/StateMachine.c **** 	case 15:
  158:../src/StateMachine.c **** 		if (instr == 1) { //accept command
  786                             		.loc 1 158 0
- 787 05b7 A8 24                   		movw	ax, [sp+36]
+ 787 05b7 A8 26                   		movw	ax, [sp+38]
  788 05b9 44 01 00                		cmpw	ax, #1
  789 05bc 61 E8                   		 skz
  790 05be EC 30 06 00             		 br	!!.L67
@@ -1043,7 +1043,7 @@
  855                             	.L67:
  163:../src/StateMachine.c **** 		} else if (instr == 5) {
  856                             		.loc 1 163 0
- 857 0630 A8 24                   		movw	ax, [sp+36]
+ 857 0630 A8 26                   		movw	ax, [sp+38]
  858 0632 44 05 00                		cmpw	ax, #5
  859 0635 61 E8                   		 skz
  860 0637 EC 45 06 00             		 br	!!.L68
@@ -1061,7 +1061,7 @@
  167:../src/StateMachine.c **** 	case 16:
  168:../src/StateMachine.c **** 		if (instr == 1) { //accept command
  869                             		.loc 1 168 0
- 870 0649 A8 24                   		movw	ax, [sp+36]
+ 870 0649 A8 26                   		movw	ax, [sp+38]
  871 064b 44 01 00                		cmpw	ax, #1
  872 064e 61 E8                   		 skz
  873 0650 EC C2 06 00             		 br	!!.L69
@@ -1141,7 +1141,7 @@
  938                             	.L69:
  173:../src/StateMachine.c **** 		} else if (instr == 5) {
  939                             		.loc 1 173 0
- 940 06c2 A8 24                   		movw	ax, [sp+36]
+ 940 06c2 A8 26                   		movw	ax, [sp+38]
  941 06c4 44 05 00                		cmpw	ax, #5
  942 06c7 61 E8                   		 skz
  943 06c9 EC D7 06 00             		 br	!!.L70
@@ -1159,7 +1159,7 @@
  177:../src/StateMachine.c **** 	case 17:
  178:../src/StateMachine.c **** 		if (instr == 1) { //accept command
  952                             		.loc 1 178 0
- 953 06db A8 24                   		movw	ax, [sp+36]
+ 953 06db A8 26                   		movw	ax, [sp+38]
  954 06dd 44 01 00                		cmpw	ax, #1
  955 06e0 61 E8                   		 skz
  956 06e2 EC 54 07 00             		 br	!!.L71
@@ -1239,7 +1239,7 @@
  1021                             	.L71:
  183:../src/StateMachine.c **** 		} else if (instr == 5) {
  1022                             		.loc 1 183 0
- 1023 0754 A8 24                   		movw	ax, [sp+36]
+ 1023 0754 A8 26                   		movw	ax, [sp+38]
  1024 0756 44 05 00                		cmpw	ax, #5
  1025 0759 61 E8                   		 skz
  1026 075b EC 69 07 00             		 br	!!.L72
@@ -1257,7 +1257,7 @@
  187:../src/StateMachine.c **** 	case 18:
  188:../src/StateMachine.c **** 		if (instr == 1) { //accept command
  1035                             		.loc 1 188 0
- 1036 076d A8 24                   		movw	ax, [sp+36]
+ 1036 076d A8 26                   		movw	ax, [sp+38]
  1037 076f 44 01 00                		cmpw	ax, #1
  1038 0772 61 E8                   		 skz
  1039 0774 EC E6 07 00             		 br	!!.L73
@@ -1337,7 +1337,7 @@
  1104                             	.L73:
  193:../src/StateMachine.c **** 		} else if (instr == 5) {
  1105                             		.loc 1 193 0
- 1106 07e6 A8 24                   		movw	ax, [sp+36]
+ 1106 07e6 A8 26                   		movw	ax, [sp+38]
  1107 07e8 44 05 00                		cmpw	ax, #5
  1108 07eb 61 E8                   		 skz
  1109 07ed EC FB 07 00             		 br	!!.L74
@@ -1358,7 +1358,7 @@
  200:../src/StateMachine.c **** 	case 5:
  201:../src/StateMachine.c **** 		if (instr == 3)
  1118                             		.loc 1 201 0
- 1119 07ff A8 24                   		movw	ax, [sp+36]
+ 1119 07ff A8 26                   		movw	ax, [sp+38]
  1120 0801 44 03 00                		cmpw	ax, #3
  1121 0804 61 E8                   		 skz
  1122 0806 EC 1A 08 00             		 br	!!.L75
@@ -1373,7 +1373,7 @@
  1130                             	.L75:
  203:../src/StateMachine.c **** 		else if (instr == 4)
  1131                             		.loc 1 203 0
- 1132 081a A8 24                   		movw	ax, [sp+36]
+ 1132 081a A8 26                   		movw	ax, [sp+38]
  1133 081c 44 04 00                		cmpw	ax, #4
  1134 081f 61 E8                   		 skz
  1135 0821 EC 2F 08 00             		 br	!!.L77
@@ -1385,7 +1385,7 @@
  1140                             	.L77:
  205:../src/StateMachine.c **** 		else if (instr == 7)
  1141                             		.loc 1 205 0
- 1142 082f A8 24                   		movw	ax, [sp+36]
+ 1142 082f A8 26                   		movw	ax, [sp+38]
  1143 0831 44 07 00                		cmpw	ax, #7
  1144 0834 61 E8                   		 skz
  1145 0836 EC 42 08 00             		 br	!!.L76
@@ -1402,7 +1402,7 @@
  208:../src/StateMachine.c **** 	case 6:
  209:../src/StateMachine.c **** 		if (instr == 3)
  1154                             		.loc 1 209 0
- 1155 0846 A8 24                   		movw	ax, [sp+36]
+ 1155 0846 A8 26                   		movw	ax, [sp+38]
  1156 0848 44 03 00                		cmpw	ax, #3
  1157 084b 61 E8                   		 skz
  1158 084d EC 61 08 00             		 br	!!.L78
@@ -1417,7 +1417,7 @@
  1166                             	.L78:
  211:../src/StateMachine.c **** 		else if (instr == 4)
  1167                             		.loc 1 211 0
- 1168 0861 A8 24                   		movw	ax, [sp+36]
+ 1168 0861 A8 26                   		movw	ax, [sp+38]
  1169 0863 44 04 00                		cmpw	ax, #4
  1170 0866 61 E8                   		 skz
  1171 0868 EC 7C 08 00             		 br	!!.L80
@@ -1432,7 +1432,7 @@
  1179                             	.L80:
  213:../src/StateMachine.c **** 		else if (instr == 7)
  1180                             		.loc 1 213 0
- 1181 087c A8 24                   		movw	ax, [sp+36]
+ 1181 087c A8 26                   		movw	ax, [sp+38]
  1182 087e 44 07 00                		cmpw	ax, #7
  1183 0881 61 E8                   		 skz
  1184 0883 EC 8F 08 00             		 br	!!.L79
@@ -1449,7 +1449,7 @@
  216:../src/StateMachine.c **** 	case 7:
  217:../src/StateMachine.c **** 		if (instr == 3)
  1193                             		.loc 1 217 0
- 1194 0893 A8 24                   		movw	ax, [sp+36]
+ 1194 0893 A8 26                   		movw	ax, [sp+38]
  1195 0895 44 03 00                		cmpw	ax, #3
  1196 0898 61 E8                   		 skz
  1197 089a EC AE 08 00             		 br	!!.L81
@@ -1464,7 +1464,7 @@
  1205                             	.L81:
  219:../src/StateMachine.c **** 		else if (instr == 4)
  1206                             		.loc 1 219 0
- 1207 08ae A8 24                   		movw	ax, [sp+36]
+ 1207 08ae A8 26                   		movw	ax, [sp+38]
  1208 08b0 44 04 00                		cmpw	ax, #4
  1209 08b3 61 E8                   		 skz
  1210 08b5 EC C9 08 00             		 br	!!.L83
@@ -1479,7 +1479,7 @@
  1218                             	.L83:
  221:../src/StateMachine.c **** 		else if (instr == 7)
  1219                             		.loc 1 221 0
- 1220 08c9 A8 24                   		movw	ax, [sp+36]
+ 1220 08c9 A8 26                   		movw	ax, [sp+38]
  1221 08cb 44 07 00                		cmpw	ax, #7
  1222 08ce 61 E8                   		 skz
  1223 08d0 EC DC 08 00             		 br	!!.L82
@@ -1496,7 +1496,7 @@
  224:../src/StateMachine.c **** 	case 8:
  225:../src/StateMachine.c **** 		if (instr == 3)
  1232                             		.loc 1 225 0
- 1233 08e0 A8 24                   		movw	ax, [sp+36]
+ 1233 08e0 A8 26                   		movw	ax, [sp+38]
  1234 08e2 44 03 00                		cmpw	ax, #3
  1235 08e5 61 E8                   		 skz
  1236 08e7 EC FB 08 00             		 br	!!.L84
@@ -1511,7 +1511,7 @@
  1244                             	.L84:
  227:../src/StateMachine.c **** 		else if (instr == 4)
  1245                             		.loc 1 227 0
- 1246 08fb A8 24                   		movw	ax, [sp+36]
+ 1246 08fb A8 26                   		movw	ax, [sp+38]
  1247 08fd 44 04 00                		cmpw	ax, #4
  1248 0900 61 E8                   		 skz
  1249 0902 EC 16 09 00             		 br	!!.L86
@@ -1526,7 +1526,7 @@
  1257                             	.L86:
  229:../src/StateMachine.c **** 		else if (instr == 7)
  1258                             		.loc 1 229 0
- 1259 0916 A8 24                   		movw	ax, [sp+36]
+ 1259 0916 A8 26                   		movw	ax, [sp+38]
  1260 0918 44 07 00                		cmpw	ax, #7
  1261 091b 61 E8                   		 skz
  1262 091d EC 29 09 00             		 br	!!.L85
@@ -1543,7 +1543,7 @@
  232:../src/StateMachine.c **** 	case 9:
  233:../src/StateMachine.c **** 		if (instr == 3)
  1271                             		.loc 1 233 0
- 1272 092d A8 24                   		movw	ax, [sp+36]
+ 1272 092d A8 26                   		movw	ax, [sp+38]
  1273 092f 44 03 00                		cmpw	ax, #3
  1274 0932 61 E8                   		 skz
  1275 0934 EC 42 09 00             		 br	!!.L87
@@ -1555,7 +1555,7 @@
  1280                             	.L87:
  235:../src/StateMachine.c **** 		else if (instr == 4)
  1281                             		.loc 1 235 0
- 1282 0942 A8 24                   		movw	ax, [sp+36]
+ 1282 0942 A8 26                   		movw	ax, [sp+38]
  1283 0944 44 04 00                		cmpw	ax, #4
  1284 0947 61 E8                   		 skz
  1285 0949 EC 5D 09 00             		 br	!!.L89
@@ -1570,7 +1570,7 @@
  1293                             	.L89:
  237:../src/StateMachine.c **** 		else if (instr == 7)
  1294                             		.loc 1 237 0
- 1295 095d A8 24                   		movw	ax, [sp+36]
+ 1295 095d A8 26                   		movw	ax, [sp+38]
  1296 095f 44 07 00                		cmpw	ax, #7
  1297 0962 61 E8                   		 skz
  1298 0964 EC 70 09 00             		 br	!!.L88
@@ -1624,7 +1624,7 @@
  1310 0974 BD F0                   		movw	r8, ax
  1311 0976 44 09 00                		cmpw	ax, #9
  1312 0979 61 F8                   		 sknz
- 1313 097b EC CC 12 00             		 br	!!.L91
+ 1313 097b EC D5 13 00             		 br	!!.L91
  1314 097f AD F0                   		movw	ax, r8
  1315 0981 44 09 00                		cmpw	ax, #9
  1316 0984 71 FF                   		 xor1	CY, a.7
@@ -1633,7 +1633,7 @@
  1319 098c AD F0                   		movw	ax, r8
  1320 098e 44 04 00                		cmpw	ax, #4
  1321 0991 61 F8                   		 sknz
- 1322 0993 EC A4 0B 00             		 br	!!.L93
+ 1322 0993 EC AD 0C 00             		 br	!!.L93
  1323 0997 AD F0                   		movw	ax, r8
  1324 0999 44 04 00                		cmpw	ax, #4
  1325 099c 71 FF                   		 xor1	CY, a.7
@@ -1642,7 +1642,7 @@
  1328 09a4 AD F0                   		movw	ax, r8
  1329 09a6 44 01 00                		cmpw	ax, #1
  1330 09a9 61 F8                   		 sknz
- 1331 09ab EC C6 0A 00             		 br	!!.L95
+ 1331 09ab EC CF 0B 00             		 br	!!.L95
  1332 09af AD F0                   		movw	ax, r8
  1333 09b1 44 01 00                		cmpw	ax, #1
  1334 09b4 71 FF                   		 xor1	CY, a.7
@@ -1652,41 +1652,41 @@
  1338 09be 44 00 00                		cmpw	ax, #0
  1339 09c1 61 F8                   		 sknz
  1340 09c3 EC 93 0A 00             		 br	!!.L97
- 1341 09c7 EC 82 13 00             		br	!!.L1
+ 1341 09c7 EC 8B 14 00             		br	!!.L1
  1342                             	.L96:
  1343 09cb AD F0                   		movw	ax, r8
  1344 09cd 44 02 00                		cmpw	ax, #2
  1345 09d0 61 F8                   		 sknz
- 1346 09d2 EC 1F 0B 00             		 br	!!.L98
+ 1346 09d2 EC 28 0C 00             		 br	!!.L98
  1347 09d6 AD F0                   		movw	ax, r8
  1348 09d8 44 03 00                		cmpw	ax, #3
  1349 09db 61 F8                   		 sknz
- 1350 09dd EC 5F 0B 00             		 br	!!.L99
- 1351 09e1 EC 82 13 00             		br	!!.L1
+ 1350 09dd EC 68 0C 00             		 br	!!.L99
+ 1351 09e1 EC 8B 14 00             		br	!!.L1
  1352                             	.L94:
  1353 09e5 AD F0                   		movw	ax, r8
  1354 09e7 44 06 00                		cmpw	ax, #6
  1355 09ea 61 F8                   		 sknz
- 1356 09ec EC A1 10 00             		 br	!!.L100
+ 1356 09ec EC AA 11 00             		 br	!!.L100
  1357 09f0 AD F0                   		movw	ax, r8
  1358 09f2 44 06 00                		cmpw	ax, #6
  1359 09f5 71 FF                   		 xor1	CY, a.7
  1360 09f7 61 D8                   		 sknc
- 1361 09f9 EC E8 0F 00             		 br	!!.L101
+ 1361 09f9 EC F1 10 00             		 br	!!.L101
  1362 09fd AD F0                   		movw	ax, r8
  1363 09ff 44 07 00                		cmpw	ax, #7
  1364 0a02 61 F8                   		 sknz
- 1365 0a04 EC 5A 11 00             		 br	!!.L102
+ 1365 0a04 EC 63 12 00             		 br	!!.L102
  1366 0a08 AD F0                   		movw	ax, r8
  1367 0a0a 44 08 00                		cmpw	ax, #8
  1368 0a0d 61 F8                   		 sknz
- 1369 0a0f EC 13 12 00             		 br	!!.L103
- 1370 0a13 EC 82 13 00             		br	!!.L1
+ 1369 0a0f EC 1C 13 00             		 br	!!.L103
+ 1370 0a13 EC 8B 14 00             		br	!!.L1
  1371                             	.L92:
  1372 0a17 AD F0                   		movw	ax, r8
  1373 0a19 44 0E 00                		cmpw	ax, #14
  1374 0a1c 61 F8                   		 sknz
- 1375 0a1e EC 2E 0D 00             		 br	!!.L104
+ 1375 0a1e EC 37 0E 00             		 br	!!.L104
  1376 0a22 AD F0                   		movw	ax, r8
  1377 0a24 44 0E 00                		cmpw	ax, #14
  1378 0a27 71 FF                   		 xor1	CY, a.7
@@ -1695,1295 +1695,1447 @@
  1381 0a2f AD F0                   		movw	ax, r8
  1382 0a31 44 0B 00                		cmpw	ax, #11
  1383 0a34 61 F8                   		 sknz
- 1384 0a36 EC 1F 0C 00             		 br	!!.L106
+ 1384 0a36 EC 28 0D 00             		 br	!!.L106
  1385 0a3a AD F0                   		movw	ax, r8
  1386 0a3c 44 0B 00                		cmpw	ax, #11
  1387 0a3f 71 FF                   		 xor1	CY, a.7
  1388 0a41 61 D8                   		 sknc
- 1389 0a43 EC DF 0B 00             		 br	!!.L107
+ 1389 0a43 EC E8 0C 00             		 br	!!.L107
  1390 0a47 AD F0                   		movw	ax, r8
  1391 0a49 44 0C 00                		cmpw	ax, #12
  1392 0a4c 61 F8                   		 sknz
- 1393 0a4e EC 69 0C 00             		 br	!!.L108
+ 1393 0a4e EC 72 0D 00             		 br	!!.L108
  1394 0a52 AD F0                   		movw	ax, r8
  1395 0a54 44 0D 00                		cmpw	ax, #13
  1396 0a57 61 F8                   		 sknz
- 1397 0a59 EC B3 0C 00             		 br	!!.L109
- 1398 0a5d EC 82 13 00             		br	!!.L1
+ 1397 0a59 EC BC 0D 00             		 br	!!.L109
+ 1398 0a5d EC 8B 14 00             		br	!!.L1
  1399                             	.L105:
  1400 0a61 AD F0                   		movw	ax, r8
  1401 0a63 44 10 00                		cmpw	ax, #16
  1402 0a66 61 F8                   		 sknz
- 1403 0a68 EC 77 0E 00             		 br	!!.L110
+ 1403 0a68 EC 80 0F 00             		 br	!!.L110
  1404 0a6c AD F0                   		movw	ax, r8
  1405 0a6e 44 10 00                		cmpw	ax, #16
  1406 0a71 71 FF                   		 xor1	CY, a.7
  1407 0a73 61 D8                   		 sknc
- 1408 0a75 EC A9 0D 00             		 br	!!.L111
+ 1408 0a75 EC B2 0E 00             		 br	!!.L111
  1409 0a79 AD F0                   		movw	ax, r8
  1410 0a7b 44 11 00                		cmpw	ax, #17
  1411 0a7e 61 F8                   		 sknz
- 1412 0a80 EC F2 0E 00             		 br	!!.L112
+ 1412 0a80 EC FB 0F 00             		 br	!!.L112
  1413 0a84 AD F0                   		movw	ax, r8
  1414 0a86 44 12 00                		cmpw	ax, #18
  1415 0a89 61 F8                   		 sknz
- 1416 0a8b EC 6D 0F 00             		 br	!!.L113
- 1417 0a8f EC 82 13 00             		br	!!.L1
+ 1416 0a8b EC 76 10 00             		 br	!!.L113
+ 1417 0a8f EC 8B 14 00             		br	!!.L1
  1418                             	.L97:
+ 1419                             	.LBB8:
  274:../src/StateMachine.c **** 	case 0:
- 275:../src/StateMachine.c **** 		sprintf(display_string, "SP:Voc=%d mV, Isc=%d mA\x0d\x0a", voltage,
- 1419                             		.loc 1 275 0
- 1420 0a93 8F 00 00                		mov	a, !_voltage
- 1421 0a96 9D F0                   		mov	r8, a
- 1422 0a98 70                      		mov	x, a 
- 1423 0a99 51 00                   		mov	a, #0
- 1424 0a9b BD F2                   		movw	r10, ax
- 1425 0a9d 8F 00 00                		mov	a, !_current1
- 1426 0aa0 9D F0                   		mov	r8, a
- 1427 0aa2 CD F1 00                		mov	r9, #0
- 1428 0aa5 30 00 00                		movw	ax, #_display_string
- 1429 0aa8 B8 00                   		movw	[sp], ax
- 1430 0aaa 30 1A 00                		movw	ax, #.LC1
- 1431 0aad B8 02                   		movw	[sp+2], ax
- 1432 0aaf AD F2                   		movw	ax, r10
- 1433 0ab1 B8 04                   		movw	[sp+4], ax
- 1434 0ab3 AD F0                   		movw	ax, r8
- 1435 0ab5 B8 06                   		movw	[sp+6], ax
- 1436 0ab7 FC 00 00 00             		call	!!%code(_sprintf)
- 276:../src/StateMachine.c **** 				current1);
- 277:../src/StateMachine.c **** 		displayLCD(1);
- 1437                             		.loc 1 277 0
- 1438 0abb E6                      		onew	ax
- 1439 0abc B8 00                   		movw	[sp], ax
- 1440 0abe FC 00 00 00             		call	!!%code(_displayLCD)
- 278:../src/StateMachine.c **** 		break;
- 1441                             		.loc 1 278 0
- 1442 0ac2 EC 82 13 00             		br	!!.L1
- 1443                             	.L95:
- 279:../src/StateMachine.c **** 	case 1:
- 280:../src/StateMachine.c **** 		strcpy(display_string, "Set date/time\x0d\x0a");
- 1444                             		.loc 1 280 0
- 1445 0ac6 51 53                   		mov	a, #83
- 1446 0ac8 9F 00 00                		mov	!_display_string, a
- 1447 0acb 51 65                   		mov	a, #101
- 1448 0acd 9F 00 00                		mov	!_display_string+1, a
- 1449 0ad0 51 74                   		mov	a, #116
- 1450 0ad2 9F 00 00                		mov	!_display_string+2, a
- 1451 0ad5 51 20                   		mov	a, #32
- 1452 0ad7 9F 00 00                		mov	!_display_string+3, a
- 1453 0ada 51 64                   		mov	a, #100
- 1454 0adc 9F 00 00                		mov	!_display_string+4, a
- 1455 0adf 51 61                   		mov	a, #97
- 1456 0ae1 9F 00 00                		mov	!_display_string+5, a
- 1457 0ae4 51 74                   		mov	a, #116
- 1458 0ae6 9F 00 00                		mov	!_display_string+6, a
- 1459 0ae9 51 65                   		mov	a, #101
- 1460 0aeb 9F 00 00                		mov	!_display_string+7, a
- 1461 0aee 51 2F                   		mov	a, #47
- 1462 0af0 9F 00 00                		mov	!_display_string+8, a
- 1463 0af3 51 74                   		mov	a, #116
- 1464 0af5 9F 00 00                		mov	!_display_string+9, a
- 1465 0af8 51 69                   		mov	a, #105
- 1466 0afa 9F 00 00                		mov	!_display_string+10, a
- 1467 0afd 51 6D                   		mov	a, #109
- 1468 0aff 9F 00 00                		mov	!_display_string+11, a
- 1469 0b02 51 65                   		mov	a, #101
- 1470 0b04 9F 00 00                		mov	!_display_string+12, a
- 1471 0b07 51 0D                   		mov	a, #13
- 1472 0b09 9F 00 00                		mov	!_display_string+13, a
- 1473 0b0c 51 0A                   		mov	a, #10
- 1474 0b0e 9F 00 00                		mov	!_display_string+14, a
- 1475 0b11 F5 00 00                		clrb	!_display_string+15
- 281:../src/StateMachine.c **** 		displayLCD(1);
- 1476                             		.loc 1 281 0
- 1477 0b14 E6                      		onew	ax
- 1478 0b15 B8 00                   		movw	[sp], ax
- 1479 0b17 FC 00 00 00             		call	!!%code(_displayLCD)
- 282:../src/StateMachine.c **** 		break;
- 1480                             		.loc 1 282 0
- 1481 0b1b EC 82 13 00             		br	!!.L1
- 1482                             	.L98:
- 283:../src/StateMachine.c **** 	case 2:
- 284:../src/StateMachine.c **** 		strcpy(display_string, "Set Year\x0d\x0a");
- 1483                             		.loc 1 284 0
- 1484 0b1f 51 53                   		mov	a, #83
- 1485 0b21 9F 00 00                		mov	!_display_string, a
- 1486 0b24 51 65                   		mov	a, #101
- 1487 0b26 9F 00 00                		mov	!_display_string+1, a
- 1488 0b29 51 74                   		mov	a, #116
- 1489 0b2b 9F 00 00                		mov	!_display_string+2, a
- 1490 0b2e 51 20                   		mov	a, #32
- 1491 0b30 9F 00 00                		mov	!_display_string+3, a
- 1492 0b33 51 59                   		mov	a, #89
- 1493 0b35 9F 00 00                		mov	!_display_string+4, a
- 1494 0b38 51 65                   		mov	a, #101
- 1495 0b3a 9F 00 00                		mov	!_display_string+5, a
- 1496 0b3d 51 61                   		mov	a, #97
- 1497 0b3f 9F 00 00                		mov	!_display_string+6, a
- 1498 0b42 51 72                   		mov	a, #114
- 1499 0b44 9F 00 00                		mov	!_display_string+7, a
- 1500 0b47 51 0D                   		mov	a, #13
- 1501 0b49 9F 00 00                		mov	!_display_string+8, a
- 1502 0b4c 51 0A                   		mov	a, #10
- 1503 0b4e 9F 00 00                		mov	!_display_string+9, a
- 1504 0b51 F5 00 00                		clrb	!_display_string+10
- 285:../src/StateMachine.c **** 		displayLCD(1);
- 1505                             		.loc 1 285 0
- 1506 0b54 E6                      		onew	ax
- 1507 0b55 B8 00                   		movw	[sp], ax
- 1508 0b57 FC 00 00 00             		call	!!%code(_displayLCD)
- 286:../src/StateMachine.c **** 		break;
- 1509                             		.loc 1 286 0
- 1510 0b5b EC 82 13 00             		br	!!.L1
- 1511                             	.L99:
- 287:../src/StateMachine.c **** 	case 3:
- 288:../src/StateMachine.c **** 		strcpy(display_string, "Set Month\x0d\x0a");
- 1512                             		.loc 1 288 0
- 1513 0b5f 51 53                   		mov	a, #83
- 1514 0b61 9F 00 00                		mov	!_display_string, a
- 1515 0b64 51 65                   		mov	a, #101
- 1516 0b66 9F 00 00                		mov	!_display_string+1, a
- 1517 0b69 51 74                   		mov	a, #116
- 1518 0b6b 9F 00 00                		mov	!_display_string+2, a
- 1519 0b6e 51 20                   		mov	a, #32
- 1520 0b70 9F 00 00                		mov	!_display_string+3, a
- 1521 0b73 51 4D                   		mov	a, #77
- 1522 0b75 9F 00 00                		mov	!_display_string+4, a
- 1523 0b78 51 6F                   		mov	a, #111
- 1524 0b7a 9F 00 00                		mov	!_display_string+5, a
- 1525 0b7d 51 6E                   		mov	a, #110
- 1526 0b7f 9F 00 00                		mov	!_display_string+6, a
- 1527 0b82 51 74                   		mov	a, #116
- 1528 0b84 9F 00 00                		mov	!_display_string+7, a
- 1529 0b87 51 68                   		mov	a, #104
- 1530 0b89 9F 00 00                		mov	!_display_string+8, a
- 1531 0b8c 51 0D                   		mov	a, #13
- 1532 0b8e 9F 00 00                		mov	!_display_string+9, a
- 1533 0b91 51 0A                   		mov	a, #10
- 1534 0b93 9F 00 00                		mov	!_display_string+10, a
- 1535 0b96 F5 00 00                		clrb	!_display_string+11
- 289:../src/StateMachine.c **** 		displayLCD(1);
- 1536                             		.loc 1 289 0
- 1537 0b99 E6                      		onew	ax
- 1538 0b9a B8 00                   		movw	[sp], ax
- 1539 0b9c FC 00 00 00             		call	!!%code(_displayLCD)
- 290:../src/StateMachine.c **** 		break;
- 1540                             		.loc 1 290 0
- 1541 0ba0 EC 82 13 00             		br	!!.L1
- 1542                             	.L93:
- 291:../src/StateMachine.c **** 	case 4:
- 292:../src/StateMachine.c **** 		strcpy(display_string, "Set Day\x0d\x0a");
- 1543                             		.loc 1 292 0
- 1544 0ba4 51 53                   		mov	a, #83
- 1545 0ba6 9F 00 00                		mov	!_display_string, a
- 1546 0ba9 51 65                   		mov	a, #101
- 1547 0bab 9F 00 00                		mov	!_display_string+1, a
- 1548 0bae 51 74                   		mov	a, #116
- 1549 0bb0 9F 00 00                		mov	!_display_string+2, a
- 1550 0bb3 51 20                   		mov	a, #32
- 1551 0bb5 9F 00 00                		mov	!_display_string+3, a
- 1552 0bb8 51 44                   		mov	a, #68
- 1553 0bba 9F 00 00                		mov	!_display_string+4, a
- 1554 0bbd 51 61                   		mov	a, #97
- 1555 0bbf 9F 00 00                		mov	!_display_string+5, a
- 1556 0bc2 51 79                   		mov	a, #121
- 1557 0bc4 9F 00 00                		mov	!_display_string+6, a
- 1558 0bc7 51 0D                   		mov	a, #13
- 1559 0bc9 9F 00 00                		mov	!_display_string+7, a
- 1560 0bcc 51 0A                   		mov	a, #10
- 1561 0bce 9F 00 00                		mov	!_display_string+8, a
- 1562 0bd1 F5 00 00                		clrb	!_display_string+9
- 293:../src/StateMachine.c **** 		displayLCD(1);
- 1563                             		.loc 1 293 0
- 1564 0bd4 E6                      		onew	ax
- 1565 0bd5 B8 00                   		movw	[sp], ax
- 1566 0bd7 FC 00 00 00             		call	!!%code(_displayLCD)
- 294:../src/StateMachine.c **** 		break;
- 1567                             		.loc 1 294 0
- 1568 0bdb EC 82 13 00             		br	!!.L1
- 1569                             	.L107:
- 295:../src/StateMachine.c **** 	case 10:
- 296:../src/StateMachine.c **** 		strcpy(display_string, "Set Hour\x0d\x0a");
- 1570                             		.loc 1 296 0
- 1571 0bdf 51 53                   		mov	a, #83
- 1572 0be1 9F 00 00                		mov	!_display_string, a
- 1573 0be4 51 65                   		mov	a, #101
- 1574 0be6 9F 00 00                		mov	!_display_string+1, a
- 1575 0be9 51 74                   		mov	a, #116
- 1576 0beb 9F 00 00                		mov	!_display_string+2, a
- 1577 0bee 51 20                   		mov	a, #32
- 1578 0bf0 9F 00 00                		mov	!_display_string+3, a
- 1579 0bf3 51 48                   		mov	a, #72
- 1580 0bf5 9F 00 00                		mov	!_display_string+4, a
- 1581 0bf8 51 6F                   		mov	a, #111
- 1582 0bfa 9F 00 00                		mov	!_display_string+5, a
- 1583 0bfd 51 75                   		mov	a, #117
- 1584 0bff 9F 00 00                		mov	!_display_string+6, a
- 1585 0c02 51 72                   		mov	a, #114
- 1586 0c04 9F 00 00                		mov	!_display_string+7, a
- 1587 0c07 51 0D                   		mov	a, #13
- 1588 0c09 9F 00 00                		mov	!_display_string+8, a
- 1589 0c0c 51 0A                   		mov	a, #10
- 1590 0c0e 9F 00 00                		mov	!_display_string+9, a
- 1591 0c11 F5 00 00                		clrb	!_display_string+10
+ 275:../src/StateMachine.c **** 		P4_bit.no1 = 0;
+ 1420                             		.loc 1 275 0
+ 1421 0a93 C9 F0 04 FF             		movw	r8, #-252
+ 1422 0a97 AD F0                   		movw	ax, r8
+ 1423 0a99 BD F4                   		movw	r12, ax
+ 1424 0a9b FA F4                   		movw	hl, r12
+ 1425 0a9d 8B                      		mov	a, [hl]
+ 1426 0a9e 9D F2                   		mov	r10, a
+ 1427 0aa0 5A F2 FD                		and	r10, #-3
+ 1428 0aa3 AD F0                   		movw	ax, r8
+ 1429 0aa5 BD F6                   		movw	r14, ax
+ 1430 0aa7 DA F6                   		movw	bc, r14
+ 1431 0aa9 8D F2                   		mov	a, r10
+ 1432 0aab 48 00 00                		mov	[bc], a
+ 276:../src/StateMachine.c **** 		P4_bit.no2 = 0;
+ 1433                             		.loc 1 276 0
+ 1434 0aae C9 F0 04 FF             		movw	r8, #-252
+ 1435 0ab2 AD F0                   		movw	ax, r8
+ 1436 0ab4 BD F4                   		movw	r12, ax
+ 1437 0ab6 FA F4                   		movw	hl, r12
+ 1438 0ab8 8B                      		mov	a, [hl]
+ 1439 0ab9 9D F2                   		mov	r10, a
+ 1440 0abb 5A F2 FB                		and	r10, #-5
+ 1441 0abe AD F0                   		movw	ax, r8
+ 1442 0ac0 BD F6                   		movw	r14, ax
+ 1443 0ac2 DA F6                   		movw	bc, r14
+ 1444 0ac4 8D F2                   		mov	a, r10
+ 1445 0ac6 48 00 00                		mov	[bc], a
+ 277:../src/StateMachine.c **** 		P4_bit.no3 = 0;
+ 1446                             		.loc 1 277 0
+ 1447 0ac9 C9 F0 04 FF             		movw	r8, #-252
+ 1448 0acd AD F0                   		movw	ax, r8
+ 1449 0acf BD F4                   		movw	r12, ax
+ 1450 0ad1 FA F4                   		movw	hl, r12
+ 1451 0ad3 8B                      		mov	a, [hl]
+ 1452 0ad4 9D F2                   		mov	r10, a
+ 1453 0ad6 5A F2 F7                		and	r10, #-9
+ 1454 0ad9 AD F0                   		movw	ax, r8
+ 1455 0adb BD F6                   		movw	r14, ax
+ 1456 0add DA F6                   		movw	bc, r14
+ 1457 0adf 8D F2                   		mov	a, r10
+ 1458 0ae1 48 00 00                		mov	[bc], a
+ 278:../src/StateMachine.c **** 		delayNoInt(1000);
+ 1459                             		.loc 1 278 0
+ 1460 0ae4 30 E8 03                		movw	ax, #1000
+ 1461 0ae7 B8 00                   		movw	[sp], ax
+ 1462 0ae9 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 279:../src/StateMachine.c **** 		delayNoInt(1000);
+ 1463                             		.loc 1 279 0
+ 1464 0aed 30 E8 03                		movw	ax, #1000
+ 1465 0af0 B8 00                   		movw	[sp], ax
+ 1466 0af2 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 280:../src/StateMachine.c **** 		delayNoInt(1000);
+ 1467                             		.loc 1 280 0
+ 1468 0af6 30 E8 03                		movw	ax, #1000
+ 1469 0af9 B8 00                   		movw	[sp], ax
+ 1470 0afb FC 00 00 00             		call	!!%code(_delayNoInt)
+ 281:../src/StateMachine.c **** 		collectADC();
+ 1471                             		.loc 1 281 0
+ 1472 0aff FC 00 00 00             		call	!!%code(_collectADC)
+ 282:../src/StateMachine.c **** 		collectADC();
+ 1473                             		.loc 1 282 0
+ 1474 0b03 FC 00 00 00             		call	!!%code(_collectADC)
+ 283:../src/StateMachine.c **** 		uint8_t newVolt = voltage;
+ 1475                             		.loc 1 283 0
+ 1476 0b07 8F 00 00                		mov	a, !_voltage
+ 1477 0b0a 9D F0                   		mov	r8, a
+ 1478 0b0c 98 1D                   		mov	[sp+29], a
+ 284:../src/StateMachine.c **** 
+ 285:../src/StateMachine.c **** 		P4_bit.no1 = 0;
+ 1479                             		.loc 1 285 0
+ 1480 0b0e C9 F0 04 FF             		movw	r8, #-252
+ 1481 0b12 AD F0                   		movw	ax, r8
+ 1482 0b14 BD F4                   		movw	r12, ax
+ 1483 0b16 FA F4                   		movw	hl, r12
+ 1484 0b18 8B                      		mov	a, [hl]
+ 1485 0b19 9D F2                   		mov	r10, a
+ 1486 0b1b 5A F2 FD                		and	r10, #-3
+ 1487 0b1e AD F0                   		movw	ax, r8
+ 1488 0b20 BD F6                   		movw	r14, ax
+ 1489 0b22 DA F6                   		movw	bc, r14
+ 1490 0b24 8D F2                   		mov	a, r10
+ 1491 0b26 48 00 00                		mov	[bc], a
+ 286:../src/StateMachine.c **** 		P4_bit.no2 = 0;
+ 1492                             		.loc 1 286 0
+ 1493 0b29 C9 F0 04 FF             		movw	r8, #-252
+ 1494 0b2d AD F0                   		movw	ax, r8
+ 1495 0b2f BD F4                   		movw	r12, ax
+ 1496 0b31 FA F4                   		movw	hl, r12
+ 1497 0b33 8B                      		mov	a, [hl]
+ 1498 0b34 9D F2                   		mov	r10, a
+ 1499 0b36 5A F2 FB                		and	r10, #-5
+ 1500 0b39 AD F0                   		movw	ax, r8
+ 1501 0b3b BD F6                   		movw	r14, ax
+ 1502 0b3d DA F6                   		movw	bc, r14
+ 1503 0b3f 8D F2                   		mov	a, r10
+ 1504 0b41 48 00 00                		mov	[bc], a
+ 287:../src/StateMachine.c **** 		P4_bit.no3 = 1;
+ 1505                             		.loc 1 287 0
+ 1506 0b44 C9 F0 04 FF             		movw	r8, #-252
+ 1507 0b48 AD F0                   		movw	ax, r8
+ 1508 0b4a BD F4                   		movw	r12, ax
+ 1509 0b4c FA F4                   		movw	hl, r12
+ 1510 0b4e 8B                      		mov	a, [hl]
+ 1511 0b4f 9D F2                   		mov	r10, a
+ 1512 0b51 6A F2 08                		or	r10, #8
+ 1513 0b54 AD F0                   		movw	ax, r8
+ 1514 0b56 BD F6                   		movw	r14, ax
+ 1515 0b58 DA F6                   		movw	bc, r14
+ 1516 0b5a 8D F2                   		mov	a, r10
+ 1517 0b5c 48 00 00                		mov	[bc], a
+ 288:../src/StateMachine.c **** 		delayNoInt(1000);
+ 1518                             		.loc 1 288 0
+ 1519 0b5f 30 E8 03                		movw	ax, #1000
+ 1520 0b62 B8 00                   		movw	[sp], ax
+ 1521 0b64 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 289:../src/StateMachine.c **** 		delayNoInt(1000);
+ 1522                             		.loc 1 289 0
+ 1523 0b68 30 E8 03                		movw	ax, #1000
+ 1524 0b6b B8 00                   		movw	[sp], ax
+ 1525 0b6d FC 00 00 00             		call	!!%code(_delayNoInt)
+ 290:../src/StateMachine.c **** 		delayNoInt(1000);
+ 1526                             		.loc 1 290 0
+ 1527 0b71 30 E8 03                		movw	ax, #1000
+ 1528 0b74 B8 00                   		movw	[sp], ax
+ 1529 0b76 FC 00 00 00             		call	!!%code(_delayNoInt)
+ 291:../src/StateMachine.c **** 		collectADC();
+ 1530                             		.loc 1 291 0
+ 1531 0b7a FC 00 00 00             		call	!!%code(_collectADC)
+ 292:../src/StateMachine.c **** 		uint8_t newCurrent = current2;
+ 1532                             		.loc 1 292 0
+ 1533 0b7e 8F 00 00                		mov	a, !_current2
+ 1534 0b81 9D F0                   		mov	r8, a
+ 1535 0b83 98 1C                   		mov	[sp+28], a
+ 293:../src/StateMachine.c **** 
+ 294:../src/StateMachine.c **** 
+ 295:../src/StateMachine.c **** 		sprintf(display_string, "SP:Voc=%d mV, Isc=%d mA\x0d\x0a", newVolt * 40,
+ 1536                             		.loc 1 295 0
+ 1537 0b85 88 1D                   		mov	a, [sp+29]
+ 1538 0b87 70                      		mov	x, a 
+ 1539 0b88 51 00                   		mov	a, #0
+ 1540 0b8a BD F0                   		movw	r8, ax
+ 1541 0b8c 31 3D                   		shlw	ax, 3
+ 1542 0b8e BD F0                   		movw	r8, ax
+ 1543 0b90 31 2D                   		shlw	ax, 2
+ 1544 0b92 BD F2                   		movw	r10, ax
+ 1545 0b94 AD F0                   		movw	ax, r8
+ 1546 0b96 06 F2                   		addw	ax, r10
+ 1547 0b98 BD F2                   		movw	r10, ax
+ 1548 0b9a 88 1C                   		mov	a, [sp+28]
+ 1549 0b9c 70                      		mov	x, a 
+ 1550 0b9d 51 00                   		mov	a, #0
+ 1551 0b9f BD F0                   		movw	r8, ax
+ 1552 0ba1 01                      		addw	ax, ax
+ 1553 0ba2 BD F0                   		movw	r8, ax
+ 1554 0ba4 31 2D                   		shlw	ax, 2
+ 1555 0ba6 BD F4                   		movw	r12, ax
+ 1556 0ba8 AD F0                   		movw	ax, r8
+ 1557 0baa 06 F4                   		addw	ax, r12
+ 1558 0bac BD F0                   		movw	r8, ax
+ 1559 0bae 30 00 00                		movw	ax, #_display_string
+ 1560 0bb1 B8 00                   		movw	[sp], ax
+ 1561 0bb3 30 1A 00                		movw	ax, #.LC1
+ 1562 0bb6 B8 02                   		movw	[sp+2], ax
+ 1563 0bb8 AD F2                   		movw	ax, r10
+ 1564 0bba B8 04                   		movw	[sp+4], ax
+ 1565 0bbc AD F0                   		movw	ax, r8
+ 1566 0bbe B8 06                   		movw	[sp+6], ax
+ 1567 0bc0 FC 00 00 00             		call	!!%code(_sprintf)
+ 296:../src/StateMachine.c **** 				newCurrent * 10);
  297:../src/StateMachine.c **** 		displayLCD(1);
- 1592                             		.loc 1 297 0
- 1593 0c14 E6                      		onew	ax
- 1594 0c15 B8 00                   		movw	[sp], ax
- 1595 0c17 FC 00 00 00             		call	!!%code(_displayLCD)
+ 1568                             		.loc 1 297 0
+ 1569 0bc4 E6                      		onew	ax
+ 1570 0bc5 B8 00                   		movw	[sp], ax
+ 1571 0bc7 FC 00 00 00             		call	!!%code(_displayLCD)
  298:../src/StateMachine.c **** 		break;
- 1596                             		.loc 1 298 0
- 1597 0c1b EC 82 13 00             		br	!!.L1
- 1598                             	.L106:
- 299:../src/StateMachine.c **** 	case 11:
- 300:../src/StateMachine.c **** 		strcpy(display_string, "Set Minute\x0d\x0a");
- 1599                             		.loc 1 300 0
- 1600 0c1f 51 53                   		mov	a, #83
- 1601 0c21 9F 00 00                		mov	!_display_string, a
- 1602 0c24 51 65                   		mov	a, #101
- 1603 0c26 9F 00 00                		mov	!_display_string+1, a
- 1604 0c29 51 74                   		mov	a, #116
- 1605 0c2b 9F 00 00                		mov	!_display_string+2, a
- 1606 0c2e 51 20                   		mov	a, #32
- 1607 0c30 9F 00 00                		mov	!_display_string+3, a
- 1608 0c33 51 4D                   		mov	a, #77
- 1609 0c35 9F 00 00                		mov	!_display_string+4, a
- 1610 0c38 51 69                   		mov	a, #105
- 1611 0c3a 9F 00 00                		mov	!_display_string+5, a
- 1612 0c3d 51 6E                   		mov	a, #110
- 1613 0c3f 9F 00 00                		mov	!_display_string+6, a
- 1614 0c42 51 75                   		mov	a, #117
- 1615 0c44 9F 00 00                		mov	!_display_string+7, a
- 1616 0c47 51 74                   		mov	a, #116
- 1617 0c49 9F 00 00                		mov	!_display_string+8, a
- 1618 0c4c 51 65                   		mov	a, #101
- 1619 0c4e 9F 00 00                		mov	!_display_string+9, a
- 1620 0c51 51 0D                   		mov	a, #13
- 1621 0c53 9F 00 00                		mov	!_display_string+10, a
- 1622 0c56 51 0A                   		mov	a, #10
- 1623 0c58 9F 00 00                		mov	!_display_string+11, a
- 1624 0c5b F5 00 00                		clrb	!_display_string+12
+ 1572                             		.loc 1 298 0
+ 1573 0bcb EC 8B 14 00             		br	!!.L1
+ 1574                             	.L95:
+ 299:../src/StateMachine.c **** 	case 1:
+ 300:../src/StateMachine.c **** 		strcpy(display_string, "Set date/time\x0d\x0a");
+ 1575                             		.loc 1 300 0
+ 1576 0bcf 51 53                   		mov	a, #83
+ 1577 0bd1 9F 00 00                		mov	!_display_string, a
+ 1578 0bd4 51 65                   		mov	a, #101
+ 1579 0bd6 9F 00 00                		mov	!_display_string+1, a
+ 1580 0bd9 51 74                   		mov	a, #116
+ 1581 0bdb 9F 00 00                		mov	!_display_string+2, a
+ 1582 0bde 51 20                   		mov	a, #32
+ 1583 0be0 9F 00 00                		mov	!_display_string+3, a
+ 1584 0be3 51 64                   		mov	a, #100
+ 1585 0be5 9F 00 00                		mov	!_display_string+4, a
+ 1586 0be8 51 61                   		mov	a, #97
+ 1587 0bea 9F 00 00                		mov	!_display_string+5, a
+ 1588 0bed 51 74                   		mov	a, #116
+ 1589 0bef 9F 00 00                		mov	!_display_string+6, a
+ 1590 0bf2 51 65                   		mov	a, #101
+ 1591 0bf4 9F 00 00                		mov	!_display_string+7, a
+ 1592 0bf7 51 2F                   		mov	a, #47
+ 1593 0bf9 9F 00 00                		mov	!_display_string+8, a
+ 1594 0bfc 51 74                   		mov	a, #116
+ 1595 0bfe 9F 00 00                		mov	!_display_string+9, a
+ 1596 0c01 51 69                   		mov	a, #105
+ 1597 0c03 9F 00 00                		mov	!_display_string+10, a
+ 1598 0c06 51 6D                   		mov	a, #109
+ 1599 0c08 9F 00 00                		mov	!_display_string+11, a
+ 1600 0c0b 51 65                   		mov	a, #101
+ 1601 0c0d 9F 00 00                		mov	!_display_string+12, a
+ 1602 0c10 51 0D                   		mov	a, #13
+ 1603 0c12 9F 00 00                		mov	!_display_string+13, a
+ 1604 0c15 51 0A                   		mov	a, #10
+ 1605 0c17 9F 00 00                		mov	!_display_string+14, a
+ 1606 0c1a F5 00 00                		clrb	!_display_string+15
  301:../src/StateMachine.c **** 		displayLCD(1);
- 1625                             		.loc 1 301 0
- 1626 0c5e E6                      		onew	ax
- 1627 0c5f B8 00                   		movw	[sp], ax
- 1628 0c61 FC 00 00 00             		call	!!%code(_displayLCD)
+ 1607                             		.loc 1 301 0
+ 1608 0c1d E6                      		onew	ax
+ 1609 0c1e B8 00                   		movw	[sp], ax
+ 1610 0c20 FC 00 00 00             		call	!!%code(_displayLCD)
  302:../src/StateMachine.c **** 		break;
- 1629                             		.loc 1 302 0
- 1630 0c65 EC 82 13 00             		br	!!.L1
- 1631                             	.L108:
- 303:../src/StateMachine.c **** 	case 12:
- 304:../src/StateMachine.c **** 		strcpy(display_string, "Set Second\x0d\x0a");
- 1632                             		.loc 1 304 0
- 1633 0c69 51 53                   		mov	a, #83
- 1634 0c6b 9F 00 00                		mov	!_display_string, a
- 1635 0c6e 51 65                   		mov	a, #101
- 1636 0c70 9F 00 00                		mov	!_display_string+1, a
- 1637 0c73 51 74                   		mov	a, #116
- 1638 0c75 9F 00 00                		mov	!_display_string+2, a
- 1639 0c78 51 20                   		mov	a, #32
- 1640 0c7a 9F 00 00                		mov	!_display_string+3, a
- 1641 0c7d 51 53                   		mov	a, #83
- 1642 0c7f 9F 00 00                		mov	!_display_string+4, a
- 1643 0c82 51 65                   		mov	a, #101
- 1644 0c84 9F 00 00                		mov	!_display_string+5, a
- 1645 0c87 51 63                   		mov	a, #99
- 1646 0c89 9F 00 00                		mov	!_display_string+6, a
- 1647 0c8c 51 6F                   		mov	a, #111
- 1648 0c8e 9F 00 00                		mov	!_display_string+7, a
- 1649 0c91 51 6E                   		mov	a, #110
- 1650 0c93 9F 00 00                		mov	!_display_string+8, a
- 1651 0c96 51 64                   		mov	a, #100
- 1652 0c98 9F 00 00                		mov	!_display_string+9, a
- 1653 0c9b 51 0D                   		mov	a, #13
- 1654 0c9d 9F 00 00                		mov	!_display_string+10, a
- 1655 0ca0 51 0A                   		mov	a, #10
- 1656 0ca2 9F 00 00                		mov	!_display_string+11, a
- 1657 0ca5 F5 00 00                		clrb	!_display_string+12
+ 1611                             		.loc 1 302 0
+ 1612 0c24 EC 8B 14 00             		br	!!.L1
+ 1613                             	.L98:
+ 303:../src/StateMachine.c **** 	case 2:
+ 304:../src/StateMachine.c **** 		strcpy(display_string, "Set Year\x0d\x0a");
+ 1614                             		.loc 1 304 0
+ 1615 0c28 51 53                   		mov	a, #83
+ 1616 0c2a 9F 00 00                		mov	!_display_string, a
+ 1617 0c2d 51 65                   		mov	a, #101
+ 1618 0c2f 9F 00 00                		mov	!_display_string+1, a
+ 1619 0c32 51 74                   		mov	a, #116
+ 1620 0c34 9F 00 00                		mov	!_display_string+2, a
+ 1621 0c37 51 20                   		mov	a, #32
+ 1622 0c39 9F 00 00                		mov	!_display_string+3, a
+ 1623 0c3c 51 59                   		mov	a, #89
+ 1624 0c3e 9F 00 00                		mov	!_display_string+4, a
+ 1625 0c41 51 65                   		mov	a, #101
+ 1626 0c43 9F 00 00                		mov	!_display_string+5, a
+ 1627 0c46 51 61                   		mov	a, #97
+ 1628 0c48 9F 00 00                		mov	!_display_string+6, a
+ 1629 0c4b 51 72                   		mov	a, #114
+ 1630 0c4d 9F 00 00                		mov	!_display_string+7, a
+ 1631 0c50 51 0D                   		mov	a, #13
+ 1632 0c52 9F 00 00                		mov	!_display_string+8, a
+ 1633 0c55 51 0A                   		mov	a, #10
+ 1634 0c57 9F 00 00                		mov	!_display_string+9, a
+ 1635 0c5a F5 00 00                		clrb	!_display_string+10
  305:../src/StateMachine.c **** 		displayLCD(1);
- 1658                             		.loc 1 305 0
- 1659 0ca8 E6                      		onew	ax
- 1660 0ca9 B8 00                   		movw	[sp], ax
- 1661 0cab FC 00 00 00             		call	!!%code(_displayLCD)
+ 1636                             		.loc 1 305 0
+ 1637 0c5d E6                      		onew	ax
+ 1638 0c5e B8 00                   		movw	[sp], ax
+ 1639 0c60 FC 00 00 00             		call	!!%code(_displayLCD)
  306:../src/StateMachine.c **** 		break;
- 1662                             		.loc 1 306 0
- 1663 0caf EC 82 13 00             		br	!!.L1
- 1664                             	.L109:
- 307:../src/StateMachine.c **** 	case 13:
- 308:../src/StateMachine.c **** 		if (instr == 4) {
- 1665                             		.loc 1 308 0
- 1666 0cb3 A8 24                   		movw	ax, [sp+36]
- 1667 0cb5 44 04 00                		cmpw	ax, #4
- 1668 0cb8 61 E8                   		 skz
- 1669 0cba EC DC 0C 00             		 br	!!.L114
- 309:../src/StateMachine.c **** 			newDate[0]++;
- 1670                             		.loc 1 309 0
- 1671 0cbe 8F 02 00                		mov	a, !_newDate
- 1672 0cc1 9D F0                   		mov	r8, a
- 1673 0cc3 A4 F0                   		inc	r8
- 1674 0cc5 8D F0                   		mov	a, r8
- 1675 0cc7 9F 02 00                		mov	!_newDate, a
- 310:../src/StateMachine.c **** 			if (newDate[0] > 99) {
- 1676                             		.loc 1 310 0
- 1677 0cca 9D F0                   		mov	r8, a
- 1678 0ccc 4A F0 63                		cmp	r8, #99
- 1679 0ccf 61 E3                   		 skh
- 1680 0cd1 EC 09 0D 00             		 br	!!.L116
- 311:../src/StateMachine.c **** 				newDate[0] = 0;
- 1681                             		.loc 1 311 0
- 1682 0cd5 F5 02 00                		clrb	!_newDate
- 1683 0cd8 EC 09 0D 00             		br	!!.L116
- 1684                             	.L114:
- 312:../src/StateMachine.c **** 			}
- 313:../src/StateMachine.c **** 		} else if (instr == 3) {
- 1685                             		.loc 1 313 0
- 1686 0cdc A8 24                   		movw	ax, [sp+36]
- 1687 0cde 44 03 00                		cmpw	ax, #3
- 1688 0ce1 61 E8                   		 skz
- 1689 0ce3 EC 09 0D 00             		 br	!!.L116
- 314:../src/StateMachine.c **** 			if (newDate[0] == 0) {
- 1690                             		.loc 1 314 0
- 1691 0ce7 8F 02 00                		mov	a, !_newDate
- 1692 0cea 9D F0                   		mov	r8, a
- 1693 0cec D4 F0                   		cmp0	r8
- 1694 0cee 61 E8                   		 skz
- 1695 0cf0 EC FD 0C 00             		 br	!!.L117
- 315:../src/StateMachine.c **** 				newDate[0] = 99;
- 1696                             		.loc 1 315 0
- 1697 0cf4 51 63                   		mov	a, #99
- 1698 0cf6 9F 02 00                		mov	!_newDate, a
- 1699 0cf9 EC 09 0D 00             		br	!!.L116
- 1700                             	.L117:
- 316:../src/StateMachine.c **** 			} else {
- 317:../src/StateMachine.c **** 				newDate[0]--;
- 1701                             		.loc 1 317 0
- 1702 0cfd 8F 02 00                		mov	a, !_newDate
- 1703 0d00 9D F0                   		mov	r8, a
- 1704 0d02 B4 F0                   		dec	r8
- 1705 0d04 8D F0                   		mov	a, r8
- 1706 0d06 9F 02 00                		mov	!_newDate, a
- 1707                             	.L116:
- 318:../src/StateMachine.c **** 			}
- 319:../src/StateMachine.c **** 		}
- 320:../src/StateMachine.c **** 		sprintf(display_string, "Year: 20%02d\x0d\x0a", newDate[0]);
- 1708                             		.loc 1 320 0
- 1709 0d09 8F 02 00                		mov	a, !_newDate
- 1710 0d0c 9D F0                   		mov	r8, a
- 1711 0d0e CD F1 00                		mov	r9, #0
- 1712 0d11 30 00 00                		movw	ax, #_display_string
- 1713 0d14 B8 00                   		movw	[sp], ax
- 1714 0d16 30 34 00                		movw	ax, #.LC2
- 1715 0d19 B8 02                   		movw	[sp+2], ax
- 1716 0d1b AD F0                   		movw	ax, r8
- 1717 0d1d B8 04                   		movw	[sp+4], ax
- 1718 0d1f FC 00 00 00             		call	!!%code(_sprintf)
+ 1640                             		.loc 1 306 0
+ 1641 0c64 EC 8B 14 00             		br	!!.L1
+ 1642                             	.L99:
+ 307:../src/StateMachine.c **** 	case 3:
+ 308:../src/StateMachine.c **** 		strcpy(display_string, "Set Month\x0d\x0a");
+ 1643                             		.loc 1 308 0
+ 1644 0c68 51 53                   		mov	a, #83
+ 1645 0c6a 9F 00 00                		mov	!_display_string, a
+ 1646 0c6d 51 65                   		mov	a, #101
+ 1647 0c6f 9F 00 00                		mov	!_display_string+1, a
+ 1648 0c72 51 74                   		mov	a, #116
+ 1649 0c74 9F 00 00                		mov	!_display_string+2, a
+ 1650 0c77 51 20                   		mov	a, #32
+ 1651 0c79 9F 00 00                		mov	!_display_string+3, a
+ 1652 0c7c 51 4D                   		mov	a, #77
+ 1653 0c7e 9F 00 00                		mov	!_display_string+4, a
+ 1654 0c81 51 6F                   		mov	a, #111
+ 1655 0c83 9F 00 00                		mov	!_display_string+5, a
+ 1656 0c86 51 6E                   		mov	a, #110
+ 1657 0c88 9F 00 00                		mov	!_display_string+6, a
+ 1658 0c8b 51 74                   		mov	a, #116
+ 1659 0c8d 9F 00 00                		mov	!_display_string+7, a
+ 1660 0c90 51 68                   		mov	a, #104
+ 1661 0c92 9F 00 00                		mov	!_display_string+8, a
+ 1662 0c95 51 0D                   		mov	a, #13
+ 1663 0c97 9F 00 00                		mov	!_display_string+9, a
+ 1664 0c9a 51 0A                   		mov	a, #10
+ 1665 0c9c 9F 00 00                		mov	!_display_string+10, a
+ 1666 0c9f F5 00 00                		clrb	!_display_string+11
+ 309:../src/StateMachine.c **** 		displayLCD(1);
+ 1667                             		.loc 1 309 0
+ 1668 0ca2 E6                      		onew	ax
+ 1669 0ca3 B8 00                   		movw	[sp], ax
+ 1670 0ca5 FC 00 00 00             		call	!!%code(_displayLCD)
+ 310:../src/StateMachine.c **** 		break;
+ 1671                             		.loc 1 310 0
+ 1672 0ca9 EC 8B 14 00             		br	!!.L1
+ 1673                             	.L93:
+ 311:../src/StateMachine.c **** 	case 4:
+ 312:../src/StateMachine.c **** 		strcpy(display_string, "Set Day\x0d\x0a");
+ 1674                             		.loc 1 312 0
+ 1675 0cad 51 53                   		mov	a, #83
+ 1676 0caf 9F 00 00                		mov	!_display_string, a
+ 1677 0cb2 51 65                   		mov	a, #101
+ 1678 0cb4 9F 00 00                		mov	!_display_string+1, a
+ 1679 0cb7 51 74                   		mov	a, #116
+ 1680 0cb9 9F 00 00                		mov	!_display_string+2, a
+ 1681 0cbc 51 20                   		mov	a, #32
+ 1682 0cbe 9F 00 00                		mov	!_display_string+3, a
+ 1683 0cc1 51 44                   		mov	a, #68
+ 1684 0cc3 9F 00 00                		mov	!_display_string+4, a
+ 1685 0cc6 51 61                   		mov	a, #97
+ 1686 0cc8 9F 00 00                		mov	!_display_string+5, a
+ 1687 0ccb 51 79                   		mov	a, #121
+ 1688 0ccd 9F 00 00                		mov	!_display_string+6, a
+ 1689 0cd0 51 0D                   		mov	a, #13
+ 1690 0cd2 9F 00 00                		mov	!_display_string+7, a
+ 1691 0cd5 51 0A                   		mov	a, #10
+ 1692 0cd7 9F 00 00                		mov	!_display_string+8, a
+ 1693 0cda F5 00 00                		clrb	!_display_string+9
+ 313:../src/StateMachine.c **** 		displayLCD(1);
+ 1694                             		.loc 1 313 0
+ 1695 0cdd E6                      		onew	ax
+ 1696 0cde B8 00                   		movw	[sp], ax
+ 1697 0ce0 FC 00 00 00             		call	!!%code(_displayLCD)
+ 314:../src/StateMachine.c **** 		break;
+ 1698                             		.loc 1 314 0
+ 1699 0ce4 EC 8B 14 00             		br	!!.L1
+ 1700                             	.L107:
+ 315:../src/StateMachine.c **** 	case 10:
+ 316:../src/StateMachine.c **** 		strcpy(display_string, "Set Hour\x0d\x0a");
+ 1701                             		.loc 1 316 0
+ 1702 0ce8 51 53                   		mov	a, #83
+ 1703 0cea 9F 00 00                		mov	!_display_string, a
+ 1704 0ced 51 65                   		mov	a, #101
+ 1705 0cef 9F 00 00                		mov	!_display_string+1, a
+ 1706 0cf2 51 74                   		mov	a, #116
+ 1707 0cf4 9F 00 00                		mov	!_display_string+2, a
+ 1708 0cf7 51 20                   		mov	a, #32
+ 1709 0cf9 9F 00 00                		mov	!_display_string+3, a
+ 1710 0cfc 51 48                   		mov	a, #72
+ 1711 0cfe 9F 00 00                		mov	!_display_string+4, a
+ 1712 0d01 51 6F                   		mov	a, #111
+ 1713 0d03 9F 00 00                		mov	!_display_string+5, a
+ 1714 0d06 51 75                   		mov	a, #117
+ 1715 0d08 9F 00 00                		mov	!_display_string+6, a
+ 1716 0d0b 51 72                   		mov	a, #114
+ 1717 0d0d 9F 00 00                		mov	!_display_string+7, a
+ 1718 0d10 51 0D                   		mov	a, #13
+ 1719 0d12 9F 00 00                		mov	!_display_string+8, a
+ 1720 0d15 51 0A                   		mov	a, #10
+ 1721 0d17 9F 00 00                		mov	!_display_string+9, a
+ 1722 0d1a F5 00 00                		clrb	!_display_string+10
+ 317:../src/StateMachine.c **** 		displayLCD(1);
+ 1723                             		.loc 1 317 0
+ 1724 0d1d E6                      		onew	ax
+ 1725 0d1e B8 00                   		movw	[sp], ax
+ 1726 0d20 FC 00 00 00             		call	!!%code(_displayLCD)
+ 318:../src/StateMachine.c **** 		break;
+ 1727                             		.loc 1 318 0
+ 1728 0d24 EC 8B 14 00             		br	!!.L1
+ 1729                             	.L106:
+ 319:../src/StateMachine.c **** 	case 11:
+ 320:../src/StateMachine.c **** 		strcpy(display_string, "Set Minute\x0d\x0a");
+ 1730                             		.loc 1 320 0
+ 1731 0d28 51 53                   		mov	a, #83
+ 1732 0d2a 9F 00 00                		mov	!_display_string, a
+ 1733 0d2d 51 65                   		mov	a, #101
+ 1734 0d2f 9F 00 00                		mov	!_display_string+1, a
+ 1735 0d32 51 74                   		mov	a, #116
+ 1736 0d34 9F 00 00                		mov	!_display_string+2, a
+ 1737 0d37 51 20                   		mov	a, #32
+ 1738 0d39 9F 00 00                		mov	!_display_string+3, a
+ 1739 0d3c 51 4D                   		mov	a, #77
+ 1740 0d3e 9F 00 00                		mov	!_display_string+4, a
+ 1741 0d41 51 69                   		mov	a, #105
+ 1742 0d43 9F 00 00                		mov	!_display_string+5, a
+ 1743 0d46 51 6E                   		mov	a, #110
+ 1744 0d48 9F 00 00                		mov	!_display_string+6, a
+ 1745 0d4b 51 75                   		mov	a, #117
+ 1746 0d4d 9F 00 00                		mov	!_display_string+7, a
+ 1747 0d50 51 74                   		mov	a, #116
+ 1748 0d52 9F 00 00                		mov	!_display_string+8, a
+ 1749 0d55 51 65                   		mov	a, #101
+ 1750 0d57 9F 00 00                		mov	!_display_string+9, a
+ 1751 0d5a 51 0D                   		mov	a, #13
+ 1752 0d5c 9F 00 00                		mov	!_display_string+10, a
+ 1753 0d5f 51 0A                   		mov	a, #10
+ 1754 0d61 9F 00 00                		mov	!_display_string+11, a
+ 1755 0d64 F5 00 00                		clrb	!_display_string+12
  321:../src/StateMachine.c **** 		displayLCD(1);
- 1719                             		.loc 1 321 0
- 1720 0d23 E6                      		onew	ax
- 1721 0d24 B8 00                   		movw	[sp], ax
- 1722 0d26 FC 00 00 00             		call	!!%code(_displayLCD)
+ 1756                             		.loc 1 321 0
+ 1757 0d67 E6                      		onew	ax
+ 1758 0d68 B8 00                   		movw	[sp], ax
+ 1759 0d6a FC 00 00 00             		call	!!%code(_displayLCD)
  322:../src/StateMachine.c **** 		break;
- 1723                             		.loc 1 322 0
- 1724 0d2a EC 82 13 00             		br	!!.L1
- 1725                             	.L104:
- 323:../src/StateMachine.c **** 
- 324:../src/StateMachine.c **** 	case 14:
- 325:../src/StateMachine.c **** 		if (instr == 4) {
- 1726                             		.loc 1 325 0
- 1727 0d2e A8 24                   		movw	ax, [sp+36]
- 1728 0d30 44 04 00                		cmpw	ax, #4
- 1729 0d33 61 E8                   		 skz
- 1730 0d35 EC 57 0D 00             		 br	!!.L118
- 326:../src/StateMachine.c **** 			newDate[1]++;
- 1731                             		.loc 1 326 0
- 1732 0d39 8F 03 00                		mov	a, !_newDate+1
- 1733 0d3c 9D F0                   		mov	r8, a
- 1734 0d3e A4 F0                   		inc	r8
- 1735 0d40 8D F0                   		mov	a, r8
- 1736 0d42 9F 03 00                		mov	!_newDate+1, a
- 327:../src/StateMachine.c **** 			if (newDate[1] > 12) {
- 1737                             		.loc 1 327 0
- 1738 0d45 9D F0                   		mov	r8, a
- 1739 0d47 4A F0 0C                		cmp	r8, #12
- 1740 0d4a 61 E3                   		 skh
- 1741 0d4c EC 84 0D 00             		 br	!!.L120
- 328:../src/StateMachine.c **** 				newDate[1] = 0;
- 1742                             		.loc 1 328 0
- 1743 0d50 F5 03 00                		clrb	!_newDate+1
- 1744 0d53 EC 84 0D 00             		br	!!.L120
- 1745                             	.L118:
- 329:../src/StateMachine.c **** 			}
- 330:../src/StateMachine.c **** 		} else if (instr == 3) {
- 1746                             		.loc 1 330 0
- 1747 0d57 A8 24                   		movw	ax, [sp+36]
- 1748 0d59 44 03 00                		cmpw	ax, #3
- 1749 0d5c 61 E8                   		 skz
- 1750 0d5e EC 84 0D 00             		 br	!!.L120
- 331:../src/StateMachine.c **** 			if (newDate[1] == 0) {
- 1751                             		.loc 1 331 0
- 1752 0d62 8F 03 00                		mov	a, !_newDate+1
- 1753 0d65 9D F0                   		mov	r8, a
- 1754 0d67 D4 F0                   		cmp0	r8
- 1755 0d69 61 E8                   		 skz
- 1756 0d6b EC 78 0D 00             		 br	!!.L121
- 332:../src/StateMachine.c **** 				newDate[1] = 12;
- 1757                             		.loc 1 332 0
- 1758 0d6f 51 0C                   		mov	a, #12
- 1759 0d71 9F 03 00                		mov	!_newDate+1, a
- 1760 0d74 EC 84 0D 00             		br	!!.L120
- 1761                             	.L121:
- 333:../src/StateMachine.c **** 			} else {
- 334:../src/StateMachine.c **** 				newDate[1]--;
- 1762                             		.loc 1 334 0
- 1763 0d78 8F 03 00                		mov	a, !_newDate+1
- 1764 0d7b 9D F0                   		mov	r8, a
- 1765 0d7d B4 F0                   		dec	r8
- 1766 0d7f 8D F0                   		mov	a, r8
- 1767 0d81 9F 03 00                		mov	!_newDate+1, a
- 1768                             	.L120:
- 335:../src/StateMachine.c **** 			}
- 336:../src/StateMachine.c **** 		}
- 337:../src/StateMachine.c **** 		sprintf(display_string, "Month: %d\x0d\x0a", newDate[1]);
- 1769                             		.loc 1 337 0
- 1770 0d84 8F 03 00                		mov	a, !_newDate+1
- 1771 0d87 9D F0                   		mov	r8, a
- 1772 0d89 CD F1 00                		mov	r9, #0
- 1773 0d8c 30 00 00                		movw	ax, #_display_string
- 1774 0d8f B8 00                   		movw	[sp], ax
- 1775 0d91 30 43 00                		movw	ax, #.LC3
- 1776 0d94 B8 02                   		movw	[sp+2], ax
- 1777 0d96 AD F0                   		movw	ax, r8
- 1778 0d98 B8 04                   		movw	[sp+4], ax
- 1779 0d9a FC 00 00 00             		call	!!%code(_sprintf)
- 338:../src/StateMachine.c **** 		displayLCD(1);
- 1780                             		.loc 1 338 0
- 1781 0d9e E6                      		onew	ax
- 1782 0d9f B8 00                   		movw	[sp], ax
- 1783 0da1 FC 00 00 00             		call	!!%code(_displayLCD)
- 339:../src/StateMachine.c **** 		break;
- 1784                             		.loc 1 339 0
- 1785 0da5 EC 82 13 00             		br	!!.L1
- 1786                             	.L111:
- 340:../src/StateMachine.c **** 	case 15:
- 341:../src/StateMachine.c **** 		if (instr == 4) {
- 1787                             		.loc 1 341 0
- 1788 0da9 A8 24                   		movw	ax, [sp+36]
- 1789 0dab 44 04 00                		cmpw	ax, #4
- 1790 0dae 61 E8                   		 skz
- 1791 0db0 EC 25 0E 00             		 br	!!.L122
- 1792                             	.LBB8:
- 342:../src/StateMachine.c **** 			uint8_t daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
- 1793                             		.loc 1 342 0
- 1794 0db4 51 1F                   		mov	a, #31
- 1795 0db6 98 10                   		mov	[sp+16], a
- 1796 0db8 51 1C                   		mov	a, #28
- 1797 0dba 98 11                   		mov	[sp+17], a
- 1798 0dbc 51 1F                   		mov	a, #31
- 1799 0dbe 98 12                   		mov	[sp+18], a
- 1800 0dc0 51 1E                   		mov	a, #30
- 1801 0dc2 98 13                   		mov	[sp+19], a
- 1802 0dc4 51 1F                   		mov	a, #31
- 1803 0dc6 98 14                   		mov	[sp+20], a
- 1804 0dc8 51 1E                   		mov	a, #30
- 1805 0dca 98 15                   		mov	[sp+21], a
- 1806 0dcc 51 1F                   		mov	a, #31
- 1807 0dce 98 16                   		mov	[sp+22], a
- 1808 0dd0 51 1F                   		mov	a, #31
- 1809 0dd2 98 17                   		mov	[sp+23], a
- 1810 0dd4 51 1E                   		mov	a, #30
- 1811 0dd6 98 18                   		mov	[sp+24], a
- 1812 0dd8 51 1F                   		mov	a, #31
- 1813 0dda 98 19                   		mov	[sp+25], a
- 1814 0ddc 51 1E                   		mov	a, #30
- 1815 0dde 98 1A                   		mov	[sp+26], a
- 1816 0de0 51 1F                   		mov	a, #31
- 1817 0de2 98 1B                   		mov	[sp+27], a
- 343:../src/StateMachine.c **** 					30, 31 };
- 344:../src/StateMachine.c **** 			newDate[2]++;
- 1818                             		.loc 1 344 0
- 1819 0de4 8F 04 00                		mov	a, !_newDate+2
- 1820 0de7 9D F0                   		mov	r8, a
- 1821 0de9 A4 F0                   		inc	r8
- 1822 0deb 8D F0                   		mov	a, r8
- 1823 0ded 9F 04 00                		mov	!_newDate+2, a
- 345:../src/StateMachine.c **** 			if (newDate[2] > daysInMonth[newDate[1] - 1]) {
- 1824                             		.loc 1 345 0
- 1825 0df0 9D F4                   		mov	r12, a
- 1826 0df2 8F 03 00                		mov	a, !_newDate+1
- 1827 0df5 9D F0                   		mov	r8, a
- 1828 0df7 CD F1 00                		mov	r9, #0
- 1829 0dfa B6 F0                   		decw	r8
- 1830 0dfc AE F8                   		movw	ax, sp
- 1831 0dfe BD F6                   		movw	r14, ax
- 1832 0e00 04 10 00                		addw	ax, #16
- 1833 0e03 BD F2                   		movw	r10, ax
- 1834 0e05 06 F0                   		addw	ax, r8
- 1835 0e07 BD F0                   		movw	r8, ax
- 1836 0e09 BD F2                   		movw	r10, ax
- 1837 0e0b FA F2                   		movw	hl, r10
- 1838 0e0d 8B                      		mov	a, [hl]
- 1839 0e0e 9D F0                   		mov	r8, a
- 1840 0e10 8D F4                   		mov	a, r12
- 1841 0e12 4B F0                   		cmp	a, r8
- 1842 0e14 61 E3                   		 skh
- 1843 0e16 EC 21 0E 00             		 br	!!.L123
- 346:../src/StateMachine.c **** 				newDate[2] = 0;
- 1844                             		.loc 1 346 0
- 1845 0e1a F5 04 00                		clrb	!_newDate+2
- 1846                             	.LBE8:
- 1847 0e1d EC 52 0E 00             		br	!!.L124
- 1848                             	.L123:
- 1849 0e21 EC 52 0E 00             		br	!!.L124
- 1850                             	.L122:
- 347:../src/StateMachine.c **** 			}
- 348:../src/StateMachine.c **** 		} else if (instr == 3) {
- 1851                             		.loc 1 348 0
- 1852 0e25 A8 24                   		movw	ax, [sp+36]
- 1853 0e27 44 03 00                		cmpw	ax, #3
- 1854 0e2a 61 E8                   		 skz
- 1855 0e2c EC 52 0E 00             		 br	!!.L124
- 349:../src/StateMachine.c **** 			if (newDate[2] == 0) {
- 1856                             		.loc 1 349 0
- 1857 0e30 8F 04 00                		mov	a, !_newDate+2
- 1858 0e33 9D F0                   		mov	r8, a
- 1859 0e35 D4 F0                   		cmp0	r8
- 1860 0e37 61 E8                   		 skz
- 1861 0e39 EC 46 0E 00             		 br	!!.L125
- 350:../src/StateMachine.c **** 				newDate[2] = 12;
- 1862                             		.loc 1 350 0
- 1863 0e3d 51 0C                   		mov	a, #12
- 1864 0e3f 9F 04 00                		mov	!_newDate+2, a
- 1865 0e42 EC 52 0E 00             		br	!!.L124
- 1866                             	.L125:
- 351:../src/StateMachine.c **** 			} else {
- 352:../src/StateMachine.c **** 				newDate[2]--;
- 1867                             		.loc 1 352 0
- 1868 0e46 8F 04 00                		mov	a, !_newDate+2
- 1869 0e49 9D F0                   		mov	r8, a
- 1870 0e4b B4 F0                   		dec	r8
- 1871 0e4d 8D F0                   		mov	a, r8
- 1872 0e4f 9F 04 00                		mov	!_newDate+2, a
- 1873                             	.L124:
- 353:../src/StateMachine.c **** 			}
- 354:../src/StateMachine.c **** 		}
- 355:../src/StateMachine.c **** 		sprintf(display_string, "Day: %d\x0d\x0a", newDate[2]);
- 1874                             		.loc 1 355 0
- 1875 0e52 8F 04 00                		mov	a, !_newDate+2
- 1876 0e55 9D F0                   		mov	r8, a
- 1877 0e57 CD F1 00                		mov	r9, #0
- 1878 0e5a 30 00 00                		movw	ax, #_display_string
- 1879 0e5d B8 00                   		movw	[sp], ax
- 1880 0e5f 30 4F 00                		movw	ax, #.LC4
- 1881 0e62 B8 02                   		movw	[sp+2], ax
- 1882 0e64 AD F0                   		movw	ax, r8
- 1883 0e66 B8 04                   		movw	[sp+4], ax
- 1884 0e68 FC 00 00 00             		call	!!%code(_sprintf)
- 356:../src/StateMachine.c **** 		displayLCD(1);
- 1885                             		.loc 1 356 0
- 1886 0e6c E6                      		onew	ax
- 1887 0e6d B8 00                   		movw	[sp], ax
- 1888 0e6f FC 00 00 00             		call	!!%code(_displayLCD)
- 357:../src/StateMachine.c **** 		break;
- 1889                             		.loc 1 357 0
- 1890 0e73 EC 82 13 00             		br	!!.L1
- 1891                             	.L110:
- 358:../src/StateMachine.c **** 	case 16:
- 359:../src/StateMachine.c **** 		if (instr == 4) {
- 1892                             		.loc 1 359 0
- 1893 0e77 A8 24                   		movw	ax, [sp+36]
- 1894 0e79 44 04 00                		cmpw	ax, #4
- 1895 0e7c 61 E8                   		 skz
- 1896 0e7e EC A0 0E 00             		 br	!!.L126
- 360:../src/StateMachine.c **** 			newDate[3]++;
- 1897                             		.loc 1 360 0
- 1898 0e82 8F 05 00                		mov	a, !_newDate+3
- 1899 0e85 9D F0                   		mov	r8, a
- 1900 0e87 A4 F0                   		inc	r8
- 1901 0e89 8D F0                   		mov	a, r8
- 1902 0e8b 9F 05 00                		mov	!_newDate+3, a
- 361:../src/StateMachine.c **** 			if (newDate[3] > 24) {
- 1903                             		.loc 1 361 0
- 1904 0e8e 9D F0                   		mov	r8, a
- 1905 0e90 4A F0 18                		cmp	r8, #24
- 1906 0e93 61 E3                   		 skh
- 1907 0e95 EC CD 0E 00             		 br	!!.L128
- 362:../src/StateMachine.c **** 				newDate[3] = 0;
- 1908                             		.loc 1 362 0
- 1909 0e99 F5 05 00                		clrb	!_newDate+3
- 1910 0e9c EC CD 0E 00             		br	!!.L128
- 1911                             	.L126:
- 363:../src/StateMachine.c **** 			}
- 364:../src/StateMachine.c **** 		} else if (instr == 3) {
- 1912                             		.loc 1 364 0
- 1913 0ea0 A8 24                   		movw	ax, [sp+36]
- 1914 0ea2 44 03 00                		cmpw	ax, #3
- 1915 0ea5 61 E8                   		 skz
- 1916 0ea7 EC CD 0E 00             		 br	!!.L128
- 365:../src/StateMachine.c **** 			if (newDate[3] == 0) {
- 1917                             		.loc 1 365 0
- 1918 0eab 8F 05 00                		mov	a, !_newDate+3
- 1919 0eae 9D F0                   		mov	r8, a
- 1920 0eb0 D4 F0                   		cmp0	r8
- 1921 0eb2 61 E8                   		 skz
- 1922 0eb4 EC C1 0E 00             		 br	!!.L129
- 366:../src/StateMachine.c **** 				newDate[3] = 24;
- 1923                             		.loc 1 366 0
- 1924 0eb8 51 18                   		mov	a, #24
- 1925 0eba 9F 05 00                		mov	!_newDate+3, a
- 1926 0ebd EC CD 0E 00             		br	!!.L128
- 1927                             	.L129:
- 367:../src/StateMachine.c **** 			} else {
- 368:../src/StateMachine.c **** 				newDate[3]--;
- 1928                             		.loc 1 368 0
- 1929 0ec1 8F 05 00                		mov	a, !_newDate+3
- 1930 0ec4 9D F0                   		mov	r8, a
- 1931 0ec6 B4 F0                   		dec	r8
- 1932 0ec8 8D F0                   		mov	a, r8
- 1933 0eca 9F 05 00                		mov	!_newDate+3, a
- 1934                             	.L128:
- 369:../src/StateMachine.c **** 			}
- 370:../src/StateMachine.c **** 		}
- 371:../src/StateMachine.c **** 		sprintf(display_string, "Hour: %d\x0d\x0a", newDate[3]);
- 1935                             		.loc 1 371 0
- 1936 0ecd 8F 05 00                		mov	a, !_newDate+3
- 1937 0ed0 9D F0                   		mov	r8, a
- 1938 0ed2 CD F1 00                		mov	r9, #0
- 1939 0ed5 30 00 00                		movw	ax, #_display_string
- 1940 0ed8 B8 00                   		movw	[sp], ax
- 1941 0eda 30 59 00                		movw	ax, #.LC5
- 1942 0edd B8 02                   		movw	[sp+2], ax
- 1943 0edf AD F0                   		movw	ax, r8
- 1944 0ee1 B8 04                   		movw	[sp+4], ax
- 1945 0ee3 FC 00 00 00             		call	!!%code(_sprintf)
- 372:../src/StateMachine.c **** 		displayLCD(1);
- 1946                             		.loc 1 372 0
- 1947 0ee7 E6                      		onew	ax
- 1948 0ee8 B8 00                   		movw	[sp], ax
- 1949 0eea FC 00 00 00             		call	!!%code(_displayLCD)
- 373:../src/StateMachine.c **** 		break;
- 1950                             		.loc 1 373 0
- 1951 0eee EC 82 13 00             		br	!!.L1
- 1952                             	.L112:
- 374:../src/StateMachine.c **** 	case 17:
- 375:../src/StateMachine.c **** 		if (instr == 4) {
- 1953                             		.loc 1 375 0
- 1954 0ef2 A8 24                   		movw	ax, [sp+36]
- 1955 0ef4 44 04 00                		cmpw	ax, #4
- 1956 0ef7 61 E8                   		 skz
- 1957 0ef9 EC 1B 0F 00             		 br	!!.L130
- 376:../src/StateMachine.c **** 			newDate[4]++;
- 1958                             		.loc 1 376 0
- 1959 0efd 8F 06 00                		mov	a, !_newDate+4
- 1960 0f00 9D F0                   		mov	r8, a
- 1961 0f02 A4 F0                   		inc	r8
- 1962 0f04 8D F0                   		mov	a, r8
- 1963 0f06 9F 06 00                		mov	!_newDate+4, a
- 377:../src/StateMachine.c **** 			if (newDate[4] > 59) {
- 1964                             		.loc 1 377 0
- 1965 0f09 9D F0                   		mov	r8, a
- 1966 0f0b 4A F0 3B                		cmp	r8, #59
- 1967 0f0e 61 E3                   		 skh
- 1968 0f10 EC 48 0F 00             		 br	!!.L132
- 378:../src/StateMachine.c **** 				newDate[4] = 0;
- 1969                             		.loc 1 378 0
- 1970 0f14 F5 06 00                		clrb	!_newDate+4
- 1971 0f17 EC 48 0F 00             		br	!!.L132
- 1972                             	.L130:
- 379:../src/StateMachine.c **** 			}
- 380:../src/StateMachine.c **** 		} else if (instr == 3) {
- 1973                             		.loc 1 380 0
- 1974 0f1b A8 24                   		movw	ax, [sp+36]
- 1975 0f1d 44 03 00                		cmpw	ax, #3
- 1976 0f20 61 E8                   		 skz
- 1977 0f22 EC 48 0F 00             		 br	!!.L132
- 381:../src/StateMachine.c **** 			if (newDate[4] == 0) {
- 1978                             		.loc 1 381 0
- 1979 0f26 8F 06 00                		mov	a, !_newDate+4
- 1980 0f29 9D F0                   		mov	r8, a
- 1981 0f2b D4 F0                   		cmp0	r8
- 1982 0f2d 61 E8                   		 skz
- 1983 0f2f EC 3C 0F 00             		 br	!!.L133
- 382:../src/StateMachine.c **** 				newDate[4] = 59;
- 1984                             		.loc 1 382 0
- 1985 0f33 51 3B                   		mov	a, #59
- 1986 0f35 9F 06 00                		mov	!_newDate+4, a
- 1987 0f38 EC 48 0F 00             		br	!!.L132
- 1988                             	.L133:
- 383:../src/StateMachine.c **** 			} else {
- 384:../src/StateMachine.c **** 				newDate[4]--;
- 1989                             		.loc 1 384 0
- 1990 0f3c 8F 06 00                		mov	a, !_newDate+4
- 1991 0f3f 9D F0                   		mov	r8, a
- 1992 0f41 B4 F0                   		dec	r8
- 1993 0f43 8D F0                   		mov	a, r8
- 1994 0f45 9F 06 00                		mov	!_newDate+4, a
- 1995                             	.L132:
- 385:../src/StateMachine.c **** 			}
- 386:../src/StateMachine.c **** 		}
- 387:../src/StateMachine.c **** 		sprintf(display_string, "Minute: %d\x0d\x0a", newDate[4]);
- 1996                             		.loc 1 387 0
- 1997 0f48 8F 06 00                		mov	a, !_newDate+4
- 1998 0f4b 9D F0                   		mov	r8, a
- 1999 0f4d CD F1 00                		mov	r9, #0
- 2000 0f50 30 00 00                		movw	ax, #_display_string
- 2001 0f53 B8 00                   		movw	[sp], ax
- 2002 0f55 30 64 00                		movw	ax, #.LC6
- 2003 0f58 B8 02                   		movw	[sp+2], ax
- 2004 0f5a AD F0                   		movw	ax, r8
- 2005 0f5c B8 04                   		movw	[sp+4], ax
- 2006 0f5e FC 00 00 00             		call	!!%code(_sprintf)
- 388:../src/StateMachine.c **** 		displayLCD(1);
- 2007                             		.loc 1 388 0
- 2008 0f62 E6                      		onew	ax
- 2009 0f63 B8 00                   		movw	[sp], ax
- 2010 0f65 FC 00 00 00             		call	!!%code(_displayLCD)
- 389:../src/StateMachine.c **** 		break;
- 2011                             		.loc 1 389 0
- 2012 0f69 EC 82 13 00             		br	!!.L1
- 2013                             	.L113:
- 390:../src/StateMachine.c **** 	case 18:
- 391:../src/StateMachine.c **** 		if (instr == 4) {
- 2014                             		.loc 1 391 0
- 2015 0f6d A8 24                   		movw	ax, [sp+36]
- 2016 0f6f 44 04 00                		cmpw	ax, #4
- 2017 0f72 61 E8                   		 skz
- 2018 0f74 EC 96 0F 00             		 br	!!.L134
- 392:../src/StateMachine.c **** 			newDate[5]++;
- 2019                             		.loc 1 392 0
- 2020 0f78 8F 07 00                		mov	a, !_newDate+5
- 2021 0f7b 9D F0                   		mov	r8, a
- 2022 0f7d A4 F0                   		inc	r8
- 2023 0f7f 8D F0                   		mov	a, r8
- 2024 0f81 9F 07 00                		mov	!_newDate+5, a
- 393:../src/StateMachine.c **** 			if (newDate[5] > 59) {
- 2025                             		.loc 1 393 0
- 2026 0f84 9D F0                   		mov	r8, a
- 2027 0f86 4A F0 3B                		cmp	r8, #59
- 2028 0f89 61 E3                   		 skh
- 2029 0f8b EC C3 0F 00             		 br	!!.L136
- 394:../src/StateMachine.c **** 				newDate[5] = 0;
- 2030                             		.loc 1 394 0
- 2031 0f8f F5 07 00                		clrb	!_newDate+5
- 2032 0f92 EC C3 0F 00             		br	!!.L136
- 2033                             	.L134:
- 395:../src/StateMachine.c **** 			}
- 396:../src/StateMachine.c **** 		} else if (instr == 3) {
- 2034                             		.loc 1 396 0
- 2035 0f96 A8 24                   		movw	ax, [sp+36]
- 2036 0f98 44 03 00                		cmpw	ax, #3
- 2037 0f9b 61 E8                   		 skz
- 2038 0f9d EC C3 0F 00             		 br	!!.L136
- 397:../src/StateMachine.c **** 			if (newDate[5] == 0) {
- 2039                             		.loc 1 397 0
- 2040 0fa1 8F 07 00                		mov	a, !_newDate+5
- 2041 0fa4 9D F0                   		mov	r8, a
- 2042 0fa6 D4 F0                   		cmp0	r8
- 2043 0fa8 61 E8                   		 skz
- 2044 0faa EC B7 0F 00             		 br	!!.L137
- 398:../src/StateMachine.c **** 				newDate[5] = 59;
- 2045                             		.loc 1 398 0
- 2046 0fae 51 3B                   		mov	a, #59
- 2047 0fb0 9F 07 00                		mov	!_newDate+5, a
- 2048 0fb3 EC C3 0F 00             		br	!!.L136
- 2049                             	.L137:
- 399:../src/StateMachine.c **** 			} else {
- 400:../src/StateMachine.c **** 				newDate[5]--;
- 2050                             		.loc 1 400 0
- 2051 0fb7 8F 07 00                		mov	a, !_newDate+5
- 2052 0fba 9D F0                   		mov	r8, a
- 2053 0fbc B4 F0                   		dec	r8
- 2054 0fbe 8D F0                   		mov	a, r8
- 2055 0fc0 9F 07 00                		mov	!_newDate+5, a
- 2056                             	.L136:
- 401:../src/StateMachine.c **** 			}
- 402:../src/StateMachine.c **** 		}
- 403:../src/StateMachine.c **** 		sprintf(display_string, "Second: %d\x0d\x0a", newDate[5]);
- 2057                             		.loc 1 403 0
- 2058 0fc3 8F 07 00                		mov	a, !_newDate+5
- 2059 0fc6 9D F0                   		mov	r8, a
- 2060 0fc8 CD F1 00                		mov	r9, #0
- 2061 0fcb 30 00 00                		movw	ax, #_display_string
- 2062 0fce B8 00                   		movw	[sp], ax
- 2063 0fd0 30 71 00                		movw	ax, #.LC7
- 2064 0fd3 B8 02                   		movw	[sp+2], ax
- 2065 0fd5 AD F0                   		movw	ax, r8
- 2066 0fd7 B8 04                   		movw	[sp+4], ax
- 2067 0fd9 FC 00 00 00             		call	!!%code(_sprintf)
- 404:../src/StateMachine.c **** 		displayLCD(1);
- 2068                             		.loc 1 404 0
- 2069 0fdd E6                      		onew	ax
- 2070 0fde B8 00                   		movw	[sp], ax
- 2071 0fe0 FC 00 00 00             		call	!!%code(_displayLCD)
- 405:../src/StateMachine.c **** 		break;
- 2072                             		.loc 1 405 0
- 2073 0fe4 EC 82 13 00             		br	!!.L1
- 2074                             	.L101:
- 406:../src/StateMachine.c **** 	case 5:
- 407:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 0\x0d\x0a");
- 2075                             		.loc 1 407 0
- 2076 0fe8 51 53                   		mov	a, #83
- 2077 0fea 9F 00 00                		mov	!_display_string, a
- 2078 0fed 51 77                   		mov	a, #119
- 2079 0fef 9F 00 00                		mov	!_display_string+1, a
- 2080 0ff2 51 69                   		mov	a, #105
- 2081 0ff4 9F 00 00                		mov	!_display_string+2, a
- 2082 0ff7 51 74                   		mov	a, #116
- 2083 0ff9 9F 00 00                		mov	!_display_string+3, a
- 2084 0ffc 51 63                   		mov	a, #99
- 2085 0ffe 9F 00 00                		mov	!_display_string+4, a
- 2086 1001 51 68                   		mov	a, #104
- 2087 1003 9F 00 00                		mov	!_display_string+5, a
- 2088 1006 51 20                   		mov	a, #32
- 2089 1008 9F 00 00                		mov	!_display_string+6, a
- 2090 100b 51 73                   		mov	a, #115
- 2091 100d 9F 00 00                		mov	!_display_string+7, a
- 2092 1010 51 74                   		mov	a, #116
- 2093 1012 9F 00 00                		mov	!_display_string+8, a
- 2094 1015 51 61                   		mov	a, #97
- 2095 1017 9F 00 00                		mov	!_display_string+9, a
- 2096 101a 51 74                   		mov	a, #116
- 2097 101c 9F 00 00                		mov	!_display_string+10, a
- 2098 101f 51 65                   		mov	a, #101
- 2099 1021 9F 00 00                		mov	!_display_string+11, a
- 2100 1024 51 20                   		mov	a, #32
- 2101 1026 9F 00 00                		mov	!_display_string+12, a
- 2102 1029 51 3D                   		mov	a, #61
- 2103 102b 9F 00 00                		mov	!_display_string+13, a
- 2104 102e 51 20                   		mov	a, #32
- 2105 1030 9F 00 00                		mov	!_display_string+14, a
- 2106 1033 51 30                   		mov	a, #48
- 2107 1035 9F 00 00                		mov	!_display_string+15, a
- 2108 1038 51 0D                   		mov	a, #13
- 2109 103a 9F 00 00                		mov	!_display_string+16, a
- 2110 103d 51 0A                   		mov	a, #10
- 2111 103f 9F 00 00                		mov	!_display_string+17, a
- 2112 1042 F5 00 00                		clrb	!_display_string+18
+ 1760                             		.loc 1 322 0
+ 1761 0d6e EC 8B 14 00             		br	!!.L1
+ 1762                             	.L108:
+ 323:../src/StateMachine.c **** 	case 12:
+ 324:../src/StateMachine.c **** 		strcpy(display_string, "Set Second\x0d\x0a");
+ 1763                             		.loc 1 324 0
+ 1764 0d72 51 53                   		mov	a, #83
+ 1765 0d74 9F 00 00                		mov	!_display_string, a
+ 1766 0d77 51 65                   		mov	a, #101
+ 1767 0d79 9F 00 00                		mov	!_display_string+1, a
+ 1768 0d7c 51 74                   		mov	a, #116
+ 1769 0d7e 9F 00 00                		mov	!_display_string+2, a
+ 1770 0d81 51 20                   		mov	a, #32
+ 1771 0d83 9F 00 00                		mov	!_display_string+3, a
+ 1772 0d86 51 53                   		mov	a, #83
+ 1773 0d88 9F 00 00                		mov	!_display_string+4, a
+ 1774 0d8b 51 65                   		mov	a, #101
+ 1775 0d8d 9F 00 00                		mov	!_display_string+5, a
+ 1776 0d90 51 63                   		mov	a, #99
+ 1777 0d92 9F 00 00                		mov	!_display_string+6, a
+ 1778 0d95 51 6F                   		mov	a, #111
+ 1779 0d97 9F 00 00                		mov	!_display_string+7, a
+ 1780 0d9a 51 6E                   		mov	a, #110
+ 1781 0d9c 9F 00 00                		mov	!_display_string+8, a
+ 1782 0d9f 51 64                   		mov	a, #100
+ 1783 0da1 9F 00 00                		mov	!_display_string+9, a
+ 1784 0da4 51 0D                   		mov	a, #13
+ 1785 0da6 9F 00 00                		mov	!_display_string+10, a
+ 1786 0da9 51 0A                   		mov	a, #10
+ 1787 0dab 9F 00 00                		mov	!_display_string+11, a
+ 1788 0dae F5 00 00                		clrb	!_display_string+12
+ 325:../src/StateMachine.c **** 		displayLCD(1);
+ 1789                             		.loc 1 325 0
+ 1790 0db1 E6                      		onew	ax
+ 1791 0db2 B8 00                   		movw	[sp], ax
+ 1792 0db4 FC 00 00 00             		call	!!%code(_displayLCD)
+ 326:../src/StateMachine.c **** 		break;
+ 1793                             		.loc 1 326 0
+ 1794 0db8 EC 8B 14 00             		br	!!.L1
+ 1795                             	.L109:
+ 327:../src/StateMachine.c **** 	case 13:
+ 328:../src/StateMachine.c **** 		if (instr == 4) {
+ 1796                             		.loc 1 328 0
+ 1797 0dbc A8 26                   		movw	ax, [sp+38]
+ 1798 0dbe 44 04 00                		cmpw	ax, #4
+ 1799 0dc1 61 E8                   		 skz
+ 1800 0dc3 EC E5 0D 00             		 br	!!.L114
+ 329:../src/StateMachine.c **** 			newDate[0]++;
+ 1801                             		.loc 1 329 0
+ 1802 0dc7 8F 02 00                		mov	a, !_newDate
+ 1803 0dca 9D F0                   		mov	r8, a
+ 1804 0dcc A4 F0                   		inc	r8
+ 1805 0dce 8D F0                   		mov	a, r8
+ 1806 0dd0 9F 02 00                		mov	!_newDate, a
+ 330:../src/StateMachine.c **** 			if (newDate[0] > 99) {
+ 1807                             		.loc 1 330 0
+ 1808 0dd3 9D F0                   		mov	r8, a
+ 1809 0dd5 4A F0 63                		cmp	r8, #99
+ 1810 0dd8 61 E3                   		 skh
+ 1811 0dda EC 12 0E 00             		 br	!!.L116
+ 331:../src/StateMachine.c **** 				newDate[0] = 0;
+ 1812                             		.loc 1 331 0
+ 1813 0dde F5 02 00                		clrb	!_newDate
+ 1814 0de1 EC 12 0E 00             		br	!!.L116
+ 1815                             	.L114:
+ 332:../src/StateMachine.c **** 			}
+ 333:../src/StateMachine.c **** 		} else if (instr == 3) {
+ 1816                             		.loc 1 333 0
+ 1817 0de5 A8 26                   		movw	ax, [sp+38]
+ 1818 0de7 44 03 00                		cmpw	ax, #3
+ 1819 0dea 61 E8                   		 skz
+ 1820 0dec EC 12 0E 00             		 br	!!.L116
+ 334:../src/StateMachine.c **** 			if (newDate[0] == 0) {
+ 1821                             		.loc 1 334 0
+ 1822 0df0 8F 02 00                		mov	a, !_newDate
+ 1823 0df3 9D F0                   		mov	r8, a
+ 1824 0df5 D4 F0                   		cmp0	r8
+ 1825 0df7 61 E8                   		 skz
+ 1826 0df9 EC 06 0E 00             		 br	!!.L117
+ 335:../src/StateMachine.c **** 				newDate[0] = 99;
+ 1827                             		.loc 1 335 0
+ 1828 0dfd 51 63                   		mov	a, #99
+ 1829 0dff 9F 02 00                		mov	!_newDate, a
+ 1830 0e02 EC 12 0E 00             		br	!!.L116
+ 1831                             	.L117:
+ 336:../src/StateMachine.c **** 			} else {
+ 337:../src/StateMachine.c **** 				newDate[0]--;
+ 1832                             		.loc 1 337 0
+ 1833 0e06 8F 02 00                		mov	a, !_newDate
+ 1834 0e09 9D F0                   		mov	r8, a
+ 1835 0e0b B4 F0                   		dec	r8
+ 1836 0e0d 8D F0                   		mov	a, r8
+ 1837 0e0f 9F 02 00                		mov	!_newDate, a
+ 1838                             	.L116:
+ 338:../src/StateMachine.c **** 			}
+ 339:../src/StateMachine.c **** 		}
+ 340:../src/StateMachine.c **** 		sprintf(display_string, "Year: 20%02d\x0d\x0a", newDate[0]);
+ 1839                             		.loc 1 340 0
+ 1840 0e12 8F 02 00                		mov	a, !_newDate
+ 1841 0e15 9D F0                   		mov	r8, a
+ 1842 0e17 CD F1 00                		mov	r9, #0
+ 1843 0e1a 30 00 00                		movw	ax, #_display_string
+ 1844 0e1d B8 00                   		movw	[sp], ax
+ 1845 0e1f 30 34 00                		movw	ax, #.LC2
+ 1846 0e22 B8 02                   		movw	[sp+2], ax
+ 1847 0e24 AD F0                   		movw	ax, r8
+ 1848 0e26 B8 04                   		movw	[sp+4], ax
+ 1849 0e28 FC 00 00 00             		call	!!%code(_sprintf)
+ 341:../src/StateMachine.c **** 		displayLCD(1);
+ 1850                             		.loc 1 341 0
+ 1851 0e2c E6                      		onew	ax
+ 1852 0e2d B8 00                   		movw	[sp], ax
+ 1853 0e2f FC 00 00 00             		call	!!%code(_displayLCD)
+ 342:../src/StateMachine.c **** 		break;
+ 1854                             		.loc 1 342 0
+ 1855 0e33 EC 8B 14 00             		br	!!.L1
+ 1856                             	.L104:
+ 343:../src/StateMachine.c **** 
+ 344:../src/StateMachine.c **** 	case 14:
+ 345:../src/StateMachine.c **** 		if (instr == 4) {
+ 1857                             		.loc 1 345 0
+ 1858 0e37 A8 26                   		movw	ax, [sp+38]
+ 1859 0e39 44 04 00                		cmpw	ax, #4
+ 1860 0e3c 61 E8                   		 skz
+ 1861 0e3e EC 60 0E 00             		 br	!!.L118
+ 346:../src/StateMachine.c **** 			newDate[1]++;
+ 1862                             		.loc 1 346 0
+ 1863 0e42 8F 03 00                		mov	a, !_newDate+1
+ 1864 0e45 9D F0                   		mov	r8, a
+ 1865 0e47 A4 F0                   		inc	r8
+ 1866 0e49 8D F0                   		mov	a, r8
+ 1867 0e4b 9F 03 00                		mov	!_newDate+1, a
+ 347:../src/StateMachine.c **** 			if (newDate[1] > 12) {
+ 1868                             		.loc 1 347 0
+ 1869 0e4e 9D F0                   		mov	r8, a
+ 1870 0e50 4A F0 0C                		cmp	r8, #12
+ 1871 0e53 61 E3                   		 skh
+ 1872 0e55 EC 8D 0E 00             		 br	!!.L120
+ 348:../src/StateMachine.c **** 				newDate[1] = 0;
+ 1873                             		.loc 1 348 0
+ 1874 0e59 F5 03 00                		clrb	!_newDate+1
+ 1875 0e5c EC 8D 0E 00             		br	!!.L120
+ 1876                             	.L118:
+ 349:../src/StateMachine.c **** 			}
+ 350:../src/StateMachine.c **** 		} else if (instr == 3) {
+ 1877                             		.loc 1 350 0
+ 1878 0e60 A8 26                   		movw	ax, [sp+38]
+ 1879 0e62 44 03 00                		cmpw	ax, #3
+ 1880 0e65 61 E8                   		 skz
+ 1881 0e67 EC 8D 0E 00             		 br	!!.L120
+ 351:../src/StateMachine.c **** 			if (newDate[1] == 0) {
+ 1882                             		.loc 1 351 0
+ 1883 0e6b 8F 03 00                		mov	a, !_newDate+1
+ 1884 0e6e 9D F0                   		mov	r8, a
+ 1885 0e70 D4 F0                   		cmp0	r8
+ 1886 0e72 61 E8                   		 skz
+ 1887 0e74 EC 81 0E 00             		 br	!!.L121
+ 352:../src/StateMachine.c **** 				newDate[1] = 12;
+ 1888                             		.loc 1 352 0
+ 1889 0e78 51 0C                   		mov	a, #12
+ 1890 0e7a 9F 03 00                		mov	!_newDate+1, a
+ 1891 0e7d EC 8D 0E 00             		br	!!.L120
+ 1892                             	.L121:
+ 353:../src/StateMachine.c **** 			} else {
+ 354:../src/StateMachine.c **** 				newDate[1]--;
+ 1893                             		.loc 1 354 0
+ 1894 0e81 8F 03 00                		mov	a, !_newDate+1
+ 1895 0e84 9D F0                   		mov	r8, a
+ 1896 0e86 B4 F0                   		dec	r8
+ 1897 0e88 8D F0                   		mov	a, r8
+ 1898 0e8a 9F 03 00                		mov	!_newDate+1, a
+ 1899                             	.L120:
+ 355:../src/StateMachine.c **** 			}
+ 356:../src/StateMachine.c **** 		}
+ 357:../src/StateMachine.c **** 		sprintf(display_string, "Month: %d\x0d\x0a", newDate[1]);
+ 1900                             		.loc 1 357 0
+ 1901 0e8d 8F 03 00                		mov	a, !_newDate+1
+ 1902 0e90 9D F0                   		mov	r8, a
+ 1903 0e92 CD F1 00                		mov	r9, #0
+ 1904 0e95 30 00 00                		movw	ax, #_display_string
+ 1905 0e98 B8 00                   		movw	[sp], ax
+ 1906 0e9a 30 43 00                		movw	ax, #.LC3
+ 1907 0e9d B8 02                   		movw	[sp+2], ax
+ 1908 0e9f AD F0                   		movw	ax, r8
+ 1909 0ea1 B8 04                   		movw	[sp+4], ax
+ 1910 0ea3 FC 00 00 00             		call	!!%code(_sprintf)
+ 358:../src/StateMachine.c **** 		displayLCD(1);
+ 1911                             		.loc 1 358 0
+ 1912 0ea7 E6                      		onew	ax
+ 1913 0ea8 B8 00                   		movw	[sp], ax
+ 1914 0eaa FC 00 00 00             		call	!!%code(_displayLCD)
+ 359:../src/StateMachine.c **** 		break;
+ 1915                             		.loc 1 359 0
+ 1916 0eae EC 8B 14 00             		br	!!.L1
+ 1917                             	.L111:
+ 360:../src/StateMachine.c **** 	case 15:
+ 361:../src/StateMachine.c **** 		if (instr == 4) {
+ 1918                             		.loc 1 361 0
+ 1919 0eb2 A8 26                   		movw	ax, [sp+38]
+ 1920 0eb4 44 04 00                		cmpw	ax, #4
+ 1921 0eb7 61 E8                   		 skz
+ 1922 0eb9 EC 2E 0F 00             		 br	!!.L122
+ 1923                             	.LBB9:
+ 362:../src/StateMachine.c **** 			uint8_t daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31,
+ 1924                             		.loc 1 362 0
+ 1925 0ebd 51 1F                   		mov	a, #31
+ 1926 0ebf 98 10                   		mov	[sp+16], a
+ 1927 0ec1 51 1C                   		mov	a, #28
+ 1928 0ec3 98 11                   		mov	[sp+17], a
+ 1929 0ec5 51 1F                   		mov	a, #31
+ 1930 0ec7 98 12                   		mov	[sp+18], a
+ 1931 0ec9 51 1E                   		mov	a, #30
+ 1932 0ecb 98 13                   		mov	[sp+19], a
+ 1933 0ecd 51 1F                   		mov	a, #31
+ 1934 0ecf 98 14                   		mov	[sp+20], a
+ 1935 0ed1 51 1E                   		mov	a, #30
+ 1936 0ed3 98 15                   		mov	[sp+21], a
+ 1937 0ed5 51 1F                   		mov	a, #31
+ 1938 0ed7 98 16                   		mov	[sp+22], a
+ 1939 0ed9 51 1F                   		mov	a, #31
+ 1940 0edb 98 17                   		mov	[sp+23], a
+ 1941 0edd 51 1E                   		mov	a, #30
+ 1942 0edf 98 18                   		mov	[sp+24], a
+ 1943 0ee1 51 1F                   		mov	a, #31
+ 1944 0ee3 98 19                   		mov	[sp+25], a
+ 1945 0ee5 51 1E                   		mov	a, #30
+ 1946 0ee7 98 1A                   		mov	[sp+26], a
+ 1947 0ee9 51 1F                   		mov	a, #31
+ 1948 0eeb 98 1B                   		mov	[sp+27], a
+ 363:../src/StateMachine.c **** 					30, 31 };
+ 364:../src/StateMachine.c **** 			newDate[2]++;
+ 1949                             		.loc 1 364 0
+ 1950 0eed 8F 04 00                		mov	a, !_newDate+2
+ 1951 0ef0 9D F0                   		mov	r8, a
+ 1952 0ef2 A4 F0                   		inc	r8
+ 1953 0ef4 8D F0                   		mov	a, r8
+ 1954 0ef6 9F 04 00                		mov	!_newDate+2, a
+ 365:../src/StateMachine.c **** 			if (newDate[2] > daysInMonth[newDate[1] - 1]) {
+ 1955                             		.loc 1 365 0
+ 1956 0ef9 9D F4                   		mov	r12, a
+ 1957 0efb 8F 03 00                		mov	a, !_newDate+1
+ 1958 0efe 9D F0                   		mov	r8, a
+ 1959 0f00 CD F1 00                		mov	r9, #0
+ 1960 0f03 B6 F0                   		decw	r8
+ 1961 0f05 AE F8                   		movw	ax, sp
+ 1962 0f07 BD F6                   		movw	r14, ax
+ 1963 0f09 04 10 00                		addw	ax, #16
+ 1964 0f0c BD F2                   		movw	r10, ax
+ 1965 0f0e 06 F0                   		addw	ax, r8
+ 1966 0f10 BD F0                   		movw	r8, ax
+ 1967 0f12 BD F2                   		movw	r10, ax
+ 1968 0f14 FA F2                   		movw	hl, r10
+ 1969 0f16 8B                      		mov	a, [hl]
+ 1970 0f17 9D F0                   		mov	r8, a
+ 1971 0f19 8D F4                   		mov	a, r12
+ 1972 0f1b 4B F0                   		cmp	a, r8
+ 1973 0f1d 61 E3                   		 skh
+ 1974 0f1f EC 2A 0F 00             		 br	!!.L123
+ 366:../src/StateMachine.c **** 				newDate[2] = 0;
+ 1975                             		.loc 1 366 0
+ 1976 0f23 F5 04 00                		clrb	!_newDate+2
+ 1977                             	.LBE9:
+ 1978 0f26 EC 5B 0F 00             		br	!!.L124
+ 1979                             	.L123:
+ 1980 0f2a EC 5B 0F 00             		br	!!.L124
+ 1981                             	.L122:
+ 367:../src/StateMachine.c **** 			}
+ 368:../src/StateMachine.c **** 		} else if (instr == 3) {
+ 1982                             		.loc 1 368 0
+ 1983 0f2e A8 26                   		movw	ax, [sp+38]
+ 1984 0f30 44 03 00                		cmpw	ax, #3
+ 1985 0f33 61 E8                   		 skz
+ 1986 0f35 EC 5B 0F 00             		 br	!!.L124
+ 369:../src/StateMachine.c **** 			if (newDate[2] == 0) {
+ 1987                             		.loc 1 369 0
+ 1988 0f39 8F 04 00                		mov	a, !_newDate+2
+ 1989 0f3c 9D F0                   		mov	r8, a
+ 1990 0f3e D4 F0                   		cmp0	r8
+ 1991 0f40 61 E8                   		 skz
+ 1992 0f42 EC 4F 0F 00             		 br	!!.L125
+ 370:../src/StateMachine.c **** 				newDate[2] = 12;
+ 1993                             		.loc 1 370 0
+ 1994 0f46 51 0C                   		mov	a, #12
+ 1995 0f48 9F 04 00                		mov	!_newDate+2, a
+ 1996 0f4b EC 5B 0F 00             		br	!!.L124
+ 1997                             	.L125:
+ 371:../src/StateMachine.c **** 			} else {
+ 372:../src/StateMachine.c **** 				newDate[2]--;
+ 1998                             		.loc 1 372 0
+ 1999 0f4f 8F 04 00                		mov	a, !_newDate+2
+ 2000 0f52 9D F0                   		mov	r8, a
+ 2001 0f54 B4 F0                   		dec	r8
+ 2002 0f56 8D F0                   		mov	a, r8
+ 2003 0f58 9F 04 00                		mov	!_newDate+2, a
+ 2004                             	.L124:
+ 373:../src/StateMachine.c **** 			}
+ 374:../src/StateMachine.c **** 		}
+ 375:../src/StateMachine.c **** 		sprintf(display_string, "Day: %d\x0d\x0a", newDate[2]);
+ 2005                             		.loc 1 375 0
+ 2006 0f5b 8F 04 00                		mov	a, !_newDate+2
+ 2007 0f5e 9D F0                   		mov	r8, a
+ 2008 0f60 CD F1 00                		mov	r9, #0
+ 2009 0f63 30 00 00                		movw	ax, #_display_string
+ 2010 0f66 B8 00                   		movw	[sp], ax
+ 2011 0f68 30 4F 00                		movw	ax, #.LC4
+ 2012 0f6b B8 02                   		movw	[sp+2], ax
+ 2013 0f6d AD F0                   		movw	ax, r8
+ 2014 0f6f B8 04                   		movw	[sp+4], ax
+ 2015 0f71 FC 00 00 00             		call	!!%code(_sprintf)
+ 376:../src/StateMachine.c **** 		displayLCD(1);
+ 2016                             		.loc 1 376 0
+ 2017 0f75 E6                      		onew	ax
+ 2018 0f76 B8 00                   		movw	[sp], ax
+ 2019 0f78 FC 00 00 00             		call	!!%code(_displayLCD)
+ 377:../src/StateMachine.c **** 		break;
+ 2020                             		.loc 1 377 0
+ 2021 0f7c EC 8B 14 00             		br	!!.L1
+ 2022                             	.L110:
+ 378:../src/StateMachine.c **** 	case 16:
+ 379:../src/StateMachine.c **** 		if (instr == 4) {
+ 2023                             		.loc 1 379 0
+ 2024 0f80 A8 26                   		movw	ax, [sp+38]
+ 2025 0f82 44 04 00                		cmpw	ax, #4
+ 2026 0f85 61 E8                   		 skz
+ 2027 0f87 EC A9 0F 00             		 br	!!.L126
+ 380:../src/StateMachine.c **** 			newDate[3]++;
+ 2028                             		.loc 1 380 0
+ 2029 0f8b 8F 05 00                		mov	a, !_newDate+3
+ 2030 0f8e 9D F0                   		mov	r8, a
+ 2031 0f90 A4 F0                   		inc	r8
+ 2032 0f92 8D F0                   		mov	a, r8
+ 2033 0f94 9F 05 00                		mov	!_newDate+3, a
+ 381:../src/StateMachine.c **** 			if (newDate[3] > 24) {
+ 2034                             		.loc 1 381 0
+ 2035 0f97 9D F0                   		mov	r8, a
+ 2036 0f99 4A F0 18                		cmp	r8, #24
+ 2037 0f9c 61 E3                   		 skh
+ 2038 0f9e EC D6 0F 00             		 br	!!.L128
+ 382:../src/StateMachine.c **** 				newDate[3] = 0;
+ 2039                             		.loc 1 382 0
+ 2040 0fa2 F5 05 00                		clrb	!_newDate+3
+ 2041 0fa5 EC D6 0F 00             		br	!!.L128
+ 2042                             	.L126:
+ 383:../src/StateMachine.c **** 			}
+ 384:../src/StateMachine.c **** 		} else if (instr == 3) {
+ 2043                             		.loc 1 384 0
+ 2044 0fa9 A8 26                   		movw	ax, [sp+38]
+ 2045 0fab 44 03 00                		cmpw	ax, #3
+ 2046 0fae 61 E8                   		 skz
+ 2047 0fb0 EC D6 0F 00             		 br	!!.L128
+ 385:../src/StateMachine.c **** 			if (newDate[3] == 0) {
+ 2048                             		.loc 1 385 0
+ 2049 0fb4 8F 05 00                		mov	a, !_newDate+3
+ 2050 0fb7 9D F0                   		mov	r8, a
+ 2051 0fb9 D4 F0                   		cmp0	r8
+ 2052 0fbb 61 E8                   		 skz
+ 2053 0fbd EC CA 0F 00             		 br	!!.L129
+ 386:../src/StateMachine.c **** 				newDate[3] = 24;
+ 2054                             		.loc 1 386 0
+ 2055 0fc1 51 18                   		mov	a, #24
+ 2056 0fc3 9F 05 00                		mov	!_newDate+3, a
+ 2057 0fc6 EC D6 0F 00             		br	!!.L128
+ 2058                             	.L129:
+ 387:../src/StateMachine.c **** 			} else {
+ 388:../src/StateMachine.c **** 				newDate[3]--;
+ 2059                             		.loc 1 388 0
+ 2060 0fca 8F 05 00                		mov	a, !_newDate+3
+ 2061 0fcd 9D F0                   		mov	r8, a
+ 2062 0fcf B4 F0                   		dec	r8
+ 2063 0fd1 8D F0                   		mov	a, r8
+ 2064 0fd3 9F 05 00                		mov	!_newDate+3, a
+ 2065                             	.L128:
+ 389:../src/StateMachine.c **** 			}
+ 390:../src/StateMachine.c **** 		}
+ 391:../src/StateMachine.c **** 		sprintf(display_string, "Hour: %d\x0d\x0a", newDate[3]);
+ 2066                             		.loc 1 391 0
+ 2067 0fd6 8F 05 00                		mov	a, !_newDate+3
+ 2068 0fd9 9D F0                   		mov	r8, a
+ 2069 0fdb CD F1 00                		mov	r9, #0
+ 2070 0fde 30 00 00                		movw	ax, #_display_string
+ 2071 0fe1 B8 00                   		movw	[sp], ax
+ 2072 0fe3 30 59 00                		movw	ax, #.LC5
+ 2073 0fe6 B8 02                   		movw	[sp+2], ax
+ 2074 0fe8 AD F0                   		movw	ax, r8
+ 2075 0fea B8 04                   		movw	[sp+4], ax
+ 2076 0fec FC 00 00 00             		call	!!%code(_sprintf)
+ 392:../src/StateMachine.c **** 		displayLCD(1);
+ 2077                             		.loc 1 392 0
+ 2078 0ff0 E6                      		onew	ax
+ 2079 0ff1 B8 00                   		movw	[sp], ax
+ 2080 0ff3 FC 00 00 00             		call	!!%code(_displayLCD)
+ 393:../src/StateMachine.c **** 		break;
+ 2081                             		.loc 1 393 0
+ 2082 0ff7 EC 8B 14 00             		br	!!.L1
+ 2083                             	.L112:
+ 394:../src/StateMachine.c **** 	case 17:
+ 395:../src/StateMachine.c **** 		if (instr == 4) {
+ 2084                             		.loc 1 395 0
+ 2085 0ffb A8 26                   		movw	ax, [sp+38]
+ 2086 0ffd 44 04 00                		cmpw	ax, #4
+ 2087 1000 61 E8                   		 skz
+ 2088 1002 EC 24 10 00             		 br	!!.L130
+ 396:../src/StateMachine.c **** 			newDate[4]++;
+ 2089                             		.loc 1 396 0
+ 2090 1006 8F 06 00                		mov	a, !_newDate+4
+ 2091 1009 9D F0                   		mov	r8, a
+ 2092 100b A4 F0                   		inc	r8
+ 2093 100d 8D F0                   		mov	a, r8
+ 2094 100f 9F 06 00                		mov	!_newDate+4, a
+ 397:../src/StateMachine.c **** 			if (newDate[4] > 59) {
+ 2095                             		.loc 1 397 0
+ 2096 1012 9D F0                   		mov	r8, a
+ 2097 1014 4A F0 3B                		cmp	r8, #59
+ 2098 1017 61 E3                   		 skh
+ 2099 1019 EC 51 10 00             		 br	!!.L132
+ 398:../src/StateMachine.c **** 				newDate[4] = 0;
+ 2100                             		.loc 1 398 0
+ 2101 101d F5 06 00                		clrb	!_newDate+4
+ 2102 1020 EC 51 10 00             		br	!!.L132
+ 2103                             	.L130:
+ 399:../src/StateMachine.c **** 			}
+ 400:../src/StateMachine.c **** 		} else if (instr == 3) {
+ 2104                             		.loc 1 400 0
+ 2105 1024 A8 26                   		movw	ax, [sp+38]
+ 2106 1026 44 03 00                		cmpw	ax, #3
+ 2107 1029 61 E8                   		 skz
+ 2108 102b EC 51 10 00             		 br	!!.L132
+ 401:../src/StateMachine.c **** 			if (newDate[4] == 0) {
+ 2109                             		.loc 1 401 0
+ 2110 102f 8F 06 00                		mov	a, !_newDate+4
+ 2111 1032 9D F0                   		mov	r8, a
+ 2112 1034 D4 F0                   		cmp0	r8
+ 2113 1036 61 E8                   		 skz
+ 2114 1038 EC 45 10 00             		 br	!!.L133
+ 402:../src/StateMachine.c **** 				newDate[4] = 59;
+ 2115                             		.loc 1 402 0
+ 2116 103c 51 3B                   		mov	a, #59
+ 2117 103e 9F 06 00                		mov	!_newDate+4, a
+ 2118 1041 EC 51 10 00             		br	!!.L132
+ 2119                             	.L133:
+ 403:../src/StateMachine.c **** 			} else {
+ 404:../src/StateMachine.c **** 				newDate[4]--;
+ 2120                             		.loc 1 404 0
+ 2121 1045 8F 06 00                		mov	a, !_newDate+4
+ 2122 1048 9D F0                   		mov	r8, a
+ 2123 104a B4 F0                   		dec	r8
+ 2124 104c 8D F0                   		mov	a, r8
+ 2125 104e 9F 06 00                		mov	!_newDate+4, a
+ 2126                             	.L132:
+ 405:../src/StateMachine.c **** 			}
+ 406:../src/StateMachine.c **** 		}
+ 407:../src/StateMachine.c **** 		sprintf(display_string, "Minute: %d\x0d\x0a", newDate[4]);
+ 2127                             		.loc 1 407 0
+ 2128 1051 8F 06 00                		mov	a, !_newDate+4
+ 2129 1054 9D F0                   		mov	r8, a
+ 2130 1056 CD F1 00                		mov	r9, #0
+ 2131 1059 30 00 00                		movw	ax, #_display_string
+ 2132 105c B8 00                   		movw	[sp], ax
+ 2133 105e 30 64 00                		movw	ax, #.LC6
+ 2134 1061 B8 02                   		movw	[sp+2], ax
+ 2135 1063 AD F0                   		movw	ax, r8
+ 2136 1065 B8 04                   		movw	[sp+4], ax
+ 2137 1067 FC 00 00 00             		call	!!%code(_sprintf)
  408:../src/StateMachine.c **** 		displayLCD(1);
- 2113                             		.loc 1 408 0
- 2114 1045 E6                      		onew	ax
- 2115 1046 B8 00                   		movw	[sp], ax
- 2116 1048 FC 00 00 00             		call	!!%code(_displayLCD)
- 409:../src/StateMachine.c **** 		P4_bit.no1 = 0;
- 2117                             		.loc 1 409 0
- 2118 104c C9 F0 04 FF             		movw	r8, #-252
- 2119 1050 AD F0                   		movw	ax, r8
- 2120 1052 BD F4                   		movw	r12, ax
- 2121 1054 FA F4                   		movw	hl, r12
- 2122 1056 8B                      		mov	a, [hl]
- 2123 1057 9D F2                   		mov	r10, a
- 2124 1059 5A F2 FD                		and	r10, #-3
- 2125 105c AD F0                   		movw	ax, r8
- 2126 105e BD F6                   		movw	r14, ax
- 2127 1060 DA F6                   		movw	bc, r14
- 2128 1062 8D F2                   		mov	a, r10
- 2129 1064 48 00 00                		mov	[bc], a
- 410:../src/StateMachine.c **** 		P4_bit.no2 = 0;
- 2130                             		.loc 1 410 0
- 2131 1067 C9 F0 04 FF             		movw	r8, #-252
- 2132 106b AD F0                   		movw	ax, r8
- 2133 106d BD F4                   		movw	r12, ax
- 2134 106f FA F4                   		movw	hl, r12
- 2135 1071 8B                      		mov	a, [hl]
- 2136 1072 9D F2                   		mov	r10, a
- 2137 1074 5A F2 FB                		and	r10, #-5
- 2138 1077 AD F0                   		movw	ax, r8
- 2139 1079 BD F6                   		movw	r14, ax
- 2140 107b DA F6                   		movw	bc, r14
- 2141 107d 8D F2                   		mov	a, r10
- 2142 107f 48 00 00                		mov	[bc], a
- 411:../src/StateMachine.c **** 		P4_bit.no3 = 0;
- 2143                             		.loc 1 411 0
- 2144 1082 C9 F0 04 FF             		movw	r8, #-252
- 2145 1086 AD F0                   		movw	ax, r8
- 2146 1088 BD F4                   		movw	r12, ax
- 2147 108a FA F4                   		movw	hl, r12
- 2148 108c 8B                      		mov	a, [hl]
- 2149 108d 9D F2                   		mov	r10, a
- 2150 108f 5A F2 F7                		and	r10, #-9
- 2151 1092 AD F0                   		movw	ax, r8
- 2152 1094 BD F6                   		movw	r14, ax
- 2153 1096 DA F6                   		movw	bc, r14
- 2154 1098 8D F2                   		mov	a, r10
- 2155 109a 48 00 00                		mov	[bc], a
- 412:../src/StateMachine.c **** 		break;
- 2156                             		.loc 1 412 0
- 2157 109d EC 82 13 00             		br	!!.L1
- 2158                             	.L100:
- 413:../src/StateMachine.c **** 	case 6:
- 414:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 1\x0d\x0a");
- 2159                             		.loc 1 414 0
- 2160 10a1 51 53                   		mov	a, #83
- 2161 10a3 9F 00 00                		mov	!_display_string, a
- 2162 10a6 51 77                   		mov	a, #119
- 2163 10a8 9F 00 00                		mov	!_display_string+1, a
- 2164 10ab 51 69                   		mov	a, #105
- 2165 10ad 9F 00 00                		mov	!_display_string+2, a
- 2166 10b0 51 74                   		mov	a, #116
- 2167 10b2 9F 00 00                		mov	!_display_string+3, a
- 2168 10b5 51 63                   		mov	a, #99
- 2169 10b7 9F 00 00                		mov	!_display_string+4, a
- 2170 10ba 51 68                   		mov	a, #104
- 2171 10bc 9F 00 00                		mov	!_display_string+5, a
- 2172 10bf 51 20                   		mov	a, #32
- 2173 10c1 9F 00 00                		mov	!_display_string+6, a
- 2174 10c4 51 73                   		mov	a, #115
- 2175 10c6 9F 00 00                		mov	!_display_string+7, a
- 2176 10c9 51 74                   		mov	a, #116
- 2177 10cb 9F 00 00                		mov	!_display_string+8, a
- 2178 10ce 51 61                   		mov	a, #97
- 2179 10d0 9F 00 00                		mov	!_display_string+9, a
- 2180 10d3 51 74                   		mov	a, #116
- 2181 10d5 9F 00 00                		mov	!_display_string+10, a
- 2182 10d8 51 65                   		mov	a, #101
- 2183 10da 9F 00 00                		mov	!_display_string+11, a
- 2184 10dd 51 20                   		mov	a, #32
- 2185 10df 9F 00 00                		mov	!_display_string+12, a
- 2186 10e2 51 3D                   		mov	a, #61
- 2187 10e4 9F 00 00                		mov	!_display_string+13, a
- 2188 10e7 51 20                   		mov	a, #32
- 2189 10e9 9F 00 00                		mov	!_display_string+14, a
- 2190 10ec 51 31                   		mov	a, #49
- 2191 10ee 9F 00 00                		mov	!_display_string+15, a
- 2192 10f1 51 0D                   		mov	a, #13
- 2193 10f3 9F 00 00                		mov	!_display_string+16, a
- 2194 10f6 51 0A                   		mov	a, #10
- 2195 10f8 9F 00 00                		mov	!_display_string+17, a
- 2196 10fb F5 00 00                		clrb	!_display_string+18
- 415:../src/StateMachine.c **** 		displayLCD(1);
- 2197                             		.loc 1 415 0
- 2198 10fe E6                      		onew	ax
- 2199 10ff B8 00                   		movw	[sp], ax
- 2200 1101 FC 00 00 00             		call	!!%code(_displayLCD)
- 416:../src/StateMachine.c **** 		P4_bit.no1 = 0;
- 2201                             		.loc 1 416 0
- 2202 1105 C9 F0 04 FF             		movw	r8, #-252
- 2203 1109 AD F0                   		movw	ax, r8
- 2204 110b BD F4                   		movw	r12, ax
- 2205 110d FA F4                   		movw	hl, r12
- 2206 110f 8B                      		mov	a, [hl]
- 2207 1110 9D F2                   		mov	r10, a
- 2208 1112 5A F2 FD                		and	r10, #-3
- 2209 1115 AD F0                   		movw	ax, r8
- 2210 1117 BD F6                   		movw	r14, ax
- 2211 1119 DA F6                   		movw	bc, r14
- 2212 111b 8D F2                   		mov	a, r10
- 2213 111d 48 00 00                		mov	[bc], a
- 417:../src/StateMachine.c **** 		P4_bit.no2 = 0;
- 2214                             		.loc 1 417 0
- 2215 1120 C9 F0 04 FF             		movw	r8, #-252
- 2216 1124 AD F0                   		movw	ax, r8
- 2217 1126 BD F4                   		movw	r12, ax
- 2218 1128 FA F4                   		movw	hl, r12
- 2219 112a 8B                      		mov	a, [hl]
- 2220 112b 9D F2                   		mov	r10, a
- 2221 112d 5A F2 FB                		and	r10, #-5
- 2222 1130 AD F0                   		movw	ax, r8
- 2223 1132 BD F6                   		movw	r14, ax
- 2224 1134 DA F6                   		movw	bc, r14
- 2225 1136 8D F2                   		mov	a, r10
- 2226 1138 48 00 00                		mov	[bc], a
- 418:../src/StateMachine.c **** 		P4_bit.no3 = 1;
- 2227                             		.loc 1 418 0
- 2228 113b C9 F0 04 FF             		movw	r8, #-252
- 2229 113f AD F0                   		movw	ax, r8
- 2230 1141 BD F4                   		movw	r12, ax
- 2231 1143 FA F4                   		movw	hl, r12
- 2232 1145 8B                      		mov	a, [hl]
- 2233 1146 9D F2                   		mov	r10, a
- 2234 1148 6A F2 08                		or	r10, #8
- 2235 114b AD F0                   		movw	ax, r8
- 2236 114d BD F6                   		movw	r14, ax
- 2237 114f DA F6                   		movw	bc, r14
- 2238 1151 8D F2                   		mov	a, r10
- 2239 1153 48 00 00                		mov	[bc], a
- 419:../src/StateMachine.c **** 		break;
- 2240                             		.loc 1 419 0
- 2241 1156 EC 82 13 00             		br	!!.L1
- 2242                             	.L102:
- 420:../src/StateMachine.c **** 	case 7:
- 421:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 2\x0d\x0a");
- 2243                             		.loc 1 421 0
- 2244 115a 51 53                   		mov	a, #83
- 2245 115c 9F 00 00                		mov	!_display_string, a
- 2246 115f 51 77                   		mov	a, #119
- 2247 1161 9F 00 00                		mov	!_display_string+1, a
- 2248 1164 51 69                   		mov	a, #105
- 2249 1166 9F 00 00                		mov	!_display_string+2, a
- 2250 1169 51 74                   		mov	a, #116
- 2251 116b 9F 00 00                		mov	!_display_string+3, a
- 2252 116e 51 63                   		mov	a, #99
- 2253 1170 9F 00 00                		mov	!_display_string+4, a
- 2254 1173 51 68                   		mov	a, #104
- 2255 1175 9F 00 00                		mov	!_display_string+5, a
- 2256 1178 51 20                   		mov	a, #32
- 2257 117a 9F 00 00                		mov	!_display_string+6, a
- 2258 117d 51 73                   		mov	a, #115
- 2259 117f 9F 00 00                		mov	!_display_string+7, a
- 2260 1182 51 74                   		mov	a, #116
- 2261 1184 9F 00 00                		mov	!_display_string+8, a
- 2262 1187 51 61                   		mov	a, #97
- 2263 1189 9F 00 00                		mov	!_display_string+9, a
- 2264 118c 51 74                   		mov	a, #116
- 2265 118e 9F 00 00                		mov	!_display_string+10, a
- 2266 1191 51 65                   		mov	a, #101
- 2267 1193 9F 00 00                		mov	!_display_string+11, a
- 2268 1196 51 20                   		mov	a, #32
- 2269 1198 9F 00 00                		mov	!_display_string+12, a
- 2270 119b 51 3D                   		mov	a, #61
- 2271 119d 9F 00 00                		mov	!_display_string+13, a
- 2272 11a0 51 20                   		mov	a, #32
- 2273 11a2 9F 00 00                		mov	!_display_string+14, a
- 2274 11a5 51 32                   		mov	a, #50
- 2275 11a7 9F 00 00                		mov	!_display_string+15, a
- 2276 11aa 51 0D                   		mov	a, #13
- 2277 11ac 9F 00 00                		mov	!_display_string+16, a
- 2278 11af 51 0A                   		mov	a, #10
- 2279 11b1 9F 00 00                		mov	!_display_string+17, a
- 2280 11b4 F5 00 00                		clrb	!_display_string+18
- 422:../src/StateMachine.c **** 		displayLCD(1);
- 2281                             		.loc 1 422 0
- 2282 11b7 E6                      		onew	ax
- 2283 11b8 B8 00                   		movw	[sp], ax
- 2284 11ba FC 00 00 00             		call	!!%code(_displayLCD)
- 423:../src/StateMachine.c **** 		P4_bit.no1 = 1;
- 2285                             		.loc 1 423 0
- 2286 11be C9 F0 04 FF             		movw	r8, #-252
- 2287 11c2 AD F0                   		movw	ax, r8
- 2288 11c4 BD F4                   		movw	r12, ax
- 2289 11c6 FA F4                   		movw	hl, r12
- 2290 11c8 8B                      		mov	a, [hl]
- 2291 11c9 9D F2                   		mov	r10, a
- 2292 11cb 6A F2 02                		or	r10, #2
- 2293 11ce AD F0                   		movw	ax, r8
- 2294 11d0 BD F6                   		movw	r14, ax
- 2295 11d2 DA F6                   		movw	bc, r14
- 2296 11d4 8D F2                   		mov	a, r10
- 2297 11d6 48 00 00                		mov	[bc], a
- 424:../src/StateMachine.c **** 		P4_bit.no2 = 0;
- 2298                             		.loc 1 424 0
- 2299 11d9 C9 F0 04 FF             		movw	r8, #-252
- 2300 11dd AD F0                   		movw	ax, r8
- 2301 11df BD F4                   		movw	r12, ax
- 2302 11e1 FA F4                   		movw	hl, r12
- 2303 11e3 8B                      		mov	a, [hl]
- 2304 11e4 9D F2                   		mov	r10, a
- 2305 11e6 5A F2 FB                		and	r10, #-5
- 2306 11e9 AD F0                   		movw	ax, r8
- 2307 11eb BD F6                   		movw	r14, ax
- 2308 11ed DA F6                   		movw	bc, r14
- 2309 11ef 8D F2                   		mov	a, r10
- 2310 11f1 48 00 00                		mov	[bc], a
- 425:../src/StateMachine.c **** 		P4_bit.no3 = 0;
- 2311                             		.loc 1 425 0
- 2312 11f4 C9 F0 04 FF             		movw	r8, #-252
- 2313 11f8 AD F0                   		movw	ax, r8
- 2314 11fa BD F4                   		movw	r12, ax
- 2315 11fc FA F4                   		movw	hl, r12
- 2316 11fe 8B                      		mov	a, [hl]
- 2317 11ff 9D F2                   		mov	r10, a
- 2318 1201 5A F2 F7                		and	r10, #-9
- 2319 1204 AD F0                   		movw	ax, r8
- 2320 1206 BD F6                   		movw	r14, ax
- 2321 1208 DA F6                   		movw	bc, r14
- 2322 120a 8D F2                   		mov	a, r10
- 2323 120c 48 00 00                		mov	[bc], a
- 426:../src/StateMachine.c **** 		break;
- 2324                             		.loc 1 426 0
- 2325 120f EC 82 13 00             		br	!!.L1
- 2326                             	.L103:
- 427:../src/StateMachine.c **** 	case 8:
- 428:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 3\x0d\x0a");
- 2327                             		.loc 1 428 0
- 2328 1213 51 53                   		mov	a, #83
- 2329 1215 9F 00 00                		mov	!_display_string, a
- 2330 1218 51 77                   		mov	a, #119
- 2331 121a 9F 00 00                		mov	!_display_string+1, a
- 2332 121d 51 69                   		mov	a, #105
- 2333 121f 9F 00 00                		mov	!_display_string+2, a
- 2334 1222 51 74                   		mov	a, #116
- 2335 1224 9F 00 00                		mov	!_display_string+3, a
- 2336 1227 51 63                   		mov	a, #99
- 2337 1229 9F 00 00                		mov	!_display_string+4, a
- 2338 122c 51 68                   		mov	a, #104
- 2339 122e 9F 00 00                		mov	!_display_string+5, a
- 2340 1231 51 20                   		mov	a, #32
- 2341 1233 9F 00 00                		mov	!_display_string+6, a
- 2342 1236 51 73                   		mov	a, #115
- 2343 1238 9F 00 00                		mov	!_display_string+7, a
- 2344 123b 51 74                   		mov	a, #116
- 2345 123d 9F 00 00                		mov	!_display_string+8, a
- 2346 1240 51 61                   		mov	a, #97
- 2347 1242 9F 00 00                		mov	!_display_string+9, a
- 2348 1245 51 74                   		mov	a, #116
- 2349 1247 9F 00 00                		mov	!_display_string+10, a
- 2350 124a 51 65                   		mov	a, #101
- 2351 124c 9F 00 00                		mov	!_display_string+11, a
- 2352 124f 51 20                   		mov	a, #32
- 2353 1251 9F 00 00                		mov	!_display_string+12, a
- 2354 1254 51 3D                   		mov	a, #61
- 2355 1256 9F 00 00                		mov	!_display_string+13, a
- 2356 1259 51 20                   		mov	a, #32
- 2357 125b 9F 00 00                		mov	!_display_string+14, a
- 2358 125e 51 33                   		mov	a, #51
- 2359 1260 9F 00 00                		mov	!_display_string+15, a
- 2360 1263 51 0D                   		mov	a, #13
- 2361 1265 9F 00 00                		mov	!_display_string+16, a
- 2362 1268 51 0A                   		mov	a, #10
- 2363 126a 9F 00 00                		mov	!_display_string+17, a
- 2364 126d F5 00 00                		clrb	!_display_string+18
- 429:../src/StateMachine.c **** 		displayLCD(1);
- 2365                             		.loc 1 429 0
- 2366 1270 E6                      		onew	ax
- 2367 1271 B8 00                   		movw	[sp], ax
- 2368 1273 FC 00 00 00             		call	!!%code(_displayLCD)
- 430:../src/StateMachine.c **** 		P4_bit.no1 = 0;
- 2369                             		.loc 1 430 0
- 2370 1277 C9 F0 04 FF             		movw	r8, #-252
- 2371 127b AD F0                   		movw	ax, r8
- 2372 127d BD F4                   		movw	r12, ax
- 2373 127f FA F4                   		movw	hl, r12
- 2374 1281 8B                      		mov	a, [hl]
- 2375 1282 9D F2                   		mov	r10, a
- 2376 1284 5A F2 FD                		and	r10, #-3
- 2377 1287 AD F0                   		movw	ax, r8
- 2378 1289 BD F6                   		movw	r14, ax
- 2379 128b DA F6                   		movw	bc, r14
- 2380 128d 8D F2                   		mov	a, r10
- 2381 128f 48 00 00                		mov	[bc], a
- 431:../src/StateMachine.c **** 		P4_bit.no2 = 1;
- 2382                             		.loc 1 431 0
- 2383 1292 C9 F0 04 FF             		movw	r8, #-252
- 2384 1296 AD F0                   		movw	ax, r8
- 2385 1298 BD F4                   		movw	r12, ax
- 2386 129a FA F4                   		movw	hl, r12
- 2387 129c 8B                      		mov	a, [hl]
- 2388 129d 9D F2                   		mov	r10, a
- 2389 129f 6A F2 04                		or	r10, #4
- 2390 12a2 AD F0                   		movw	ax, r8
- 2391 12a4 BD F6                   		movw	r14, ax
- 2392 12a6 DA F6                   		movw	bc, r14
- 2393 12a8 8D F2                   		mov	a, r10
- 2394 12aa 48 00 00                		mov	[bc], a
- 432:../src/StateMachine.c **** 		P4_bit.no3 = 0;
- 2395                             		.loc 1 432 0
- 2396 12ad C9 F0 04 FF             		movw	r8, #-252
- 2397 12b1 AD F0                   		movw	ax, r8
- 2398 12b3 BD F4                   		movw	r12, ax
- 2399 12b5 FA F4                   		movw	hl, r12
- 2400 12b7 8B                      		mov	a, [hl]
- 2401 12b8 9D F2                   		mov	r10, a
- 2402 12ba 5A F2 F7                		and	r10, #-9
- 2403 12bd AD F0                   		movw	ax, r8
- 2404 12bf BD F6                   		movw	r14, ax
- 2405 12c1 DA F6                   		movw	bc, r14
- 2406 12c3 8D F2                   		mov	a, r10
- 2407 12c5 48 00 00                		mov	[bc], a
- 433:../src/StateMachine.c **** 		break;
- 2408                             		.loc 1 433 0
- 2409 12c8 EC 82 13 00             		br	!!.L1
- 2410                             	.L91:
- 434:../src/StateMachine.c **** 	case 9:
- 435:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 4\x0d\x0a");
- 2411                             		.loc 1 435 0
- 2412 12cc 51 53                   		mov	a, #83
- 2413 12ce 9F 00 00                		mov	!_display_string, a
- 2414 12d1 51 77                   		mov	a, #119
- 2415 12d3 9F 00 00                		mov	!_display_string+1, a
- 2416 12d6 51 69                   		mov	a, #105
- 2417 12d8 9F 00 00                		mov	!_display_string+2, a
- 2418 12db 51 74                   		mov	a, #116
- 2419 12dd 9F 00 00                		mov	!_display_string+3, a
- 2420 12e0 51 63                   		mov	a, #99
- 2421 12e2 9F 00 00                		mov	!_display_string+4, a
- 2422 12e5 51 68                   		mov	a, #104
- 2423 12e7 9F 00 00                		mov	!_display_string+5, a
- 2424 12ea 51 20                   		mov	a, #32
- 2425 12ec 9F 00 00                		mov	!_display_string+6, a
- 2426 12ef 51 73                   		mov	a, #115
- 2427 12f1 9F 00 00                		mov	!_display_string+7, a
- 2428 12f4 51 74                   		mov	a, #116
- 2429 12f6 9F 00 00                		mov	!_display_string+8, a
- 2430 12f9 51 61                   		mov	a, #97
- 2431 12fb 9F 00 00                		mov	!_display_string+9, a
- 2432 12fe 51 74                   		mov	a, #116
- 2433 1300 9F 00 00                		mov	!_display_string+10, a
- 2434 1303 51 65                   		mov	a, #101
- 2435 1305 9F 00 00                		mov	!_display_string+11, a
- 2436 1308 51 20                   		mov	a, #32
- 2437 130a 9F 00 00                		mov	!_display_string+12, a
- 2438 130d 51 3D                   		mov	a, #61
- 2439 130f 9F 00 00                		mov	!_display_string+13, a
- 2440 1312 51 20                   		mov	a, #32
- 2441 1314 9F 00 00                		mov	!_display_string+14, a
- 2442 1317 51 34                   		mov	a, #52
- 2443 1319 9F 00 00                		mov	!_display_string+15, a
- 2444 131c 51 0D                   		mov	a, #13
- 2445 131e 9F 00 00                		mov	!_display_string+16, a
- 2446 1321 51 0A                   		mov	a, #10
- 2447 1323 9F 00 00                		mov	!_display_string+17, a
- 2448 1326 F5 00 00                		clrb	!_display_string+18
- 436:../src/StateMachine.c **** 		displayLCD(1);
- 2449                             		.loc 1 436 0
- 2450 1329 E6                      		onew	ax
- 2451 132a B8 00                   		movw	[sp], ax
- 2452 132c FC 00 00 00             		call	!!%code(_displayLCD)
- 437:../src/StateMachine.c **** 		P4_bit.no1 = 1;
- 2453                             		.loc 1 437 0
- 2454 1330 C9 F0 04 FF             		movw	r8, #-252
- 2455 1334 AD F0                   		movw	ax, r8
- 2456 1336 BD F4                   		movw	r12, ax
- 2457 1338 FA F4                   		movw	hl, r12
- 2458 133a 8B                      		mov	a, [hl]
- 2459 133b 9D F2                   		mov	r10, a
- 2460 133d 6A F2 02                		or	r10, #2
- 2461 1340 AD F0                   		movw	ax, r8
- 2462 1342 BD F6                   		movw	r14, ax
- 2463 1344 DA F6                   		movw	bc, r14
- 2464 1346 8D F2                   		mov	a, r10
- 2465 1348 48 00 00                		mov	[bc], a
- 438:../src/StateMachine.c **** 		P4_bit.no2 = 1;
- 2466                             		.loc 1 438 0
- 2467 134b C9 F0 04 FF             		movw	r8, #-252
- 2468 134f AD F0                   		movw	ax, r8
- 2469 1351 BD F4                   		movw	r12, ax
- 2470 1353 FA F4                   		movw	hl, r12
- 2471 1355 8B                      		mov	a, [hl]
- 2472 1356 9D F2                   		mov	r10, a
- 2473 1358 6A F2 04                		or	r10, #4
- 2474 135b AD F0                   		movw	ax, r8
- 2475 135d BD F6                   		movw	r14, ax
- 2476 135f DA F6                   		movw	bc, r14
- 2477 1361 8D F2                   		mov	a, r10
- 2478 1363 48 00 00                		mov	[bc], a
- 439:../src/StateMachine.c **** 		P4_bit.no3 = 0;
- 2479                             		.loc 1 439 0
- 2480 1366 C9 F0 04 FF             		movw	r8, #-252
- 2481 136a AD F0                   		movw	ax, r8
- 2482 136c BD F4                   		movw	r12, ax
- 2483 136e FA F4                   		movw	hl, r12
- 2484 1370 8B                      		mov	a, [hl]
- 2485 1371 9D F2                   		mov	r10, a
- 2486 1373 5A F2 F7                		and	r10, #-9
- 2487 1376 AD F0                   		movw	ax, r8
- 2488 1378 BD F6                   		movw	r14, ax
- 2489 137a DA F6                   		movw	bc, r14
- 2490 137c 8D F2                   		mov	a, r10
- 2491 137e 48 00 00                		mov	[bc], a
- 440:../src/StateMachine.c **** 		break;
- 2492                             		.loc 1 440 0
- 2493 1381 00                      		nop
- 2494                             	.L1:
- 441:../src/StateMachine.c **** 	}
- 442:../src/StateMachine.c **** }
- 2495                             		.loc 1 442 0
- 2496 1382 10 1C                   		addw	sp, #28
- 2497 1384 61 EF                   		sel	rb2
- 2498 1386 C2                      		pop	bc ; r18
- 2499 1387 C0                      		pop	ax ; r16
- 2500 1388 61 CF                   		sel	rb0
- 2501 138a D7                      		ret
- 2502                             	.LFE0:
- 2542                             	.Letext0:
- 2543                             		.file 2 "../src/iodefine.h"
- 2544                             		.file 3 "../src/r_cg_macrodriver.h"
- 2545                             		.file 4 "../src/globals.h"
+ 2138                             		.loc 1 408 0
+ 2139 106b E6                      		onew	ax
+ 2140 106c B8 00                   		movw	[sp], ax
+ 2141 106e FC 00 00 00             		call	!!%code(_displayLCD)
+ 409:../src/StateMachine.c **** 		break;
+ 2142                             		.loc 1 409 0
+ 2143 1072 EC 8B 14 00             		br	!!.L1
+ 2144                             	.L113:
+ 410:../src/StateMachine.c **** 	case 18:
+ 411:../src/StateMachine.c **** 		if (instr == 4) {
+ 2145                             		.loc 1 411 0
+ 2146 1076 A8 26                   		movw	ax, [sp+38]
+ 2147 1078 44 04 00                		cmpw	ax, #4
+ 2148 107b 61 E8                   		 skz
+ 2149 107d EC 9F 10 00             		 br	!!.L134
+ 412:../src/StateMachine.c **** 			newDate[5]++;
+ 2150                             		.loc 1 412 0
+ 2151 1081 8F 07 00                		mov	a, !_newDate+5
+ 2152 1084 9D F0                   		mov	r8, a
+ 2153 1086 A4 F0                   		inc	r8
+ 2154 1088 8D F0                   		mov	a, r8
+ 2155 108a 9F 07 00                		mov	!_newDate+5, a
+ 413:../src/StateMachine.c **** 			if (newDate[5] > 59) {
+ 2156                             		.loc 1 413 0
+ 2157 108d 9D F0                   		mov	r8, a
+ 2158 108f 4A F0 3B                		cmp	r8, #59
+ 2159 1092 61 E3                   		 skh
+ 2160 1094 EC CC 10 00             		 br	!!.L136
+ 414:../src/StateMachine.c **** 				newDate[5] = 0;
+ 2161                             		.loc 1 414 0
+ 2162 1098 F5 07 00                		clrb	!_newDate+5
+ 2163 109b EC CC 10 00             		br	!!.L136
+ 2164                             	.L134:
+ 415:../src/StateMachine.c **** 			}
+ 416:../src/StateMachine.c **** 		} else if (instr == 3) {
+ 2165                             		.loc 1 416 0
+ 2166 109f A8 26                   		movw	ax, [sp+38]
+ 2167 10a1 44 03 00                		cmpw	ax, #3
+ 2168 10a4 61 E8                   		 skz
+ 2169 10a6 EC CC 10 00             		 br	!!.L136
+ 417:../src/StateMachine.c **** 			if (newDate[5] == 0) {
+ 2170                             		.loc 1 417 0
+ 2171 10aa 8F 07 00                		mov	a, !_newDate+5
+ 2172 10ad 9D F0                   		mov	r8, a
+ 2173 10af D4 F0                   		cmp0	r8
+ 2174 10b1 61 E8                   		 skz
+ 2175 10b3 EC C0 10 00             		 br	!!.L137
+ 418:../src/StateMachine.c **** 				newDate[5] = 59;
+ 2176                             		.loc 1 418 0
+ 2177 10b7 51 3B                   		mov	a, #59
+ 2178 10b9 9F 07 00                		mov	!_newDate+5, a
+ 2179 10bc EC CC 10 00             		br	!!.L136
+ 2180                             	.L137:
+ 419:../src/StateMachine.c **** 			} else {
+ 420:../src/StateMachine.c **** 				newDate[5]--;
+ 2181                             		.loc 1 420 0
+ 2182 10c0 8F 07 00                		mov	a, !_newDate+5
+ 2183 10c3 9D F0                   		mov	r8, a
+ 2184 10c5 B4 F0                   		dec	r8
+ 2185 10c7 8D F0                   		mov	a, r8
+ 2186 10c9 9F 07 00                		mov	!_newDate+5, a
+ 2187                             	.L136:
+ 421:../src/StateMachine.c **** 			}
+ 422:../src/StateMachine.c **** 		}
+ 423:../src/StateMachine.c **** 		sprintf(display_string, "Second: %d\x0d\x0a", newDate[5]);
+ 2188                             		.loc 1 423 0
+ 2189 10cc 8F 07 00                		mov	a, !_newDate+5
+ 2190 10cf 9D F0                   		mov	r8, a
+ 2191 10d1 CD F1 00                		mov	r9, #0
+ 2192 10d4 30 00 00                		movw	ax, #_display_string
+ 2193 10d7 B8 00                   		movw	[sp], ax
+ 2194 10d9 30 71 00                		movw	ax, #.LC7
+ 2195 10dc B8 02                   		movw	[sp+2], ax
+ 2196 10de AD F0                   		movw	ax, r8
+ 2197 10e0 B8 04                   		movw	[sp+4], ax
+ 2198 10e2 FC 00 00 00             		call	!!%code(_sprintf)
+ 424:../src/StateMachine.c **** 		displayLCD(1);
+ 2199                             		.loc 1 424 0
+ 2200 10e6 E6                      		onew	ax
+ 2201 10e7 B8 00                   		movw	[sp], ax
+ 2202 10e9 FC 00 00 00             		call	!!%code(_displayLCD)
+ 425:../src/StateMachine.c **** 		break;
+ 2203                             		.loc 1 425 0
+ 2204 10ed EC 8B 14 00             		br	!!.L1
+ 2205                             	.L101:
+ 426:../src/StateMachine.c **** 	case 5:
+ 427:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 0\x0d\x0a");
+ 2206                             		.loc 1 427 0
+ 2207 10f1 51 53                   		mov	a, #83
+ 2208 10f3 9F 00 00                		mov	!_display_string, a
+ 2209 10f6 51 77                   		mov	a, #119
+ 2210 10f8 9F 00 00                		mov	!_display_string+1, a
+ 2211 10fb 51 69                   		mov	a, #105
+ 2212 10fd 9F 00 00                		mov	!_display_string+2, a
+ 2213 1100 51 74                   		mov	a, #116
+ 2214 1102 9F 00 00                		mov	!_display_string+3, a
+ 2215 1105 51 63                   		mov	a, #99
+ 2216 1107 9F 00 00                		mov	!_display_string+4, a
+ 2217 110a 51 68                   		mov	a, #104
+ 2218 110c 9F 00 00                		mov	!_display_string+5, a
+ 2219 110f 51 20                   		mov	a, #32
+ 2220 1111 9F 00 00                		mov	!_display_string+6, a
+ 2221 1114 51 73                   		mov	a, #115
+ 2222 1116 9F 00 00                		mov	!_display_string+7, a
+ 2223 1119 51 74                   		mov	a, #116
+ 2224 111b 9F 00 00                		mov	!_display_string+8, a
+ 2225 111e 51 61                   		mov	a, #97
+ 2226 1120 9F 00 00                		mov	!_display_string+9, a
+ 2227 1123 51 74                   		mov	a, #116
+ 2228 1125 9F 00 00                		mov	!_display_string+10, a
+ 2229 1128 51 65                   		mov	a, #101
+ 2230 112a 9F 00 00                		mov	!_display_string+11, a
+ 2231 112d 51 20                   		mov	a, #32
+ 2232 112f 9F 00 00                		mov	!_display_string+12, a
+ 2233 1132 51 3D                   		mov	a, #61
+ 2234 1134 9F 00 00                		mov	!_display_string+13, a
+ 2235 1137 51 20                   		mov	a, #32
+ 2236 1139 9F 00 00                		mov	!_display_string+14, a
+ 2237 113c 51 30                   		mov	a, #48
+ 2238 113e 9F 00 00                		mov	!_display_string+15, a
+ 2239 1141 51 0D                   		mov	a, #13
+ 2240 1143 9F 00 00                		mov	!_display_string+16, a
+ 2241 1146 51 0A                   		mov	a, #10
+ 2242 1148 9F 00 00                		mov	!_display_string+17, a
+ 2243 114b F5 00 00                		clrb	!_display_string+18
+ 428:../src/StateMachine.c **** 		displayLCD(1);
+ 2244                             		.loc 1 428 0
+ 2245 114e E6                      		onew	ax
+ 2246 114f B8 00                   		movw	[sp], ax
+ 2247 1151 FC 00 00 00             		call	!!%code(_displayLCD)
+ 429:../src/StateMachine.c **** 		P4_bit.no1 = 0;
+ 2248                             		.loc 1 429 0
+ 2249 1155 C9 F0 04 FF             		movw	r8, #-252
+ 2250 1159 AD F0                   		movw	ax, r8
+ 2251 115b BD F4                   		movw	r12, ax
+ 2252 115d FA F4                   		movw	hl, r12
+ 2253 115f 8B                      		mov	a, [hl]
+ 2254 1160 9D F2                   		mov	r10, a
+ 2255 1162 5A F2 FD                		and	r10, #-3
+ 2256 1165 AD F0                   		movw	ax, r8
+ 2257 1167 BD F6                   		movw	r14, ax
+ 2258 1169 DA F6                   		movw	bc, r14
+ 2259 116b 8D F2                   		mov	a, r10
+ 2260 116d 48 00 00                		mov	[bc], a
+ 430:../src/StateMachine.c **** 		P4_bit.no2 = 0;
+ 2261                             		.loc 1 430 0
+ 2262 1170 C9 F0 04 FF             		movw	r8, #-252
+ 2263 1174 AD F0                   		movw	ax, r8
+ 2264 1176 BD F4                   		movw	r12, ax
+ 2265 1178 FA F4                   		movw	hl, r12
+ 2266 117a 8B                      		mov	a, [hl]
+ 2267 117b 9D F2                   		mov	r10, a
+ 2268 117d 5A F2 FB                		and	r10, #-5
+ 2269 1180 AD F0                   		movw	ax, r8
+ 2270 1182 BD F6                   		movw	r14, ax
+ 2271 1184 DA F6                   		movw	bc, r14
+ 2272 1186 8D F2                   		mov	a, r10
+ 2273 1188 48 00 00                		mov	[bc], a
+ 431:../src/StateMachine.c **** 		P4_bit.no3 = 0;
+ 2274                             		.loc 1 431 0
+ 2275 118b C9 F0 04 FF             		movw	r8, #-252
+ 2276 118f AD F0                   		movw	ax, r8
+ 2277 1191 BD F4                   		movw	r12, ax
+ 2278 1193 FA F4                   		movw	hl, r12
+ 2279 1195 8B                      		mov	a, [hl]
+ 2280 1196 9D F2                   		mov	r10, a
+ 2281 1198 5A F2 F7                		and	r10, #-9
+ 2282 119b AD F0                   		movw	ax, r8
+ 2283 119d BD F6                   		movw	r14, ax
+ 2284 119f DA F6                   		movw	bc, r14
+ 2285 11a1 8D F2                   		mov	a, r10
+ 2286 11a3 48 00 00                		mov	[bc], a
+ 432:../src/StateMachine.c **** 		break;
+ 2287                             		.loc 1 432 0
+ 2288 11a6 EC 8B 14 00             		br	!!.L1
+ 2289                             	.L100:
+ 433:../src/StateMachine.c **** 	case 6:
+ 434:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 1\x0d\x0a");
+ 2290                             		.loc 1 434 0
+ 2291 11aa 51 53                   		mov	a, #83
+ 2292 11ac 9F 00 00                		mov	!_display_string, a
+ 2293 11af 51 77                   		mov	a, #119
+ 2294 11b1 9F 00 00                		mov	!_display_string+1, a
+ 2295 11b4 51 69                   		mov	a, #105
+ 2296 11b6 9F 00 00                		mov	!_display_string+2, a
+ 2297 11b9 51 74                   		mov	a, #116
+ 2298 11bb 9F 00 00                		mov	!_display_string+3, a
+ 2299 11be 51 63                   		mov	a, #99
+ 2300 11c0 9F 00 00                		mov	!_display_string+4, a
+ 2301 11c3 51 68                   		mov	a, #104
+ 2302 11c5 9F 00 00                		mov	!_display_string+5, a
+ 2303 11c8 51 20                   		mov	a, #32
+ 2304 11ca 9F 00 00                		mov	!_display_string+6, a
+ 2305 11cd 51 73                   		mov	a, #115
+ 2306 11cf 9F 00 00                		mov	!_display_string+7, a
+ 2307 11d2 51 74                   		mov	a, #116
+ 2308 11d4 9F 00 00                		mov	!_display_string+8, a
+ 2309 11d7 51 61                   		mov	a, #97
+ 2310 11d9 9F 00 00                		mov	!_display_string+9, a
+ 2311 11dc 51 74                   		mov	a, #116
+ 2312 11de 9F 00 00                		mov	!_display_string+10, a
+ 2313 11e1 51 65                   		mov	a, #101
+ 2314 11e3 9F 00 00                		mov	!_display_string+11, a
+ 2315 11e6 51 20                   		mov	a, #32
+ 2316 11e8 9F 00 00                		mov	!_display_string+12, a
+ 2317 11eb 51 3D                   		mov	a, #61
+ 2318 11ed 9F 00 00                		mov	!_display_string+13, a
+ 2319 11f0 51 20                   		mov	a, #32
+ 2320 11f2 9F 00 00                		mov	!_display_string+14, a
+ 2321 11f5 51 31                   		mov	a, #49
+ 2322 11f7 9F 00 00                		mov	!_display_string+15, a
+ 2323 11fa 51 0D                   		mov	a, #13
+ 2324 11fc 9F 00 00                		mov	!_display_string+16, a
+ 2325 11ff 51 0A                   		mov	a, #10
+ 2326 1201 9F 00 00                		mov	!_display_string+17, a
+ 2327 1204 F5 00 00                		clrb	!_display_string+18
+ 435:../src/StateMachine.c **** 		displayLCD(1);
+ 2328                             		.loc 1 435 0
+ 2329 1207 E6                      		onew	ax
+ 2330 1208 B8 00                   		movw	[sp], ax
+ 2331 120a FC 00 00 00             		call	!!%code(_displayLCD)
+ 436:../src/StateMachine.c **** 		P4_bit.no1 = 0;
+ 2332                             		.loc 1 436 0
+ 2333 120e C9 F0 04 FF             		movw	r8, #-252
+ 2334 1212 AD F0                   		movw	ax, r8
+ 2335 1214 BD F4                   		movw	r12, ax
+ 2336 1216 FA F4                   		movw	hl, r12
+ 2337 1218 8B                      		mov	a, [hl]
+ 2338 1219 9D F2                   		mov	r10, a
+ 2339 121b 5A F2 FD                		and	r10, #-3
+ 2340 121e AD F0                   		movw	ax, r8
+ 2341 1220 BD F6                   		movw	r14, ax
+ 2342 1222 DA F6                   		movw	bc, r14
+ 2343 1224 8D F2                   		mov	a, r10
+ 2344 1226 48 00 00                		mov	[bc], a
+ 437:../src/StateMachine.c **** 		P4_bit.no2 = 0;
+ 2345                             		.loc 1 437 0
+ 2346 1229 C9 F0 04 FF             		movw	r8, #-252
+ 2347 122d AD F0                   		movw	ax, r8
+ 2348 122f BD F4                   		movw	r12, ax
+ 2349 1231 FA F4                   		movw	hl, r12
+ 2350 1233 8B                      		mov	a, [hl]
+ 2351 1234 9D F2                   		mov	r10, a
+ 2352 1236 5A F2 FB                		and	r10, #-5
+ 2353 1239 AD F0                   		movw	ax, r8
+ 2354 123b BD F6                   		movw	r14, ax
+ 2355 123d DA F6                   		movw	bc, r14
+ 2356 123f 8D F2                   		mov	a, r10
+ 2357 1241 48 00 00                		mov	[bc], a
+ 438:../src/StateMachine.c **** 		P4_bit.no3 = 1;
+ 2358                             		.loc 1 438 0
+ 2359 1244 C9 F0 04 FF             		movw	r8, #-252
+ 2360 1248 AD F0                   		movw	ax, r8
+ 2361 124a BD F4                   		movw	r12, ax
+ 2362 124c FA F4                   		movw	hl, r12
+ 2363 124e 8B                      		mov	a, [hl]
+ 2364 124f 9D F2                   		mov	r10, a
+ 2365 1251 6A F2 08                		or	r10, #8
+ 2366 1254 AD F0                   		movw	ax, r8
+ 2367 1256 BD F6                   		movw	r14, ax
+ 2368 1258 DA F6                   		movw	bc, r14
+ 2369 125a 8D F2                   		mov	a, r10
+ 2370 125c 48 00 00                		mov	[bc], a
+ 439:../src/StateMachine.c **** 		break;
+ 2371                             		.loc 1 439 0
+ 2372 125f EC 8B 14 00             		br	!!.L1
+ 2373                             	.L102:
+ 440:../src/StateMachine.c **** 	case 7:
+ 441:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 2\x0d\x0a");
+ 2374                             		.loc 1 441 0
+ 2375 1263 51 53                   		mov	a, #83
+ 2376 1265 9F 00 00                		mov	!_display_string, a
+ 2377 1268 51 77                   		mov	a, #119
+ 2378 126a 9F 00 00                		mov	!_display_string+1, a
+ 2379 126d 51 69                   		mov	a, #105
+ 2380 126f 9F 00 00                		mov	!_display_string+2, a
+ 2381 1272 51 74                   		mov	a, #116
+ 2382 1274 9F 00 00                		mov	!_display_string+3, a
+ 2383 1277 51 63                   		mov	a, #99
+ 2384 1279 9F 00 00                		mov	!_display_string+4, a
+ 2385 127c 51 68                   		mov	a, #104
+ 2386 127e 9F 00 00                		mov	!_display_string+5, a
+ 2387 1281 51 20                   		mov	a, #32
+ 2388 1283 9F 00 00                		mov	!_display_string+6, a
+ 2389 1286 51 73                   		mov	a, #115
+ 2390 1288 9F 00 00                		mov	!_display_string+7, a
+ 2391 128b 51 74                   		mov	a, #116
+ 2392 128d 9F 00 00                		mov	!_display_string+8, a
+ 2393 1290 51 61                   		mov	a, #97
+ 2394 1292 9F 00 00                		mov	!_display_string+9, a
+ 2395 1295 51 74                   		mov	a, #116
+ 2396 1297 9F 00 00                		mov	!_display_string+10, a
+ 2397 129a 51 65                   		mov	a, #101
+ 2398 129c 9F 00 00                		mov	!_display_string+11, a
+ 2399 129f 51 20                   		mov	a, #32
+ 2400 12a1 9F 00 00                		mov	!_display_string+12, a
+ 2401 12a4 51 3D                   		mov	a, #61
+ 2402 12a6 9F 00 00                		mov	!_display_string+13, a
+ 2403 12a9 51 20                   		mov	a, #32
+ 2404 12ab 9F 00 00                		mov	!_display_string+14, a
+ 2405 12ae 51 32                   		mov	a, #50
+ 2406 12b0 9F 00 00                		mov	!_display_string+15, a
+ 2407 12b3 51 0D                   		mov	a, #13
+ 2408 12b5 9F 00 00                		mov	!_display_string+16, a
+ 2409 12b8 51 0A                   		mov	a, #10
+ 2410 12ba 9F 00 00                		mov	!_display_string+17, a
+ 2411 12bd F5 00 00                		clrb	!_display_string+18
+ 442:../src/StateMachine.c **** 		displayLCD(1);
+ 2412                             		.loc 1 442 0
+ 2413 12c0 E6                      		onew	ax
+ 2414 12c1 B8 00                   		movw	[sp], ax
+ 2415 12c3 FC 00 00 00             		call	!!%code(_displayLCD)
+ 443:../src/StateMachine.c **** 		P4_bit.no1 = 1;
+ 2416                             		.loc 1 443 0
+ 2417 12c7 C9 F0 04 FF             		movw	r8, #-252
+ 2418 12cb AD F0                   		movw	ax, r8
+ 2419 12cd BD F4                   		movw	r12, ax
+ 2420 12cf FA F4                   		movw	hl, r12
+ 2421 12d1 8B                      		mov	a, [hl]
+ 2422 12d2 9D F2                   		mov	r10, a
+ 2423 12d4 6A F2 02                		or	r10, #2
+ 2424 12d7 AD F0                   		movw	ax, r8
+ 2425 12d9 BD F6                   		movw	r14, ax
+ 2426 12db DA F6                   		movw	bc, r14
+ 2427 12dd 8D F2                   		mov	a, r10
+ 2428 12df 48 00 00                		mov	[bc], a
+ 444:../src/StateMachine.c **** 		P4_bit.no2 = 0;
+ 2429                             		.loc 1 444 0
+ 2430 12e2 C9 F0 04 FF             		movw	r8, #-252
+ 2431 12e6 AD F0                   		movw	ax, r8
+ 2432 12e8 BD F4                   		movw	r12, ax
+ 2433 12ea FA F4                   		movw	hl, r12
+ 2434 12ec 8B                      		mov	a, [hl]
+ 2435 12ed 9D F2                   		mov	r10, a
+ 2436 12ef 5A F2 FB                		and	r10, #-5
+ 2437 12f2 AD F0                   		movw	ax, r8
+ 2438 12f4 BD F6                   		movw	r14, ax
+ 2439 12f6 DA F6                   		movw	bc, r14
+ 2440 12f8 8D F2                   		mov	a, r10
+ 2441 12fa 48 00 00                		mov	[bc], a
+ 445:../src/StateMachine.c **** 		P4_bit.no3 = 0;
+ 2442                             		.loc 1 445 0
+ 2443 12fd C9 F0 04 FF             		movw	r8, #-252
+ 2444 1301 AD F0                   		movw	ax, r8
+ 2445 1303 BD F4                   		movw	r12, ax
+ 2446 1305 FA F4                   		movw	hl, r12
+ 2447 1307 8B                      		mov	a, [hl]
+ 2448 1308 9D F2                   		mov	r10, a
+ 2449 130a 5A F2 F7                		and	r10, #-9
+ 2450 130d AD F0                   		movw	ax, r8
+ 2451 130f BD F6                   		movw	r14, ax
+ 2452 1311 DA F6                   		movw	bc, r14
+ 2453 1313 8D F2                   		mov	a, r10
+ 2454 1315 48 00 00                		mov	[bc], a
+ 446:../src/StateMachine.c **** 		break;
+ 2455                             		.loc 1 446 0
+ 2456 1318 EC 8B 14 00             		br	!!.L1
+ 2457                             	.L103:
+ 447:../src/StateMachine.c **** 	case 8:
+ 448:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 3\x0d\x0a");
+ 2458                             		.loc 1 448 0
+ 2459 131c 51 53                   		mov	a, #83
+ 2460 131e 9F 00 00                		mov	!_display_string, a
+ 2461 1321 51 77                   		mov	a, #119
+ 2462 1323 9F 00 00                		mov	!_display_string+1, a
+ 2463 1326 51 69                   		mov	a, #105
+ 2464 1328 9F 00 00                		mov	!_display_string+2, a
+ 2465 132b 51 74                   		mov	a, #116
+ 2466 132d 9F 00 00                		mov	!_display_string+3, a
+ 2467 1330 51 63                   		mov	a, #99
+ 2468 1332 9F 00 00                		mov	!_display_string+4, a
+ 2469 1335 51 68                   		mov	a, #104
+ 2470 1337 9F 00 00                		mov	!_display_string+5, a
+ 2471 133a 51 20                   		mov	a, #32
+ 2472 133c 9F 00 00                		mov	!_display_string+6, a
+ 2473 133f 51 73                   		mov	a, #115
+ 2474 1341 9F 00 00                		mov	!_display_string+7, a
+ 2475 1344 51 74                   		mov	a, #116
+ 2476 1346 9F 00 00                		mov	!_display_string+8, a
+ 2477 1349 51 61                   		mov	a, #97
+ 2478 134b 9F 00 00                		mov	!_display_string+9, a
+ 2479 134e 51 74                   		mov	a, #116
+ 2480 1350 9F 00 00                		mov	!_display_string+10, a
+ 2481 1353 51 65                   		mov	a, #101
+ 2482 1355 9F 00 00                		mov	!_display_string+11, a
+ 2483 1358 51 20                   		mov	a, #32
+ 2484 135a 9F 00 00                		mov	!_display_string+12, a
+ 2485 135d 51 3D                   		mov	a, #61
+ 2486 135f 9F 00 00                		mov	!_display_string+13, a
+ 2487 1362 51 20                   		mov	a, #32
+ 2488 1364 9F 00 00                		mov	!_display_string+14, a
+ 2489 1367 51 33                   		mov	a, #51
+ 2490 1369 9F 00 00                		mov	!_display_string+15, a
+ 2491 136c 51 0D                   		mov	a, #13
+ 2492 136e 9F 00 00                		mov	!_display_string+16, a
+ 2493 1371 51 0A                   		mov	a, #10
+ 2494 1373 9F 00 00                		mov	!_display_string+17, a
+ 2495 1376 F5 00 00                		clrb	!_display_string+18
+ 449:../src/StateMachine.c **** 		displayLCD(1);
+ 2496                             		.loc 1 449 0
+ 2497 1379 E6                      		onew	ax
+ 2498 137a B8 00                   		movw	[sp], ax
+ 2499 137c FC 00 00 00             		call	!!%code(_displayLCD)
+ 450:../src/StateMachine.c **** 		P4_bit.no1 = 0;
+ 2500                             		.loc 1 450 0
+ 2501 1380 C9 F0 04 FF             		movw	r8, #-252
+ 2502 1384 AD F0                   		movw	ax, r8
+ 2503 1386 BD F4                   		movw	r12, ax
+ 2504 1388 FA F4                   		movw	hl, r12
+ 2505 138a 8B                      		mov	a, [hl]
+ 2506 138b 9D F2                   		mov	r10, a
+ 2507 138d 5A F2 FD                		and	r10, #-3
+ 2508 1390 AD F0                   		movw	ax, r8
+ 2509 1392 BD F6                   		movw	r14, ax
+ 2510 1394 DA F6                   		movw	bc, r14
+ 2511 1396 8D F2                   		mov	a, r10
+ 2512 1398 48 00 00                		mov	[bc], a
+ 451:../src/StateMachine.c **** 		P4_bit.no2 = 1;
+ 2513                             		.loc 1 451 0
+ 2514 139b C9 F0 04 FF             		movw	r8, #-252
+ 2515 139f AD F0                   		movw	ax, r8
+ 2516 13a1 BD F4                   		movw	r12, ax
+ 2517 13a3 FA F4                   		movw	hl, r12
+ 2518 13a5 8B                      		mov	a, [hl]
+ 2519 13a6 9D F2                   		mov	r10, a
+ 2520 13a8 6A F2 04                		or	r10, #4
+ 2521 13ab AD F0                   		movw	ax, r8
+ 2522 13ad BD F6                   		movw	r14, ax
+ 2523 13af DA F6                   		movw	bc, r14
+ 2524 13b1 8D F2                   		mov	a, r10
+ 2525 13b3 48 00 00                		mov	[bc], a
+ 452:../src/StateMachine.c **** 		P4_bit.no3 = 0;
+ 2526                             		.loc 1 452 0
+ 2527 13b6 C9 F0 04 FF             		movw	r8, #-252
+ 2528 13ba AD F0                   		movw	ax, r8
+ 2529 13bc BD F4                   		movw	r12, ax
+ 2530 13be FA F4                   		movw	hl, r12
+ 2531 13c0 8B                      		mov	a, [hl]
+ 2532 13c1 9D F2                   		mov	r10, a
+ 2533 13c3 5A F2 F7                		and	r10, #-9
+ 2534 13c6 AD F0                   		movw	ax, r8
+ 2535 13c8 BD F6                   		movw	r14, ax
+ 2536 13ca DA F6                   		movw	bc, r14
+ 2537 13cc 8D F2                   		mov	a, r10
+ 2538 13ce 48 00 00                		mov	[bc], a
+ 453:../src/StateMachine.c **** 		break;
+ 2539                             		.loc 1 453 0
+ 2540 13d1 EC 8B 14 00             		br	!!.L1
+ 2541                             	.L91:
+ 454:../src/StateMachine.c **** 	case 9:
+ 455:../src/StateMachine.c **** 		strcpy(display_string, "Switch state = 4\x0d\x0a");
+ 2542                             		.loc 1 455 0
+ 2543 13d5 51 53                   		mov	a, #83
+ 2544 13d7 9F 00 00                		mov	!_display_string, a
+ 2545 13da 51 77                   		mov	a, #119
+ 2546 13dc 9F 00 00                		mov	!_display_string+1, a
+ 2547 13df 51 69                   		mov	a, #105
+ 2548 13e1 9F 00 00                		mov	!_display_string+2, a
+ 2549 13e4 51 74                   		mov	a, #116
+ 2550 13e6 9F 00 00                		mov	!_display_string+3, a
+ 2551 13e9 51 63                   		mov	a, #99
+ 2552 13eb 9F 00 00                		mov	!_display_string+4, a
+ 2553 13ee 51 68                   		mov	a, #104
+ 2554 13f0 9F 00 00                		mov	!_display_string+5, a
+ 2555 13f3 51 20                   		mov	a, #32
+ 2556 13f5 9F 00 00                		mov	!_display_string+6, a
+ 2557 13f8 51 73                   		mov	a, #115
+ 2558 13fa 9F 00 00                		mov	!_display_string+7, a
+ 2559 13fd 51 74                   		mov	a, #116
+ 2560 13ff 9F 00 00                		mov	!_display_string+8, a
+ 2561 1402 51 61                   		mov	a, #97
+ 2562 1404 9F 00 00                		mov	!_display_string+9, a
+ 2563 1407 51 74                   		mov	a, #116
+ 2564 1409 9F 00 00                		mov	!_display_string+10, a
+ 2565 140c 51 65                   		mov	a, #101
+ 2566 140e 9F 00 00                		mov	!_display_string+11, a
+ 2567 1411 51 20                   		mov	a, #32
+ 2568 1413 9F 00 00                		mov	!_display_string+12, a
+ 2569 1416 51 3D                   		mov	a, #61
+ 2570 1418 9F 00 00                		mov	!_display_string+13, a
+ 2571 141b 51 20                   		mov	a, #32
+ 2572 141d 9F 00 00                		mov	!_display_string+14, a
+ 2573 1420 51 34                   		mov	a, #52
+ 2574 1422 9F 00 00                		mov	!_display_string+15, a
+ 2575 1425 51 0D                   		mov	a, #13
+ 2576 1427 9F 00 00                		mov	!_display_string+16, a
+ 2577 142a 51 0A                   		mov	a, #10
+ 2578 142c 9F 00 00                		mov	!_display_string+17, a
+ 2579 142f F5 00 00                		clrb	!_display_string+18
+ 456:../src/StateMachine.c **** 		displayLCD(1);
+ 2580                             		.loc 1 456 0
+ 2581 1432 E6                      		onew	ax
+ 2582 1433 B8 00                   		movw	[sp], ax
+ 2583 1435 FC 00 00 00             		call	!!%code(_displayLCD)
+ 457:../src/StateMachine.c **** 		P4_bit.no1 = 1;
+ 2584                             		.loc 1 457 0
+ 2585 1439 C9 F0 04 FF             		movw	r8, #-252
+ 2586 143d AD F0                   		movw	ax, r8
+ 2587 143f BD F4                   		movw	r12, ax
+ 2588 1441 FA F4                   		movw	hl, r12
+ 2589 1443 8B                      		mov	a, [hl]
+ 2590 1444 9D F2                   		mov	r10, a
+ 2591 1446 6A F2 02                		or	r10, #2
+ 2592 1449 AD F0                   		movw	ax, r8
+ 2593 144b BD F6                   		movw	r14, ax
+ 2594 144d DA F6                   		movw	bc, r14
+ 2595 144f 8D F2                   		mov	a, r10
+ 2596 1451 48 00 00                		mov	[bc], a
+ 458:../src/StateMachine.c **** 		P4_bit.no2 = 1;
+ 2597                             		.loc 1 458 0
+ 2598 1454 C9 F0 04 FF             		movw	r8, #-252
+ 2599 1458 AD F0                   		movw	ax, r8
+ 2600 145a BD F4                   		movw	r12, ax
+ 2601 145c FA F4                   		movw	hl, r12
+ 2602 145e 8B                      		mov	a, [hl]
+ 2603 145f 9D F2                   		mov	r10, a
+ 2604 1461 6A F2 04                		or	r10, #4
+ 2605 1464 AD F0                   		movw	ax, r8
+ 2606 1466 BD F6                   		movw	r14, ax
+ 2607 1468 DA F6                   		movw	bc, r14
+ 2608 146a 8D F2                   		mov	a, r10
+ 2609 146c 48 00 00                		mov	[bc], a
+ 459:../src/StateMachine.c **** 		P4_bit.no3 = 0;
+ 2610                             		.loc 1 459 0
+ 2611 146f C9 F0 04 FF             		movw	r8, #-252
+ 2612 1473 AD F0                   		movw	ax, r8
+ 2613 1475 BD F4                   		movw	r12, ax
+ 2614 1477 FA F4                   		movw	hl, r12
+ 2615 1479 8B                      		mov	a, [hl]
+ 2616 147a 9D F2                   		mov	r10, a
+ 2617 147c 5A F2 F7                		and	r10, #-9
+ 2618 147f AD F0                   		movw	ax, r8
+ 2619 1481 BD F6                   		movw	r14, ax
+ 2620 1483 DA F6                   		movw	bc, r14
+ 2621 1485 8D F2                   		mov	a, r10
+ 2622 1487 48 00 00                		mov	[bc], a
+ 460:../src/StateMachine.c **** 		break;
+ 2623                             		.loc 1 460 0
+ 2624 148a 00                      		nop
+ 2625                             	.L1:
+ 2626                             	.LBE8:
+ 461:../src/StateMachine.c **** 	}
+ 462:../src/StateMachine.c **** }
+ 2627                             		.loc 1 462 0
+ 2628 148b 10 1E                   		addw	sp, #30
+ 2629 148d 61 EF                   		sel	rb2
+ 2630 148f C2                      		pop	bc ; r18
+ 2631 1490 C0                      		pop	ax ; r16
+ 2632 1491 61 CF                   		sel	rb0
+ 2633 1493 D7                      		ret
+ 2634                             	.LFE0:
+ 2674                             	.Letext0:
+ 2675                             		.file 2 "../src/iodefine.h"
+ 2676                             		.file 3 "../src/r_cg_macrodriver.h"
+ 2677                             		.file 4 "../src/globals.h"

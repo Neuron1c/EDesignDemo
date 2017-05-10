@@ -12,7 +12,7 @@
 static int state = 0;
 extern uint8_t display_string[RX_BUF_LEN];
 extern uint8_t record[RX_BUF_LEN];
-extern uint8_t voltage, current1;
+extern uint8_t voltage, current2;
 extern uint8_t date[6];
 static uint8_t newDate[6];
 
@@ -272,8 +272,28 @@ void recieveInstruction(int instr) {
 
 	switch (state) {
 	case 0:
-		sprintf(display_string, "SP:Voc=%d mV, Isc=%d mA\x0d\x0a", voltage,
-				current1);
+		P4_bit.no1 = 0;
+		P4_bit.no2 = 0;
+		P4_bit.no3 = 0;
+		delayNoInt(1000);
+		delayNoInt(1000);
+		delayNoInt(1000);
+		collectADC();
+		collectADC();
+		uint8_t newVolt = voltage;
+
+		P4_bit.no1 = 0;
+		P4_bit.no2 = 0;
+		P4_bit.no3 = 1;
+		delayNoInt(1000);
+		delayNoInt(1000);
+		delayNoInt(1000);
+		collectADC();
+		uint8_t newCurrent = current2;
+
+
+		sprintf(display_string, "SP:Voc=%d mV, Isc=%d mA\x0d\x0a", newVolt * 40,
+				newCurrent * 10);
 		displayLCD(1);
 		break;
 	case 1:

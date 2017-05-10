@@ -38,6 +38,8 @@ extern uint8_t date[6];
 static uint8_t switchState;
 static uint8_t tempState;
 static uint16_t logCount;
+const uint8_t T_on = 26;
+const uint8_t T_off = 30;
 
 void processMSG();
 int errorTest();
@@ -91,6 +93,7 @@ char populate(char recieved) {
 void processMSG() {
 	char ack[3];
 	char str[30];
+	int i = 2;
 	if (errorTest()) {
 
 		switch (record[1]) {
@@ -217,8 +220,8 @@ void processMSG() {
 			break;
 		case 'C':
 			getRTC();
-			sprintf(response, "$C020%d,%d,%d,%d,%d,%d\x0d\x0a", date[0], date[1], date[2],
-					date[3], date[4], date[5]);
+			sprintf(response, "$C020%d,%d,%d,%d,%d,%d\x0d\x0a", date[0],
+					date[1], date[2], date[3], date[4], date[5]);
 			count = strlen(response);
 			break;
 		case 'I':
@@ -228,29 +231,50 @@ void processMSG() {
 		case 'K':
 			if (1) {
 			}
-			uint16_t addr = (record[2] - '0') * 1000 + (record[3] - '0') * 100
-					+ (record[4] - '0') * 10 + (record[5] - '0');
-			uint8_t len = record[7] - '0';
-			len = len + (record[6] - '0') * 10;
+//			uint16_t addr = (record[2] - '0') * 1000 + (record[3] - '0') * 100
+//					+ (record[4] - '0') * 10 + (record[5] - '0');
+//			uint8_t len = record[7] - '0';
+//			len = len + (record[6] - '0') * 10;
+			uint16_t address = 0;
+			uint8_t len = 0;
+			while (record[i] != ',') {
+				address = address * 10;
+				address += record[i] - '0';
+				i++;
+			}
+			i++;
+			while (record[i] != '\r') {
+				len *= 10U;
+				len += record[i] - '0';
+				i++;
+			}
+
 			if (len > 32) {
-				sprintf(response, "$K%d", len);
+				count = 5;
+				sprintf(response, "$K2\r\n");
 			} else {
-				read(addr, len);
+				read(address, len);
 			}
 			break;
 		case 'J':
 			if (1) {
+
 			}
-			uint16_t address = (record[2] - '0') * 1000
-					+ (record[3] - '0') * 100 + (record[4] - '0') * 10
-					+ (record[5] - '0');
-			writeMem(address);
+			uint16_t addr = 0;
+			while (record[i] != '\r') {
+				addr = addr * 10;
+				addr += record[i] - '0';
+				i++;
+			}
+//			uint16_t address = (record[2] - '0') * 1000
+//					+ (record[3] - '0') * 100 + (record[4] - '0') * 10
+//					+ (record[5] - '0');
+			writeMem(addr);
 			break;
 		case 'M':
 			if (1) {
 
 			}
-			int i = 2;
 			uint16_t log = 0;
 			while (record[i] != '\x0d') {
 				log = log * 10;
@@ -262,7 +286,7 @@ void processMSG() {
 
 		case 'N':
 
-			sprintf(response, "$N02427\x0d\x0a");
+			sprintf(response, "$N0%d,%d\x0d\x0a", T_off, T_on);
 			count = 9;
 			break;
 		default:
@@ -275,7 +299,7 @@ void processMSG() {
 		}
 	}
 
-	R_UART1_Send(response, strlen(response));
+	R_UART1_Send(response, count);
 	count = 0;
 }
 
@@ -446,7 +470,6 @@ void getRTC() {
 
 	BCDtoDEC(date);
 
-
 }
 
 void BCDtoDEC(uint8_t arr[]) {
@@ -509,7 +532,7 @@ void checkFlags() {
 			P4_bit.no2 = 0;
 			P4_bit.no3 = 0;
 			switchState = 2;
-			if (finalTemp > 27) {
+			if (finalTemp > T_off) {
 				tempState = 1;
 			}
 		} else if (tempState == 1) {
@@ -517,7 +540,7 @@ void checkFlags() {
 			P4_bit.no2 = 1;
 			P4_bit.no3 = 0;
 			switchState = 3;
-			if (finalTemp < 24) {
+			if (finalTemp < T_on) {
 				tempState = 1;
 			}
 		}
@@ -597,8 +620,8 @@ void writeLog() {
 	count = 0;
 
 	send[0] = 2;
-	send[1] = logCount >> 4;
-	send[2] = logCount & 0x0F;
+	send[1] = logCount >> 8;
+	send[2] = logCount & 0x00FF;
 	send[3] = date[0];
 	send[4] = date[1];
 	send[5] = date[2];
@@ -608,10 +631,10 @@ void writeLog() {
 	send[9] = switchState;
 	send[10] = finalTemp;
 	send[11] = voltage;
-	send[12] = current1;
-	send[13] = 24;
-	send[14] = 27;
-	send[15] = '\n';
+    send[12] = current1;
+	send[13] = '\n';
+	send[14] = 0;
+	send[15] = 0;
 	send[16] = 0;
 	send[17] = 0;
 	send[18] = 0;
@@ -661,7 +684,9 @@ void read(uint16_t addr, uint8_t len) {
 	recieveflag = 1;
 	sendflag = 1;
 	P1_bit.no5 = 1;
-	count = len + 3;
+	count = len + 5;
+	recieve[3 + len] = '\r';
+	recieve[4 + len] = '\n';
 	sprintf(response, "$K0%s\x0d\x0a", &recieve[3]);
 }
 
@@ -671,12 +696,12 @@ void readLog(uint16_t logNum) {
 
 	logNum = (logNum - 1) * 16;
 	send[0] = 3;
-	send[1] = logNum >> 4;
-	send[2] = logNum & 0x0F;
+	send[1] = logNum >> 8;
+	send[2] = logNum & 0x00FF;
 	P1_bit.no5 = 0;
 	recieveflag = 1;
 	sendflag = 1;
-	R_CSI00_Send_Receive(send, 17, recieve);
+	R_CSI00_Send_Receive(send, 13, recieve);
 
 	while (recieveflag || sendflag) {
 	}
@@ -688,10 +713,9 @@ void readLog(uint16_t logNum) {
 		sprintf(response, "$M2\x0d\x0a");
 		count = strlen(response);
 	} else {
-		sprintf(response, "$M020%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\x0d\x0a",
+		sprintf(response, "$M020%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\x0d\x0a",
 				recieve[3], recieve[4], recieve[5], recieve[6], recieve[7],
-				recieve[8], recieve[9], recieve[10], recieve[11], recieve[12],
-				recieve[13], recieve[14]);
+				recieve[8], recieve[9], recieve[10], recieve[11], recieve[12]);
 		count = strlen(response);
 	}
 
